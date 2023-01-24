@@ -1,0 +1,21 @@
+{
+	"local": {
+		"driver": "pg",
+		"user": "postgres",
+		"password": "postgres",
+		"host": "localhost",
+		"database": "hypertube",
+		"port": "5432",
+		"schema": "public"
+	},
+	"test": {
+		"driver": "pg",
+		"user": "postgres",
+		"password": "postgres",
+		"host": "localhost",
+		"database": "hypertube-test",
+		"port": "5433",
+		"schema": "public"
+	},
+	"sql-file": true
+}

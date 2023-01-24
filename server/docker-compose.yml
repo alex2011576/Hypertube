@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:15.0-alpine
+    restart: always
+    environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    - POSTGRES_DB=hypertube
+    ports:
+    - '5432:5432'
+  testdb:
+    image: postgres:15.0-alpine
+    restart: always
+    environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    - POSTGRES_DB=hypertube-test
+    ports:
+    - '5433:5432'
