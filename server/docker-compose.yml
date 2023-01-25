@@ -8,7 +8,7 @@ services:
     - POSTGRES_PASSWORD=postgres
     - POSTGRES_DB=hypertube
     ports:
-    - '5432:5432'
+    - '5434:5432'
   testdb:
     image: postgres:15.0-alpine
     restart: always
@@ -17,4 +17,4 @@ services:
     - POSTGRES_PASSWORD=postgres
     - POSTGRES_DB=hypertube-test
     ports:
-    - '5433:5432'
+    - '5435:5432'

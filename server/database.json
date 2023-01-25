@@ -1,11 +1,12 @@
 {
-	"local": {
+	"defaultEnv": "dev",
+	"dev": {
 		"driver": "pg",
 		"user": "postgres",
 		"password": "postgres",
 		"host": "localhost",
 		"database": "hypertube",
-		"port": "5432",
+		"port": "5434",
 		"schema": "public"
 	},
 	"test": {
@@ -14,8 +15,18 @@
 		"password": "postgres",
 		"host": "localhost",
 		"database": "hypertube-test",
-		"port": "5433",
+		"port": "5435",
 		"schema": "public"
+	},
+	"production": {
+		"driver": "pg",
+		"user": { "ENV": "DB_USER" },
+		"password": { "ENV": "DB_PASSWORD" },
+		"host": { "ENV": "DB_HOST" },
+		"database": { "ENV": "DB_NAME_TEST" },
+		"port": { "ENV": "DB_PORT_TEST" },
+		"schema": "public",
+		"ssl": true
 	},
 	"sql-file": true
 }
