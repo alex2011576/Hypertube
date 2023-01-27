@@ -1,8 +1,7 @@
-import { Coordinates, Gender, NewUser, Orientation, UpdateUserProfileWithoutLocation } from '../types';
-import { Tags } from '../utils/tags';
+import { NewUser } from '../types';
 import { isDate, isString, isStringArray, isStringRepresentedInteger } from './basicTypeValidators';
 import { ValidationError } from '../errors';
-import { checkIfDuplicatesExist, getAge } from '../utils/helpers';
+import { getAge } from '../utils/helpers';
 
 const usernameRegex = /^[a-zA-Z0-9_\-.ÄÖäöÅåßÜü]{4,21}$/;
 const emailRegex =
@@ -142,37 +141,8 @@ export const parseNewUserPayload = ({ username, email, passwordPlain, firstname,
 	return newUser;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const isGender = (gender: any): gender is Gender => {
-	return gender === 'male' || gender === 'female';
-};
 
-const parseGender = (gender: unknown): Gender => {
-	if (!gender) {
-		throw new ValidationError('Missing gender');
-	}
-	if (!isString(gender) || !isGender(gender)) {
-		throw new ValidationError('Invalid gender');
-	}
-	return gender;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const isOrientation = (orientation: any): orientation is Orientation => {
-	return orientation === 'straight' || orientation === 'gay' || orientation === 'bi';
-};
-
-export const parseOrientation = (orientation: unknown): Orientation => {
-	if (!orientation) {
-		throw new ValidationError(`Missing orientation`);
-	}
-	if (!isString(orientation) || !isOrientation(orientation)) {
-		throw new ValidationError(`Invalid orientation. Choose from : straight, gay, bi`);
-	}
-	return orientation;
-};
-
-const parseBirthday = (date: unknown): Date => {
+export const parseBirthday = (date: unknown): Date => {
 	if (!date) {
 		throw new ValidationError('Missing birthay date');
 	}
@@ -202,31 +172,6 @@ export const parseBio = (bio: unknown): string => {
 	return trimmedBio;
 };
 
-export const parseTags = (tags: unknown): string[] => {
-	if (!tags) {
-		throw new ValidationError(`Missing tags`);
-	}
-	if (!isStringArray(tags)) throw new ValidationError(`Invalid tags format: tags must be strings`);
-	if (tags.length === 0 || tags.length > 5) throw new ValidationError(`Invalid tags format! Array of 1 to 5 tags expected`);
-	for (let i = 0; i < tags.length; i++) {
-		if (!Tags.find((t) => t === tags[i])) {
-			throw new ValidationError(`Invalid tags format: tag '${tags[i]}' is not on the list`);
-		}
-	}
-	if (checkIfDuplicatesExist(tags)) throw new ValidationError(`Invalid tags format: tags should not have duplicates`);
-	return tags;
-};
-
-export const parseCoordinates = (coorditates: unknown): Coordinates => {
-	if (coorditates && typeof coorditates === 'object' && 'lat' in coorditates && 'lon' in coorditates) {
-		const { lat, lon } = coorditates as { lat: number; lon: number };
-		if (isFinite(lat) && Math.abs(lat) <= 90 && isFinite(lon) && Math.abs(lon) <= 180) return { lat, lon };
-		else throw new ValidationError(`Invalid coordinates.`);
-	} else {
-		throw new ValidationError(`Error in coordinates parser.`);
-	}
-};
-
 export const parseLocationString = (location: unknown): string => {
 	if (location === null || location === undefined) {
 		throw new ValidationError(`Missing location string.`);
@@ -246,40 +191,4 @@ export const parseIdList = (idList: unknown): string[] => {
 		if (!isStringRepresentedInteger(id)) throw new ValidationError('Wrong user id format');
 	});
 	return idList;
-};
-
-type Fields1 = {
-	username: unknown;
-	email: unknown;
-	firstname: unknown;
-	lastname: unknown;
-	birthday: unknown;
-	gender: unknown;
-	orientation: unknown;
-	bio: unknown;
-	tags: unknown;
-	coordinates: unknown;
-};
-
-export const parseUserProfilePayload = ({
-	firstname,
-	lastname,
-	birthday,
-	gender,
-	orientation,
-	bio,
-	tags,
-	coordinates
-}: Fields1): UpdateUserProfileWithoutLocation => {
-	const updatedUser: UpdateUserProfileWithoutLocation = {
-		firstname: parseFirstname(firstname),
-		lastname: parseLastname(lastname),
-		birthday: parseBirthday(birthday),
-		gender: parseGender(gender),
-		orientation: parseOrientation(orientation),
-		bio: parseBio(bio),
-		tags: parseTags(tags),
-		coordinates: parseCoordinates(coordinates)
-	};
-	return updatedUser;
 };
