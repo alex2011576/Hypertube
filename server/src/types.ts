@@ -21,6 +21,14 @@ export type NewSessionUser = {
 	email: string;
 };
 
+export type User = BaseUser & {
+	id: string;
+	passwordHash: string;
+	createdAt: Date;
+	isActive: boolean;
+	activationCode: string;
+};
+
 export type Session = NewSessionUser & { sessionId: string; expiresAt: Date };
 
 export interface CustomRequest extends Request {
