@@ -1,5 +1,7 @@
 import express from 'express';
-// import asyncHandler from 'express-async-handler';
+import { parseNewUserPayload } from '../validators/userPayloadValidators';
+import asyncHandler from 'express-async-handler';
+import { activateAccount, createNewUser, sendActivationCode } from '../services/users';
 // import { AppError, ValidationError } from '../errors';
 // import { findUpdateEmailRequestByToken } from '../repositories/updateEmailRequestRepository';
 // import { findPasswordResetRequestByToken } from '../repositories/passwordResetRequestRepository';
@@ -24,25 +26,24 @@ import express from 'express';
 
 const router = express.Router();
 
-// router.post(
-// 	'/',
-// 	asyncHandler(async (req, res) => {
-// 		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-// 		const newUser = parseNewUserPayload(req.body);
-// 		const ipAddress = req.socket.remoteAddress;
-// 		const createdUser = await createNewUser(newUser, ipAddress);
-// 		sendActivationCode(createdUser);
-// 		res.status(201).json(createdUser);
-// 	})
-// );
+router.post(
+	'/',
+	asyncHandler(async (req, res) => {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+		const newUser = parseNewUserPayload(req.body);
+		const createdUser = await createNewUser(newUser);
+		sendActivationCode(createdUser);
+		res.status(201).json(createdUser);
+	})
+);
 
-// router.post(
-// 	'/activate/:id',
-// 	asyncHandler(async (req, res) => {
-// 		await activateAccount(req.params.id);
-// 		res.status(200).end();
-// 	})
-// );
+router.post(
+	'/activate/:id',
+	asyncHandler(async (req, res) => {
+		await activateAccount(req.params.id);
+		res.status(200).end();
+	})
+);
 
 // router.post(
 // 	'/forgot_password',
@@ -138,5 +139,6 @@ const router = express.Router();
 // 		res.status(200).end();
 // 	})
 // );
+
 
 export default router;
