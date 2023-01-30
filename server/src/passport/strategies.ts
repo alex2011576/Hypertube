@@ -1,7 +1,6 @@
 import { Strategy as LocalStrategy } from 'passport-local';
-import { addSession } from '../repositories/sessionRepository';
 import { parseUsername, validatePassword } from '../validators/userPayloadValidators';
-import { findUserByUsername } from './userRepository';
+import { findUserByUsername } from '../repositories/userRepository';
 import bcrypt from 'bcrypt';
 
 export const myLocalStrategy = new LocalStrategy(
@@ -23,8 +22,7 @@ export const myLocalStrategy = new LocalStrategy(
 					if (!user.isActive) {
 						return done(null, false, {message: 'Account is not active' });
 					}
-					const session = await addSession({ userId: user.id, username: user.username, email: user.email });
-					return done(null, { token: session.sessionId, username: user?.username, id: user?.id});
+					return done(null, user);
 				} catch (e) {
 					return done(e);
 				}
