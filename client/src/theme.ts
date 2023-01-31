@@ -34,6 +34,18 @@ const theme = createTheme({
 					boxShadow: 'none'
 				}
 			}
+		},
+		MuiFormHelperText: {
+			styleOverrides: {
+				root: {
+					marginTop: '0',
+					marginBottom: '10px',
+					'&.error': {
+						marginTop: '0',
+						marginBottom: '10px'
+					}
+				}
+			}
 		}
 	}
 });
