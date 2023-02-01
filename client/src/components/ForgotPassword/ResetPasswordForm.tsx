@@ -45,7 +45,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 				<Box
 					component="form"
 					noValidate
-					sx={{ mt: 1 }}
+					sx={{ display: 'flex', flexDirection: 'column', width: '80%' }}
 					// onSubmit={handleResetPassword}
 				>
 					<input
@@ -58,6 +58,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 					<LightTooltip title="Password should be at least 8 characters long, contain at least one uppercase and lowercase letter, number and symbols">
 						<TextField
 							{...password}
+							size="small"
 							required
 							fullWidth
 							type={showPassword ? 'text' : 'password'}
@@ -81,24 +82,20 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 							}
 						/>
 					</Grid>
-					{validatePassword(password.value) === undefined ? (
-						<Button
-							type="submit"
-							fullWidth
-							variant="contained"
-							sx={{ mt: 3, mb: 2 }}
-						>
-							Submit
-						</Button>
-					) : (
-						<Button fullWidth disabled variant="contained" sx={{ mt: 3, mb: 2 }}>
-							Submit
-						</Button>
-					)}
+
+					<Button
+						type="submit"
+						variant="contained"
+						disabled={validatePassword(password.value) ? true : false}
+						sx={{ mt: 3, mb: 2 }}
+					>
+						SUBMIT
+					</Button>
+
 					<Grid container>
 						<Grid item xs>
 							<Link href="/login" variant="body2">
-								Back to sign in
+								Back to log in
 							</Link>
 						</Grid>
 						<Grid item>

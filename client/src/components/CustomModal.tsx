@@ -1,5 +1,5 @@
 //prettier-ignore
-import { Dialog, DialogContent, DialogTitle, IconButton, useMediaQuery, useTheme } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ReactDOM from 'react-dom';
 import React from 'react';
@@ -26,7 +26,7 @@ const CustomDialogTitle = (props: DialogTitleProps) => {
 			{...other}
 		>
 			<SmartDisplayIcon fontSize="large" />
-			{children}
+			<Typography fontWeight={600}>{children}</Typography>
 			<IconButton aria-label="close" sx={{ color: '#001489' }} onClick={onClose}>
 				<CloseIcon />
 			</IconButton>
@@ -53,11 +53,13 @@ const CustomModal = ({
 			{isOpen
 				? ReactDOM.createPortal(
 						<React.Fragment>
-							<Dialog open={isOpen} fullScreen={fullScreen}>
+							<Dialog open={isOpen} fullScreen={fullScreen} >
 								<CustomDialogTitle onClose={handleToggle}>
 									{title}
 								</CustomDialogTitle>
-								<DialogContent dividers>{children}</DialogContent>
+								<DialogContent dividers>
+									{children}
+								</DialogContent>
 							</Dialog>
 						</React.Fragment>,
 						document.body

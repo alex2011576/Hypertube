@@ -35,7 +35,7 @@ const LoggedOutButtons = () => {
 		handleToggle: toggleLogin,
 		title: loginTitle,
 		children: loginForm
-	} = useModal(<LoginForm />, 'LOGIN');
+	} = useModal(<LoginForm />, 'LOG IN');
 
 	const {
 		isOpen: isSignUpOpen,

@@ -29,7 +29,7 @@ const ForgotPasswordForm = () => {
 	// };
 
 	return (
-		<Container component="main" sx={{ maxWidth: '100%', mt: 5, mb: 6 }}>
+		<Container component="main" sx={{ maxWidth: '100%', mt: 2, mb: 6 }}>
 			<Box
 				sx={{
 					display: 'flex',
@@ -37,27 +37,32 @@ const ForgotPasswordForm = () => {
 					alignItems: 'center'
 				}}
 			>
+				<Typography mb={3} textAlign="center">
+					Enter the email you signed up with below. We`ll send you a link to reset
+					your password.
+				</Typography>
+
 				<Box
 					component="form"
 					noValidate
+					sx={{display: 'flex', flexDirection: 'column', width: '80%'}}
 					// onSubmit={handleForgotPwdRequest}
 				>
 					<TextField
 						{...email}
+						size="small"
 						required
-						fullWidth
 						autoFocus
 						autoComplete="email"
 						InputLabelProps={{ shrink: true }}
 					/>
 					<Button
 						type="submit"
-						fullWidth
 						disabled={validateEmail(email.value) ? true : false}
 						variant="contained"
 						sx={{ mt: 2, mb: 2 }}
 					>
-						Send
+						SEND
 					</Button>
 					<Grid container>
 						<Grid item xs>

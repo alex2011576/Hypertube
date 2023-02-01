@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 //prettier-ignore
-import { Box, Button, TextField, Checkbox, Grid, FormControlLabel, Container, Link } from '@mui/material';
+import { Box, Button, TextField, Checkbox, Grid, FormControlLabel, Container, Link, Typography } from '@mui/material';
 //prettier-ignore
 import { validatePassword, validateUsername, validateLoginForm } from '../utils/inputValidators';
 import { useContext, useEffect, useState } from 'react';
@@ -75,9 +75,17 @@ const LoginForm = () => {
 					alignItems: 'center'
 				}}
 			>
-				<Box component="form" noValidate onSubmit={handleLogin}>
+				<Box
+					component="form"
+					sx={{ display: 'flex', flexDirection: 'column', width: '80%' }}
+					noValidate
+					onSubmit={handleLogin}
+					display="flex"
+					flexDirection="column"
+				>
 					<TextField
 						{...username}
+						size="small"
 						required
 						fullWidth
 						autoFocus
@@ -86,61 +94,84 @@ const LoginForm = () => {
 					/>
 					<TextField
 						{...password}
+						size="small"
 						required
 						fullWidth
 						type={showPassword ? 'text' : 'password'}
 						autoComplete="current-password"
 						InputLabelProps={{ shrink: true }}
 					/>
-					<Grid item xs={12} sx={{ marginLeft: '5px' }}>
-						<FormControlLabel
-							label={
-								<Box component="div" fontSize={'0.9rem'}>
-									Show password
-								</Box>
-							}
-							control={
-								<Checkbox
-									color="primary"
-									onChange={() => setShow(!showPassword)}
-									icon={<VisibilityOffOutlinedIcon fontSize="small" />}
-									checkedIcon={<VisibilityOutlinedIcon fontSize={'small'} />}
-								/>
-							}
-						/>
-					</Grid>
+					<Box
+						sx={{
+							display: 'flex',
+							alignItems: 'baseline',
+							width: '100%',
+							justifyContent: 'space-between'
+						}}
+					>
+						<Grid item xs={12} sx={{ marginLeft: '5px' }}>
+							<FormControlLabel
+								label={
+									<Box component="div" fontSize={'0.9rem'}>
+										Show password
+									</Box>
+								}
+								control={
+									<Checkbox
+										sx={{ p: '0 4px' }}
+										color="primary"
+										onChange={() => setShow(!showPassword)}
+										icon={<VisibilityOffOutlinedIcon fontSize="small" />}
+										checkedIcon={
+											<VisibilityOutlinedIcon fontSize={'small'} />
+										}
+									/>
+								}
+							/>
+						</Grid>
+						<Grid item xs>
+							<Link
+								href="/forgot_password"
+								variant="body2"
+								sx={{
+									display: 'flex',
+									justifyContent: 'flex-end',
+									textAlign: 'right'
+								}}
+							>
+								Trouble logging?
+							</Link>
+						</Grid>
+					</Box>
 					{validateLoginForm(username.value, password.value) ? (
-						<Button
-							type="submit"
-							fullWidth
-							variant="contained"
-							sx={{ mt: 2, mb: 2 }}
-						>
-							Sign In
+						<Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }}>
+							LOG IN
 						</Button>
 					) : (
 						<Button
 							type="submit"
-							fullWidth
 							disabled
 							variant="contained"
 							sx={{ mt: 2, mb: 2 }}
 						>
-							Sign In
+							LOG IN
 						</Button>
 					)}
-					<Grid container>
-						<Grid item xs>
-							<Link href="/forgot_password" variant="body2">
-								Forgot password?
-							</Link>
-						</Grid>
-						<Grid item>
-							<Link href="/signup" variant="body2">
-								Don't have an account? Sign Up
-							</Link>
-						</Grid>
-					</Grid>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: 'row',
+							justifyContent: 'center',
+							mt: '20px'
+						}}
+					>
+						<Typography mr={1} variant="body2">
+							New to Hypertube?{' '}
+						</Typography>
+						<Link href="/signup" variant="body2">
+							Sign up now
+						</Link>
+					</Box>
 				</Box>
 			</Box>
 		</Container>

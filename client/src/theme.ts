@@ -35,6 +35,16 @@ const theme = createTheme({
 				}
 			}
 		},
+		MuiButton: {
+			defaultProps: {
+				disableElevation: true
+			},
+			styleOverrides: {
+				root: {
+					borderRadius: '2px!important',
+				}
+			}
+		},
 		MuiFormHelperText: {
 			styleOverrides: {
 				root: {
@@ -44,6 +54,21 @@ const theme = createTheme({
 						margin: 0,
 						paddingBottom: '10px'
 					}
+				}
+			}
+		},
+		MuiDialog: {
+			styleOverrides: {
+				root: {
+					width: '600px',
+					margin: '0 auto',
+					'@media (max-width: 600px)': {
+						minWidth: '320px',
+						maxWidth: '100vw'
+					}
+				},
+				paper: {
+					width: '100%'
 				}
 			}
 		}

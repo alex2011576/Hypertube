@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 //prettier-ignore
-import { Box, Button, TextField, FormControlLabel, Checkbox, Grid, Container, Link } from '@mui/material';
+import { Box, Button, TextField, FormControlLabel, Checkbox, Grid, Container, Link, Typography } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
@@ -61,11 +62,17 @@ const SignUpForm = () => {
 					alignItems: 'center'
 				}}
 			>
-				<Box component="form" noValidate onSubmit={submitNewUser}>
+				<Box
+					component="form"
+					noValidate
+					onSubmit={submitNewUser}
+					sx={{ display: 'flex', flexDirection: 'column', width: '80%' }}
+				>
 					<Grid container columnSpacing={3}>
 						<Grid item xs={12} sm={6}>
 							<TextField
 								{...firstname}
+								size="small"
 								required
 								fullWidth
 								autoFocus
@@ -75,6 +82,7 @@ const SignUpForm = () => {
 						<Grid item xs={12} sm={6}>
 							<TextField
 								{...lastname}
+								size="small"
 								required
 								fullWidth
 								style={{ margin: '0 2 0 9' }}
@@ -84,18 +92,26 @@ const SignUpForm = () => {
 						<Grid item xs={12}>
 							<TextField
 								{...username}
+								size="small"
 								required
 								fullWidth
 								autoComplete="username"
 							/>
 						</Grid>
 						<Grid item xs={12}>
-							<TextField {...email} required fullWidth autoComplete="email" />
+							<TextField
+								{...email}
+								size="small"
+								required
+								fullWidth
+								autoComplete="email"
+							/>
 						</Grid>
 						<Grid item xs={12}>
 							<LightTooltip title="Password should be at least 8 characters long, contain at least one uppercase and lowercase letter, number and symbols">
 								<TextField
 									{...password}
+									size="small"
 									required
 									fullWidth
 									type={showPassword ? 'text' : 'password'}
@@ -130,32 +146,34 @@ const SignUpForm = () => {
 						firstname.value,
 						lastname.value
 					) ? (
-						<Button
-							type="submit"
-							fullWidth
-							variant="contained"
-							sx={{ mt: 2, mb: 2 }}
-						>
-							Sign Up
+						<Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }}>
+							SIGN UP
 						</Button>
 					) : (
 						<Button
 							type="submit"
-							fullWidth
 							disabled
 							variant="contained"
 							sx={{ mt: 2, mb: 2 }}
 						>
-							Sign Up
+							SIGN UP
 						</Button>
 					)}
-					<Grid container justifyContent="flex-end">
-						<Grid item>
-							<Link href="/login" variant="body2">
-								Already have an account? Sign in
-							</Link>
-						</Grid>
-					</Grid>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: 'row',
+							justifyContent: 'center',
+							mt: '20px'
+						}}
+					>
+						<Typography mr={1} variant="body2">
+							Already a member?{' '}
+						</Typography>
+						<Link href="/login" variant="body2">
+							Log in
+						</Link>
+					</Box>
 				</Box>
 			</Box>
 		</Container>
