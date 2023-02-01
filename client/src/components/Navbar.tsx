@@ -58,7 +58,12 @@ const LoggedOutButtons = () => {
 			<Button color="inherit" onClick={toggleSignUp}>
 				Sign Up
 			</Button>
-r
+			<CustomModal
+				isOpen={isSignUpOpen}
+				handleToggle={toggleSignUp}
+				title={signUpTitle}
+				children={signUpForm}
+			/>
 		</>
 	);
 };

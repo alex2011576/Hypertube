@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { AlertContext } from './AlertProvider';
 import { useField } from '../hooks/useField';
 import { NewUser } from '../types';
+import { LightTooltip } from './Tooltip';
 // import userService from './services/users';
 
 const SignUpForm = () => {
@@ -52,52 +53,47 @@ const SignUpForm = () => {
 	};
 
 	return (
-		<Box sx={{ mt: 5, mb: 6 }}>
-			<Container component="main" sx={{ maxWidth: '100%' }}>
-				<Box
-					sx={{
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center'
-					}}
-				>
-					<Box component="form" noValidate onSubmit={submitNewUser}>
-						<Grid container columnSpacing={3}>
-							<Grid item xs={12} sm={6} >
-								<TextField
-									{...firstname}
-									required
-									fullWidth
-									autoFocus
-									autoComplete="given-name"
-								/>
-							</Grid>
-							<Grid item xs={12} sm={6} >
-								<TextField
-									{...lastname}
-									required
-									fullWidth
-									style={{ margin: '0 2 0 9' }}
-									autoComplete="family-name"
-								/>
-							</Grid>
-							<Grid item xs={12}>
-								<TextField
-									{...username}
-									required
-									fullWidth
-									autoComplete="username"
-								/>
-							</Grid>
-							<Grid item xs={12}>
-								<TextField
-									{...email}
-									required
-									fullWidth
-									autoComplete="email"
-								/>
-							</Grid>
-							<Grid item xs={12}>
+		<Container component="main" sx={{ maxWidth: '100%', mt: 5, mb: 6 }}>
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center'
+				}}
+			>
+				<Box component="form" noValidate onSubmit={submitNewUser}>
+					<Grid container columnSpacing={3}>
+						<Grid item xs={12} sm={6}>
+							<TextField
+								{...firstname}
+								required
+								fullWidth
+								autoFocus
+								autoComplete="given-name"
+							/>
+						</Grid>
+						<Grid item xs={12} sm={6}>
+							<TextField
+								{...lastname}
+								required
+								fullWidth
+								style={{ margin: '0 2 0 9' }}
+								autoComplete="family-name"
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								{...username}
+								required
+								fullWidth
+								autoComplete="username"
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField {...email} required fullWidth autoComplete="email" />
+						</Grid>
+						<Grid item xs={12}>
+							<LightTooltip title="Password should be at least 8 characters long, contain at least one uppercase and lowercase letter, number and symbols">
 								<TextField
 									{...password}
 									required
@@ -105,68 +101,64 @@ const SignUpForm = () => {
 									type={showPassword ? 'text' : 'password'}
 									autoComplete="new-password"
 								/>
-							</Grid>
-							<Grid item xs={12} sx={{ marginLeft: '5px' }}>
-								<FormControlLabel
-									label={
-										<Box component="div" fontSize={'0.9rem'}>
-											Show password
-										</Box>
-									}
-									control={
-										<Checkbox
-											color="primary"
-											onChange={() => setShow(!showPassword)}
-											icon={
-												<VisibilityOffOutlinedIcon
-													fontSize={'small'}
-												/>
-											}
-											checkedIcon={
-												<VisibilityOutlinedIcon fontSize={'small'} />
-											}
-										/>
-									}
-								/>
-							</Grid>
+							</LightTooltip>
 						</Grid>
-						{validateSignUpForm(
-							username.value,
-							email.value,
-							password.value,
-							firstname.value,
-							lastname.value
-						) ? (
-							<Button
-								type="submit"
-								fullWidth
-								variant="contained"
-								sx={{ mt: 2, mb: 2 }}
-							>
-								Sign Up
-							</Button>
-						) : (
-							<Button
-								type="submit"
-								fullWidth
-								disabled
-								variant="contained"
-								sx={{ mt: 2, mb: 2 }}
-							>
-								Sign Up
-							</Button>
-						)}
-						<Grid container justifyContent="flex-end">
-							<Grid item>
-								<Link href="/login" variant="body2">
-									Already have an account? Sign in
-								</Link>
-							</Grid>
+						<Grid item xs={12} sx={{ marginLeft: '5px' }}>
+							<FormControlLabel
+								label={
+									<Box component="div" fontSize={'0.9rem'}>
+										Show password
+									</Box>
+								}
+								control={
+									<Checkbox
+										color="primary"
+										onChange={() => setShow(!showPassword)}
+										icon={<VisibilityOffOutlinedIcon fontSize={'small'} />}
+										checkedIcon={
+											<VisibilityOutlinedIcon fontSize={'small'} />
+										}
+									/>
+								}
+							/>
 						</Grid>
-					</Box>
+					</Grid>
+					{validateSignUpForm(
+						username.value,
+						email.value,
+						password.value,
+						firstname.value,
+						lastname.value
+					) ? (
+						<Button
+							type="submit"
+							fullWidth
+							variant="contained"
+							sx={{ mt: 2, mb: 2 }}
+						>
+							Sign Up
+						</Button>
+					) : (
+						<Button
+							type="submit"
+							fullWidth
+							disabled
+							variant="contained"
+							sx={{ mt: 2, mb: 2 }}
+						>
+							Sign Up
+						</Button>
+					)}
+					<Grid container justifyContent="flex-end">
+						<Grid item>
+							<Link href="/login" variant="body2">
+								Already have an account? Sign in
+							</Link>
+						</Grid>
+					</Grid>
 				</Box>
-			</Container>
-		</Box>
+			</Box>
+		</Container>
 	);
 };
 

@@ -1,7 +1,7 @@
 export const validateUsername = (input: string) => {
 	let trimmedInput = input.trim();
 
-	if (trimmedInput.length < 4) {
+	if (trimmedInput.length < 4 || input.length > 21) {
 		return 'Too short (Length: 4-21 characters)';
 	}
 	const usernameRegex = /^[a-zA-Z0-9_\-.ÄÖäöÅåßÜü]{4,21}$/;
@@ -12,12 +12,12 @@ export const validateUsername = (input: string) => {
 };
 
 export const validatePassword = (input: string) => {
-	if (input.length < 8) {
-		return 'Too short (Length: 8-42 characters)';
+	if (input.length < 8 || input.length > 42) {
+		return 'Length: 8-42 characters';
 	}
 	const passwordRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,42})/;
 	if (!passwordRegex.test(input)) {
-		return 'Password should be at least 8 characters long, contain at least one uppercase and lowercase letter, number and symbol';
+		return 'Check the input';
 	}
 	return undefined;
 };

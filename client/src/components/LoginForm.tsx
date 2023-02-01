@@ -67,87 +67,83 @@ const LoginForm = () => {
 	};
 
 	return (
-		<Box sx={{ mt: 5, mb: 8 }}>
-			<Container component="main" sx={{ maxWidth: '100%' }}>
-				<Box
-					sx={{
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center'
-					}}
-				>
-					<Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleLogin}>
-						<TextField
-							{...username}
-							required
-							fullWidth
-							autoFocus
-							InputLabelProps={{ shrink: true }}
-							autoComplete="username"
+		<Container component="main" sx={{ maxWidth: '100%', mt: 5, mb: 6 }}>
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center'
+				}}
+			>
+				<Box component="form" noValidate onSubmit={handleLogin}>
+					<TextField
+						{...username}
+						required
+						fullWidth
+						autoFocus
+						InputLabelProps={{ shrink: true }}
+						autoComplete="username"
+					/>
+					<TextField
+						{...password}
+						required
+						fullWidth
+						type={showPassword ? 'text' : 'password'}
+						autoComplete="current-password"
+						InputLabelProps={{ shrink: true }}
+					/>
+					<Grid item xs={12} sx={{ marginLeft: '5px' }}>
+						<FormControlLabel
+							label={
+								<Box component="div" fontSize={'0.9rem'}>
+									Show password
+								</Box>
+							}
+							control={
+								<Checkbox
+									color="primary"
+									onChange={() => setShow(!showPassword)}
+									icon={<VisibilityOffOutlinedIcon fontSize="small" />}
+									checkedIcon={<VisibilityOutlinedIcon fontSize={'small'} />}
+								/>
+							}
 						/>
-						<TextField
-							{...password}
-							required
+					</Grid>
+					{validateLoginForm(username.value, password.value) ? (
+						<Button
+							type="submit"
 							fullWidth
-							type={showPassword ? 'text' : 'password'}
-							autoComplete="current-password"
-							InputLabelProps={{ shrink: true }}
-						/>
-						<Grid item xs={12} sx={{ marginLeft: '5px' }}>
-							<FormControlLabel
-								label={
-									<Box component="div" fontSize={'0.9rem'}>
-										Show password
-									</Box>
-								}
-								control={
-									<Checkbox
-										color="primary"
-										onChange={() => setShow(!showPassword)}
-										icon={<VisibilityOffOutlinedIcon fontSize="small" />}
-										checkedIcon={
-											<VisibilityOutlinedIcon fontSize={'small'} />
-										}
-									/>
-								}
-							/>
+							variant="contained"
+							sx={{ mt: 2, mb: 2 }}
+						>
+							Sign In
+						</Button>
+					) : (
+						<Button
+							type="submit"
+							fullWidth
+							disabled
+							variant="contained"
+							sx={{ mt: 2, mb: 2 }}
+						>
+							Sign In
+						</Button>
+					)}
+					<Grid container>
+						<Grid item xs>
+							<Link href="/forgot_password" variant="body2">
+								Forgot password?
+							</Link>
 						</Grid>
-						{validateLoginForm(username.value, password.value) ? (
-							<Button
-								type="submit"
-								fullWidth
-								variant="contained"
-								sx={{ mt: 2, mb: 2 }}
-							>
-								Sign In
-							</Button>
-						) : (
-							<Button
-								type="submit"
-								fullWidth
-								disabled
-								variant="contained"
-								sx={{ mt: 2, mb: 2 }}
-							>
-								Sign In
-							</Button>
-						)}
-						<Grid container>
-							<Grid item xs>
-								<Link href="/forgot_password" variant="body2">
-									Forgot password?
-								</Link>
-							</Grid>
-							<Grid item>
-								<Link href="/signup" variant="body2">
-									Don't have an account? Sign Up
-								</Link>
-							</Grid>
+						<Grid item>
+							<Link href="/signup" variant="body2">
+								Don't have an account? Sign Up
+							</Link>
 						</Grid>
-					</Box>
+					</Grid>
 				</Box>
-			</Container>
-		</Box>
+			</Box>
+		</Container>
 	);
 };
 

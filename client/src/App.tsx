@@ -1,17 +1,18 @@
-import AlertProvider from './components/AlertProvider';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
+import { useStateValue } from './state';
+import { Box, styled } from '@mui/material';
+
+import ForgotPassword from './components/ForgotPassword';
 import AlertSnackBar from './components/AlertSnackBar';
-import Navbar from './components/Navbar';
+import AlertProvider from './components/AlertProvider';
+import CustomModal from './components/CustomModal';
 import SignUpForm from './components/SignUpForm';
 import LoginForm from './components/LoginForm';
+import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-
-import { SnackbarProvider } from 'notistack';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { Box, styled } from '@mui/material';
-import { useStateValue } from './state';
 import Main from './components/Main';
 import useModal from './hooks/useModal';
-import CustomModal from './components/CustomModal';
 
 const StyledBox = styled(Box)`
 	text-align: center;
@@ -38,6 +39,13 @@ const App = () => {
 		title: signUpTitle,
 		children: signUpForm
 	} = useModal(<SignUpForm />, 'SIGN UP');
+
+	const {
+		isOpen: isForgotPasswordOpen,
+		handleToggle: toggleForgotPassword,
+		title: forgotPasswordTitle,
+		children: forgotPasswordForm
+	} = useModal(<ForgotPassword />, 'RESET PASSWORD');
 
 	return (
 		<>
@@ -78,12 +86,21 @@ const App = () => {
 									)
 								}
 							/>
-							{/* <Route
+							<Route
 								path="/forgot_password"
 								element={
-									!loggedUser ? <ForgotPassword /> : <Navigate to="/" />
+									!loggedUser ? (
+										<CustomModal
+											isOpen={!isForgotPasswordOpen}
+											handleToggle={toggleForgotPassword}
+											title={forgotPasswordTitle}
+											children={forgotPasswordForm}
+										/>
+									) : (
+										<Navigate to="/" />
+									)
 								}
-							/> */}
+							/>
 							{/* <Route path="/profile" element={<ProfileEditor />} />
 							<Route path="/profile/:id" element={<PublicProfilePage />} />
 							<Route path="/update_email" element={<UpdateEmail />} /> */}
