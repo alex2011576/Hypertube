@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 //prettier-ignore
-import { Avatar, Box, Button, styled, Paper, TextField, Checkbox, Grid, FormControlLabel, Container, Link, Typography } from '@mui/material';
+import { Box, Button, TextField, Checkbox, Grid, FormControlLabel, Container, Link } from '@mui/material';
 //prettier-ignore
 import { validatePassword, validateUsername, validateLoginForm } from '../utils/inputValidators';
 import { useContext, useEffect, useState } from 'react';
@@ -13,16 +14,6 @@ import loginService from '../services/login';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
-const Item = styled(Paper)(({ theme }) => ({
-	...theme.typography.body2,
-	margin: '0 auto',
-	padding: '1rem 2.5rem 4rem 2.5rem',
-	// minWidth: '320px',
-	maxWidth: '420px',
-	textAlign: 'left',
-	color: theme.palette.text.secondary
-}));
-
 const LoginForm = () => {
 	const username = useField('text', 'Username', validateUsername);
 	const password = useField('text', 'Password', validatePassword);
@@ -33,8 +24,8 @@ const LoginForm = () => {
 
 	const [, dispatch] = useContext(StateContext);
 
-	const [searchParams] = useSearchParams();
-	const activationCode = searchParams.get('activate');
+	//const [searchParams] = useSearchParams();
+	//const activationCode = searchParams.get('activate');
 	const alert = useContext(AlertContext);
 
 	// useEffect(() => {
@@ -78,90 +69,83 @@ const LoginForm = () => {
 	return (
 		<Box sx={{ mt: 5, mb: 8 }}>
 			<Container component="main" sx={{ maxWidth: '100%' }}>
-				<Item>
-					<Box
-						sx={{
-							marginTop: 6,
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'center'
-						}}
-					>
-						<Avatar sx={{ m: 1, bgcolor: '#e3dee1' }} />
-						<Typography component="h1" variant="h5">
-							Sign in
-						</Typography>
-						<Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleLogin}>
-							<TextField
-								{...username}
-								required
-								fullWidth
-								autoFocus
-								InputLabelProps={{ shrink: true }}
-								autoComplete="username"
+				<Box
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center'
+					}}
+				>
+					<Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleLogin}>
+						<TextField
+							{...username}
+							required
+							fullWidth
+							autoFocus
+							InputLabelProps={{ shrink: true }}
+							autoComplete="username"
+						/>
+						<TextField
+							{...password}
+							required
+							fullWidth
+							type={showPassword ? 'text' : 'password'}
+							autoComplete="current-password"
+							InputLabelProps={{ shrink: true }}
+						/>
+						<Grid item xs={12} sx={{ marginLeft: '5px' }}>
+							<FormControlLabel
+								label={
+									<Box component="div" fontSize={'0.9rem'}>
+										Show password
+									</Box>
+								}
+								control={
+									<Checkbox
+										color="primary"
+										onChange={() => setShow(!showPassword)}
+										icon={<VisibilityOffOutlinedIcon fontSize="small" />}
+										checkedIcon={
+											<VisibilityOutlinedIcon fontSize={'small'} />
+										}
+									/>
+								}
 							/>
-							<TextField
-								{...password}
-								required
+						</Grid>
+						{validateLoginForm(username.value, password.value) ? (
+							<Button
+								type="submit"
 								fullWidth
-								type={showPassword ? 'text' : 'password'}
-								autoComplete="current-password"
-								InputLabelProps={{ shrink: true }}
-							/>
-							<Grid item xs={12} sx={{ marginLeft: '5px' }}>
-								<FormControlLabel
-									label={
-										<Box component="div" fontSize={'0.9rem'}>
-											Show password
-										</Box>
-									}
-									control={
-										<Checkbox
-											color="primary"
-											onChange={() => setShow(!showPassword)}
-											icon={
-												<VisibilityOffOutlinedIcon fontSize="small" />
-											}
-											checkedIcon={<VisibilityOutlinedIcon />}
-										/>
-									}
-								/>
+								variant="contained"
+								sx={{ mt: 2, mb: 2 }}
+							>
+								Sign In
+							</Button>
+						) : (
+							<Button
+								type="submit"
+								fullWidth
+								disabled
+								variant="contained"
+								sx={{ mt: 2, mb: 2 }}
+							>
+								Sign In
+							</Button>
+						)}
+						<Grid container>
+							<Grid item xs>
+								<Link href="/forgot_password" variant="body2">
+									Forgot password?
+								</Link>
 							</Grid>
-							{validateLoginForm(username.value, password.value) ? (
-								<Button
-									type="submit"
-									fullWidth
-									variant="contained"
-									sx={{ mt: 2, mb: 2 }}
-								>
-									Sign In
-								</Button>
-							) : (
-								<Button
-									type="submit"
-									fullWidth
-									disabled
-									variant="contained"
-									sx={{ mt: 2, mb: 2 }}
-								>
-									Sign In
-								</Button>
-							)}
-							<Grid container>
-								<Grid item xs>
-									<Link href="/forgot_password" variant="body2">
-										Forgot password?
-									</Link>
-								</Grid>
-								<Grid item>
-									<Link href="/signup" variant="body2">
-										Don't have an account? Sign Up
-									</Link>
-								</Grid>
+							<Grid item>
+								<Link href="/signup" variant="body2">
+									Don't have an account? Sign Up
+								</Link>
 							</Grid>
-						</Box>
+						</Grid>
 					</Box>
-				</Item>
+				</Box>
 			</Container>
 		</Box>
 	);

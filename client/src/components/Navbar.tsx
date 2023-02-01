@@ -1,21 +1,15 @@
-import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
-import {
-	Button,
-	AppBar,
-	Box,
-	Typography,
-	styled,
-	Toolbar,
-	Backdrop,
-	Modal
-} from '@mui/material';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Button, AppBar, Box, Typography, styled, Toolbar } from '@mui/material';
 import { useStateValue } from '../state';
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AlertContext } from './AlertProvider';
 import { logoutUser } from '../services/logout';
+import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
+import useModal from '../hooks/useModal';
+import CustomModal from './CustomModal';
 
 const Logo = styled('div')`
 	display: flex;
@@ -36,46 +30,35 @@ const LoggedInUserButtons = ({ handleLogout }: { handleLogout: any }) => {
 };
 
 const LoggedOutButtons = () => {
-	const [openLogin, setOpenLogin] = useState(false);
-	const [openSignup, setOpenSignup] = useState(false);
+	const {
+		isOpen: isLoginOpen,
+		handleToggle: toggleLogin,
+		title: loginTitle,
+		children: loginForm
+	} = useModal(<LoginForm />, 'LOGIN');
 
-	const handleOpenLogin = () => setOpenLogin(true);
-	const handleCloseLogin = () => setOpenLogin(false);
-
-	const handleToggleSignup = () => setOpenSignup(!openSignup);
-	const handleCloseSignup = () => setOpenSignup(false);
+	const {
+		isOpen: isSignUpOpen,
+		handleToggle: toggleSignUp,
+		title: signUpTitle,
+		children: signUpForm
+	} = useModal(<SignUpForm />, 'SIGN UP');
 
 	return (
 		<>
-			<Button color="inherit" onClick={handleOpenLogin}>
+			<Button color="inherit" onClick={toggleLogin}>
 				Login
 			</Button>
-			<Modal
-				aria-labelledby="transition-modal-title"
-				aria-describedby="transition-modal-description"
-				open={openLogin}
-				onClose={handleCloseLogin}
-				closeAfterTransition
-			>
-				<div>
-					<LoginForm />
-				</div>
-			</Modal>
-
-			<Button color="inherit" onClick={handleToggleSignup}>
+			<CustomModal
+				isOpen={isLoginOpen}
+				handleToggle={toggleLogin}
+				title={loginTitle}
+				children={loginForm}
+			/>
+			<Button color="inherit" onClick={toggleSignUp}>
 				Sign Up
 			</Button>
-			<Modal
-				aria-labelledby="transition-modal-title"
-				aria-describedby="transition-modal-description"
-				open={openSignup}
-				onClose={handleCloseSignup}
-				closeAfterTransition
-			>
-				<div>
-					<SignUpForm />
-				</div>
-			</Modal>
+r
 		</>
 	);
 };
@@ -105,7 +88,9 @@ const Navbar = () => {
 				<Box component={Link} to="/" sx={{ textDecoration: 'none' }} color="inherit">
 					<Logo>
 						<SmartDisplayIcon fontSize="large" />
-						<Typography variant="h6">HYPERTUBE</Typography>
+						<Typography variant="h6" ml={1}>
+							HYPERTUBE
+						</Typography>
 					</Logo>
 				</Box>
 				<Box>
@@ -117,68 +102,6 @@ const Navbar = () => {
 				</Box>
 			</Toolbar>
 		</AppBar>
-		// <AppBar
-		// 	position="fixed"
-		// 	color="secondary"
-		// 	sx={{
-		// 		ml: { sm: `${drawerWidth}px` },
-		// 		mb: 5,
-		// 		maxWidth: '100%',
-		// 		zIndex: (theme) => theme.zIndex.drawer + 1,
-		// 		justifyContent: 'space-between',
-		// 		'& .MuiAppBar-root': {
-		// 			borderRadius: '0!important'
-		// 		}
-		// 	}}
-		// >
-		// 	<Toolbar
-		// 		sx={{
-		// 			justifyContent: 'space-between',
-		// 			'& .MuiPaper-root': {
-		// 				borderRadius: '0!important'
-		// 			}
-		// 		}}
-		// 	>
-		// 		<IconButton
-		// 			color="inherit"
-		// 			aria-label="open drawer"
-		// 			edge="start"
-		// 			onClick={handleDrawerToggle}
-		// 			sx={{ mr: 2, ml: 0.5, display: !loggedUser ? 'none' : { md: 'none' } }}
-		// 		>
-		// 			<MenuIcon />
-		// 		</IconButton>
-		// 		<Box
-		// 			component={Link}
-		// 			to="/"
-		// 			sx={{
-		// 				textDecoration: 'none',
-		// 				ml: 1,
-		// 				display: !loggedUser ? 'flex' : { xs: 'none', sm: 'none', md: 'flex' },
-		// 				alignItems: 'center'
-		// 			}}
-		// 		>
-		// 			<div
-		// 				style={{
-		// 					fontFamily: "'Paytone One', cursive",
-		// 					fontSize: '1.6rem',
-		// 					color: '#ffc600',
-		// 					textAlign: 'center'
-		// 				}}
-		// 			>
-		// 				Match
-		// 			</div>
-		// 			<BrightnessAutoIcon style={{ marginTop: '4px' }} color="primary" />
-		// 		</Box>
-		// 		<div>
-		// 			{loggedUser ? (
-		// 				<LoggedInUserButtons handleLogout={handleLogout} />
-		// 			) : (
-		// 				<LoggedOutButtons />
-		// 			)}
-		// 		</div>
-		// 	</Toolbar>
-		// </AppBar>
 	);
 };
 
