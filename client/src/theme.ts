@@ -38,11 +38,11 @@ const theme = createTheme({
 		MuiFormHelperText: {
 			styleOverrides: {
 				root: {
-					marginTop: '0',
-					marginBottom: '10px',
+					margin: 0,
+					paddingBottom: '10px',
 					'&.error': {
-						marginTop: '0',
-						marginBottom: '10px'
+						margin: 0,
+						paddingBottom: '10px'
 					}
 				}
 			}
