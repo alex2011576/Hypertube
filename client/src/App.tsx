@@ -10,6 +10,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { Box, styled } from '@mui/material';
 import { useStateValue } from './state';
 import Main from './components/Main';
+import useModal from './hooks/useModal';
+import CustomModal from './components/CustomModal';
 
 const StyledBox = styled(Box)`
 	text-align: center;
@@ -23,6 +25,20 @@ const StyledBox = styled(Box)`
 const App = () => {
 	const [{ loggedUser }] = useStateValue();
 
+	const {
+		isOpen: isLoginOpen,
+		handleToggle: toggleLogin,
+		title: loginTitle,
+		children: loginForm
+	} = useModal(<LoginForm />, 'LOGIN');
+
+	const {
+		isOpen: isSignUpOpen,
+		handleToggle: toggleSignUp,
+		title: signUpTitle,
+		children: signUpForm
+	} = useModal(<SignUpForm />, 'SIGN UP');
+
 	return (
 		<>
 			<SnackbarProvider>
@@ -34,11 +50,33 @@ const App = () => {
 							<Route path="/" element={<Main />} />
 							<Route
 								path="/login"
-								element={!loggedUser ? <LoginForm /> : <Navigate to="/" />}
+								element={
+									!loggedUser ? (
+										<CustomModal
+											isOpen={!isLoginOpen}
+											handleToggle={toggleLogin}
+											title={loginTitle}
+											children={loginForm}
+										/>
+									) : (
+										<Navigate to="/" />
+									)
+								}
 							/>
 							<Route
 								path="/signup"
-								element={!loggedUser ? <SignUpForm /> : <Navigate to="/" />}
+								element={
+									!loggedUser ? (
+										<CustomModal
+											isOpen={!isSignUpOpen}
+											handleToggle={toggleSignUp}
+											title={signUpTitle}
+											children={signUpForm}
+										/>
+									) : (
+										<Navigate to="/" />
+									)
+								}
 							/>
 							{/* <Route
 								path="/forgot_password"
