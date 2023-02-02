@@ -1,7 +1,7 @@
+import { Box, styled, ThemeProvider } from '@mui/material';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { useStateValue } from './state';
-import { Box, styled } from '@mui/material';
 
 import ForgotPassword from './components/ForgotPassword';
 import AlertSnackBar from './components/AlertSnackBar';
@@ -24,7 +24,7 @@ const StyledBox = styled(Box)`
 `;
 
 const App = () => {
-	const [{ loggedUser }] = useStateValue();
+	const [{ loggedUser, themeWithLocale }] = useStateValue();
 
 	const {
 		isOpen: isLoginOpen,
@@ -49,67 +49,69 @@ const App = () => {
 
 	return (
 		<>
-			<SnackbarProvider>
-				<AlertProvider>
-					<Navbar />
-					<StyledBox>
-						<AlertSnackBar />
-						<Routes>
-							<Route path="/" element={<Main />} />
-							<Route
-								path="/login"
-								element={
-									!loggedUser ? (
-										<CustomModal
-											isOpen={!isLoginOpen}
-											handleToggle={toggleLogin}
-											title={loginTitle}
-											children={loginForm}
-										/>
-									) : (
-										<Navigate to="/" />
-									)
-								}
-							/>
-							<Route
-								path="/signup"
-								element={
-									!loggedUser ? (
-										<CustomModal
-											isOpen={!isSignUpOpen}
-											handleToggle={toggleSignUp}
-											title={signUpTitle}
-											children={signUpForm}
-										/>
-									) : (
-										<Navigate to="/" />
-									)
-								}
-							/>
-							<Route
-								path="/forgot_password"
-								element={
-									!loggedUser ? (
-										<CustomModal
-											isOpen={!isForgotPasswordOpen}
-											handleToggle={toggleForgotPassword}
-											title={forgotPasswordTitle}
-											children={forgotPasswordForm}
-										/>
-									) : (
-										<Navigate to="/" />
-									)
-								}
-							/>
-							{/* <Route path="/profile" element={<ProfileEditor />} />
+			<ThemeProvider theme={themeWithLocale}>
+				<SnackbarProvider>
+					<AlertProvider>
+						<Navbar />
+						<StyledBox>
+							<AlertSnackBar />
+							<Routes>
+								<Route path="/" element={<Main />} />
+								<Route
+									path="/login"
+									element={
+										!loggedUser ? (
+											<CustomModal
+												isOpen={!isLoginOpen}
+												handleToggle={toggleLogin}
+												title={loginTitle}
+												children={loginForm}
+											/>
+										) : (
+											<Navigate to="/" />
+										)
+									}
+								/>
+								<Route
+									path="/signup"
+									element={
+										!loggedUser ? (
+											<CustomModal
+												isOpen={!isSignUpOpen}
+												handleToggle={toggleSignUp}
+												title={signUpTitle}
+												children={signUpForm}
+											/>
+										) : (
+											<Navigate to="/" />
+										)
+									}
+								/>
+								<Route
+									path="/forgot_password"
+									element={
+										!loggedUser ? (
+											<CustomModal
+												isOpen={!isForgotPasswordOpen}
+												handleToggle={toggleForgotPassword}
+												title={forgotPasswordTitle}
+												children={forgotPasswordForm}
+											/>
+										) : (
+											<Navigate to="/" />
+										)
+									}
+								/>
+								{/* <Route path="/profile" element={<ProfileEditor />} />
 							<Route path="/profile/:id" element={<PublicProfilePage />} />
 							<Route path="/update_email" element={<UpdateEmail />} /> */}
-							<Route path="*" element={<Navigate to="/" replace />} />
-						</Routes>
-						<Footer />
-					</StyledBox>
-				</AlertProvider>
-			</SnackbarProvider>
+								<Route path="*" element={<Navigate to="/" replace />} />
+							</Routes>
+							<Footer />
+						</StyledBox>
+					</AlertProvider>
+				</SnackbarProvider>
+			</ThemeProvider>
 		</>
 	);
 };

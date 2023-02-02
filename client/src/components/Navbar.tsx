@@ -10,13 +10,14 @@ import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 import useModal from '../hooks/useModal';
 import CustomModal from './CustomModal';
+import LangSelector from './LangSelector';
 
 const Logo = styled('div')`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	height: 60px;
-	padding: 1rem;
+	padding: 16px 0 1rem 1rem;
 `;
 
 const LoggedInUserButtons = ({ handleLogout }: { handleLogout: any }) => {
@@ -46,7 +47,15 @@ const LoggedOutButtons = () => {
 
 	return (
 		<>
-			<Button color="inherit" onClick={toggleLogin}>
+			<Button
+				color="inherit"
+				onClick={toggleLogin}
+				sx={{
+					fontSize: { xs: 12, sm: 14, md: '0.85rem', lg: '0.9rem' },
+					minWidth: '50px',
+					padding: '6px'
+				}}
+			>
 				Login
 			</Button>
 			<CustomModal
@@ -55,7 +64,15 @@ const LoggedOutButtons = () => {
 				title={loginTitle}
 				children={loginForm}
 			/>
-			<Button color="inherit" onClick={toggleSignUp}>
+			<Button
+				color="inherit"
+				onClick={toggleSignUp}
+				sx={{
+					fontSize: { xs: 12, sm: 14, md: '0.85rem', lg: '0.9rem' },
+					minWidth: '50px',
+					padding: '6px'
+				}}
+			>
 				Sign Up
 			</Button>
 			<CustomModal
@@ -87,23 +104,32 @@ const Navbar = () => {
 			<Toolbar
 				sx={{
 					width: '100%',
-					justifyContent: 'space-between'
+					justifyContent: 'space-between',
+					padding: '0'
 				}}
 			>
 				<Box component={Link} to="/" sx={{ textDecoration: 'none' }} color="inherit">
 					<Logo>
-						<SmartDisplayIcon fontSize="large" />
-						<Typography variant="h6" ml={1}>
+						<SmartDisplayIcon />
+						<Typography
+							variant="h6"
+							ml={1}
+							sx={{
+								fontSize: { xs: 14, sm: 14, md: '1.1rem', lg: '1.1rem' },
+								fontWeight: 700
+							}}
+						>
 							HYPERTUBE
 						</Typography>
 					</Logo>
 				</Box>
-				<Box>
+				<Box sx={{ display: 'flex' }}>
 					{loggedUser ? (
 						<LoggedInUserButtons handleLogout={handleLogout} />
 					) : (
 						<LoggedOutButtons />
 					)}
+					<LangSelector />
 				</Box>
 			</Toolbar>
 		</AppBar>
@@ -111,3 +137,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+// {display: {xs: 'none', sm: 'none', md: 'flex'

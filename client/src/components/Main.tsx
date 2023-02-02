@@ -1,5 +1,11 @@
+import Text from './Text';
+
 const Main = () => {
-	return <>main page</>;
+	return (
+		<>
+			<Text tid="main" />
+		</>
+	);
 };
 
 export default Main;
