@@ -41,7 +41,7 @@ const theme = createTheme({
 			},
 			styleOverrides: {
 				root: {
-					borderRadius: '2px!important',
+					borderRadius: '2px!important'
 				}
 			}
 		},
