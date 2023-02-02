@@ -8,6 +8,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { setLoggedUser, StateContext } from '../state';
 import { AlertContext } from './AlertProvider';
 import { useField } from '../hooks/useField';
+import { apiBaseUrl } from '../constants';
 //import userService from '../services/users';
 import loginService from '../services/login';
 import OrDivider from './OrDivider';
@@ -63,6 +64,15 @@ const LoginForm = () => {
 			navigate('/');
 		} catch (err) {
 			alert.error(err.response?.data?.error || 'Unable to login. Please try again.');
+		}
+	};
+
+	const handle42login = async (event: any) => {
+		event.preventDefault();
+		try {
+			window.location.href = `${apiBaseUrl}/login/42`;
+		} catch (err) {
+			alert.error('Error occurred, please try again.');
 		}
 	};
 
@@ -158,7 +168,7 @@ const LoginForm = () => {
 						</Button>
 					)}
 					<OrDivider />
-					<Button variant="outlined" sx={{ mt: 2, mb: 2 }}>
+					<Button variant="outlined" onClick={handle42login} sx={{ mt: 2, mb: 2 }}>
 						SIGN IN WITH 42
 					</Button>
 					<Box
