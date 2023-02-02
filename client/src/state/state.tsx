@@ -1,18 +1,35 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import * as locales from '@mui/material/locale';
+import { createTheme, Theme } from '@mui/material';
+import { createContext, useContext, useReducer } from 'react';
+import { dictionaryList } from '../languages';
 import { LoggedUser } from '../types';
-
 import { Action } from './reducer';
+import theme from '../theme';
 
 let user: LoggedUser | undefined;
 const loggedUserJSON = localStorage.getItem('loggedUser');
-loggedUserJSON ? (user = JSON.parse(loggedUserJSON)) : (user = undefined);
+user = loggedUserJSON ? JSON.parse(loggedUserJSON) : undefined;
+
+let userLanguage: string;
+userLanguage = localStorage.getItem('language') || 'enUS';
+
+type SupportedLocales = keyof typeof locales;
+
+export const themeWithLocale = (userLanguage: string) =>
+	createTheme(theme, locales[userLanguage as SupportedLocales]);
 
 export type State = {
 	loggedUser: LoggedUser | undefined;
+	userLanguage: string;
+	dictionary: any; // ?? temporarily any
+	themeWithLocale: Theme;
 };
 
 const initialState: State = {
-	loggedUser: user
+	loggedUser: user,
+	userLanguage,
+	dictionary: dictionaryList[userLanguage as keyof typeof dictionaryList],
+	themeWithLocale: themeWithLocale(userLanguage)
 };
 
 export const StateContext = createContext<[State, React.Dispatch<Action>]>([
