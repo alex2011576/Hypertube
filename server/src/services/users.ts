@@ -3,9 +3,9 @@
 //prettier-ignore
 // import { addUpdateEmailRequest, findUpdateEmailRequestByUserId, removeUpdateEmailRequest, removeUpdateEmailRequestByUserId } from '../repositories/updateEmailRequestRepository';
 //prettier-ignore
-import { addNewUser, findUserByActivationCode, setUserAsActive } from '../repositories/userRepository';
+import { addNew42User, addNewUser, findUserByActivationCode, setUserAsActive } from '../repositories/userRepository';
 //prettier-ignore
-import { NewUser, User } from '../types';
+import { New42User, NewUser, User } from '../types';
 import { sendMail } from '../utils/mailer';
 import { AppError } from '../errors';
 import bcrypt from 'bcrypt';
@@ -22,6 +22,13 @@ export const createNewUser = async (newUser: NewUser): Promise<User> => {
 	const activationCode = crypto.randomBytes(20).toString('hex');
 
 	return addNewUser({ ...newUser, passwordHash, activationCode});
+};
+
+export const createNew42User = async (newUser: New42User): Promise<User> => {
+	const passwordHash = await createHashedPassword(newUser.passwordPlain);
+	const activationCode = crypto.randomBytes(20).toString('hex');
+
+	return addNew42User({ ...newUser, passwordHash, activationCode});
 };
 
 //activate
