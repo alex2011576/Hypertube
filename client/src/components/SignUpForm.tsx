@@ -12,6 +12,7 @@ import { AlertContext } from './AlertProvider';
 import { useField } from '../hooks/useField';
 import { NewUser } from '../types';
 import { LightTooltip } from './Tooltip';
+import OrDivider from './OrDivider';
 // import userService from './services/users';
 
 const SignUpForm = () => {
@@ -159,6 +160,10 @@ const SignUpForm = () => {
 							SIGN UP
 						</Button>
 					)}
+					<OrDivider />
+					<Button variant="outlined" sx={{ mt: 2, mb: 2 }}>
+						SIGN IN WITH 42
+					</Button>
 					<Box
 						sx={{
 							display: 'flex',

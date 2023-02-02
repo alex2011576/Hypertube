@@ -10,7 +10,7 @@ import { AlertContext } from './AlertProvider';
 import { useField } from '../hooks/useField';
 //import userService from '../services/users';
 import loginService from '../services/login';
-
+import OrDivider from './OrDivider';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
@@ -157,6 +157,10 @@ const LoginForm = () => {
 							LOG IN
 						</Button>
 					)}
+					<OrDivider />
+					<Button variant="outlined" sx={{ mt: 2, mb: 2 }}>
+						SIGN IN WITH 42
+					</Button>
 					<Box
 						sx={{
 							display: 'flex',
