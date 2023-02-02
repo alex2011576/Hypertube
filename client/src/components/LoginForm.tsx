@@ -14,6 +14,7 @@ import loginService from '../services/login';
 import OrDivider from './OrDivider';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import Auth42 from './Auth42';
 
 const LoginForm = () => {
 	const username = useField('text', 'Username', validateUsername);
@@ -64,15 +65,6 @@ const LoginForm = () => {
 			navigate('/');
 		} catch (err) {
 			alert.error(err.response?.data?.error || 'Unable to login. Please try again.');
-		}
-	};
-
-	const handle42login = async (event: any) => {
-		event.preventDefault();
-		try {
-			window.location.href = `${apiBaseUrl}/login/42`;
-		} catch (err) {
-			alert.error('Error occurred, please try again.');
 		}
 	};
 
@@ -168,9 +160,7 @@ const LoginForm = () => {
 						</Button>
 					)}
 					<OrDivider />
-					<Button variant="outlined" onClick={handle42login} sx={{ mt: 2, mb: 2 }}>
-						SIGN IN WITH 42
-					</Button>
+					<Auth42/>
 					<Box
 						sx={{
 							display: 'flex',
