@@ -23,9 +23,7 @@ const Logo = styled('div')`
 const LoggedInUserButtons = ({ handleLogout }: { handleLogout: any }) => {
 	return (
 		<Box sx={{ pr: 0 }}>
-			<Button color="secondary" component={Link} to="/login">
-				Logout
-			</Button>
+			<Button onClick={handleLogout}>Logout </Button>
 		</Box>
 	);
 };
@@ -91,7 +89,7 @@ const Navbar = () => {
 	const navigate = useNavigate();
 
 	const alert = useContext(AlertContext);
-
+	console.log(loggedUser);
 	const handleLogout = async (event: any) => {
 		event.preventDefault();
 		logoutUser(dispatch);

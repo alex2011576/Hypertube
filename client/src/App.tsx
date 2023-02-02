@@ -9,6 +9,7 @@ import AlertProvider from './components/AlertProvider';
 import CustomModal from './components/CustomModal';
 import SignUpForm from './components/SignUpForm';
 import LoginForm from './components/LoginForm';
+import Loader from './components/Loader';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Main from './components/Main';
@@ -71,6 +72,10 @@ const App = () => {
 											<Navigate to="/" />
 										)
 									}
+								/>
+								<Route
+									path="/auth/42/callback"
+									element={!loggedUser ? <Loader /> : <Navigate to="/" />}
 								/>
 								<Route
 									path="/signup"
