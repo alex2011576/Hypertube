@@ -10,6 +10,7 @@ import { globalErrorHandler, unknownEndpoint } from './errors';
 // import {  sessionIdExtractor } from './utils/middleware';
 
 import { createServer } from 'http';
+// import { myLocalStrategy, my42Strategy } from './passport/strategies';
 import { myLocalStrategy } from './passport/strategies';
 
 export const app = express();
@@ -22,6 +23,7 @@ app.use(cors());
 dotenv.config();
 
 passport.use(myLocalStrategy);
+// passport.use(my42Strategy);
 
 // app.use(sessionIdExtractor);
 
