@@ -47,22 +47,22 @@ router.post('/', (req, res, next) => {
 // 	failureRedirect: '/login'
 // }));
 
+// router.get(
+// 	'/42',
+// 	asyncHandler(async (_req, res) => {
+// 		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+// 		const fortytwo_response = await axios.post(`https://api.intra.42.fr/oauth/authorize`, {
+// 			client_id: process.env.FORTYTWO_CLIENT_ID,
+// 			client_secret: process.env.FORTYTWO_CLIENT_SECRET,
+// 			code: 'code',
+// 			redirect_uri: `${process.env.REACT_APP_BACKEND_URL}/api/login/42/callback`
+// 		});
+// 		// console.log(fortytwo_response);
+// 		res.status(200).send(fortytwo_response.data);
+// 	})
+// );
 router.get(
 	'/42',
-	asyncHandler(async (_req, res) => {
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-		const fortytwo_response = await axios.post(`https://api.intra.42.fr/oauth/authorize`, {
-			client_id: process.env.FORTYTWO_CLIENT_ID,
-			client_secret: process.env.FORTYTWO_CLIENT_SECRET,
-			code: 'code',
-			redirect_uri: `${process.env.REACT_APP_BACKEND_URL}/api/login/42/callback`
-		});
-		// console.log(fortytwo_response);
-		res.status(200).send(fortytwo_response.data);
-	})
-);
-router.get(
-	'/43',
 	asyncHandler(async (_req, res) => {
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		const stateEntry = await addState();
@@ -77,12 +77,14 @@ router.get(
 		const code = req.query.code as string;
 		console.log(code);
 		console.log(state);	
+
 		try { 
 			const isState = await isAuthState(state);
 			if (!isState) throw new Error();
 		} catch (e) {
 			res.status(401).send({ error: 'Foreign state in request query' });
 		}
+		
 		const fortytwo_response = await axios.post(`https://api.intra.42.fr/oauth/token`, {
 			grant_type: 'authorization_code',	
 			client_id: process.env.FORTYTWO_CLIENT_ID,
@@ -94,7 +96,8 @@ router.get(
 		if (fortytwo_response.data.error) {
 			console.log(fortytwo_response.data.error);
 			const error_message = encodeURIComponent(fortytwo_response.data?.error_description as string || '42 login failed');
-			res.redirect(`http://localhost:3000/login?error=${error_message}`);
+			// res.redirect(`http://localhost:3000/login?error=${error_message}`);
+			res.status(400).json({error: `${error_message}`});
 			return;
 		}
 
@@ -158,7 +161,7 @@ router.get(
 			}
 			const session = await addSession({ userId: newUser.id, username: newUser.username, email: newUser.email });
 			res.status(200).send({ token: session.sessionId, username: newUser?.username, id: newUser?.id});
-			
+			return; 
 		}
 	})
 );
