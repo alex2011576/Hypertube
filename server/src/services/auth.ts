@@ -27,7 +27,7 @@ export const requestAuthToken = async (code: string, requestURI: string, redirec
 };
 
 export const Auth42 = async (code: string) => {
-    const redirectURI = `${process.env.REACT_APP_BACKEND_URL}/api/login/42/callback`;
+    const redirectURI = `${process.env.REACT_APP_FRONTEND_URL}/auth/42/callback`;
 	const requestURI = `https://api.intra.42.fr/oauth/token`;
 
     const accessToken = await requestAuthToken(code, requestURI, redirectURI);

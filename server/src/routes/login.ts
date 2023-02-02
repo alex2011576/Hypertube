@@ -35,14 +35,15 @@ router.post('/', (req, res, next) => {
 	// })
 });
 
-
 router.get(
 	'/42',
 	asyncHandler(async (_req, res) => {
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		const stateEntry = await addState();
 		console.log(`1st state: ${stateEntry.state}`);
-		res.redirect(`https://api.intra.42.fr/oauth/authorize?client_id=${process.env.FORTYTWO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_BACKEND_URL}/api/login/42/callback&response_type=code&scope=public&state=${stateEntry.state}`);
+		res.redirect(
+			`https://api.intra.42.fr/oauth/authorize?client_id=${process.env.FORTYTWO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_FRONTEND_URL}/auth/42/callback&response_type=code&scope=public&state=${stateEntry.state}`
+		);
 	})
 );
 
@@ -50,16 +51,16 @@ router.get(
 	'/42/callback',
 	asyncHandler(async (req, res) => {
 		const state = req.query.state as string;
-		const code = req.query.code as string;	
-		
-		if (!await isAuthState(state)) {
+		const code = req.query.code as string;
+
+		if (!(await isAuthState(state))) {
 			res.status(401).send({ error: 'Foreign state in request query' });
 			return;
 		}
-		
-		const clientLogInToken =  await Auth42(code);
+
+		const clientLogInToken = await Auth42(code);
 		res.status(200).send(clientLogInToken);
-		return; 
+		return;
 	})
 );
 
