@@ -15,10 +15,11 @@ import OrDivider from './OrDivider';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import Auth42 from './Auth42';
+import Text from './Text';
 
 const LoginForm = () => {
-	const username = useField('text', 'Username', validateUsername);
-	const password = useField('text', 'Password', validatePassword);
+	const username = useField('text', <Text tid='textFieldUsername' />, validateUsername);
+	const password = useField('text', <Text tid='textFieldPassword' />, validatePassword);
 
 	const [showPassword, setShow] = useState(false);
 
@@ -115,7 +116,7 @@ const LoginForm = () => {
 							<FormControlLabel
 								label={
 									<Box component="div" fontSize={'0.9rem'}>
-										Show password
+										<Text tid='showPassword' />
 									</Box>
 								}
 								control={
@@ -141,13 +142,13 @@ const LoginForm = () => {
 									textAlign: 'right'
 								}}
 							>
-								Trouble logging?
+								<Text tid='troubleLoggingIn' />
 							</Link>
 						</Grid>
 					</Box>
 					{validateLoginForm(username.value, password.value) ? (
 						<Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }}>
-							LOG IN
+							<Text tid='buttonLogin' />
 						</Button>
 					) : (
 						<Button
@@ -156,7 +157,7 @@ const LoginForm = () => {
 							variant="contained"
 							sx={{ mt: 2, mb: 2 }}
 						>
-							LOG IN
+							<Text tid='buttonLogin' />
 						</Button>
 					)}
 					<OrDivider />
@@ -170,10 +171,10 @@ const LoginForm = () => {
 						}}
 					>
 						<Typography mr={1} variant="body2">
-							New to Hypertube?{' '}
+							<Text tid='newToLink' />{' '}
 						</Typography>
 						<Link href="/signup" variant="body2">
-							Sign up now
+							<Text tid='signupNow' />
 						</Link>
 					</Box>
 				</Box>

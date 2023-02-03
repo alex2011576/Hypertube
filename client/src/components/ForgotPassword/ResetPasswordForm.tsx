@@ -5,6 +5,7 @@ import { LightTooltip } from '../Tooltip';
 import { useField } from '../../hooks/useField';
 import { AlertContext } from '../AlertProvider';
 import { validatePassword } from '../../utils/inputValidators';
+import Text from '../Text';
 // import userService from '../../services/users';
 
 //prettier-ignore
@@ -13,7 +14,7 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 const ResetPasswordForm = ({ token }: { token: string }) => {
-	const password = useField('text', 'Password', validatePassword);
+	const password = useField('text', <Text tid='textFieldPassword' />, validatePassword);
 	const navigate = useNavigate();
 	const alert = useContext(AlertContext);
 	const [showPassword, setShow] = useState(false);
@@ -55,7 +56,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 						autoComplete="username"
 						value="{{ }}"
 					></input>
-					<LightTooltip title="Password should be at least 8 characters long, contain at least one uppercase and lowercase letter, number and symbols">
+					<LightTooltip title={<Text tid='passwordTooltip'/>}>
 						<TextField
 							{...password}
 							size="small"
@@ -69,7 +70,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 						<FormControlLabel
 							label={
 								<Box component="div" fontSize={'0.9rem'}>
-									Show password
+									<Text tid='showPassword' />
 								</Box>
 							}
 							control={
@@ -89,18 +90,18 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 						disabled={validatePassword(password.value) ? true : false}
 						sx={{ mt: 3, mb: 2 }}
 					>
-						SUBMIT
+						<Text tid='passwordResetSubmitButton' />
 					</Button>
 
 					<Grid container>
 						<Grid item xs>
 							<Link href="/login" variant="body2">
-								Back to log in
+								<Text tid='forgotPasswordBackLogin' />
 							</Link>
 						</Grid>
 						<Grid item>
 							<Link href="/signup" variant="body2">
-								Don't have an account? Sign Up
+							<Text tid='passwordResetSignup' />
 							</Link>
 						</Grid>
 					</Grid>

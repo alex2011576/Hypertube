@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import Text from './Text';
 
 const OrDivider = () => {
 	return (
@@ -17,7 +18,7 @@ const OrDivider = () => {
 					mr: '7px'
 				}}
 			></Box>
-			<Typography>OR</Typography>
+			<Typography><Text tid="orDivider"/></Typography>
 			<Box
 				sx={{
 					height: '1px',

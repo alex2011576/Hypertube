@@ -6,10 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { useField } from '../../hooks/useField';
 import { validateEmail } from '../../utils/inputValidators';
 import { AlertContext } from '../AlertProvider';
+import Text from '../Text';
 // import userService from '../../services/users';
 
 const ForgotPasswordForm = () => {
-	const email = useField('text', 'Email', validateEmail);
+	const email = useField('text', <Text tid='textFieldEmail' />, validateEmail);
 	const alert = useContext(AlertContext);
 	const navigate = useNavigate();
 
@@ -38,8 +39,7 @@ const ForgotPasswordForm = () => {
 				}}
 			>
 				<Typography mb={3} textAlign="center">
-					Enter the email you signed up with below. We`ll send you a link to reset
-					your password.
+					<Text tid='forgotPasswordInfoText' />
 				</Typography>
 
 				<Box
@@ -62,17 +62,17 @@ const ForgotPasswordForm = () => {
 						variant="contained"
 						sx={{ mt: 2, mb: 2 }}
 					>
-						SEND
+						<Text tid='forgotPasswordButton' />
 					</Button>
 					<Grid container>
 						<Grid item xs>
 							<Link href="/login" variant="body2">
-								Back to sign in
+								<Text tid='forgotPasswordBackLogin' />
 							</Link>
 						</Grid>
 						<Grid item>
 							<Link href="/signup" variant="body2">
-								Sign Up
+							<Text tid='forgotPasswordSignup' />
 							</Link>
 						</Grid>
 					</Grid>
