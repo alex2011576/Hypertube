@@ -60,3 +60,5 @@ export type NewPasswordResetRequest = { userId: string };
 export type EmailUpdateRequest = { userId: string; email: string; token: string; expiresAt: Date };
 
 export type PasswordResetRequest = NewPasswordResetRequest & { token: string; expiresAt: Date };
+
+export type AuthType = '42' | 'github';
