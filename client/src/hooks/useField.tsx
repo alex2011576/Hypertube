@@ -2,7 +2,7 @@ import { SetStateAction, useState } from 'react';
 
 export const useField = (
 	type: string,
-	label: string,
+	label: JSX.Element,
 	validationFn: (value: string) => string | undefined
 ) => {
 	const [value, setValue] = useState('');
