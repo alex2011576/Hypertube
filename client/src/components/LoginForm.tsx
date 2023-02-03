@@ -14,7 +14,7 @@ import loginService from '../services/login';
 import OrDivider from './OrDivider';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import Auth42 from './Auth42';
+import { Auth42, AuthGH } from './AuthButtons';
 
 const LoginForm = () => {
 	const username = useField('text', 'Username', validateUsername);
@@ -161,6 +161,7 @@ const LoginForm = () => {
 					)}
 					<OrDivider />
 					<Auth42/>
+					<AuthGH/>
 					<Box
 						sx={{
 							display: 'flex',
