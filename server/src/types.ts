@@ -14,6 +14,8 @@ export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activation
 
 export type User42 = BaseUser & {id42: number; };
 export type New42UserWithHashedPwd = BaseUser & { passwordHash: string; id42: number; activationCode: string; };
+export type UserGitHub = BaseUser & {idGitHub: number; avatar: string | undefined | null;};
+export type NewGHUserWithHashedPwd = BaseUser & { passwordHash: string; idGitHub: number; activationCode: string; };
 
 export type LoggedUser = BaseUser & { id: string };
 
@@ -37,6 +39,12 @@ export interface UserData42 {
 	first_name: string;
 	last_name: string;
 	email: string;
+}
+export interface UserDataGH {
+	id: number;
+	login: string;
+	name: string;
+	avatar_url: string | undefined | null;
 }
 
 export type Session = NewSessionUser & { sessionId: string; expiresAt: Date };
