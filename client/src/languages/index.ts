@@ -1,5 +1,5 @@
 import { enUS } from './enUS';
-import ruRU from './ruRU.json';
+import { ruRU } from './ruRU';
 import { seSWE } from './seSWE';
 
 export const dictionaryList = { enUS, ruRU, seSWE };
