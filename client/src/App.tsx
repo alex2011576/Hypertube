@@ -9,7 +9,7 @@ import AlertProvider from './components/AlertProvider';
 import CustomModal from './components/CustomModal';
 import SignUpForm from './components/SignUpForm';
 import LoginForm from './components/LoginForm';
-import Loader from './components/Loader';
+import Login from './components/LoginCallbacks';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Main from './components/Main';
@@ -75,7 +75,11 @@ const App = () => {
 								/>
 								<Route
 									path="/auth/42/callback"
-									element={!loggedUser ? <Loader /> : <Navigate to="/" />}
+									element={!loggedUser ? <Login.Callback42 /> : <Navigate to="/" />}
+								/>
+								<Route
+									path="/auth/github/callback"
+									element={!loggedUser ? <Login.CallbackGithub /> : <Navigate to="/" />}
 								/>
 								<Route
 									path="/signup"
