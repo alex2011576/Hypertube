@@ -28,7 +28,7 @@ export const Auth42 = () => {
 	};
 
 	return (
-		<Button variant="outlined" onClick={handle42login} sx={{ mt: 2, mb: 2 }}>
+		<Button variant="outlined" onClick={handle42login} sx={{ mb: 2 }}>
 			SIGN IN WITH 42
 		</Button>
 	);
@@ -47,7 +47,7 @@ export const AuthGH = () => {
 	};
 
 	return (
-		<Button variant="outlined" onClick={handle42login} sx={{ mt: 2, mb: 2 }}>
+		<Button variant="outlined" onClick={handle42login} sx={{ mb: 2 }}>
 			SIGN IN WITH GITHUB
 		</Button>
 	);

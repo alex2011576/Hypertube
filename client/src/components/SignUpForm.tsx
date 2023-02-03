@@ -162,8 +162,17 @@ const SignUpForm = () => {
 						</Button>
 					)}
 					<OrDivider />
-					<Auth42 />
-					<AuthGH />
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: 'column',
+							justifyContent: 'center',
+							mt: '20px'
+						}}
+					>
+						<Auth42/>
+						<AuthGH/>
+					</Box>
 					<Box
 						sx={{
 							display: 'flex',
