@@ -106,7 +106,7 @@ const LoginForm = () => {
 					<Box
 						sx={{
 							display: 'flex',
-							alignItems: 'baseline',
+							alignItems: 'stretch',
 							width: '100%',
 							justifyContent: 'space-between'
 						}}
