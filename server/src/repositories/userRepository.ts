@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 //prettier-ignore
-import { User, NewUserWithHashedPwd, New42UserWithHashedPwd } from '../types';
+import { User, NewUserWithHashedPwd, New42UserWithHashedPwd, NewGHUserWithHashedPwd } from '../types';
 import { getString, getDate, getBoolean} from '../dbUtils';
 import { ValidationError } from '../errors';
 import pool from '../db';
@@ -85,6 +85,30 @@ const addNew42User = async (newUser: New42UserWithHashedPwd): Promise<User> => {
 	return userMapper(res.rows[0]);
 };
 
+const addNewGHUser = async (newUser: NewGHUserWithHashedPwd): Promise<User> => {
+	const query = {
+		text: 'insert into users(username, email, password_hash, firstname, lastname, activation_code, is_active, id_git_hub) values($1, $2, $3, $4, $5, $6, $7, $8) returning *',
+		values: [newUser.username, newUser.email, newUser.passwordHash, newUser.firstname, newUser.lastname, newUser.activationCode, true, newUser.idGitHub]
+	};
+
+	let res;
+	try {
+		res = await pool.query(query);
+	} catch (error) {
+		if (error instanceof Error) {
+			if (error.message === 'duplicate key value violates unique constraint "users_username_key"') {
+				throw new ValidationError('Username already exists');
+			}
+			if (error.message === 'duplicate key value violates unique constraint "users_email_key"') {
+				throw new ValidationError('This email was already used');
+			}
+		}
+		throw error;
+	}
+
+	return userMapper(res.rows[0]);
+};
+
 
 const findUserByUsername = async (username: string): Promise<User | undefined> => {
 	const query = {
@@ -102,6 +126,17 @@ const findUserBy42id = async (id42: number): Promise<User | undefined> => {
 	const query = {
 		text: 'select * from users where id_42 = $1',
 		values: [id42]
+	};
+	const res = await pool.query(query);
+	if (!res.rowCount) {
+		return undefined;
+	}
+	return userMapper(res.rows[0]);
+};
+const findUserByGHid = async (idGitHub: number): Promise<User | undefined> => {
+	const query = {
+		text: 'select * from users where id_git_hub = $1',
+		values: [idGitHub]
 	};
 	const res = await pool.query(query);
 	if (!res.rowCount) {
@@ -159,6 +194,14 @@ const setUser42id = async (userId: string, id42: number): Promise<void> => {
 	const query = {
 		text: 'update users set id_42 = $1 where id = $2',
 		values: [id42, userId]
+	};
+	await pool.query(query);
+};
+
+const setUserGHid = async (userId: string, idGitHub: number): Promise<void> => {
+	const query = {
+		text: 'update users set id_git_hub = $1 where id = $2',
+		values: [idGitHub, userId]
 	};
 	await pool.query(query);
 };
@@ -247,5 +290,8 @@ export {
 	findUserBy42id,
 	deleteUserByEmail,
 	addNew42User,
-	setUser42id
+	setUser42id,
+	findUserByGHid,
+	addNewGHUser,
+	setUserGHid
 };
