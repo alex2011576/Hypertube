@@ -6,10 +6,10 @@ create table users
 	password_hash varchar not null,
 	firstname varchar not null,
 	lastname varchar not null,
+	id_42 int default null,
 	is_active boolean not null default false,
 	created_at timestamptz not null default now(),
-	activation_code varchar not null unique,
-	birthday date
+	activation_code varchar not null unique
 );
 
 create table user_sessions
@@ -22,3 +22,21 @@ create table user_sessions
 );
 
 create index user_sessions_user_id on user_sessions (user_id);
+
+create table states_expire_table (
+	state uuid default gen_random_uuid() primary key,
+	created_at timestamp not null default now()
+);
+
+CREATE FUNCTION expire_table_delete_old_rows() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  DELETE FROM states_expire_table WHERE created_at < NOW() - INTERVAL '1 minute';
+  RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER expire_table_delete_old_rows_trigger
+    BEFORE INSERT ON states_expire_table
+    EXECUTE PROCEDURE expire_table_delete_old_rows();

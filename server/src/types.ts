@@ -9,11 +9,13 @@ export type BaseUser = {
 
 export type UserCompletness = { complete: boolean };
 
+export type NewUser = BaseUser & { passwordPlain: string };
 export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string;};
 
-export type LoggedUser = BaseUser & { id: string };
+export type User42 = BaseUser & {id42: number; };
+export type New42UserWithHashedPwd = BaseUser & { passwordHash: string; id42: number; activationCode: string; };
 
-export type NewUser = BaseUser & { passwordPlain: string };
+export type LoggedUser = BaseUser & { id: string };
 
 export type NewSessionUser = {
 	userId: string;
@@ -29,7 +31,16 @@ export type User = BaseUser & {
 	activationCode: string;
 };
 
+export interface UserData42 {
+	id: number;
+	login: string;
+	first_name: string;
+	last_name: string;
+	email: string;
+}
+
 export type Session = NewSessionUser & { sessionId: string; expiresAt: Date };
+export type AuthState = {state: string; createdAt: Date};
 
 export interface CustomRequest extends Request {
 	sessionId?: string;

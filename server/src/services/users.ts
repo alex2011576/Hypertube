@@ -3,9 +3,10 @@
 //prettier-ignore
 // import { addUpdateEmailRequest, findUpdateEmailRequestByUserId, removeUpdateEmailRequest, removeUpdateEmailRequestByUserId } from '../repositories/updateEmailRequestRepository';
 //prettier-ignore
-import { addNewUser, findUserByActivationCode, setUserAsActive } from '../repositories/userRepository';
+import { addNew42User, addNewUser, findUserByActivationCode, setUserAsActive } from '../repositories/userRepository';
 //prettier-ignore
-import { NewUser, User } from '../types';
+import { User42, NewUser, User } from '../types';
+import generator from 'generate-password-ts';
 import { sendMail } from '../utils/mailer';
 import { AppError } from '../errors';
 import bcrypt from 'bcrypt';
@@ -22,6 +23,19 @@ export const createNewUser = async (newUser: NewUser): Promise<User> => {
 	const activationCode = crypto.randomBytes(20).toString('hex');
 
 	return addNewUser({ ...newUser, passwordHash, activationCode});
+};
+
+export const createNew42User = async (newUser: User42): Promise<User> => {
+	const passwordPlain = generator.generate({
+		length: 10,
+		numbers: true,
+		symbols: true,
+		strict: true	
+	});
+	const passwordHash = await createHashedPassword(passwordPlain);
+	const activationCode = crypto.randomBytes(20).toString('hex');
+
+	return addNew42User({ ...newUser, passwordHash, activationCode});
 };
 
 //activate
