@@ -4,7 +4,7 @@ import { addSession } from '../repositories/sessionRepository';
 import { User } from '../types';
 import asyncHandler from 'express-async-handler';
 import { addState, isAuthState } from '../repositories/stateRepository';
-import { Auth42 } from '../services/auth';
+import { Auth42, AuthGitHub } from '../services/auth';
 
 const router = express.Router();
 
@@ -59,6 +59,33 @@ router.get(
 		}
 
 		const clientLogInToken = await Auth42(code);
+		res.status(200).send(clientLogInToken);
+		return;
+	})
+);
+router.get(
+	'/github',
+	asyncHandler(async (_req, res) => {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+		const stateEntry = await addState();
+		res.redirect(
+			`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_FRONTEND_URL}/auth/github/callback&response_type=code&scope=user&state=${stateEntry.state}`
+		);
+	})
+);
+
+router.get(
+	'/github/callback',
+	asyncHandler(async (req, res) => {
+		const state = req.query.state as string;
+		const code = req.query.code as string;
+
+		if (!(await isAuthState(state))) {
+			res.status(401).send({ error: 'Foreign state in request query' });
+			return;
+		}
+
+		const clientLogInToken = await AuthGitHub(code);
 		res.status(200).send(clientLogInToken);
 		return;
 	})

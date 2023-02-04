@@ -14,7 +14,7 @@ import loginService from '../services/login';
 import OrDivider from './OrDivider';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import Auth42 from './Auth42';
+import { Auth42, AuthGH } from './AuthButtons';
 
 const LoginForm = () => {
 	const username = useField('text', 'Username', validateUsername);
@@ -106,7 +106,7 @@ const LoginForm = () => {
 					<Box
 						sx={{
 							display: 'flex',
-							alignItems: 'baseline',
+							alignItems: 'stretch',
 							width: '100%',
 							justifyContent: 'space-between'
 						}}
@@ -160,7 +160,17 @@ const LoginForm = () => {
 						</Button>
 					)}
 					<OrDivider />
-					<Auth42/>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: 'column',
+							justifyContent: 'center',
+							mt: '20px'
+						}}
+					>
+						<Auth42/>
+						<AuthGH/>
+					</Box>
 					<Box
 						sx={{
 							display: 'flex',
