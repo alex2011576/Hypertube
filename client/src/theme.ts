@@ -45,6 +45,14 @@ const theme = createTheme({
 				}
 			}
 		},
+		MuiPaper: {
+			styleOverrides: {
+				root: {
+					border: '1px solid #b2b2b245',
+					boxShadow: 'none',
+				}
+			}
+		},
 		MuiFormHelperText: {
 			styleOverrides: {
 				root: {
@@ -69,6 +77,25 @@ const theme = createTheme({
 				},
 				paper: {
 					width: '100%'
+				}
+			}
+		},
+		MuiToggleButtonGroup: {
+			styleOverrides: {
+				root: {
+					'& .MuiToggleButtonGroup-grouped': {
+						margin: '0.5rem',
+						border: 3,
+						'&.Mui-disabled': {
+							border: 3
+						},
+						'&:not(:first-of-type)': {
+							borderRadius: 2
+						},
+						'&:first-of-type': {
+							borderRadius: 2
+						}
+					}
 				}
 			}
 		}
