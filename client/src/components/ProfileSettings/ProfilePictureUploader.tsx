@@ -11,13 +11,15 @@ import { Fragment, useCallback, useContext, useEffect, useRef, useState } from '
 import { PhotoType } from '../../types';
 import { useStateValue } from '../../state';
 import { AlertContext } from '../AlertProvider';
-import { LightTooltip } from '../Tooltip';
 // import profileService from '../../services/profile';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-const ProfilePictureUploader: React.FC<{ photo: PhotoType | undefined }> = ({ photo }) => {
-	const [isUploading, setIsUploading] = useState<boolean>(false);
+const ProfilePictureUploader: React.FC<{
+	photo: PhotoType | undefined;
+	image: PhotoType | undefined;
+	setImage: (photo: PhotoType | undefined) => void;
+}> = ({ photo, image, setImage }) => {
 	const [imageIndex, setImageIndex] = useState<number>(-1);
-	const [image, setImage] = useState<PhotoType | undefined>();
 	const [{ loggedUser }] = useStateValue();
 	const { success: successCallback, error: errorCallback } = useContext(AlertContext);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -47,25 +49,6 @@ const ProfilePictureUploader: React.FC<{ photo: PhotoType | undefined }> = ({ ph
 		handleClickInput();
 	}, [handleClickInput]);
 
-	const uploadPhoto = async (image: PhotoType) => {
-		try {
-			setIsUploading(true);
-			// loggedUser && (await profileService.uploadPhoto(loggedUser.id, image));
-			successCallback(`Profile photo was updated!.`);
-			setIsUploading(false);
-		} catch (err) {
-			errorCallback(
-				err.response?.data?.error || 'Unable to upload photo. Please try again.'
-			);
-			setIsUploading(false);
-		}
-	};
-
-	const handleUserPhotosUpload = (event: any) => {
-		event.preventDefault();
-		image && uploadPhoto(image);
-	};
-
 	return (
 		<Box>
 			<input
@@ -82,16 +65,17 @@ const ProfilePictureUploader: React.FC<{ photo: PhotoType | undefined }> = ({ ph
 						<Fragment>
 							<Typography color="inherit">
 								<strong>
-									Valid picture should be: <br />
+									Click to upload new image.
+									<br />
 								</strong>
 							</Typography>
-							{'Of jpeg, jpg or png format.'}
+							{'(Jpeg, jpg or png'}
 							<br />
-							{'At least 450 x 450 pixels'}
+							{'Minimum 450 x 450 pixels'}
 							<br />
-							{'Not larger than 6000x4000 pixels'}
+							{'Maximum 6000x4000 pixels'}
 							<br />
-							{'Not bigger than 25Mb'}
+							{'Max 25Mb)'}
 						</Fragment>
 					}
 				>
@@ -115,9 +99,6 @@ const ProfilePictureUploader: React.FC<{ photo: PhotoType | undefined }> = ({ ph
 						</Container>
 					</Box>
 				</HtmlTooltip>
-				<Button onClick={handleUserPhotosUpload} disabled={isUploading}>
-					Update profile picture
-				</Button>
 			</Container>
 		</Box>
 	);
@@ -132,7 +113,7 @@ const Photo = styled('img')`
 `;
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
-	<Tooltip {...props} classes={{ popper: className }} />
+	<Tooltip placement="top" {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
 	[`& .${tooltipClasses.tooltip}`]: {
 		backgroundColor: theme.palette.primary.light,
@@ -143,12 +124,6 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 		borderRadius: 3
 	}
 }));
-
-const gridContainer = {
-	display: 'grid',
-	gridTemplateColumns: 'repeat(2, 1fr)',
-	alignItems: 'center'
-};
 
 const pictureSectionWrapper = {
 	display: 'grid',
@@ -169,7 +144,7 @@ const btnWrapper = {
 };
 
 const singlePicBtn = {
-	backgroundColor: 'white!important',
+	backgroundColor: 'transparent',
 	margin: '0 0.3rem',
 	minWidth: 'fit-content',
 	minHeight: 'fit-content',

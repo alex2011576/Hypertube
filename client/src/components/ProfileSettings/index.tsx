@@ -20,6 +20,17 @@ const StyledButtons = styled('div')(() => ({
 	padding: '0.75rem'
 }));
 
+const StyledWrapper = styled(Box)(() => ({
+	display: 'flex',
+	flexDirection: 'column',
+	padding: '1rem'
+}));
+
+const StyledHeader = styled(Typography)(() => ({
+	margin: '1rem 0',
+	fontWeight: 600
+}));
+
 const ProfileEditor = () => {
 	const [{ loggedUser }] = useStateValue();
 
@@ -62,19 +73,14 @@ const ProfileEditor = () => {
 	return (
 		<>
 			<Container maxWidth={'sm'} sx={{ mt: 4, mb: 8 }}>
-				<Paper >
-					<Typography variant='h6' color='primary' sx={{mt: 3, mb: 3, fontWeight: 600}}>PROFILE SETTINGS</Typography>
-					<Divider sx={{width: '100%'}} />
-					<Box
-						sx={{
-							display: 'flex',
-							flexDirection: 'column',
-							p: 3
-						}}
-					>
-						<ProfilePictureUploader photo={undefined} />
-						<ProfileForm userData={userData} />
-					</Box>
+				<Paper>
+					<StyledHeader variant="h6" color="primary">
+						PROFILE SETTINGS
+					</StyledHeader>
+					<Divider />
+					<StyledWrapper>
+						<ProfileForm userData={userData} photo={undefined} />
+					</StyledWrapper>
 				</Paper>
 				<Paper sx={{ marginTop: 5 }}>
 					<StyledButtons>

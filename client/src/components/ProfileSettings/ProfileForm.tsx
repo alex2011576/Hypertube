@@ -4,17 +4,23 @@ import { validateUsername, validateFirstname, validateLastname, validateProfileF
 // prettier-ignore
 import { Button, Box, TextField, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { useControlledField } from '../../hooks/useControlledField';
-import { UserData } from '../../types';
+import { PhotoType, UserData } from '../../types';
 // import profileService from '../../services/profile';
 // import { useStateValue } from '../../state';
 // import { AlertContext } from '../AlertProvider';
 import { useToggleButton } from '../../hooks/useToggleButton';
 import { LightTooltip } from '../Tooltip';
 import { languageOptions } from '../../languages';
+import { useState } from 'react';
+import ProfilePictureUploader from './ProfilePictureUploader';
 
-const ProfileForm: React.FC<{ userData: UserData }> = ({ userData }) => {
+const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }> = ({
+	userData,
+	photo
+}) => {
 	// const [{ loggedUser }] = useStateValue();
 	// const { success: successCallback, error: errorCallback } = useContext(AlertContext);
+	const [image, setImage] = useState<PhotoType | undefined>(photo);
 
 	const username = useControlledField(
 		'text',
@@ -39,6 +45,7 @@ const ProfileForm: React.FC<{ userData: UserData }> = ({ userData }) => {
 	// const updateUserData = async (newUserData: NewUserData) => {
 	// 	try {
 	// 		loggedUser && (await profileService.updateProfile(loggedUser.id, newUserData));
+	// 		loggedUser && (await profileService.uploadPhoto(loggedUser.id, image)); <<- this will be inside update profile!
 	// 		successCallback(`Profile settings were updated!.`);
 	// 	} catch (err) {
 	// 		errorCallback(
@@ -62,6 +69,7 @@ const ProfileForm: React.FC<{ userData: UserData }> = ({ userData }) => {
 	return (
 		<>
 			<Box component="form" noValidate sx={{ ml: 2, mr: 2 }}>
+				<ProfilePictureUploader photo={undefined} setImage={setImage} image={image} />
 				<Grid item xs={12}>
 					<Box sx={{ flexDirection: 'column' }}>
 						<ToggleButtonGroup exclusive {...language}>
