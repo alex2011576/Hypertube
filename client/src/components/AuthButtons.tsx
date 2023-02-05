@@ -16,7 +16,7 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import Text from './Text';
 
-const Auth42 = () => {
+export const Auth42 = () => {
 	const alert = useContext(AlertContext);
 
 	const handle42login = async (event: any) => {
@@ -29,10 +29,27 @@ const Auth42 = () => {
 	};
 
 	return (
-		<Button variant="outlined" onClick={handle42login} sx={{ mt: 2, mb: 2 }}>
-			<Text tid='logInWith42' />
+		<Button variant="outlined" onClick={handle42login} sx={{ mb: 2 }}>
+			SIGN IN WITH 42
 		</Button>
 	);
 };
 
-export default Auth42;
+export const AuthGH = () => {
+	const alert = useContext(AlertContext);
+
+	const handle42login = async (event: any) => {
+		event.preventDefault();
+		try {
+			window.location.href = `${apiBaseUrl}/login/github`;
+		} catch (err) {
+			alert.error('Error occurred, please try again.');
+		}
+	};
+
+	return (
+		<Button variant="outlined" onClick={handle42login} sx={{ mb: 2 }}>
+			SIGN IN WITH GITHUB
+		</Button>
+	);
+};

@@ -73,3 +73,11 @@ export const validateLoginForm = (username: string, password: string) => {
 export const validateUpdatePasswordForm = (oldPassword: string, newPassword: string) => {
 	return !validatePassword(oldPassword) && !validatePassword(newPassword) ? true : false;
 };
+
+export const validateProfileForm = (username: string, firstname: string, lastname: string) => {
+	return !validateUsername(username) &&
+		!validateFirstname(firstname) &&
+		!validateLastname(lastname)
+		? true
+		: false;
+};

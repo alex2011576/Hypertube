@@ -3,13 +3,14 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { useStateValue } from './state';
 
+import ProfileSettings from './components/ProfileSettings';
 import ForgotPassword from './components/ForgotPassword';
 import AlertSnackBar from './components/AlertSnackBar';
 import AlertProvider from './components/AlertProvider';
 import CustomModal from './components/CustomModal';
 import SignUpForm from './components/SignUpForm';
 import LoginForm from './components/LoginForm';
-import Loader from './components/Loader';
+import Login from './components/LoginCallbacks';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Main from './components/Main';
@@ -76,7 +77,11 @@ const App = () => {
 								/>
 								<Route
 									path="/auth/42/callback"
-									element={!loggedUser ? <Loader /> : <Navigate to="/" />}
+									element={!loggedUser ? <Login.Callback42 /> : <Navigate to="/" />}
+								/>
+								<Route
+									path="/auth/github/callback"
+									element={!loggedUser ? <Login.CallbackGithub /> : <Navigate to="/" />}
 								/>
 								<Route
 									path="/signup"
@@ -108,6 +113,8 @@ const App = () => {
 										)
 									}
 								/>
+								<Route path="/profile" element={<ProfileSettings />} />
+
 								{/* <Route path="/profile" element={<ProfileEditor />} />
 							<Route path="/profile/:id" element={<PublicProfilePage />} />
 							<Route path="/update_email" element={<UpdateEmail />} /> */}

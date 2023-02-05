@@ -28,6 +28,9 @@ const theme = createTheme({
 					position: 'fixed',
 					display: 'flex',
 					justifyContent: 'space-between',
+					borderTop: 'none',
+					borderRight: 'none',
+					borderLeft: 'none',
 					borderBottom: '1px solid #b2b2b245',
 					borderRadius: 0,
 					maxWidth: '100%',
@@ -42,6 +45,14 @@ const theme = createTheme({
 			styleOverrides: {
 				root: {
 					borderRadius: '2px!important'
+				}
+			}
+		},
+		MuiPaper: {
+			styleOverrides: {
+				root: {
+					border: '1px solid #b2b2b245',
+					boxShadow: 'none'
 				}
 			}
 		},
@@ -69,6 +80,25 @@ const theme = createTheme({
 				},
 				paper: {
 					width: '100%'
+				}
+			}
+		},
+		MuiToggleButtonGroup: {
+			styleOverrides: {
+				root: {
+					'& .MuiToggleButtonGroup-grouped': {
+						margin: '0.5rem',
+						border: 3,
+						'&.Mui-disabled': {
+							border: 3
+						},
+						'&:not(:first-of-type)': {
+							borderRadius: 2
+						},
+						'&:first-of-type': {
+							borderRadius: 2
+						}
+					}
 				}
 			}
 		}

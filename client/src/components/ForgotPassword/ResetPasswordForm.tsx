@@ -17,7 +17,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 	const password = useField('text', <Text tid='textFieldPassword' />, validatePassword);
 	const navigate = useNavigate();
 	const alert = useContext(AlertContext);
-	const [showPassword, setShow] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
 
 	// const handleResetPassword = async (event: any) => {
 	// 	event.preventDefault();
@@ -76,9 +76,9 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 							control={
 								<Checkbox
 									color="primary"
-									onChange={() => setShow(!showPassword)}
+									onChange={() => setShowPassword(!showPassword)}
 									icon={<VisibilityOffOutlinedIcon fontSize="small" />}
-									checkedIcon={<VisibilityOutlinedIcon />}
+									checkedIcon={<VisibilityOutlinedIcon fontSize="small" />}
 								/>
 							}
 						/>

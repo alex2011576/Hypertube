@@ -24,6 +24,9 @@ const Logo = styled('div')`
 const LoggedInUserButtons = ({ handleLogout }: { handleLogout: any }) => {
 	return (
 		<Box sx={{ pr: 0 }}>
+			<Button color="inherit" component={Link} to="/profile">
+				PROFILE
+			</Button>
 			<Button onClick={handleLogout}>Logout </Button>
 		</Box>
 	);
@@ -80,6 +83,7 @@ const LoggedOutButtons = () => {
 				title={signUpTitle}
 				children={signUpForm}
 			/>
+			<LangSelector />
 		</>
 	);
 };
@@ -128,7 +132,6 @@ const Navbar = () => {
 					) : (
 						<LoggedOutButtons />
 					)}
-					<LangSelector />
 				</Box>
 			</Toolbar>
 		</AppBar>

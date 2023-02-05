@@ -7,6 +7,8 @@ create table users
 	firstname varchar not null,
 	lastname varchar not null,
 	id_42 int default null,
+	id_git_hub int default null,
+	language varchar not null default 'enUS',
 	is_active boolean not null default false,
 	created_at timestamptz not null default now(),
 	activation_code varchar not null unique

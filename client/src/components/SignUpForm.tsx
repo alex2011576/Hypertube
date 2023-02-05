@@ -13,8 +13,7 @@ import { useField } from '../hooks/useField';
 import { NewUser } from '../types';
 import { LightTooltip } from './Tooltip';
 import OrDivider from './OrDivider';
-import Auth42 from './Auth42';
-import Text from './Text';
+import { Auth42, AuthGH } from './AuthButtons';
 // import userService from './services/users';
 
 const SignUpForm = () => {
@@ -163,7 +162,17 @@ const SignUpForm = () => {
 						</Button>
 					)}
 					<OrDivider />
-					<Auth42 />
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: 'column',
+							justifyContent: 'center',
+							mt: '20px'
+						}}
+					>
+						<Auth42/>
+						<AuthGH/>
+					</Box>
 					<Box
 						sx={{
 							display: 'flex',
