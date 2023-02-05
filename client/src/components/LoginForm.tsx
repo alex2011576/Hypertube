@@ -15,6 +15,7 @@ import OrDivider from './OrDivider';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { Auth42, AuthGH } from './AuthButtons';
+import Text from './Text';
 
 const LoginForm = () => {
 	const username = useField('text', <Text tid='textFieldUsername' />, validateUsername);
