@@ -2,7 +2,7 @@ import { useStateValue } from '../state';
 
 // Testing Error message translation
 // Usage: const { errorTranslate } = useErrorTranslate();
-// const errorMessage = errorTranslate(validationFn(value)!);
+// const errorMessage = errorTranslate("tid");
 
 export const useErrorTranslate = () => {
 	const [{ dictionary }] = useStateValue();
