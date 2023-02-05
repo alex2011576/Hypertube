@@ -18,8 +18,9 @@ export const seSWE = {
 	troubleLoggingIn: "Glömt lösenordet?",
 	buttonLogin: "LOGGA IN",
 	newToLink: "Ny på Hypertube?",
-	signupNow: "Registrera dig nu!",
+	signupNow: "Bli medlem nu!",
 	logInWith42 : "Logga in med 42",
+	logInWithGithub: "Logga in med Github",
 
 	// Signup Form
 	titleSignup: "BLI MEDLEM",

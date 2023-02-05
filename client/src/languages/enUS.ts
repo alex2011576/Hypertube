@@ -19,7 +19,8 @@ export const enUS = {
 	buttonLogin: "LOG IN",
 	newToLink: "New to Hypertube?",
 	signupNow: "Sign up now!",
-	logInWith42: "Log in with 42",
+	logInWith42: "Sign in with 42",
+	logInWithGithub: "Sign in with Github",
 
 	// Signup Form
 	titleSignup: "SIGN UP",
