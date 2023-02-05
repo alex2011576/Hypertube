@@ -3,7 +3,7 @@ export const validateUsername = (input: string) => {
 	let trimmedInput = input.trim();
 
 	if (trimmedInput.length < 4 || input.length > 21) {
-		return 'tooShortUsername';
+		return 'invalidUsernameLength';
 	}
 	const usernameRegex = /^[a-zA-Z0-9_\-.ÄÖäöÅåßÜü]{4,21}$/;
 	if (!usernameRegex.test(trimmedInput)) {
