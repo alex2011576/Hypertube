@@ -42,7 +42,7 @@ export const seSWE = {
 	navbarSignup: 'Bli medlem',
 
 	// Validations
-	tooShortUsername: 'För kort (längd: 4-21 tecken)',
+	invalidUsernameLength: 'För kort (längd: 4-21 tecken)',
 	invalidUsername: 'Ogiltigt användarnamn',
 	passwordLength: 'längd: 8-42 tecken',
 	invalidPassword: 'Kontrollera lösenordet',

@@ -42,7 +42,7 @@ export const enUS = {
 	navbarSignup: 'SIGN UP',
 
 	// Validations
-	tooShortUsername: 'Too short (Length: 4-21 characters)',
+	invalidUsernameLength: 'Too short (Length: 4-21 characters)',
 	invalidUsername: 'Invalid username',
 	passwordLength: 'Length: 8-42 characters',
 	invalidPassword: 'Check the input',
