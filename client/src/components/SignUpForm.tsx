@@ -14,6 +14,7 @@ import { NewUser } from '../types';
 import { LightTooltip } from './Tooltip';
 import OrDivider from './OrDivider';
 import { Auth42, AuthGH } from './AuthButtons';
+import Text from './Text';
 // import userService from './services/users';
 
 const SignUpForm = () => {
