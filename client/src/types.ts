@@ -38,6 +38,14 @@ export type UserData = {
 	language: string | undefined;
 };
 
+export type NewUserData = {
+	username: string;
+	firstname: string;
+	lastname: string;
+	language: string | undefined;
+	photo: PhotoType | undefined;
+};
+
 export type LanguageOption = 'enUS' | 'ruRU' | 'seSWE';
 
 export type ProfilePublic = {

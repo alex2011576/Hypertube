@@ -36,8 +36,29 @@ export const enUS = {
 	forgotPasswordButton: 'SEND',
 	forgotPasswordBackLogin: 'Back to sign in ',
 	forgotPasswordSignup: 'Sign Up',
-	passwordResetSignup: 'Don\t have an account? Sign Up',
+	passwordResetSignup: "Don't have an account? Sign Up",
 	passwordResetSubmitButton: 'SUBMIT',
+
+	// Profile Form
+	titleProfile: 'PROFILE SETTINGS',
+	profileButtonUpdate: 'UPDATE PROFILE',
+	profileUpdateToolTip: 'Please fill all the required fields',
+	profileRequiredField: 'Required field',
+	profileImageUpload: 'Click to upload new image.',
+	profileImageTypography:
+		'(Jpeg, jpg or png, Minimum 450 x 450 pixels, Maximum 6000x4000 pixels, Max 25Mb)',
+	profileButtonChangeEmail: 'CHANGE EMAIL',
+	profileButtonChangePassword: 'CHANGE PASSWORD',
+	profielButtonCancel: 'CANCEL',
+	profielButtonSend: 'SEND',
+	profileEmailTitle: 'Change email',
+	profileEmailInfoText:
+		'Activation link will be sent to the email address provided.Please follow the link from our message in order to set your new email address.',
+	profilePasswordTitle: 'Change password',
+	profilePasswordInfoText:
+		'Please enter your current password in order to safely change it.',
+	textFieldCurrentPassword: 'Current Password',
+	textFieldNewPassword: 'New Password',
 
 	// Navbar
 	navbarLogin: 'LOGIN',

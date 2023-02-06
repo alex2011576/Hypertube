@@ -6,7 +6,7 @@ import { useFieldWithReset } from '../../hooks/useField';
 import { validateEmail } from '../../utils/inputValidators';
 import { AlertContext } from '../AlertProvider';
 import { useStateValue } from '../../state';
-// import profileService from '../../services/profile';
+import profileService from '../../services/profile';
 
 const UpdateEmailForm = () => {
 	const { success: successCallback, error: errorCallback } = useContext(AlertContext);
@@ -21,26 +21,26 @@ const UpdateEmailForm = () => {
 		reset();
 	};
 
-	// const requestUpdateEmailAndHandleError = async ({
-	// 	id,
-	// 	email
-	// }: {
-	// 	id: string;
-	// 	email: string;
-	// }) => {
-	// 	try {
-	// 		await profileService.requestUpdateEmail({ id, email });
-	// 		successCallback(`Activation link sent to new email.`);
-	// 	} catch (err) {
-	// 		errorCallback(err.message || 'Unable to update email address. Please try again.');
-	// 	}
-	// };
+	const requestUpdateEmailAndHandleError = async ({
+		userId,
+		email
+	}: {
+		userId: string;
+		email: string;
+	}) => {
+		try {
+			await profileService.requestUpdateEmail({userId, email});
+			successCallback(`Activation link sent to new email.`);
+		} catch (err) {
+			errorCallback(err.message || 'Unable to update email address. Please try again.');
+		}
+	};
 
 	const handleSumbit = (event: any) => {
 		event.preventDefault();
-		// if (loggedUser)
-		// 	requestUpdateEmailAndHandleError({ id: loggedUser?.id, email: email.value });
-		// setOpen(false);
+		if (loggedUser)
+			requestUpdateEmailAndHandleError({ userId: loggedUser?.id, email: email.value });
+		setOpen(false);
 		reset();
 	};
 

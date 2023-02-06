@@ -9,10 +9,11 @@ import {
 } from '../../utils/imageUploaderAndValidator';
 import { Fragment, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { PhotoType } from '../../types';
-import { useStateValue } from '../../state';
+//import { useStateValue } from '../../state';
 import { AlertContext } from '../AlertProvider';
 // import profileService from '../../services/profile';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+//import AddCircleIcon from '@mui/icons-material/AddCircle';
+import Text from '../Text';
 
 const ProfilePictureUploader: React.FC<{
 	photo: PhotoType | undefined;
@@ -20,7 +21,7 @@ const ProfilePictureUploader: React.FC<{
 	setImage: (photo: PhotoType | undefined) => void;
 }> = ({ photo, image, setImage }) => {
 	const [imageIndex, setImageIndex] = useState<number>(-1);
-	const [{ loggedUser }] = useStateValue();
+	//const [{ loggedUser }] = useStateValue();
 	const { success: successCallback, error: errorCallback } = useContext(AlertContext);
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -65,7 +66,7 @@ const ProfilePictureUploader: React.FC<{
 						<Fragment>
 							<Typography color="inherit">
 								<strong>
-									Click to upload new image.
+									<Text tid='profileImageUpload' />
 									<br />
 								</strong>
 							</Typography>
@@ -76,6 +77,7 @@ const ProfilePictureUploader: React.FC<{
 							{'Maximum 6000x4000 pixels'}
 							<br />
 							{'Max 25Mb)'}
+							{/* <Text tid='profileImageTypography' /> */}
 						</Fragment>
 					}
 				>

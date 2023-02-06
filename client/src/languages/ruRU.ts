@@ -21,6 +21,7 @@ export const ruRU = {
 	newToLink: 'Здесь впервые?',
 	signupNow: 'Зарегистрируйся!',
 	logInWith42: 'Войти с 42',
+	logInWithGithub: 'Войти с Github',
 
 	// Signup Form
 	titleSignup: 'РЕГИСТРАЦИЯ',
@@ -37,6 +38,27 @@ export const ruRU = {
 	forgotPasswordSignup: 'Регистрауция',
 	passwordResetSignup: 'Нет аккаута? Зарегистрироваться',
 	passwordResetSubmitButton: 'ОК',
+
+	// Profile Form
+	titleProfile: 'PROFILE SETTINGS',
+	profileButtonUpdate: 'UPDATE PROFILE',
+	profileUpdateToolTip: 'Please fill all the required fields',
+	profileRequiredField: 'Required field',
+	profileImageUpload: 'Click to upload new image.',
+	profileImageTypography:
+		'(Jpeg, jpg or png, Minimum 450 x 450 pixels, Maximum 6000x4000 pixels, Max 25Mb)',
+	profileButtonChangeEmail: 'CHANGE EMAIL',
+	profileButtonChangePassword: 'CHANGE PASSWORD',
+	profielButtonCancel: 'CANCEL',
+	profielButtonSend: 'SEND',
+	profileEmailTitle: 'Change email',
+	profileEmailInfoText:
+		'Activation link will be sent to the email address provided.Please follow the link from our message in order to set your new email address.',
+	profilePasswordTitle: 'Change password',
+	profilePasswordInfoText:
+		'Please enter your current password in order to safely change it.',
+	textFieldCurrentPassword: 'Current Password',
+	textFieldNewPassword: 'New Password',
 
 	// Navbar
 	navbarLogin: 'ВХОД',

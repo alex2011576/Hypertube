@@ -1,69 +1,69 @@
 // prettier-ignore
 import { validateUsername, validateFirstname, validateLastname, validateProfileForm } from '../../utils/inputValidators';
-// import React, { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 // prettier-ignore
 import { Button, Box, TextField, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { useControlledField } from '../../hooks/useControlledField';
-import { PhotoType, UserData } from '../../types';
-// import profileService from '../../services/profile';
-// import { useStateValue } from '../../state';
-// import { AlertContext } from '../AlertProvider';
+import { PhotoType, UserData, NewUserData } from '../../types';
+import profileService from '../../services/profile';
+import { useStateValue } from '../../state';
+import { AlertContext } from '../AlertProvider';
 import { useToggleButton } from '../../hooks/useToggleButton';
 import { LightTooltip } from '../Tooltip';
 import { languageOptions } from '../../languages';
-import { useState } from 'react';
 import ProfilePictureUploader from './ProfilePictureUploader';
+import Text from '../Text';
 
 const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }> = ({
 	userData,
 	photo
 }) => {
-	// const [{ loggedUser }] = useStateValue();
-	// const { success: successCallback, error: errorCallback } = useContext(AlertContext);
+	const [{ loggedUser }] = useStateValue();
+	const { success: successCallback, error: errorCallback } = useContext(AlertContext);
 	const [image, setImage] = useState<PhotoType | undefined>(photo);
 
 	const username = useControlledField(
 		'text',
 		userData.username,
-		'Username',
+		<Text tid='textFieldUsername' />,
 		validateUsername
 	);
 	const firstname = useControlledField(
 		'text',
 		userData.firstname,
-		'First name',
+		<Text tid='textFieldFirstName' />,
 		validateFirstname
 	);
 	const lastname = useControlledField(
 		'text',
 		userData.lastname,
-		'Last name',
+		<Text tid='textFieldLastName' />,
 		validateLastname
 	);
 	const language = useToggleButton(userData.language);
 
-	// const updateUserData = async (newUserData: NewUserData) => {
-	// 	try {
-	// 		loggedUser && (await profileService.updateProfile(loggedUser.id, newUserData));
-	// 		loggedUser && (await profileService.uploadPhoto(loggedUser.id, image)); <<- this will be inside update profile!
-	// 		successCallback(`Profile settings were updated!.`);
-	// 	} catch (err) {
-	// 		errorCallback(
-	// 			err.response?.data?.error ||
-	// 				'Unable to update profile settings. Please try again.'
-	// 		);
-	// 	}
-	// };
+	const updateUserData = async (newUserData: NewUserData) => {
+		try {
+			loggedUser && (await profileService.updateProfile(loggedUser.id, newUserData));
+			successCallback(`Profile settings were updated!.`);
+		} catch (err) {
+			errorCallback(
+				err.response?.data?.error ||
+					'Unable to update profile settings. Please try again.'
+			);
+		}
+	};
 
 	const handleUserDataUpdate = (event: any) => {
 		event.preventDefault();
-		const newUserData: UserData = {
+		const newUserData: NewUserData = {
 			username: username.value,
 			firstname: firstname.value,
 			lastname: lastname.value,
-			language: language.value
+			language: language.value,
+			photo: image
 		};
-		// updateUserData(newUserData);
+		updateUserData(newUserData);
 	};
 
 	return (
@@ -115,10 +115,10 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 						fullWidth
 						sx={{ mt: 3, mb: 2 }}
 					>
-						Update Profile
+						<Text tid='profileButtonUpdate' />
 					</Button>
 				) : (
-					<LightTooltip title="Please fill all the required fields">
+					<LightTooltip title={<Text tid='profileUpdateToolTip' />}>
 						<span>
 							<Button
 								disabled
@@ -126,7 +126,7 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 								variant="contained"
 								sx={{ mt: 3, mb: 2 }}
 							>
-								Update Profile
+								<Text tid='profileButtonUpdate' />
 							</Button>
 						</span>
 					</LightTooltip>
