@@ -13,7 +13,7 @@ export type User = BaseUser & {
 
 export type NewUserWithHashedPwd = BaseUser & { passwordHash: string };
 
-export type NewUser = BaseUser & { passwordPlain: string };
+export type NewUser = BaseUser & { passwordPlain: string; language: LanguageOption };
 
 export type LoggedUser = {
 	id: string;
@@ -38,7 +38,4 @@ export type UserData = {
 	language: string | undefined;
 };
 
-export enum LanguageOptions {
-	ENGLISH = 'enUS',
-	RUSSIAN = 'ruRU'
-}
+export type LanguageOption = 'enUS' | 'ruRU' | 'seSWE';
