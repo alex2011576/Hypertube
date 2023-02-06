@@ -2,7 +2,7 @@ import axios from 'axios';
 import { apiBaseUrl } from '../constants';
 import getAuthHeader from './auth';
 import { handleAxiosError } from '../utils/errors';
-import { NewUserData, PhotoType } from '../types';
+import { NewUserData } from '../types';
 
 export const getProfile = async (userId: string) => {
 	try {
@@ -41,17 +41,6 @@ const updateProfile = async (userId: string, newUserData: NewUserData) => {
 
 };
 
-const uploadPhoto = async (userId: string, images: PhotoType | undefined) => {
-	try {
-		const config = {
-			headers: { Authorization: getAuthHeader() }
-		};
-		await axios.post(`${apiBaseUrl}/users/${userId}/photo`, images, config);
-	} catch (err) {
-		handleAxiosError(err);
-	}
-};
-
 const requestUpdateEmail = async ({ userId, email }: { userId: string; email: string }) => {
 	try {
 		const config = {
@@ -88,5 +77,5 @@ const updatePassword = async ({
 
 
 
-const moduleExports = { getProfile, getPhoto, updateProfile, uploadPhoto, requestUpdateEmail, updatePassword };
+const moduleExports = { getProfile, getPhoto, updateProfile, requestUpdateEmail, updatePassword };
 export default moduleExports;
