@@ -57,7 +57,7 @@ const CustomModal = ({
 								<CustomDialogTitle onClose={handleToggle}>
 									{title}
 								</CustomDialogTitle>
-								<DialogContent dividers>
+								<DialogContent sx={{padding: 0}} dividers>
 									{children}
 								</DialogContent>
 							</Dialog>
