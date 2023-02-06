@@ -15,6 +15,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Main from './components/Main';
 import useModal from './hooks/useModal';
+import Text from './components/Text';
 
 const StyledBox = styled(Box)`
 	text-align: center;
@@ -33,21 +34,21 @@ const App = () => {
 		handleToggle: toggleLogin,
 		title: loginTitle,
 		children: loginForm
-	} = useModal(<LoginForm />, 'LOG IN');
+	} = useModal(<LoginForm />, <Text tid="titleLogin" />);
 
 	const {
 		isOpen: isSignUpOpen,
 		handleToggle: toggleSignUp,
 		title: signUpTitle,
 		children: signUpForm
-	} = useModal(<SignUpForm />, 'SIGN UP');
+	} = useModal(<SignUpForm />, <Text tid="titleSignup" />);
 
 	const {
 		isOpen: isForgotPasswordOpen,
 		handleToggle: toggleForgotPassword,
 		title: forgotPasswordTitle,
 		children: forgotPasswordForm
-	} = useModal(<ForgotPassword />, 'RESET PASSWORD');
+	} = useModal(<ForgotPassword />, <Text tid="titleResetPassword" />);
 
 	return (
 		<>

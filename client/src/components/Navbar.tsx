@@ -11,6 +11,7 @@ import SignUpForm from './SignUpForm';
 import useModal from '../hooks/useModal';
 import CustomModal from './CustomModal';
 import LangSelector from './LangSelector';
+import Text from './Text';
 
 const Logo = styled('div')`
 	display: flex;
@@ -37,14 +38,14 @@ const LoggedOutButtons = () => {
 		handleToggle: toggleLogin,
 		title: loginTitle,
 		children: loginForm
-	} = useModal(<LoginForm />, 'LOG IN');
+	} = useModal(<LoginForm />, <Text tid='titleLogin' />);
 
 	const {
 		isOpen: isSignUpOpen,
 		handleToggle: toggleSignUp,
 		title: signUpTitle,
 		children: signUpForm
-	} = useModal(<SignUpForm />, 'SIGN UP');
+	} = useModal(<SignUpForm />, <Text tid='titleSignup' />);
 
 	return (
 		<>
@@ -57,7 +58,7 @@ const LoggedOutButtons = () => {
 					padding: '6px'
 				}}
 			>
-				Login
+				<Text tid='navbarLogin' />
 			</Button>
 			<CustomModal
 				isOpen={isLoginOpen}
@@ -74,7 +75,7 @@ const LoggedOutButtons = () => {
 					padding: '6px'
 				}}
 			>
-				Sign Up
+				<Text tid='navbarSignup' />
 			</Button>
 			<CustomModal
 				isOpen={isSignUpOpen}

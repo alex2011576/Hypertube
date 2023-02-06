@@ -14,6 +14,7 @@ import loginService from '../services/login';
 import OrDivider from './OrDivider';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import Text from './Text';
 
 export const Auth42 = () => {
 	const alert = useContext(AlertContext);
@@ -29,7 +30,7 @@ export const Auth42 = () => {
 
 	return (
 		<Button variant="outlined" onClick={handle42login} sx={{ mb: 2 }}>
-			SIGN IN WITH 42
+			<Text tid='logInWith42' />
 		</Button>
 	);
 };
@@ -48,7 +49,7 @@ export const AuthGH = () => {
 
 	return (
 		<Button variant="outlined" onClick={handle42login} sx={{ mb: 2 }}>
-			SIGN IN WITH GITHUB
+			<Text tid='logInWithGithub' />
 		</Button>
 	);
 };

@@ -1,11 +1,13 @@
-import enUS from './enUS.json';
-import ruRU from './ruRU.json';
+import { enUS } from './enUS';
+import { ruRU } from './ruRU';
+import { seSWE } from './seSWE';
 
-export const dictionaryList = { enUS, ruRU };
+export const dictionaryList = { enUS, ruRU, seSWE };
 
 export const languageOptions = {
 	enUS: '🇬🇧',
-	ruRU: '🇷🇺'
+	ruRU: '🇷🇺',
+	seSWE: '🇸🇪'
 };
 
 // https://emojipedia.org/

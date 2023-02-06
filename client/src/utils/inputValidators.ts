@@ -1,23 +1,24 @@
+
 export const validateUsername = (input: string) => {
 	let trimmedInput = input.trim();
 
 	if (trimmedInput.length < 4 || input.length > 21) {
-		return 'Too short (Length: 4-21 characters)';
+		return 'invalidUsernameLength';
 	}
 	const usernameRegex = /^[a-zA-Z0-9_\-.ÄÖäöÅåßÜü]{4,21}$/;
 	if (!usernameRegex.test(trimmedInput)) {
-		return 'Invalid username';
+		return 'invalidUsername';
 	}
 	return undefined;
 };
 
 export const validatePassword = (input: string) => {
 	if (input.length < 8 || input.length > 42) {
-		return 'Length: 8-42 characters';
+		return 'passwordLength';
 	}
 	const passwordRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,42})/;
 	if (!passwordRegex.test(input)) {
-		return 'Check the input';
+		return 'invalidPassword';
 	}
 	return undefined;
 };
@@ -27,7 +28,7 @@ export const validateEmail = (input: string) => {
 	const emailRegex =
 		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	if (!emailRegex.test(trimmedInput)) {
-		return 'Incorrect email format';
+		return 'invalidEmail';
 	}
 	return undefined;
 };
@@ -36,7 +37,7 @@ export const validateFirstname = (input: string) => {
 	let trimmedInput = input.trim();
 	const nameRegex = /^[a-zA-Z'\-ÄÖäöÅåßÜü\s]{1,21}$/;
 	if (!nameRegex.test(trimmedInput)) {
-		return 'Incorrect field';
+		return 'incorrectField';
 	}
 	return undefined;
 };
@@ -45,7 +46,7 @@ export const validateLastname = (input: string) => {
 	let trimmedInput = input.trim();
 	const nameRegex = /^[a-zA-Z'\-ÄÖäöÅåßÜü\s]{1,41}$/;
 	if (!nameRegex.test(trimmedInput)) {
-		return 'Incorrect field';
+		return 'incorrectField';
 	}
 	return undefined;
 };
