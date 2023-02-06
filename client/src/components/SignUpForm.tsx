@@ -15,7 +15,8 @@ import { LightTooltip } from './Tooltip';
 import OrDivider from './OrDivider';
 import { Auth42, AuthGH } from './AuthButtons';
 import Text from './Text';
-// import userService from './services/users';
+import signUpService from '../services/signup';
+import { useStateValue } from '../state';
 
 const SignUpForm = () => {
 	const firstname = useField('text', <Text tid='textFieldFirstName' />, validateFirstname);
@@ -26,22 +27,24 @@ const SignUpForm = () => {
 
 	const [showPassword, setShow] = useState(false);
 
+	const [{ userLanguage }] = useStateValue();
+
 	const alert = useContext(AlertContext);
 	const navigate = useNavigate();
 
-	// const addNewUser = async (newUser: NewUser) => {
-	// 	try {
-	// 		const addedUser = await userService.create(newUser);
-	// 		alert.success(
-	// 			`User ${addedUser.username} is created! Activation link is sent to email.`
-	// 		);
-	// 		navigate('/login');
-	// 	} catch (err) {
-	// 		alert.error(
-	// 			err.response?.data?.error || 'Unable to add a user. Please try again.'
-	// 		);
-	// 	}
-	// };
+	const addNewUser = async (newUser: NewUser) => {
+		try {
+			const addedUser = await signUpService.create(newUser);
+			alert.success(
+				`User ${addedUser.username} is created! Activation link is sent to email.`
+			);
+			navigate('/login');
+		} catch (err) {
+			alert.error(
+				err.response?.data?.error || 'Unable to add a user. Please try again.'
+			);
+		}
+	};
 
 	const submitNewUser = (event: any) => {
 		event.preventDefault();
@@ -50,10 +53,11 @@ const SignUpForm = () => {
 			email: email.value,
 			passwordPlain: password.value,
 			firstname: firstname.value,
-			lastname: lastname.value
+			lastname: lastname.value,
+			language: userLanguage
 		};
 		console.log(newUser);
-		// addNewUser(newUser);
+		addNewUser(newUser);
 	};
 
 	return (
