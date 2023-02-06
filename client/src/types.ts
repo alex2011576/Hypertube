@@ -38,4 +38,11 @@ export type UserData = {
 	language: string | undefined;
 };
 
+export type NewUserData = {
+	username: string;
+	firstname: string;
+	lastname: string;
+	language: string | undefined;
+}
+
 export type LanguageOption = 'enUS' | 'ruRU' | 'seSWE';
