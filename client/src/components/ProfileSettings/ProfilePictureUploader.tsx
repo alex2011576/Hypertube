@@ -11,7 +11,7 @@ import { Fragment, useCallback, useContext, useEffect, useRef, useState } from '
 import { PhotoType } from '../../types';
 //import { useStateValue } from '../../state';
 import { AlertContext } from '../AlertProvider';
-// import profileService from '../../services/profile';
+//import profileService from '../../services/profile';
 //import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Text from '../Text';
 
@@ -22,6 +22,7 @@ const ProfilePictureUploader: React.FC<{
 }> = ({ photo, image, setImage }) => {
 	const [imageIndex, setImageIndex] = useState<number>(-1);
 	//const [{ loggedUser }] = useStateValue();
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const { success: successCallback, error: errorCallback } = useContext(AlertContext);
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -70,14 +71,7 @@ const ProfilePictureUploader: React.FC<{
 									<br />
 								</strong>
 							</Typography>
-							{'(Jpeg, jpg or png'}
-							<br />
-							{'Minimum 450 x 450 pixels'}
-							<br />
-							{'Maximum 6000x4000 pixels'}
-							<br />
-							{'Max 25Mb)'}
-							{/* <Text tid='profileImageTypography' /> */}
+							<Text tid='profileImageTypography' />
 						</Fragment>
 					}
 				>
