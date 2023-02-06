@@ -53,12 +53,12 @@ const ProfileEditor = () => {
 		[loggedUser]
 	);
 
-	// if (profileError || photosError)
-	// 	return (
-	// 		<Alert severity="error">
-	// 			Error loading account settings page, please try again...
-	// 		</Alert>
-	// 	);
+	if (profileError || photosError)
+		return (
+			<Alert severity="error">
+				Error loading account settings page, please try again...
+			</Alert>
+		);
 
 	// if (!profileData || !photosData) return <LoadingIcon />;
 

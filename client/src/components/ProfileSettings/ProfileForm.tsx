@@ -45,7 +45,6 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 	const updateUserData = async (newUserData: NewUserData) => {
 		try {
 			loggedUser && (await profileService.updateProfile(loggedUser.id, newUserData));
-			loggedUser && (await profileService.uploadPhoto(loggedUser.id, image)); // <<- this will be inside update profile!
 			successCallback(`Profile settings were updated!.`);
 		} catch (err) {
 			errorCallback(
@@ -57,11 +56,12 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 
 	const handleUserDataUpdate = (event: any) => {
 		event.preventDefault();
-		const newUserData: UserData = {
+		const newUserData: NewUserData = {
 			username: username.value,
 			firstname: firstname.value,
 			lastname: lastname.value,
-			language: language.value
+			language: language.value,
+			photo: image
 		};
 		updateUserData(newUserData);
 	};
