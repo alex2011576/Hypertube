@@ -1,6 +1,6 @@
 import { State, themeWithLocale } from './state';
 import { dictionaryList } from '../languages';
-import { LoggedUser } from '../types';
+import { LoggedUser, LanguageOption } from '../types';
 
 export type Action =
 	| {
@@ -9,7 +9,7 @@ export type Action =
 	  }
 	| {
 			type: 'SET_USER_LANGUAGE';
-			payload: string;
+			payload: LanguageOption;
 	  };
 
 export const setLoggedUser = (loggedUser: LoggedUser | undefined): Action => {
@@ -19,7 +19,7 @@ export const setLoggedUser = (loggedUser: LoggedUser | undefined): Action => {
 	};
 };
 
-export const setUserLanguage = (userLanguage: string): Action => {
+export const setUserLanguage = (userLanguage: LanguageOption): Action => {
 	return {
 		type: 'SET_USER_LANGUAGE',
 		payload: userLanguage

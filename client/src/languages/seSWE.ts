@@ -7,7 +7,8 @@ export const seSWE = {
 	textFieldEmail: 'E-post',
 	textFieldFirstName: 'Förnamn',
 	textFieldLastName: 'Efternamn',
-	passwordTooltip: 'Lösenordet ska vara minst 8 tecken lång, innehålla minst en stor och liten bokstav, siffror och symboler',
+	passwordTooltip:
+		'Lösenordet ska vara minst 8 tecken lång, innehålla minst en stor och liten bokstav, siffror och symboler',
 
 	// Checkbox
 	showPassword: 'Visa lösenord',
@@ -19,7 +20,7 @@ export const seSWE = {
 	buttonLogin: 'LOGGA IN',
 	newToLink: 'Ny på Hypertube?',
 	signupNow: 'Bli medlem nu!',
-	logInWith42 : 'Logga in med 42',
+	logInWith42: 'Logga in med 42',
 	logInWithGithub: 'Logga in med Github',
 
 	// Signup Form
@@ -30,7 +31,8 @@ export const seSWE = {
 	signupLogin: 'Logga in',
 
 	// Forgot Password Form
-	forgotPasswordInfoText: 'Ange din e-postadress så skickar vi dig en länk för att återställa ditt lösenord.',
+	forgotPasswordInfoText:
+		'Ange din e-postadress så skickar vi dig en länk för att återställa ditt lösenord.',
 	forgotPasswordButton: 'SKICKA',
 	forgotPasswordBackLogin: 'Tillbaka till inloggning',
 	forgotPasswordSignup: 'Bli medlem',
@@ -47,5 +49,5 @@ export const seSWE = {
 	passwordLength: 'längd: 8-42 tecken',
 	invalidPassword: 'Kontrollera lösenordet',
 	invalidEmail: 'Ogiltigt e-postformat',
-	incorrectField: 'Ogiltigt fält',
+	incorrectField: 'Ogiltigt fält'
 };
