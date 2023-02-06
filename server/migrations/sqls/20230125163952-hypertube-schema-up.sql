@@ -42,3 +42,22 @@ $$;
 CREATE TRIGGER expire_table_delete_old_rows_trigger
     BEFORE INSERT ON states_expire_table
     EXECUTE PROCEDURE expire_table_delete_old_rows();
+
+create table password_reset_requests
+(
+	token uuid default gen_random_uuid() primary key,
+	user_id bigserial not null,
+	expires_at timestamptz not null default now() + time '06:00'
+);
+
+create index password_reset_requests_user_id on password_reset_requests (user_id);
+
+create table update_email_requests
+(
+	token uuid default gen_random_uuid() primary key,
+	user_id bigserial not null,
+	email varchar not null,
+	expires_at timestamptz not null default now() + time '06:00'
+);
+
+create index update_email_requests_user_id on update_email_requests (user_id);
