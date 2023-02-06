@@ -30,22 +30,23 @@ export const ruRU = {
 	signupLogin: 'Войти',
 
 	// Forgot Password Form
-	forgotPasswordInfoText: 'Введите свой имейл адрес и мы отправим Вам ссылку для восстановления пароля.',
+	forgotPasswordInfoText:
+		'Введите свой имейл адрес и мы отправим Вам ссылку для восстановления пароля.',
 	forgotPasswordButton: 'ОТПРАВИТЬ',
 	forgotPasswordBackLogin: 'Обратно к логину',
 	forgotPasswordSignup: 'Регистрауция',
-	passwordResetSignup: "Нет аккаута? Зарегистрироваться",
+	passwordResetSignup: 'Нет аккаута? Зарегистрироваться',
 	passwordResetSubmitButton: 'ОК',
 
 	// Navbar
 	navbarLogin: 'ВХОД',
 	navbarSignup: 'РЕГИСТРАЦИЯ',
 
-		// Validations
+	// Validations
 	invalidUsernameLength: 'Длина 4-21 символов',
 	invalidUsername: 'Неверный формат',
 	passwordLength: 'Длина 8-42 символа',
 	invalidPassword: 'Неверный формат',
 	invalidEmail: 'Неверный формат',
-	incorrectField: 'Неверный формат',
+	incorrectField: 'Неверный формат'
 };

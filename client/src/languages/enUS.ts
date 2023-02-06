@@ -7,7 +7,8 @@ export const enUS = {
 	textFieldEmail: 'Email',
 	textFieldFirstName: 'First Name',
 	textFieldLastName: 'Last Name',
-	passwordTooltip: 'Password should be at least 8 characters long, contain at least one uppercase and lowercase letter, number and symbols',
+	passwordTooltip:
+		'Password should be at least 8 characters long, contain at least one uppercase and lowercase letter, number and symbols',
 
 	// Checkbox
 	showPassword: 'Show password',
@@ -30,7 +31,8 @@ export const enUS = {
 	signupLogin: 'Log in',
 
 	// Forgot Password Form
-	forgotPasswordInfoText: 'Enter your email address and we\'ll send you a link to reset your password.',
+	forgotPasswordInfoText:
+		"Enter your email address and we'll send you a link to reset your password.",
 	forgotPasswordButton: 'SEND',
 	forgotPasswordBackLogin: 'Back to sign in ',
 	forgotPasswordSignup: 'Sign Up',
@@ -47,5 +49,5 @@ export const enUS = {
 	passwordLength: 'Length: 8-42 characters',
 	invalidPassword: 'Check the input',
 	invalidEmail: 'Incorrect email format',
-	incorrectField: 'Incorrect field',
-}
+	incorrectField: 'Incorrect field'
+};

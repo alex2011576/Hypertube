@@ -1,29 +1,33 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 //prettier-ignore
 import { Box, Button, TextField, FormControlLabel, Checkbox, Grid, Container, Link, Typography } from '@mui/material';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-
-//prettier-ignore
-import { validateEmail, validateFirstname, validateLastname, validatePassword, validateUsername, validateSignUpForm } from '../utils/inputValidators';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AlertContext } from './AlertProvider';
 import { useField } from '../hooks/useField';
-import { NewUser } from '../types';
-import { LightTooltip } from './Tooltip';
-import OrDivider from './OrDivider';
-import { Auth42, AuthGH } from './AuthButtons';
-import Text from './Text';
-import signUpService from '../services/signup';
 import { useStateValue } from '../state';
+import { NewUser } from '../types';
+import signUpService from '../services/signup';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import { Auth42, AuthGH } from './AuthButtons';
+import { LightTooltip } from './Tooltip';
+import { AlertContext } from './AlertProvider';
+import OrDivider from './OrDivider';
+import Text from './Text';
+import {
+	validateEmail,
+	validateFirstname,
+	validateLastname,
+	validatePassword,
+	validateUsername,
+	validateSignUpForm
+} from '../utils/inputValidators';
 
 const SignUpForm = () => {
-	const firstname = useField('text', <Text tid='textFieldFirstName' />, validateFirstname);
-	const lastname = useField('text', <Text tid='textFieldLastName' />, validateLastname);
-	const username = useField('text', <Text tid='textFieldUsername' />, validateUsername);
-	const email = useField('text', <Text tid='textFieldEmail' />, validateEmail);
-	const password = useField('text', <Text tid='textFieldPassword' />, validatePassword);
+	const firstname = useField('text', <Text tid="textFieldFirstName" />, validateFirstname);
+	const lastname = useField('text', <Text tid="textFieldLastName" />, validateLastname);
+	const username = useField('text', <Text tid="textFieldUsername" />, validateUsername);
+	const email = useField('text', <Text tid="textFieldEmail" />, validateEmail);
+	const password = useField('text', <Text tid="textFieldPassword" />, validatePassword);
 
 	const [showPassword, setShow] = useState(false);
 
@@ -115,7 +119,7 @@ const SignUpForm = () => {
 							/>
 						</Grid>
 						<Grid item xs={12}>
-							<LightTooltip title={<Text tid='passwordTooltip'/>}>
+							<LightTooltip title={<Text tid="passwordTooltip" />}>
 								<TextField
 									{...password}
 									size="small"
@@ -130,7 +134,7 @@ const SignUpForm = () => {
 							<FormControlLabel
 								label={
 									<Box component="div" fontSize={'0.9rem'}>
-										<Text tid='showPassword' />
+										<Text tid="showPassword" />
 									</Box>
 								}
 								control={
@@ -154,7 +158,7 @@ const SignUpForm = () => {
 						lastname.value
 					) ? (
 						<Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }}>
-							<Text tid='signupButton' />
+							<Text tid="signupButton" />
 						</Button>
 					) : (
 						<Button
@@ -163,7 +167,7 @@ const SignUpForm = () => {
 							variant="contained"
 							sx={{ mt: 2, mb: 2 }}
 						>
-							<Text tid='signupButton' />
+							<Text tid="signupButton" />
 						</Button>
 					)}
 					<OrDivider />
@@ -175,8 +179,8 @@ const SignUpForm = () => {
 							mt: '20px'
 						}}
 					>
-						<Auth42/>
-						<AuthGH/>
+						<Auth42 />
+						<AuthGH />
 					</Box>
 					<Box
 						sx={{
@@ -187,10 +191,10 @@ const SignUpForm = () => {
 						}}
 					>
 						<Typography mr={1} variant="body2">
-							<Text tid='signupAlready' />{' '}
+							<Text tid="signupAlready" />{' '}
 						</Typography>
 						<Link href="/login" variant="body2">
-						<Text tid='signupLogin' />
+							<Text tid="signupLogin" />
 						</Link>
 					</Box>
 				</Box>
