@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useModal = (children: JSX.Element, title: string) => {
+const useModal = (children: JSX.Element, title: JSX.Element) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	function handleToggle() {

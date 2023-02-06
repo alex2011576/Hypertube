@@ -27,10 +27,18 @@ export enum AlertStatus {
 	Error = 'ERROR'
 }
 
-export interface ImageType {
-	dataURL: string;
-}
-
-export type Images = {
-	images: ImageType[];
+export type PhotoType = {
+	imageDataUrl: string | undefined;
 };
+
+export type UserData = {
+	username: string;
+	firstname: string;
+	lastname: string;
+	language: string | undefined;
+};
+
+export enum LanguageOptions {
+	ENGLISH = 'enUS',
+	RUSSIAN = 'ruRU'
+}

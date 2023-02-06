@@ -14,14 +14,15 @@ import { NewUser } from '../types';
 import { LightTooltip } from './Tooltip';
 import OrDivider from './OrDivider';
 import { Auth42, AuthGH } from './AuthButtons';
+import Text from './Text';
 // import userService from './services/users';
 
 const SignUpForm = () => {
-	const firstname = useField('text', 'First Name', validateFirstname);
-	const lastname = useField('text', 'Last Name', validateLastname);
-	const username = useField('text', 'Username', validateUsername);
-	const email = useField('text', 'Email', validateEmail);
-	const password = useField('text', 'Password', validatePassword);
+	const firstname = useField('text', <Text tid='textFieldFirstName' />, validateFirstname);
+	const lastname = useField('text', <Text tid='textFieldLastName' />, validateLastname);
+	const username = useField('text', <Text tid='textFieldUsername' />, validateUsername);
+	const email = useField('text', <Text tid='textFieldEmail' />, validateEmail);
+	const password = useField('text', <Text tid='textFieldPassword' />, validatePassword);
 
 	const [showPassword, setShow] = useState(false);
 
@@ -110,7 +111,7 @@ const SignUpForm = () => {
 							/>
 						</Grid>
 						<Grid item xs={12}>
-							<LightTooltip title="Password should be at least 8 characters long, contain at least one uppercase and lowercase letter, number and symbols">
+							<LightTooltip title={<Text tid='passwordTooltip'/>}>
 								<TextField
 									{...password}
 									size="small"
@@ -125,7 +126,7 @@ const SignUpForm = () => {
 							<FormControlLabel
 								label={
 									<Box component="div" fontSize={'0.9rem'}>
-										Show password
+										<Text tid='showPassword' />
 									</Box>
 								}
 								control={
@@ -149,7 +150,7 @@ const SignUpForm = () => {
 						lastname.value
 					) ? (
 						<Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }}>
-							SIGN UP
+							<Text tid='signupButton' />
 						</Button>
 					) : (
 						<Button
@@ -158,7 +159,7 @@ const SignUpForm = () => {
 							variant="contained"
 							sx={{ mt: 2, mb: 2 }}
 						>
-							SIGN UP
+							<Text tid='signupButton' />
 						</Button>
 					)}
 					<OrDivider />
@@ -182,10 +183,10 @@ const SignUpForm = () => {
 						}}
 					>
 						<Typography mr={1} variant="body2">
-							Already a member?{' '}
+							<Text tid='signupAlready' />{' '}
 						</Typography>
 						<Link href="/login" variant="body2">
-							Log in
+						<Text tid='signupLogin' />
 						</Link>
 					</Box>
 				</Box>
