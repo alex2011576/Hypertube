@@ -21,6 +21,7 @@ export const ruRU = {
 	newToLink: 'Здесь впервые?',
 	signupNow: 'Зарегистрируйся!',
 	logInWith42: 'Войти с 42',
+	logInWithGithub: 'Войти с Github',
 
 	// Signup Form
 	titleSignup: 'РЕГИСТРАЦИЯ',
