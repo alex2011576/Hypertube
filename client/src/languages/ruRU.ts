@@ -39,5 +39,13 @@ export const ruRU = {
 
 	// Navbar
 	navbarLogin: 'ВХОД',
-	navbarSignup: 'РЕГИСТРАЦИЯ'
+	navbarSignup: 'РЕГИСТРАЦИЯ',
+
+		// Validations
+	invalidUsernameLength: 'Длина 4-21 символов',
+	invalidUsername: 'Неверный формат',
+	passwordLength: 'Длина 8-42 символа',
+	invalidPassword: 'Неверный формат',
+	invalidEmail: 'Неверный формат',
+	incorrectField: 'Неверный формат',
 };
