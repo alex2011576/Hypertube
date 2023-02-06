@@ -1,42 +1,43 @@
 export const ruRU = {
-	"main": "Главная страница",
+	main: 'Главная страница',
 
 	// Text Fields
-	textFieldUsername: "Username",
-	textFieldPassword: "Password",
-	textFieldEmail: "Email",
-	textFieldFirstName: "First Name",
-	textFieldLastName: "Last Name",
-	passwordTooltip: "Password should be at least 8 characters long, contain at least one uppercase and lowercase letter, number and symbols",
+	textFieldUsername: 'Имя пользователя',
+	textFieldPassword: 'Пароль',
+	textFieldEmail: 'Имейл адрес',
+	textFieldFirstName: 'Имя',
+	textFieldLastName: 'Фамилия',
+	passwordTooltip:
+		'Длина пароля минимум 8 символов, должен содержать одну заглавную и одну строчную букву, цифру и символ.',
 
 	// Checkbox
-	showPassword: "Show password",
+	showPassword: 'Показать пароль',
 
 	// Login Form
-	orDivider: "OR",
-	titleLogin: "LOG IN",
-	troubleLoggingIn: "Forgot password?",
-	buttonLogin: "LOG IN",
-	newToLink: "New to Hypertube?",
-	signupNow: "Sign up now!",
-	logInWith42: "Log in with 42",
+	orDivider: 'ИЛИ',
+	titleLogin: 'ЛОГИН',
+	troubleLoggingIn: 'Не помнишь пароль?',
+	buttonLogin: 'ВОЙТИ',
+	newToLink: 'Здесь впервые?',
+	signupNow: 'Зарегистрируйся!',
+	logInWith42: 'Войти с 42',
 
 	// Signup Form
-	titleSignup: "SIGN UP",
-	titleResetPassword: "RESET PASSWORD",
-	signupButton: "SIGN UP",
-	signupAlready: "Already a member?",
-	signupLogin: "Log in",
+	titleSignup: 'РЕГИСТРАЦИЯ',
+	titleResetPassword: 'ВОССТАНОВИТЬ ПАРОЛЬ',
+	signupButton: 'ЗАРЕГИСТРИРОВАТЬСЯ',
+	signupAlready: 'Уже есть учетная запись?',
+	signupLogin: 'Войти',
 
 	// Forgot Password Form
-	forgotPasswordInfoText: "Enter your email address and we'll send you a link to reset your password.",
-	forgotPasswordButton: "SEND",
-	forgotPasswordBackLogin: "Back to sign in ",
-	forgotPasswordSignup: "Sign Up",
-	passwordResetSignup: "Don't have an account? Sign Up",
-	passwordResetSubmitButton: "SUBMIT",
+	forgotPasswordInfoText: 'Введите свой имейл адрес и мы отправим Вам ссылку для восстановления пароля.',
+	forgotPasswordButton: 'ОТПРАВИТЬ',
+	forgotPasswordBackLogin: 'Обратно к логину',
+	forgotPasswordSignup: 'Регистрауция',
+	passwordResetSignup: "Нет аккаута? Зарегистрироваться",
+	passwordResetSubmitButton: 'ОК',
 
 	// Navbar
-	navbarLogin: "LOGIN",
-	navbarSignup: "SIGN UP",
-}
+	navbarLogin: 'ВХОД',
+	navbarSignup: 'РЕГИСТРАЦИЯ'
+};
