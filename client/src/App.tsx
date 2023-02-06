@@ -16,6 +16,7 @@ import Footer from './components/Footer';
 import Main from './components/Main';
 import useModal from './hooks/useModal';
 import Text from './components/Text';
+import PublicProfile from './components/PublicProfile';
 
 const StyledBox = styled(Box)`
 	text-align: center;
@@ -115,8 +116,8 @@ const App = () => {
 								/>
 								<Route path="/profile" element={<ProfileSettings />} />
 
+								<Route path="/profile/:id" element={<PublicProfile />} />
 								{/* <Route path="/profile" element={<ProfileEditor />} />
-							<Route path="/profile/:id" element={<PublicProfilePage />} />
 							<Route path="/update_email" element={<UpdateEmail />} /> */}
 								<Route path="*" element={<Navigate to="/" replace />} />
 							</Routes>

@@ -47,3 +47,11 @@ export type NewUserData = {
 };
 
 export type LanguageOption = 'enUS' | 'ruRU' | 'seSWE';
+
+export type ProfilePublic = {
+	id: string;
+	username: string;
+	firstname: string;
+	lastname: string;
+	language: LanguageOption;
+};

@@ -1,39 +1,71 @@
 import express from 'express';
-import passport from 'passport';
+// import passport from 'passport';
 import { addSession } from '../repositories/sessionRepository';
-import { User } from '../types';
+// import { User } from '../types';
 import asyncHandler from 'express-async-handler';
 import { addState, isAuthState } from '../repositories/stateRepository';
 import { Auth42, AuthGitHub } from '../services/auth';
+import { findUserByUsername } from '../repositories/userRepository';
+import { parseUsername, validatePassword } from '../validators/userPayloadValidators';
+import bcrypt from 'bcrypt';
 
 const router = express.Router();
 
-router.post('/', (req, res, next) => {
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-	passport.authenticate('local', { session: false }, (err, user: User, info) => {
-		if (err) {
-			console.log(err);
-			return next(err.message as string);
+// router.post('/', (req, res, next) => {
+// 	// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+// 	passport.authenticate('local', { session: false }, (err, user: User, info) => {
+// 		if (err) {
+// 			console.log(err);
+// 			return next(err.message as string);
+// 		}
+// 		if (info) {
+// 			console.log(info);
+// 			return res.status(401).json({ error: info.message as string });
+// 		}
+// 		void addSession({ userId: user.id, username: user.username, email: user.email })
+// 			.then((session) => res.status(200).send({ token: session.sessionId, username: user?.username, id: user?.id }))
+// 			.catch((e) => {
+// 				console.log(e);
+// 				next(e);
+// 			});
+// 	})(req, res, next);
+// });
+router.post(
+	'/',
+	asyncHandler(async (req, res) => {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+		const { username, password } = req.body;
+
+		const parsedUsername = parseUsername(username);
+		const parsedPassword = validatePassword(password);
+
+		const user = await findUserByUsername(parsedUsername);
+		if (!user) {
+			res.status(401).json({ error: 'User not found' });
+			return;
 		}
-		if (info) {
-			console.log(info);
-			res.status(401).json({ error: info.message as string });
+
+		const passwordCorrect = await bcrypt.compare(parsedPassword, user.passwordHash);
+		if (!passwordCorrect) {
+			res.status(401).json({ error: 'Wrong password' });
+			return;
 		}
-		void addSession({ userId: user.id, username: user.username, email: user.email })
-			.then((session) => res.status(200).send({ token: session.sessionId, username: user?.username, id: user?.id }))
-			.catch((e) => {
-				console.log(e);
-				next(e);
-			});
-	})(req, res, next);
-	// passport.authenticate('local', { session: false },
-	// asyncHandler(async (req, res) => {
-	// 	const user = req.user as User;
-	// 	console.log(user);
-	// 	const session = await addSession({ userId: user.id, username: user.username, email: user.email });
-	// 	res.status(200).send({ token: session.sessionId, username: user?.username, id: user?.id});
-	// })
-});
+
+		if (!user.isActive) {
+			res.status(401).json({ error: 'Account is not active' });
+			return;
+		}
+
+		// if (user.reportsCount > 10) {
+		// 	res.status(401).json({ error: 'Account is blocked due to too many reports. We are sorry.' });
+		// 	return;
+		// }
+
+		const session = await addSession({ userId: user.id, username: user.username, email: user.email });
+		res.status(200).send({ token: session.sessionId, username: user?.username, id: user?.id });
+	})
+);
+
 
 router.get(
 	'/42',
@@ -90,30 +122,5 @@ router.get(
 		return;
 	})
 );
-
-// // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-// router.get('/42', passport.authenticate('oauth2'));
-
-// // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-// router.get('/42/callback', passport.authenticate('oauth2', {
-// 	session: false,
-// 	successRedirect: '/',
-// 	failureRedirect: '/login'
-// }));
-
-// router.get(
-// 	'/42',
-// 	asyncHandler(async (_req, res) => {
-// 		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-// 		const fortytwo_response = await axios.post(`https://api.intra.42.fr/oauth/authorize`, {
-// 			client_id: process.env.FORTYTWO_CLIENT_ID,
-// 			client_secret: process.env.FORTYTWO_CLIENT_SECRET,
-// 			code: 'code',
-// 			redirect_uri: `${process.env.REACT_APP_BACKEND_URL}/api/login/42/callback`
-// 		});
-// 		// console.log(fortytwo_response);
-// 		res.status(200).send(fortytwo_response.data);
-// 	})
-// );
 
 export default router;

@@ -2,7 +2,7 @@ import { LanguageOption } from '../types';
 
 const isLanguageOption = (languageOption: any): languageOption is LanguageOption => {
 	return (
-		languageOption === 'esUS' || languageOption === 'ruRU' || languageOption === 'seSWE'
+		languageOption === 'enUS' || languageOption === 'ruRU' || languageOption === 'seSWE'
 	);
 };
 
