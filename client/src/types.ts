@@ -38,7 +38,16 @@ export type UserData = {
 	language: string | undefined;
 };
 
+export type NewUserData = {
+	username: string;
+	firstname: string;
+	lastname: string;
+	language: string | undefined;
+}
+
+
 export enum LanguageOptions {
 	ENGLISH = 'enUS',
-	RUSSIAN = 'ruRU'
+	RUSSIAN = 'ruRU',
+	SWEDISH = 'svSE'
 }
