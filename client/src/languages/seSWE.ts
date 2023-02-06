@@ -39,12 +39,33 @@ export const seSWE = {
 	passwordResetSignup: 'Har du inget konto? Bli medlem',
 	passwordResetSubmitButton: 'SPARA',
 
+	// Profile Form
+	titleProfile: 'KONTOINSTÄLLNINGAR',
+	profileButtonUpdate: 'SPARA ÄNDRINGAR',
+	profileUpdateToolTip: 'Fyll i alla obligatoriska fält',
+	profileRequiredField: 'Obligatoriskt fält',
+	profileImageUpload: 'Klicka för att ladda upp ny bild.',
+	profileImageTypography:
+		'(Jpeg, jpg or png, Minimum 450 x 450 pixels, Maximum 6000x4000 pixels, Max 25Mb)',
+	profileButtonChangeEmail: 'ÄNDRA E-POST',
+	profileButtonChangePassword: 'ÄNDRA LÖSENORD',
+	profielButtonCancel: 'AVBRYT',
+	profielButtonSend: 'SKICKA',
+	profileEmailTitle: 'Ändra e-post',
+	profileEmailInfoText:
+		'Aktiveringslänk kommer att skickas till den angivna e-postadressen. Följ länken från vårt meddelande för att ange din nya e-postadress.',
+	profilePasswordTitle: 'Ändra lösenord',
+	profilePasswordInfoText:
+		'Vänligen ange ditt nuvarande lösenord för att säkert ändra det.',
+	textFieldCurrentPassword: 'Nuvarande lösenord',
+	textFieldNewPassword: 'Ny lösenord',
+
 	// Navbar
 	navbarLogin: 'Logga in',
 	navbarSignup: 'Bli medlem',
 
 	// Validations
-	invalidUsernameLength: 'För kort (längd: 4-21 tecken)',
+	invalidUsernameLength: 'Ogiltigt längd, 4-21 tecken',
 	invalidUsername: 'Ogiltigt användarnamn',
 	passwordLength: 'längd: 8-42 tecken',
 	invalidPassword: 'Kontrollera lösenordet',
