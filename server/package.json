@@ -8,6 +8,7 @@
 		"dev": "NODE_ENV=development ts-node-dev src/index.ts",
 		"test": "NODE_ENV=test jest --verbose --runInBand --forceExit",
 		"migration:create": "db-migrate create new-schema",
+		"migration:update": "db-migrate down && db-migrate up",
 		"migrate-up": "db-migrate up",
 		"migrate-up:test": "db-migrate up -e test",
 		"migrate-up:production": "db-migrate up -e production",
