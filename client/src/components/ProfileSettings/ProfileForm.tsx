@@ -4,9 +4,9 @@ import { validateUsername, validateFirstname, validateLastname, validateProfileF
 // prettier-ignore
 import { Button, Box, TextField, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { useControlledField } from '../../hooks/useControlledField';
-import { PhotoType, UserData } from '../../types';
-// import profileService from '../../services/profile';
-// import { useStateValue } from '../../state';
+import { PhotoType, UserData, NewUserData } from '../../types';
+import profileService from '../../services/profile';
+import { useStateValue } from '../../state';
 // import { AlertContext } from '../AlertProvider';
 import { useToggleButton } from '../../hooks/useToggleButton';
 import { LightTooltip } from '../Tooltip';
@@ -18,7 +18,7 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 	userData,
 	photo
 }) => {
-	// const [{ loggedUser }] = useStateValue();
+	const [{ loggedUser }] = useStateValue();
 	// const { success: successCallback, error: errorCallback } = useContext(AlertContext);
 	const [image, setImage] = useState<PhotoType | undefined>(photo);
 
@@ -42,18 +42,18 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 	);
 	const language = useToggleButton(userData.language);
 
-	// const updateUserData = async (newUserData: NewUserData) => {
-	// 	try {
-	// 		loggedUser && (await profileService.updateProfile(loggedUser.id, newUserData));
-	// 		loggedUser && (await profileService.uploadPhoto(loggedUser.id, image)); <<- this will be inside update profile!
-	// 		successCallback(`Profile settings were updated!.`);
-	// 	} catch (err) {
-	// 		errorCallback(
-	// 			err.response?.data?.error ||
-	// 				'Unable to update profile settings. Please try again.'
-	// 		);
-	// 	}
-	// };
+	const updateUserData = async (newUserData: NewUserData) => {
+		try {
+			loggedUser && (await profileService.updateProfile(loggedUser.id, newUserData));
+			loggedUser && (await profileService.uploadPhoto(loggedUser.id, image)); // <<- this will be inside update profile!
+			//successCallback(`Profile settings were updated!.`);
+		} catch (err) {
+			// errorCallback(
+			// 	err.response?.data?.error ||
+			// 		'Unable to update profile settings. Please try again.'
+			// );
+		}
+	};
 
 	const handleUserDataUpdate = (event: any) => {
 		event.preventDefault();
@@ -63,7 +63,7 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 			lastname: lastname.value,
 			language: language.value
 		};
-		// updateUserData(newUserData);
+		updateUserData(newUserData);
 	};
 
 	return (
