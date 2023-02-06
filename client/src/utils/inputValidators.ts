@@ -1,4 +1,3 @@
-
 export const validateUsername = (input: string) => {
 	let trimmedInput = input.trim();
 

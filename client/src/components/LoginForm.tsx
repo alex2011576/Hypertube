@@ -1,25 +1,26 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 //prettier-ignore
 import { Box, Button, TextField, Checkbox, Grid, FormControlLabel, Container, Link, Typography } from '@mui/material';
-//prettier-ignore
-import { validatePassword, validateUsername, validateLoginForm } from '../utils/inputValidators';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { setLoggedUser, StateContext } from '../state';
 import { AlertContext } from './AlertProvider';
 import { useField } from '../hooks/useField';
-import { apiBaseUrl } from '../constants';
-//import userService from '../services/users';
-import loginService from '../services/login';
-import OrDivider from './OrDivider';
+import { Auth42, AuthGH } from './AuthButtons';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import { Auth42, AuthGH } from './AuthButtons';
+import signUpService from '../services/signup';
+import loginService from '../services/login';
+import OrDivider from './OrDivider';
 import Text from './Text';
+import {
+	validatePassword,
+	validateUsername,
+	validateLoginForm
+} from '../utils/inputValidators';
 
 const LoginForm = () => {
-	const username = useField('text', <Text tid='textFieldUsername' />, validateUsername);
-	const password = useField('text', <Text tid='textFieldPassword' />, validatePassword);
+	const username = useField('text', <Text tid="textFieldUsername" />, validateUsername);
+	const password = useField('text', <Text tid="textFieldPassword" />, validatePassword);
 
 	const [showPassword, setShow] = useState(false);
 
@@ -27,29 +28,29 @@ const LoginForm = () => {
 
 	const [, dispatch] = useContext(StateContext);
 
-	//const [searchParams] = useSearchParams();
-	//const activationCode = searchParams.get('activate');
+	const [searchParams] = useSearchParams();
+	const activationCode = searchParams.get('activate');
 	const alert = useContext(AlertContext);
 
-	// useEffect(() => {
-	// 	const activateAccount = async () => {
-	// 		if (activationCode) {
-	// 			try {
-	// 				await userService.activate(activationCode);
-	// 				navigate('/login');
-	// 				alert.success('Account activated successfully!');
-	// 			} catch (err) {
-	// 				alert.error(
-	// 					err.response?.data?.error ||
-	// 					'Unable to activate account. Please try again.'
-	// 				);
-	// 				navigate('/login');
-	// 			}
-	// 		}
-	// 	};
-	// 	activateAccount();
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, []);
+	useEffect(() => {
+		const activateAccount = async () => {
+			if (activationCode) {
+				try {
+					await signUpService.activate(activationCode);
+					navigate('/login');
+					alert.success('Account activated successfully!');
+				} catch (err) {
+					alert.error(
+						err.response?.data?.error ||
+							'Unable to activate account. Please try again.'
+					);
+					navigate('/login');
+				}
+			}
+		};
+		activateAccount();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const handleLogin = async (event: any) => {
 		event.preventDefault();
@@ -116,7 +117,7 @@ const LoginForm = () => {
 							<FormControlLabel
 								label={
 									<Box component="div" fontSize={'0.9rem'}>
-										<Text tid='showPassword' />
+										<Text tid="showPassword" />
 									</Box>
 								}
 								control={
@@ -142,13 +143,13 @@ const LoginForm = () => {
 									textAlign: 'right'
 								}}
 							>
-								<Text tid='troubleLoggingIn' />
+								<Text tid="troubleLoggingIn" />
 							</Link>
 						</Grid>
 					</Box>
 					{validateLoginForm(username.value, password.value) ? (
 						<Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }}>
-							<Text tid='buttonLogin' />
+							<Text tid="buttonLogin" />
 						</Button>
 					) : (
 						<Button
@@ -157,7 +158,7 @@ const LoginForm = () => {
 							variant="contained"
 							sx={{ mt: 2, mb: 2 }}
 						>
-							<Text tid='buttonLogin' />
+							<Text tid="buttonLogin" />
 						</Button>
 					)}
 					<OrDivider />
@@ -169,8 +170,8 @@ const LoginForm = () => {
 							mt: '20px'
 						}}
 					>
-						<Auth42/>
-						<AuthGH/>
+						<Auth42 />
+						<AuthGH />
 					</Box>
 					<Box
 						sx={{
@@ -181,10 +182,10 @@ const LoginForm = () => {
 						}}
 					>
 						<Typography mr={1} variant="body2">
-							<Text tid='newToLink' />{' '}
+							<Text tid="newToLink" />{' '}
 						</Typography>
 						<Link href="/signup" variant="body2">
-							<Text tid='signupNow' />
+							<Text tid="signupNow" />
 						</Link>
 					</Box>
 				</Box>

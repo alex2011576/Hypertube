@@ -42,7 +42,7 @@ const CustomModal = ({
 }: {
 	isOpen: boolean;
 	handleToggle: () => void;
-	title: JSX.Element;
+	title: JSX.Element | string;
 	children: any;
 }) => {
 	const theme = useTheme();
