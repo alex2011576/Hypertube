@@ -12,6 +12,7 @@ export const ruRU = {
 
 	// Checkbox
 	showPassword: 'Показать пароль',
+	showPasswords: 'Show passwords',
 
 	// Login Form
 	orDivider: 'ИЛИ',
@@ -46,7 +47,7 @@ export const ruRU = {
 	profileRequiredField: 'Required field',
 	profileImageUpload: 'Click to upload new image.',
 	profileImageTypography:
-		'(Jpeg, jpg or png, Minimum 450 x 450 pixels, Maximum 6000x4000 pixels, Max 25Mb)',
+		'(Jpeg, jpg or png\nMinimum 450 x 450 pixels\nMaximum 6000x4000 pixels\nMax 25Mb)',
 	profileButtonChangeEmail: 'CHANGE EMAIL',
 	profileButtonChangePassword: 'CHANGE PASSWORD',
 	profielButtonCancel: 'CANCEL',
@@ -63,6 +64,8 @@ export const ruRU = {
 	// Navbar
 	navbarLogin: 'ВХОД',
 	navbarSignup: 'РЕГИСТРАЦИЯ',
+	navbarLogout: 'LOGOUT',
+	navbarProfile: 'PROFILE',
 
 	// Validations
 	invalidUsernameLength: 'Длина 4-21 символов',
@@ -71,4 +74,6 @@ export const ruRU = {
 	invalidPassword: 'Неверный формат',
 	invalidEmail: 'Неверный формат',
 	incorrectField: 'Неверный формат'
+
+	// Backend Errors
 };
