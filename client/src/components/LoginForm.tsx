@@ -8,7 +8,7 @@ import { useField } from '../hooks/useField';
 import { Auth42, AuthGH } from './AuthButtons';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import signUpService from '../services/signup';
+import userService from '../services/users';
 import loginService from '../services/login';
 import OrDivider from './OrDivider';
 import Text from './Text';
@@ -36,7 +36,7 @@ const LoginForm = () => {
 		const activateAccount = async () => {
 			if (activationCode) {
 				try {
-					await signUpService.activate(activationCode);
+					await userService.activate(activationCode);
 					navigate('/login');
 					alert.success('Account activated successfully!');
 				} catch (err) {

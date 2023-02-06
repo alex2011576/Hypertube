@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useField } from '../hooks/useField';
 import { useStateValue } from '../state';
 import { NewUser } from '../types';
-import signUpService from '../services/signup';
+import userService from '../services/users';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { Auth42, AuthGH } from './AuthButtons';
@@ -38,7 +38,7 @@ const SignUpForm = () => {
 
 	const addNewUser = async (newUser: NewUser) => {
 		try {
-			const addedUser = await signUpService.create(newUser);
+			const addedUser = await userService.create(newUser);
 			alert.success(
 				`User ${addedUser.username} is created! Activation link is sent to email.`
 			);
