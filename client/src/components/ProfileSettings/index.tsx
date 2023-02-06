@@ -60,17 +60,13 @@ const ProfileEditor = () => {
 			</Alert>
 		);
 
-	// if (!profileData || !photosData) return <LoadingIcon />;
+	if (!profileData || !photosData) return <>loading</>;
 
 	const userData: UserData = {
-		// username: profileData.username,
-		// firstname: profileData.firstname,
-		// lastname: profileData.lastname,
-		// language: profileData.language
-		username: 'tempinput',
-		firstname: 'fetcheddatahere',
-		lastname: 'shouldntbeempty',
-		language: 'ruRU'
+		username: profileData.username,
+		firstname: profileData.firstname,
+		lastname: profileData.lastname,
+		language: profileData.language
 	};
 
 	return (
