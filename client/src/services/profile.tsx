@@ -9,7 +9,7 @@ export const getProfile = async (userId: string) => {
 		const config = {
 			headers: { Authorization: getAuthHeader() }
 		};
-		const response = await axios.get(`${apiBaseUrl}/profile/${userId}`, config);
+		const response = await axios.get(`${apiBaseUrl}/users/${userId}`, config);
 		return response.data;
 	} catch (err) {
 		handleAxiosError(err);
@@ -21,20 +21,19 @@ export const getPhoto = async (userId: string) => {
 		const config = {
 			headers: { Authorization: getAuthHeader() }
 		};
-		const response = await axios.get(`${apiBaseUrl}/profile/${userId}/photo`, config);
+		const response = await axios.get(`${apiBaseUrl}/users/${userId}/photo`, config);
 		return response.data;
 	} catch (err) {
 		handleAxiosError(err);
 	}
 };
 
-const updateProfile = async (userId: string, newUserData: NewUserData ) => {
+const updateProfile = async (userId: string, newUserData: NewUserData) => {
 	try {
 		const config = {
 			headers: { Authorization: getAuthHeader() }
 		};
-		const response = await axios.put(`${apiBaseUrl}/profile/${userId}`, newUserData , config);
-		// Update User? or just return response.data?
+		const response = await axios.put(`${apiBaseUrl}/users/${userId}`, newUserData , config);
 		return response.data;
 	} catch (err) {
 		handleAxiosError(err);
@@ -47,7 +46,7 @@ const uploadPhoto = async (userId: string, images: PhotoType | undefined) => {
 		const config = {
 			headers: { Authorization: getAuthHeader() }
 		};
-		await axios.post(`${apiBaseUrl}/profile/${userId}/photo`, images, config);
+		await axios.post(`${apiBaseUrl}/users/${userId}/photo`, images, config);
 	} catch (err) {
 		handleAxiosError(err);
 	}
@@ -58,7 +57,7 @@ const requestUpdateEmail = async ({ userId, email }: { userId: string; email: st
 		const config = {
 			headers: { Authorization: getAuthHeader() }
 		};
-		await axios.post(`${apiBaseUrl}/profile/${userId}/update_email`, { email }, config);
+		await axios.post(`${apiBaseUrl}/users/${userId}/update_email`, { email }, config);
 	} catch (err) {
 		handleAxiosError(err);
 	}
@@ -78,7 +77,7 @@ const updatePassword = async ({
 			headers: { Authorization: getAuthHeader() }
 		};
 		await axios.put(
-			`${apiBaseUrl}/profile/${userId}/password/`,
+			`${apiBaseUrl}/users/${userId}/password/`,
 			{ oldPassword, password },
 			config
 		);
