@@ -43,6 +43,7 @@ export type NewUserData = {
 	firstname: string;
 	lastname: string;
 	language: string | undefined;
+	photo: PhotoType | undefined;
 };
 
 export type LanguageOption = 'enUS' | 'ruRU' | 'seSWE';
