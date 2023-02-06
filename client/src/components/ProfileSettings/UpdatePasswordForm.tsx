@@ -7,7 +7,7 @@ import { useContext, useState } from 'react';
 import { useFieldWithReset } from '../../hooks/useField';
 import { AlertContext } from '../AlertProvider';
 import { useStateValue } from '../../state';
-// import profileService from '../../services/profile';
+import profileService from '../../services/profile';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
@@ -28,8 +28,8 @@ const UpdatePasswordForm = () => {
 		'New Password',
 		validatePassword
 	);
-	// const { success: successCallback, error: errorCallback } = useContext(AlertContext);
-	// const [{ loggedUser }] = useStateValue();
+	const { success: successCallback, error: errorCallback } = useContext(AlertContext);
+	const [{ loggedUser }] = useStateValue();
 	const [showPasswords, setShowPasswords] = useState(false);
 	const [open, setOpen] = useState(false);
 
@@ -41,34 +41,34 @@ const UpdatePasswordForm = () => {
 		pwdReset();
 	};
 
-	// const requestUpdatePassword = async ({
-	// 	id,
-	// 	oldPassword,
-	// 	password
-	// }: {
-	// 	id: string;
-	// 	oldPassword: string;
-	// 	password: string;
-	// }) => {
-	// 	try {
-	// 		await profileService.updatePassword({ id, oldPassword, password });
-	// 		successCallback(`Password was changed successfully.`);
-	// 	} catch (err) {
-	// 		errorCallback(
-	// 			err.response?.data?.error ||
-	// 				'Unable to update password address. Please try again.'
-	// 		);
-	// 	}
-	// };
+	const requestUpdatePassword = async ({
+		userId,
+		oldPassword,
+		password
+	}: {
+		userId: string;
+		oldPassword: string;
+		password: string;
+	}) => {
+		try {
+			await profileService.updatePassword({ userId, oldPassword, password });
+			successCallback(`Password was changed successfully.`);
+		} catch (err) {
+			errorCallback(
+				err.response?.data?.error ||
+					'Unable to update password address. Please try again.'
+			);
+		}
+	};
 
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
-		// if (loggedUser)
-		// 	requestUpdatePassword({
-		// 		id: loggedUser?.id,
-		// 		oldPassword: oldPassword.value,
-		// 		password: password.value
-		// 	});
+		if (loggedUser)
+			requestUpdatePassword({
+				userId: loggedUser?.id,
+				oldPassword: oldPassword.value,
+				password: password.value
+			});
 		handleClose();
 	};
 

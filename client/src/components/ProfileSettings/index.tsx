@@ -10,6 +10,7 @@ import UpdateEmailForm from './UpdateEmailForm';
 import UpdatePasswordForm from './UpdatePasswordForm';
 import ProfilePictureUploader from './ProfilePictureUploader';
 import { getProfile, getPhoto } from '../../services/profile';
+import Text from '../Text';
 
 
 const StyledButtons = styled('div')(() => ({
@@ -77,7 +78,7 @@ const ProfileEditor = () => {
 			<Container maxWidth={'sm'} sx={{ mt: 4, mb: 8 }}>
 				<Paper>
 					<StyledHeader variant="h6" color="primary">
-						PROFILE SETTINGS
+						<Text tid='titleProfile' />
 					</StyledHeader>
 					<Divider />
 					<StyledWrapper>
