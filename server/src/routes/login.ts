@@ -66,7 +66,6 @@ router.post(
 	})
 );
 
-
 router.get(
 	'/42',
 	asyncHandler(async (_req, res) => {

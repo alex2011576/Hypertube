@@ -2,7 +2,8 @@ import supertest from 'supertest';
 import { app } from '../app';
 import { describe, expect } from '@jest/globals';
 import { clearUsers, findUserByUsername, setUserAsActive } from '../repositories/userRepository';
-import { createNewUser } from '../services/users';'./test_helper';
+import { createNewUser } from '../services/users';
+('./test_helper');
 import { newUser } from './test_helper_users';
 
 const api = supertest(app);

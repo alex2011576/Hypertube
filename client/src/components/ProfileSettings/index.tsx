@@ -78,7 +78,7 @@ const ProfileEditor = () => {
 					</StyledHeader>
 					<Divider />
 					<StyledWrapper>
-						<ProfileForm userData={userData} photo={undefined} />
+						<ProfileForm userData={userData} photo={photosData} />
 					</StyledWrapper>
 				</Paper>
 				<Paper sx={{ marginTop: 5 }}>

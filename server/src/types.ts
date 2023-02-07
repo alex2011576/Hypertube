@@ -10,12 +10,12 @@ export type BaseUser = {
 export type UserCompletness = { complete: boolean };
 
 export type NewUser = BaseUser & { passwordPlain: string };
-export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string;};
+export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string };
 
-export type User42 = BaseUser & {id42: number; };
-export type New42UserWithHashedPwd = BaseUser & { passwordHash: string; id42: number; activationCode: string; };
-export type UserGitHub = BaseUser & {idGitHub: number; avatar: string | undefined | null;};
-export type NewGHUserWithHashedPwd = BaseUser & { passwordHash: string; idGitHub: number; activationCode: string; };
+export type User42 = BaseUser & { id42: number; avatar: string | undefined };
+export type New42UserWithHashedPwd = BaseUser & { passwordHash: string; id42: number; activationCode: string; avatar: string | undefined | null };
+export type UserGitHub = BaseUser & { idGitHub: number; avatar: string | undefined | null };
+export type NewGHUserWithHashedPwd = BaseUser & { passwordHash: string; idGitHub: number; activationCode: string; avatar: string | undefined | null };
 
 export type LoggedUser = BaseUser & { id: string };
 
@@ -33,12 +33,21 @@ export type User = BaseUser & {
 	activationCode: string;
 };
 
+export interface UserData {
+	id: string;
+	username: string;
+	firstname: string;
+	lastname: string;
+	language: string;
+}
+
 export interface UserData42 {
 	id: number;
 	login: string;
 	first_name: string;
 	last_name: string;
 	email: string;
+	image: { link: string | undefined };
 }
 export interface UserDataGH {
 	id: number;
@@ -47,8 +56,33 @@ export interface UserDataGH {
 	avatar_url: string | undefined | null;
 }
 
+export type UserProfile = {
+	username: string;
+	firstname: string;
+	lastname: string;
+	language: string;
+	photo: PhotoType | undefined;
+};
+
+// export type UpdateUserProfile = {
+// 	username: string;
+// 	firstname: string;
+// 	lastname: string;
+// 	language: string;
+// };
+
+export type PhotoType = {
+	imageDataUrl: string | undefined;
+};
+
+export type Photo = {
+	imageType: string;
+	dataBase64: string;
+};
+export type LanguageOption = 'enUS' | 'ruRU' | 'seSWE';
+
 export type Session = NewSessionUser & { sessionId: string; expiresAt: Date };
-export type AuthState = {state: string; createdAt: Date};
+export type AuthState = { state: string; createdAt: Date };
 
 export interface CustomRequest extends Request {
 	sessionId?: string;
