@@ -1,20 +1,16 @@
-import { findUserByUsername } from "../repositories/userRepository";
-import { BaseUser } from "../types";
+import Jimp from 'jimp';
+import { findUserByUsername } from '../repositories/userRepository';
+import { BaseUser } from '../types';
 
 export const adjustUsername = async (user: BaseUser) => {
-    let oldUserSameUsername = await findUserByUsername(user.username);
-        
-        if (oldUserSameUsername && oldUserSameUsername.email !== user.email) {
-            while (oldUserSameUsername) {
-                user.username +=
-                    String(
-                        Math.floor(
-                            Math.random() * (100000 - 111) + 111
-                        )
-                    );
-                oldUserSameUsername = await findUserByUsername(user.username);
-            }
-        }
+	let oldUserSameUsername = await findUserByUsername(user.username);
+
+	if (oldUserSameUsername && oldUserSameUsername.email !== user.email) {
+		while (oldUserSameUsername) {
+			user.username += String(Math.floor(Math.random() * (100000 - 111) + 111));
+			oldUserSameUsername = await findUserByUsername(user.username);
+		}
+	}
 };
 
 export const findDuplicates = (arr: string[]) => {
@@ -39,4 +35,14 @@ export const getAge = (dateString: string): number => {
 
 export const assertNever = (value: string): never => {
 	throw new Error(`Unhandled discriminated union member: ${value}`);
+};
+
+export const imgUrlToBase64 = async (url: string | undefined | null) => {
+	if (!url) return undefined;
+	const jimpInstance = await Jimp.read(url);
+	try {
+		return await jimpInstance.getBase64Async(jimpInstance.getMIME());
+	} catch {
+		return undefined;
+	}
 };
