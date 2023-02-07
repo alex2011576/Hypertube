@@ -10,12 +10,12 @@ export type BaseUser = {
 export type UserCompletness = { complete: boolean };
 
 export type NewUser = BaseUser & { passwordPlain: string };
-export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string;};
+export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string };
 
-export type User42 = BaseUser & {id42: number; avatar: string | undefined; };
-export type New42UserWithHashedPwd = BaseUser & { passwordHash: string; id42: number; activationCode: string; avatar: string | undefined | null;};
-export type UserGitHub = BaseUser & {idGitHub: number; avatar: string | undefined | null;};
-export type NewGHUserWithHashedPwd = BaseUser & { passwordHash: string; idGitHub: number; activationCode: string; avatar: string | undefined | null; };
+export type User42 = BaseUser & { id42: number; avatar: string | undefined };
+export type New42UserWithHashedPwd = BaseUser & { passwordHash: string; id42: number; activationCode: string; avatar: string | undefined | null };
+export type UserGitHub = BaseUser & { idGitHub: number; avatar: string | undefined | null };
+export type NewGHUserWithHashedPwd = BaseUser & { passwordHash: string; idGitHub: number; activationCode: string; avatar: string | undefined | null };
 
 export type LoggedUser = BaseUser & { id: string };
 
@@ -47,7 +47,7 @@ export interface UserData42 {
 	first_name: string;
 	last_name: string;
 	email: string;
-	image: {link: string | undefined}; 
+	image: { link: string | undefined };
 }
 export interface UserDataGH {
 	id: number;
@@ -82,7 +82,7 @@ export type Photo = {
 export type LanguageOption = 'enUS' | 'ruRU' | 'seSWE';
 
 export type Session = NewSessionUser & { sessionId: string; expiresAt: Date };
-export type AuthState = {state: string; createdAt: Date};
+export type AuthState = { state: string; createdAt: Date };
 
 export interface CustomRequest extends Request {
 	sessionId?: string;

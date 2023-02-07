@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 //prettier-ignore
 import { User, NewUserWithHashedPwd, New42UserWithHashedPwd, NewGHUserWithHashedPwd, UserData, UserProfile } from '../types';
-import { getString, getDate, getBoolean, getStringOrUndefined} from '../dbUtils';
+import { getString, getDate, getBoolean, getStringOrUndefined } from '../dbUtils';
 import { ValidationError } from '../errors';
 import pool from '../db';
 
@@ -17,10 +17,9 @@ const userMapper = (row: any): User => {
 		lastname: getString(row['lastname']),
 		createdAt: getDate(row['created_at']),
 		isActive: getBoolean(row['is_active']),
-		activationCode: getString(row['activation_code']),
+		activationCode: getString(row['activation_code'])
 	};
 };
-//id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const userDataMapper = (row: any): UserData => {
 	return {
@@ -28,7 +27,7 @@ const userDataMapper = (row: any): UserData => {
 		username: getString(row['username']),
 		firstname: getString(row['firstname']),
 		lastname: getString(row['lastname']),
-		language: getString(row['language']),	
+		language: getString(row['language'])
 	};
 };
 
@@ -40,7 +39,7 @@ const getAllUsers = async (): Promise<User[]> => {
 
 const getIdList = async (): Promise<{ id: string }[]> => {
 	const res = await pool.query('select id from users');
-	return res.rows as { id: string; }[];
+	return res.rows as { id: string }[];
 };
 
 const getPasswordHash = async (userId: string): Promise<string> => {
@@ -75,7 +74,17 @@ const addNewUser = async (newUser: NewUserWithHashedPwd): Promise<User> => {
 const addNew42User = async (newUser: New42UserWithHashedPwd): Promise<User> => {
 	const query = {
 		text: 'insert into users(username, email, password_hash, firstname, lastname, activation_code, is_active, id_42, avatar) values($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *',
-		values: [newUser.username, newUser.email, newUser.passwordHash, newUser.firstname, newUser.lastname, newUser.activationCode, true, newUser.id42, newUser.avatar]
+		values: [
+			newUser.username,
+			newUser.email,
+			newUser.passwordHash,
+			newUser.firstname,
+			newUser.lastname,
+			newUser.activationCode,
+			true,
+			newUser.id42,
+			newUser.avatar
+		]
 	};
 
 	let res;
@@ -99,7 +108,17 @@ const addNew42User = async (newUser: New42UserWithHashedPwd): Promise<User> => {
 const addNewGHUser = async (newUser: NewGHUserWithHashedPwd): Promise<User> => {
 	const query = {
 		text: 'insert into users(username, email, password_hash, firstname, lastname, activation_code, is_active, id_git_hub, avatar) values($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *',
-		values: [newUser.username, newUser.email, newUser.passwordHash, newUser.firstname, newUser.lastname, newUser.activationCode, true, newUser.idGitHub, newUser.avatar]
+		values: [
+			newUser.username,
+			newUser.email,
+			newUser.passwordHash,
+			newUser.firstname,
+			newUser.lastname,
+			newUser.activationCode,
+			true,
+			newUser.idGitHub,
+			newUser.avatar
+		]
 	};
 
 	let res;
@@ -119,7 +138,6 @@ const addNewGHUser = async (newUser: NewGHUserWithHashedPwd): Promise<User> => {
 
 	return userMapper(res.rows[0]);
 };
-
 
 const findUserByUsername = async (username: string): Promise<User | undefined> => {
 	const query = {
@@ -155,7 +173,6 @@ const findUserByGHid = async (idGitHub: number): Promise<User | undefined> => {
 	}
 	return userMapper(res.rows[0]);
 };
-
 
 const isUserById = async (id: string): Promise<boolean> => {
 	const query = {
@@ -246,7 +263,7 @@ const clearUsers = async (): Promise<void> => {
 	await pool.query('truncate table users');
 };
 
-const getUserByUserId = async (userId: string): Promise<User| undefined> => {
+const getUserByUserId = async (userId: string): Promise<User | undefined> => {
 	const query = {
 		text: 'select id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code from users where id = $1',
 		values: [userId]
@@ -257,7 +274,6 @@ const getUserByUserId = async (userId: string): Promise<User| undefined> => {
 	}
 	return userMapper(res.rows[0]);
 };
-
 
 const findUsernameById = async (userId: string): Promise<string | undefined> => {
 	const query = {
@@ -314,12 +330,11 @@ const updateUserDataByUserId = async (userId: string, updatedProfile: UserProfil
 			updatedProfile.lastname,
 			updatedProfile.username,
 			updatedProfile.language,
-			updatedProfile.photo?.imageDataUrl,
+			updatedProfile.photo?.imageDataUrl
 		]
 	};
 	await pool.query(query);
 };
-
 
 export {
 	getAllUsers,
