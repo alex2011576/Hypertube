@@ -33,4 +33,10 @@ const isStringRepresentedInteger = (string: unknown): string is string => {
 	return true;
 };
 
-export { isString, isNumber, isNumberOrUndefined, isDate, isStringArray, isStringRepresentedInteger };
+const isPhotoObject = (photo: unknown): photo is { imageDataUrl: string } => {
+	if (photo && typeof photo === 'object' && 'imageDataUrl' in photo) {
+		return true;
+	}
+	return false;
+};
+export { isString, isNumber, isNumberOrUndefined, isDate, isStringArray, isStringRepresentedInteger, isLanguageOption, isPhotoObject };
