@@ -23,6 +23,7 @@ export type NewSessionUser = {
 	userId: string;
 	username: string;
 	email: string;
+	language: string;
 };
 
 export type User = BaseUser & {
@@ -31,6 +32,7 @@ export type User = BaseUser & {
 	createdAt: Date;
 	isActive: boolean;
 	activationCode: string;
+	language: string;
 };
 
 export interface UserData {

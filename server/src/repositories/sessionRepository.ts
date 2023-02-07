@@ -9,14 +9,15 @@ const sessionMapper = (row: any): Session => {
 		userId: getString(row['user_id']),
 		username: getString(row['username']),
 		email: getString(row['email']),
-		expiresAt: getDate(row['expires_at'])
+		expiresAt: getDate(row['expires_at']),
+		language: getString(row['language'])
 	};
 };
 
 const addSession = async (newSessionUser: NewSessionUser): Promise<Session> => {
 	const query = {
-		text: 'insert into user_sessions(user_id, username, email) values($1, $2, $3) returning *',
-		values: [newSessionUser.userId, newSessionUser.username, newSessionUser.email]
+		text: 'insert into user_sessions(user_id, username, email, language) values($1, $2, $3, $4) returning *',
+		values: [newSessionUser.userId, newSessionUser.username, newSessionUser.email, newSessionUser.language]
 	};
 
 	const res = await pool.query(query);
