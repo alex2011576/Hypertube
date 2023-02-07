@@ -61,11 +61,10 @@ router.post(
 		// 	return;
 		// }
 
-		const session = await addSession({ userId: user.id, username: user.username, email: user.email });
-		res.status(200).send({ token: session.sessionId, username: user?.username, id: user?.id });
+		const session = await addSession({ userId: user.id, username: user.username, email: user.email, language: user.language  });
+		res.status(200).send({ token: session.sessionId, username: session.username, id: session.userId, language: session.language });
 	})
 );
-
 
 router.get(
 	'/42',

@@ -59,7 +59,6 @@ export const loginAndPrepareUser = async (user: NewUser, credentials: Credential
 };
 
 export const prepareTestUser = async (loginData: TokenAndId, profileData: object) => {
-
 	await api
 		.put(`/api/users/${loginData.id}/profile`)
 		.set({ Authorization: `bearer ${loginData.token}` })
@@ -72,7 +71,6 @@ export const prepareTestUser = async (loginData: TokenAndId, profileData: object
 		.send({ images: [{ dataURL: DataURL }] })
 		.expect(200);
 };
-
 
 // export const userBlocksAnotherUser = async (userToBlock: TokenAndId, userThatBlocks: TokenAndId) => {
 // 	await api

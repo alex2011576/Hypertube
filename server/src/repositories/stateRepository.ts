@@ -13,7 +13,7 @@ const stateMapper = (row: any): AuthState => {
 const addState = async (): Promise<AuthState> => {
 	const query = {
 		text: 'INSERT INTO states_expire_table DEFAULT VALUES returning *',
-        values:[]
+		values: []
 	};
 
 	const res = await pool.query(query);
@@ -28,12 +28,12 @@ const isAuthState = async (state: string): Promise<boolean> => {
 
 	const res = await pool.query(selectQuery);
 
-    const deleteQuery = {
-        text: 'delete from states_expire_table where state = $1',
+	const deleteQuery = {
+		text: 'delete from states_expire_table where state = $1',
 		values: [state]
-    };
+	};
 
-    await pool.query(deleteQuery);
+	await pool.query(deleteQuery);
 
 	if (!res.rowCount) {
 		return false;
@@ -41,4 +41,4 @@ const isAuthState = async (state: string): Promise<boolean> => {
 	return true;
 };
 
-export { addState, isAuthState};
+export { addState, isAuthState };

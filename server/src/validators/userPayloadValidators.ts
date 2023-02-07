@@ -1,7 +1,8 @@
-import { NewUser } from '../types';
-import { isDate, isString, isStringArray, isStringRepresentedInteger } from './basicTypeValidators';
+import { LanguageOption, NewUser, UserProfile } from '../types';
+import { isDate, isLanguageOption, isString, isStringArray, isStringRepresentedInteger } from './basicTypeValidators';
 import { ValidationError } from '../errors';
 import { getAge } from '../utils/helpers';
+import { parseImage } from './imgValidators';
 
 const usernameRegex = /^[a-zA-Z0-9_\-.ÄÖäöÅåßÜü]{4,21}$/;
 const emailRegex =
@@ -141,7 +142,6 @@ export const parseNewUserPayload = ({ username, email, passwordPlain, firstname,
 	return newUser;
 };
 
-
 export const parseBirthday = (date: unknown): Date => {
 	if (!date) {
 		throw new ValidationError('Missing birthay date');
@@ -191,4 +191,28 @@ export const parseIdList = (idList: unknown): string[] => {
 		if (!isStringRepresentedInteger(id)) throw new ValidationError('Wrong user id format');
 	});
 	return idList;
+};
+
+export const parseLanguageOption = (languageOption: unknown): LanguageOption => {
+	if (isLanguageOption(languageOption)) return languageOption;
+	return 'enUS';
+};
+
+type Fields1 = {
+	username: unknown;
+	firstname: unknown;
+	lastname: unknown;
+	language: unknown;
+	photo: unknown;
+};
+
+export const parseUserProfilePayload = async ({ firstname, lastname, username, language, photo }: Fields1): Promise<UserProfile> => {
+	const updatedUser: UserProfile = {
+		username: parseUsername(username),
+		firstname: parseFirstname(firstname),
+		lastname: parseLastname(lastname),
+		language: parseLanguageOption(language),
+		photo: await parseImage(photo)
+	};
+	return updatedUser;
 };
