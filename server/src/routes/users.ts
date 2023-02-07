@@ -1,6 +1,6 @@
 import express from 'express';
 //prettier-ignore
-import { parseEmail, parseNewUserPayload, validateEmailToken, validatePassword, validateToken } from '../validators/userPayloadValidators';
+import { parseEmail, parseNewUserPayload, parseUserProfilePayload, validateEmailToken, validatePassword, validateToken } from '../validators/userPayloadValidators';
 import asyncHandler from 'express-async-handler';
 //prettier-ignore
 import { activateAccount, changeForgottenPassword, changeUserEmail, createNewUser, sendActivationCode, sendResetLink, sendUpdateEmailLink, updatePassword } from '../services/users';
@@ -9,6 +9,7 @@ import { findPasswordResetRequestByToken } from '../repositories/passwordResetRe
 import { sessionExtractor } from '../utils/middleware';
 import { CustomRequest } from '../types';
 import { findUpdateEmailRequestByToken } from '../repositories/updateEmailRequestRepository';
+import { getUserAvatarByUserId, getUserDataByUserId, updateUserDataByUserId } from '../repositories/userRepository';
 
 const router = express.Router();
 
@@ -76,6 +77,7 @@ router.post(
 	})
 );
 
+//request email update
 router.post(
 	'/:id/update_email',
 	sessionExtractor,
@@ -96,7 +98,7 @@ router.put(
 	})
 );
 
-//also need to renew backend session and send it back to front?
+//update email
 router.put(
 	'/update_email/:token',
 	asyncHandler(async (req, res) => {
@@ -111,6 +113,7 @@ router.put(
 	})
 );
 
+//update password
 router.put(
 	'/:id/password',
 	sessionExtractor,
@@ -125,6 +128,50 @@ router.put(
 		res.status(200).end();
 	})
 );
+//get profile data
+router.get(
+	'/:id',
+	sessionExtractor,
+	asyncHandler(async (req: CustomRequest, res) => {
+		if (!req.session || !req.session.userId || req.session.userId !== req.params.id) {
+			throw new AppError(`No rights to get profile data`, 400);
+		}
+		const result = await getUserDataByUserId(req.session.userId);
+		res.status(200).json(result);
+	})
+);
+//get profile avatar
+router.get(
+	'/:id/photo',
+	sessionExtractor,
+	asyncHandler(async (req: CustomRequest, res) => {
+		if (!req.session || !req.session.userId || req.session.userId !== req.params.id) {
+			throw new AppError(`No rights to get profile data`, 400);
+		}
+		const avatarDataURL = await getUserAvatarByUserId(req.session.userId);
+		// if (!avatarDataURL) {
+		// 	res.status(200).json(undefined);
+		// 	return;
+		// }
+		res.status(200).json({ imageDataUrl: avatarDataURL });
+	})
+);
+// update profile data
+router.put(
+	'/:id',
+	sessionExtractor,
+	asyncHandler(async (req: CustomRequest, res) => {
+		if (!req.session || !req.session.userId || req.session.userId !== req.params.id) {
+			throw new AppError(`No rights to update profile data`, 400);
+		}
+		const userId = req.session.userId;
 
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+		const updatedProfile = await parseUserProfilePayload(req.body);
+
+		await updateUserDataByUserId(userId, updatedProfile);
+		res.status(200).end();
+	})
+);
 
 export default router;
