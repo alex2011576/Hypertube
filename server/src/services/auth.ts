@@ -4,7 +4,7 @@ import { AuthType, Session, User42, UserData42, UserDataGH, UserGitHub } from '.
 import { deleteUserByEmail, findUserBy42id, findUserByEmail, findUserByGHid, setUser42id, setUserGHid } from '../repositories/userRepository';
 import { addSession } from '../repositories/sessionRepository';
 import { createNew42User, createNewGHUser } from './users';
-import { adjustUsername } from '../utils/helpers';
+import { adjustUsername, imgUrlToBase64 } from '../utils/helpers';
 
 export const requestAuthToken = async (code: string, requestURI: string, redirecURI: string, clientId: string, clientSecret: string, authType: AuthType): Promise<string> => {
             try {
@@ -62,6 +62,7 @@ export const Auth42 = async (code: string) => {
         firstname: data.first_name,
         lastname: data.last_name,
         email: data.email,
+        avatar: await imgUrlToBase64(data.image.link)
     };
 
     const session = await logIn42(user42);
@@ -106,13 +107,14 @@ export const AuthGitHub = async (code: string) => {
         },
     });
     
+
     const userGH: UserGitHub = {
         idGitHub: userData.id,
         username: userData.login,
         firstname: userData.name.split(' ')[0],
         lastname: userData.name.split(' ')[1],
         email: emails[0].email,
-        avatar: userData.avatar_url
+        avatar: await imgUrlToBase64(userData.avatar_url)
     };
 
     const session = await logInGitHub(userGH);
