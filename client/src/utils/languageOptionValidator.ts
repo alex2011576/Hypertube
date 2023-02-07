@@ -6,9 +6,7 @@ const isLanguageOption = (languageOption: any): languageOption is LanguageOption
 	);
 };
 
-export const validateLanguageOption = (
-	languageOption: unknown
-): LanguageOption | undefined => {
-	if (!languageOption || typeof languageOption !== 'string') return undefined;
+export const parseLanguageOption = (languageOption: unknown): LanguageOption => {
 	if (isLanguageOption(languageOption)) return languageOption;
+	return 'enUS';
 };
