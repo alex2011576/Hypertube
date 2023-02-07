@@ -1,10 +1,10 @@
 // prettier-ignore
 import { validateUsername, validateFirstname, validateLastname, validateProfileForm } from '../../utils/inputValidators';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 // prettier-ignore
 import { Button, Box, TextField, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { useControlledField } from '../../hooks/useControlledField';
-import { PhotoType, UserData, NewUserData } from '../../types';
+import { PhotoType, UserData, NewUserData, LanguageOption } from '../../types';
 import profileService from '../../services/profile';
 import { useStateValue } from '../../state';
 import { AlertContext } from '../AlertProvider';
@@ -13,31 +13,32 @@ import { LightTooltip } from '../Tooltip';
 import { languageOptions } from '../../languages';
 import ProfilePictureUploader from './ProfilePictureUploader';
 import Text from '../Text';
+import { setUserLanguage } from '../../state';
 
 const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }> = ({
 	userData,
 	photo
 }) => {
-	const [{ loggedUser }] = useStateValue();
+	const [{ loggedUser }, dispatch] = useStateValue();
 	const { success: successCallback, error: errorCallback } = useContext(AlertContext);
 	const [image, setImage] = useState<PhotoType | undefined>(photo);
 
 	const username = useControlledField(
 		'text',
 		userData.username,
-		<Text tid='textFieldUsername' />,
+		<Text tid="textFieldUsername" />,
 		validateUsername
 	);
 	const firstname = useControlledField(
 		'text',
 		userData.firstname,
-		<Text tid='textFieldFirstName' />,
+		<Text tid="textFieldFirstName" />,
 		validateFirstname
 	);
 	const lastname = useControlledField(
 		'text',
 		userData.lastname,
-		<Text tid='textFieldLastName' />,
+		<Text tid="textFieldLastName" />,
 		validateLastname
 	);
 	const language = useToggleButton(userData.language);
@@ -65,6 +66,11 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 		};
 		updateUserData(newUserData);
 	};
+
+	useEffect(() => {
+		language.value && dispatch(setUserLanguage(language.value as LanguageOption));
+		language.value && window.localStorage.setItem('language', language.value);
+	}, [dispatch, language.value]);
 
 	return (
 		<>
@@ -115,10 +121,10 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 						fullWidth
 						sx={{ mt: 3, mb: 2 }}
 					>
-						<Text tid='profileButtonUpdate' />
+						<Text tid="profileButtonUpdate" />
 					</Button>
 				) : (
-					<LightTooltip title={<Text tid='profileUpdateToolTip' />}>
+					<LightTooltip title={<Text tid="profileUpdateToolTip" />}>
 						<span>
 							<Button
 								disabled
@@ -126,7 +132,7 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 								variant="contained"
 								sx={{ mt: 3, mb: 2 }}
 							>
-								<Text tid='profileButtonUpdate' />
+								<Text tid="profileButtonUpdate" />
 							</Button>
 						</span>
 					</LightTooltip>

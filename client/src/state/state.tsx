@@ -5,7 +5,7 @@ import { dictionaryList } from '../languages';
 import { LanguageOption, LoggedUser } from '../types';
 import { Action } from './reducer';
 import theme from '../theme';
-import { validateLanguageOption } from '../utils/languageOptionValidator';
+import { parseLanguageOption } from '../utils/languageOptionValidator';
 
 let user: LoggedUser | undefined;
 const loggedUserJSON = localStorage.getItem('loggedUser');
@@ -13,9 +13,10 @@ user = loggedUserJSON ? JSON.parse(loggedUserJSON) : undefined;
 
 let userLanguage: LanguageOption;
 const languageFromLocalStorage: string | null = localStorage.getItem('language');
-userLanguage = validateLanguageOption(languageFromLocalStorage)
-	? (languageFromLocalStorage as LanguageOption)
-	: ('enUS' as LanguageOption);
+userLanguage =
+	user && user.language
+		? parseLanguageOption(user.language)
+		: parseLanguageOption(languageFromLocalStorage);
 
 type SupportedLocales = keyof typeof locales;
 

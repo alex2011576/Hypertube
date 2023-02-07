@@ -19,6 +19,7 @@ export type LoggedUser = {
 	id: string;
 	token: string;
 	username: string;
+	language: LanguageOption;
 };
 
 export enum AlertStatus {

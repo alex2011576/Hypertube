@@ -49,6 +49,7 @@ export interface UserData42 {
 	email: string;
 	image: { link: string | undefined };
 }
+
 export interface UserDataGH {
 	id: number;
 	login: string;
