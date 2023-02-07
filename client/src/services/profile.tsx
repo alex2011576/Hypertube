@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { apiBaseUrl } from '../constants';
 import getAuthHeader from './auth';
+import { apiBaseUrl } from '../constants';
 import { handleAxiosError } from '../utils/errors';
 import { NewUserData } from '../types';
 
@@ -33,12 +33,11 @@ const updateProfile = async (userId: string, newUserData: NewUserData) => {
 		const config = {
 			headers: { Authorization: getAuthHeader() }
 		};
-		const response = await axios.put(`${apiBaseUrl}/users/${userId}`, newUserData , config);
+		const response = await axios.put(`${apiBaseUrl}/users/${userId}`, newUserData, config);
 		return response.data;
 	} catch (err) {
 		handleAxiosError(err);
 	}
-
 };
 
 const requestUpdateEmail = async ({ userId, email }: { userId: string; email: string }) => {
@@ -75,7 +74,11 @@ const updatePassword = async ({
 	}
 };
 
-
-
-const moduleExports = { getProfile, getPhoto, updateProfile, requestUpdateEmail, updatePassword };
+const moduleExports = {
+	getProfile,
+	getPhoto,
+	updateProfile,
+	requestUpdateEmail,
+	updatePassword
+};
 export default moduleExports;
