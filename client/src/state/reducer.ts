@@ -13,6 +13,7 @@ export type Action =
 	  };
 
 export const setLoggedUser = (loggedUser: LoggedUser | undefined): Action => {
+	loggedUser && localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
 	return {
 		type: 'SET_LOGGED_USER',
 		payload: loggedUser
@@ -32,18 +33,29 @@ export const reducer = (state: State, action: Action): State => {
 			if (action.payload)
 				return {
 					...state,
-					loggedUser: action.payload
+					loggedUser: action.payload,
+					dictionary: dictionaryList[action.payload.language],
+					themeWithLocale: themeWithLocale(action.payload.language)
 				};
 			else {
 				return { ...state, loggedUser: undefined };
 			}
 		case 'SET_USER_LANGUAGE':
-			return {
-				...state,
-				userLanguage: action.payload,
-				dictionary: dictionaryList[action.payload as keyof typeof dictionaryList],
-				themeWithLocale: themeWithLocale(action.payload)
-			};
+			if (action.payload) {
+				return {
+					...state,
+					userLanguage: action.payload,
+					dictionary: dictionaryList[action.payload as keyof typeof dictionaryList],
+					themeWithLocale: themeWithLocale(action.payload)
+				};
+			} else {
+				return {
+					...state,
+					userLanguage: 'enUS',
+					dictionary: dictionaryList['enUS'],
+					themeWithLocale: themeWithLocale('enUS')
+				};
+			}
 		default:
 			return state;
 	}

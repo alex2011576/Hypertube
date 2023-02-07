@@ -32,7 +32,7 @@ export type State = {
 
 const initialState: State = {
 	loggedUser: user,
-	userLanguage,
+	userLanguage: userLanguage,
 	dictionary: dictionaryList[userLanguage as keyof typeof dictionaryList],
 	themeWithLocale: themeWithLocale(userLanguage)
 };

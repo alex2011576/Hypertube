@@ -1,19 +1,18 @@
 // prettier-ignore
 import { validateUsername, validateFirstname, validateLastname, validateProfileForm } from '../../utils/inputValidators';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 // prettier-ignore
 import { Button, Box, TextField, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { useControlledField } from '../../hooks/useControlledField';
 import { PhotoType, UserData, NewUserData, LanguageOption } from '../../types';
-import profileService from '../../services/profile';
-import { useStateValue } from '../../state';
-import { AlertContext } from '../AlertProvider';
+import { useControlledField } from '../../hooks/useControlledField';
 import { useToggleButton } from '../../hooks/useToggleButton';
-import { LightTooltip } from '../Tooltip';
+import { setLoggedUser, useStateValue } from '../../state';
 import { languageOptions } from '../../languages';
+import { AlertContext } from '../AlertProvider';
+import { LightTooltip } from '../Tooltip';
 import ProfilePictureUploader from './ProfilePictureUploader';
+import profileService from '../../services/profile';
 import Text from '../Text';
-import { setUserLanguage } from '../../state';
 
 const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }> = ({
 	userData,
@@ -41,11 +40,19 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 		<Text tid="textFieldLastName" />,
 		validateLastname
 	);
-	const language = useToggleButton(userData.language);
+	const language = useToggleButton(userData.language || 'enUS');
 
 	const updateUserData = async (newUserData: NewUserData) => {
 		try {
 			loggedUser && (await profileService.updateProfile(loggedUser.id, newUserData));
+			loggedUser &&
+				dispatch(
+					setLoggedUser({
+						...loggedUser,
+						username: username.value,
+						language: language.value as LanguageOption
+					})
+				);
 			successCallback(`Profile settings were updated!.`);
 		} catch (err) {
 			errorCallback(
@@ -67,10 +74,10 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 		updateUserData(newUserData);
 	};
 
-	useEffect(() => {
-		language.value && dispatch(setUserLanguage(language.value as LanguageOption));
-		language.value && window.localStorage.setItem('language', language.value);
-	}, [dispatch, language.value]);
+	// useEffect(() => {
+	// 	language.value && dispatch(setUserLanguage(language.value as LanguageOption));
+	// 	language.value && window.localStorage.setItem('language', language.value);
+	// }, [dispatch, language.value]);
 
 	return (
 		<>
