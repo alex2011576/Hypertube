@@ -25,8 +25,8 @@ export const parseImage = async (photo: unknown): Promise<PhotoType | undefined>
 	if (width <= 0 || height <= 0) {
 		throw new ValidationError(`Invalid images format! Image is corrupted`);
 	}
-	if (width < 450 || height < 450) {
-		throw new ValidationError(`Invalid images format! Image is too small. Min 450x450 pixels`);
+	if (width < 10|| height < 10) {
+		throw new ValidationError(`Invalid images format! Image is too small. Min 10x10 pixels`);
 	}
 	if (width > 6000 || height > 4000) {
 		throw new ValidationError(`Invalid images format! Image is too big. Max 6000x4000 pixels`);
