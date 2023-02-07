@@ -21,6 +21,7 @@ create table user_sessions
 	user_id bigserial not null,
 	username varchar not null,
 	email varchar not null,
+	language varchar not null default 'enUS',
 	expires_at timestamptz not null default now() + time '24:00'
 );
 
