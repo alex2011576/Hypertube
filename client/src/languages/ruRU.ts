@@ -47,7 +47,7 @@ export const ruRU = {
 	profileRequiredField: 'Обязательное поле',
 	profileImageUpload: 'Кликни чтоб обновить фото.',
 	profileImageTypography:
-		'(Jpeg, jpg or png\Минимум 450 x 450 пикс.\nМаксимум 6000x4000 пикс.\nФайл не более 25Мб)',
+		'(Jpeg, jpg or pngМинимум 100 x 100 пикс.\nМаксимум 6000x4000 пикс.\nФайл не более 25Мб)',
 	profileButtonChangeEmail: 'ИЗМЕНИТЬ ИМЕЙЛ',
 	profileButtonChangePassword: 'ИЗМЕНИТЬ ПАРОЛЬ',
 	profielButtonCancel: 'ОТМЕНА',
@@ -56,8 +56,7 @@ export const ruRU = {
 	profileEmailInfoText:
 		'Ссылка для активации будет выслана на указанный имейл адрес. Пожалуйста пройдите по ссылке чтобы сменить имейл адрес.',
 	profilePasswordTitle: 'Изменить пароль',
-	profilePasswordInfoText:
-		'Введите текущий пароль для безопасной смены пароля.',
+	profilePasswordInfoText: 'Введите текущий пароль для безопасной смены пароля.',
 	textFieldCurrentPassword: 'Текущий пароль',
 	textFieldNewPassword: 'Новый пароль',
 
@@ -73,8 +72,7 @@ export const ruRU = {
 	passwordLength: 'Длина 8-42 символа',
 	invalidPassword: 'Неверный формат',
 	invalidEmail: 'Неверный формат',
-	incorrectField: 'Неверный формат',
-
+	incorrectField: 'Неверный формат'
 
 	// Backend Errors
 };
