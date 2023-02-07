@@ -25,9 +25,9 @@ const LoggedInUserButtons = ({ handleLogout }: { handleLogout: any }) => {
 	return (
 		<Box sx={{ pr: 0 }}>
 			<Button color="inherit" component={Link} to="/profile">
-				PROFILE
+				<Text tid='navbarProfile' />
 			</Button>
-			<Button onClick={handleLogout}>Logout </Button>
+			<Button onClick={handleLogout}><Text tid='navbarLogout' /></Button>
 		</Box>
 	);
 };

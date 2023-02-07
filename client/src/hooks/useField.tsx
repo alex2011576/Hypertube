@@ -14,8 +14,6 @@ export const useField = (
 
 	let errorMessage;
 	if (value !== '') {
-		// Testing Error message translation
-		//errorMessage = validationFn(value);
 		errorMessage = errorTranslate(validationFn(value)!);
 	}
 	
@@ -31,17 +29,18 @@ export const useField = (
 
 export const useFieldWithReset = (
 	type: string,
-	label: string,
+	label: JSX.Element,
 	validationFn: (value: string) => string | undefined
 ) => {
 	const [value, setValue] = useState('');
+	const { errorTranslate } = useErrorTranslate();
 
 	const onChange = (event: { target: { value: SetStateAction<string> } }) =>
 		setValue(event.target.value);
 
 	let errorMessage;
 	if (value !== '') {
-		errorMessage = validationFn(value);
+		errorMessage = errorTranslate(validationFn(value)!);
 	}
 
 	const reset = () => setValue('');

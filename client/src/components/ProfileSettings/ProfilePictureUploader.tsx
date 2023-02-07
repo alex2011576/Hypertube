@@ -62,14 +62,7 @@ const ProfilePictureUploader: React.FC<{
 									<br />
 								</strong>
 							</Typography>
-							{'(Jpeg, jpg or png'}
-							<br />
-							{'Minimum 450 x 450 pixels'}
-							<br />
-							{'Maximum 6000x4000 pixels'}
-							<br />
-							{'Max 25Mb)'}
-							{/* <Text tid='profileImageTypography' /> */}
+							<Text tid='profileImageTypography' />
 						</Fragment>
 					}
 				>
