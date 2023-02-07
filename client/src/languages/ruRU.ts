@@ -47,11 +47,11 @@ export const ruRU = {
 	profileRequiredField: 'Обязательное поле',
 	profileImageUpload: 'Кликни чтоб обновить фото.',
 	profileImageTypography:
-		'(Jpeg, jpg or png\nMinimum 450 x 450 pixels\nMaximum 6000x4000 pixels\nMax 25Mb)',
-	profileButtonChangeEmail: 'CHANGE EMAIL',
-	profileButtonChangePassword: 'CHANGE PASSWORD',
-	profielButtonCancel: 'CANCEL',
-	profielButtonSend: 'SEND',
+		'(Jpeg, jpg or png\Минимум 450 x 450 пикс.\nМаксимум 6000x4000 пикс.\nФайл не более 25Мб)',
+	profileButtonChangeEmail: 'ИЗМЕНИТЬ ИМЕЙЛ',
+	profileButtonChangePassword: 'ИЗМЕНИТЬ ПАРОЛЬ',
+	profielButtonCancel: 'ОТМЕНА',
+	profielButtonSend: 'ОК',
 	profileEmailTitle: 'Change email',
 	profileEmailInfoText:
 		'Ссылка для активации будет выслана на указанный имейл адрес. Пожалуйста пройдите по ссылке чтобы сменить имейл адрес.',
@@ -64,8 +64,8 @@ export const ruRU = {
 	// Navbar
 	navbarLogin: 'ВХОД',
 	navbarSignup: 'РЕГИСТРАЦИЯ',
-	navbarLogout: 'LOGOUT',
-	navbarProfile: 'PROFILE',
+	navbarLogout: 'ВЫХОД',
+	navbarProfile: 'ПРОФИЛЬ',
 
 	// Validations
 	invalidUsernameLength: 'Длина 4-21 символов',
@@ -73,7 +73,8 @@ export const ruRU = {
 	passwordLength: 'Длина 8-42 символа',
 	invalidPassword: 'Неверный формат',
 	invalidEmail: 'Неверный формат',
-	incorrectField: 'Неверный формат'
+	incorrectField: 'Неверный формат',
+
 
 	// Backend Errors
 };
