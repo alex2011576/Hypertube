@@ -1,3 +1,5 @@
+import { LanguageOption } from '../types';
+
 const isString = (text: unknown): text is string => {
 	return typeof text === 'string' || text instanceof String;
 };
@@ -31,6 +33,10 @@ const isStringRepresentedInteger = (string: unknown): string is string => {
 	if (!Number.isInteger(num)) return false;
 	if (num <= 0) return false;
 	return true;
+};
+
+const isLanguageOption = (languageOption: unknown): languageOption is LanguageOption => {
+	return languageOption === 'enUS' || languageOption === 'ruRU' || languageOption === 'seSWE';
 };
 
 const isPhotoObject = (photo: unknown): photo is { imageDataUrl: string } => {
