@@ -1,4 +1,6 @@
-export const svSE = {
+import { Dictionary } from '../types';
+
+export const svSE: Dictionary = {
 	main: 'Huvudsida',
 
 	// Text Fields

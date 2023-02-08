@@ -1,4 +1,6 @@
-export const ruRU = {
+import { Dictionary } from "../types";
+
+export const ruRU: Dictionary = {
 	main: 'Главная страница',
 
 	// Text Fields

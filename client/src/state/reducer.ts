@@ -34,28 +34,20 @@ export const reducer = (state: State, action: Action): State => {
 				return {
 					...state,
 					loggedUser: action.payload,
-					dictionary: dictionaryList[action.payload.language],
+					dictionary:
+						dictionaryList[action.payload.language],
 					themeWithLocale: themeWithLocale(action.payload.language)
 				};
 			else {
 				return { ...state, loggedUser: undefined };
 			}
 		case 'SET_USER_LANGUAGE':
-			if (action.payload) {
-				return {
-					...state,
-					userLanguage: action.payload,
-					dictionary: dictionaryList[action.payload as keyof typeof dictionaryList],
-					themeWithLocale: themeWithLocale(action.payload)
-				};
-			} else {
-				return {
-					...state,
-					userLanguage: 'enUS',
-					dictionary: dictionaryList['enUS'],
-					themeWithLocale: themeWithLocale('enUS')
-				};
-			}
+			return {
+				...state,
+				userLanguage: action.payload,
+				dictionary: dictionaryList[action.payload as keyof typeof dictionaryList],
+				themeWithLocale: themeWithLocale(action.payload)
+			};
 		default:
 			return state;
 	}

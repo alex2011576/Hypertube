@@ -1,4 +1,6 @@
-export const enUS = {
+import { Dictionary } from "../types";
+
+export const enUS: Dictionary = {
 	main: 'Main page',
 
 	// Text Fields
