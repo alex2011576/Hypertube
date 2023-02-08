@@ -62,7 +62,7 @@ export const enUS: Dictionary = {
 		'Please enter your current password in order to safely change it.',
 	textFieldCurrentPassword: 'Current Password',
 	textFieldNewPassword: 'New Password',
-
+	publicProfileHeader: 'HYPERTUBER',
 	// Navbar
 	navbarLogin: 'LOGIN',
 	navbarSignup: 'SIGN UP',

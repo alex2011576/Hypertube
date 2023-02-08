@@ -62,6 +62,9 @@ export const ruRU: Dictionary = {
 	textFieldCurrentPassword: 'Текущий пароль',
 	textFieldNewPassword: 'Новый пароль',
 
+	// Public Profile
+	publicProfileHeader: 'ПОЛЬЗОВАТЕЛЬ',
+
 	// Navbar
 	navbarLogin: 'ВХОД',
 	navbarSignup: 'РЕГИСТРАЦИЯ',

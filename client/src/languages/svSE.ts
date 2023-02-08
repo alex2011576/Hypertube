@@ -62,6 +62,9 @@ export const svSE: Dictionary = {
 	textFieldCurrentPassword: 'Nuvarande lösenord',
 	textFieldNewPassword: 'Nytt lösenord',
 
+	// Public Profile
+	publicProfileHeader: 'HYPERTUBER',
+
 	// Navbar
 	navbarLogin: 'Logga in',
 	navbarSignup: 'Bli medlem',
