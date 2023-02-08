@@ -82,5 +82,5 @@ const CallbackGithub = () => {
 	);
 };
 
-const LoginCallbacks = { Callback42, CallbackGithub }
+const LoginCallbacks = { Callback42, CallbackGithub };
 export default LoginCallbacks;

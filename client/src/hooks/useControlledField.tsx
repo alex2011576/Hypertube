@@ -15,7 +15,7 @@ export const useControlledField = (
 	};
 
 	let errorMessage;
-	if (value) errorMessage = validationFn(value);
+	if (value) errorMessage = errorTranslate(validationFn(value)!);
 	if (!value && fetchedValue) errorMessage = errorTranslate('profileRequiredField');
 
 	return {

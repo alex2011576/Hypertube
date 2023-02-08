@@ -1,4 +1,6 @@
-export const enUS = {
+import { Dictionary } from "../types";
+
+export const enUS: Dictionary = {
 	main: 'Main page',
 
 	// Text Fields
@@ -12,6 +14,7 @@ export const enUS = {
 
 	// Checkbox
 	showPassword: 'Show password',
+	showPasswords: 'Show passwords',
 
 	// Login Form
 	orDivider: 'OR',
@@ -46,7 +49,7 @@ export const enUS = {
 	profileRequiredField: 'Required field',
 	profileImageUpload: 'Click to upload new image.',
 	profileImageTypography:
-		'(Jpeg, jpg or png, Minimum 450 x 450 pixels, Maximum 6000x4000 pixels, Max 25Mb)',
+		'(Jpeg, jpg or png\nMinimum 100 x 100 pixels\nMaximum 6000x4000 pixels\nMax 25Mb)',
 	profileButtonChangeEmail: 'CHANGE EMAIL',
 	profileButtonChangePassword: 'CHANGE PASSWORD',
 	profielButtonCancel: 'CANCEL',
@@ -63,6 +66,8 @@ export const enUS = {
 	// Navbar
 	navbarLogin: 'LOGIN',
 	navbarSignup: 'SIGN UP',
+	navbarLogout: 'LOGOUT',
+	navbarProfile: 'PROFILE',
 
 	// Validations
 	invalidUsernameLength: 'Too short (Length: 4-21 characters)',
@@ -71,4 +76,6 @@ export const enUS = {
 	invalidPassword: 'Check the input',
 	invalidEmail: 'Incorrect email format',
 	incorrectField: 'Incorrect field'
+
+	// Backend Errors
 };

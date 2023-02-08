@@ -1,4 +1,6 @@
-export const seSWE = {
+import { Dictionary } from '../types';
+
+export const svSE: Dictionary = {
 	main: 'Huvudsida',
 
 	// Text Fields
@@ -12,6 +14,7 @@ export const seSWE = {
 
 	// Checkbox
 	showPassword: 'Visa lösenord',
+	showPasswords: 'Visa lösenord',
 
 	// Login Form
 	orDivider: 'ELLER',
@@ -46,7 +49,7 @@ export const seSWE = {
 	profileRequiredField: 'Obligatoriskt fält',
 	profileImageUpload: 'Klicka för att ladda upp ny bild.',
 	profileImageTypography:
-		'(Jpeg, jpg or png, Minimum 450 x 450 pixels, Maximum 6000x4000 pixels, Max 25Mb)',
+		'(Jpeg, jpg eller png\nMinimum 100 x 100 pixlar\nMaximum 6000x4000 pixlar\nMax 25Mb)',
 	profileButtonChangeEmail: 'ÄNDRA E-POST',
 	profileButtonChangePassword: 'ÄNDRA LÖSENORD',
 	profielButtonCancel: 'AVBRYT',
@@ -55,14 +58,15 @@ export const seSWE = {
 	profileEmailInfoText:
 		'Aktiveringslänk kommer att skickas till den angivna e-postadressen. Följ länken från vårt meddelande för att ange din nya e-postadress.',
 	profilePasswordTitle: 'Ändra lösenord',
-	profilePasswordInfoText:
-		'Vänligen ange ditt nuvarande lösenord för att säkert ändra det.',
+	profilePasswordInfoText: 'Vänligen ange ditt nuvarande lösenord för att säkert ändra det.',
 	textFieldCurrentPassword: 'Nuvarande lösenord',
-	textFieldNewPassword: 'Ny lösenord',
+	textFieldNewPassword: 'Nytt lösenord',
 
 	// Navbar
 	navbarLogin: 'Logga in',
 	navbarSignup: 'Bli medlem',
+	navbarLogout: 'LOGGA UT',
+	navbarProfile: 'PROFIL',
 
 	// Validations
 	invalidUsernameLength: 'Ogiltigt längd, 4-21 tecken',
@@ -71,4 +75,6 @@ export const seSWE = {
 	invalidPassword: 'Kontrollera lösenordet',
 	invalidEmail: 'Ogiltigt e-postformat',
 	incorrectField: 'Ogiltigt fält'
+
+	// Backend Errors
 };

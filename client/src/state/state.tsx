@@ -2,10 +2,10 @@ import * as locales from '@mui/material/locale';
 import { createTheme, Theme } from '@mui/material';
 import { createContext, useContext, useReducer } from 'react';
 import { dictionaryList } from '../languages';
-import { LanguageOption, LoggedUser } from '../types';
+import { Dictionary, LanguageOption, LoggedUser } from '../types';
 import { Action } from './reducer';
 import theme from '../theme';
-import { validateLanguageOption } from '../utils/languageOptionValidator';
+import { parseLanguageOption } from '../utils/languageOptionValidator';
 
 let user: LoggedUser | undefined;
 const loggedUserJSON = localStorage.getItem('loggedUser');
@@ -13,26 +13,27 @@ user = loggedUserJSON ? JSON.parse(loggedUserJSON) : undefined;
 
 let userLanguage: LanguageOption;
 const languageFromLocalStorage: string | null = localStorage.getItem('language');
-userLanguage = validateLanguageOption(languageFromLocalStorage)
-	? (languageFromLocalStorage as LanguageOption)
-	: ('enUS' as LanguageOption);
+userLanguage =
+	user && user.language
+		? parseLanguageOption(user.language)
+		: parseLanguageOption(languageFromLocalStorage);
 
 type SupportedLocales = keyof typeof locales;
-
+console.log(userLanguage);
 export const themeWithLocale = (userLanguage: LanguageOption) =>
 	createTheme(theme, locales[userLanguage as SupportedLocales]);
 
 export type State = {
 	loggedUser: LoggedUser | undefined;
 	userLanguage: LanguageOption;
-	dictionary: any; // ?? temporarily any
+	dictionary: Dictionary;
 	themeWithLocale: Theme;
 };
 
 const initialState: State = {
 	loggedUser: user,
-	userLanguage,
-	dictionary: dictionaryList[userLanguage as keyof typeof dictionaryList],
+	userLanguage: userLanguage,
+	dictionary: dictionaryList[userLanguage],
 	themeWithLocale: themeWithLocale(userLanguage)
 };
 

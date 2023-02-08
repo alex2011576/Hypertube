@@ -4,7 +4,7 @@ import { useContext, useEffect } from 'react';
 import { AlertContext } from '../AlertProvider';
 import ForgotPasswordForm from './ForgotPasswordForm';
 import ResetPasswordForm from './ResetPasswordForm';
-// import userService from '../../services/users';
+import userService from '../../services/users';
 
 const ForgotPassword = () => {
 	const [searchParams] = useSearchParams();
@@ -12,19 +12,19 @@ const ForgotPassword = () => {
 	const alert = useContext(AlertContext);
 	const navigate = useNavigate();
 
-	// useEffect(() => {
-	// 	const validateResetToken = async () => {
-	// 		if (resetToken) {
-	// 			try {
-	// 				await userService.checkResetToken(resetToken);
-	// 			} catch (err) {
-	// 				alert.error('Invalid reset link. Please try again.');
-	// 				navigate('/forgot_password');
-	// 			}
-	// 		}
-	// 	};
-	// 	validateResetToken();
-	// }, [alert, navigate, resetToken]);
+	useEffect(() => {
+		const validateResetToken = async () => {
+			if (resetToken) {
+				try {
+					await userService.checkResetToken(resetToken);
+				} catch (err) {
+					alert.error('Invalid reset link. Please try again.');
+					navigate('/forgot_password');
+				}
+			}
+		};
+		validateResetToken();
+	}, [alert, navigate, resetToken]);
 
 	return !resetToken ? <ForgotPasswordForm /> : <ResetPasswordForm token={resetToken} />;
 };

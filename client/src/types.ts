@@ -19,6 +19,7 @@ export type LoggedUser = {
 	id: string;
 	token: string;
 	username: string;
+	language: LanguageOption;
 };
 
 export enum AlertStatus {
@@ -46,7 +47,7 @@ export type NewUserData = {
 	photo: PhotoType | undefined;
 };
 
-export type LanguageOption = 'enUS' | 'ruRU' | 'seSWE';
+export type LanguageOption = 'enUS' | 'ruRU' | 'svSE';
 
 export type ProfilePublic = {
 	id: string;
@@ -54,4 +55,8 @@ export type ProfilePublic = {
 	firstname: string;
 	lastname: string;
 	language: LanguageOption;
+};
+
+export type Dictionary = {
+	[key: string]: string;
 };

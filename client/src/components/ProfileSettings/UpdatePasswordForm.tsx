@@ -10,6 +10,7 @@ import { useStateValue } from '../../state';
 import profileService from '../../services/profile';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import Text from "../Text";
 
 const dialogBtn = {
 	margin: '10px 0 5px 0',
@@ -20,12 +21,12 @@ const dialogBtn = {
 const UpdatePasswordForm = () => {
 	const { reset, ...oldPassword } = useFieldWithReset(
 		'text',
-		'Current Password',
+		<Text tid="textFieldCurrentPassword" />,
 		validatePassword
 	);
 	const { reset: pwdReset, ...password } = useFieldWithReset(
 		'text',
-		'New Password',
+		<Text tid="textFieldNewPassword" />,
 		validatePassword
 	);
 	const { success: successCallback, error: errorCallback } = useContext(AlertContext);
@@ -75,13 +76,13 @@ const UpdatePasswordForm = () => {
 	return (
 		<div>
 			<Button onClick={handleClickOpen} style={dialogBtn}>
-				Change Password
+				<Text tid="profileButtonChangePassword" />
 			</Button>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle sx={{ textAlign: 'center' }}>Change Password</DialogTitle>
 				<DialogContent>
 					<DialogContentText sx={{ textAlign: 'center', mb: '2rem' }}>
-						Please enter your current password in order to safely change it.
+						<Text tid="profilePasswordInfoText" />
 					</DialogContentText>
 					<TextField
 						{...oldPassword}
@@ -102,7 +103,7 @@ const UpdatePasswordForm = () => {
 						<FormControlLabel
 							label={
 								<Box component="div" fontSize={'0.9rem'}>
-									Show passwords
+									<Text tid="showPasswords" />
 								</Box>
 							}
 							control={
@@ -117,13 +118,13 @@ const UpdatePasswordForm = () => {
 					</Grid>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose}>Cancel</Button>
+					<Button onClick={handleClose}><Text tid="profielButtonCancel" /></Button>
 					{oldPassword.value &&
 					password.value &&
 					validateUpdatePasswordForm(oldPassword.value, password.value) ? (
-						<Button onClick={handleSubmit}>Send</Button>
+						<Button onClick={handleSubmit}><Text tid="profielButtonSend" /></Button>
 					) : (
-						<Button disabled>Send</Button>
+						<Button disabled><Text tid="profielButtonSend" /></Button>
 					)}
 				</DialogActions>
 			</Dialog>
