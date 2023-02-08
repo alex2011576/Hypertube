@@ -76,7 +76,7 @@ const PublicProfileBody = ({ id }: { id: string | undefined }) => {
 			<Typography variant="h6" mt={2}>
 				ilona {/* {profileData.firstname} */}
 				shakurova {/* {profileData.lastname} */}
-				{languageOptions.seSWE} {/* {profileData.language} */}
+				{languageOptions.svSE} {/* {profileData.language} */}
 			</Typography>
 			<StyledWrapper></StyledWrapper>
 		</StyledWrapper>
