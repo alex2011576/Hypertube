@@ -1,4 +1,4 @@
-export const seSWE = {
+export const svSE = {
 	main: 'Huvudsida',
 
 	// Text Fields

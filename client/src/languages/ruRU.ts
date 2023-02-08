@@ -47,7 +47,7 @@ export const ruRU = {
 	profileRequiredField: 'Обязательное поле',
 	profileImageUpload: 'Кликни чтоб обновить фото.',
 	profileImageTypography:
-		'(Jpeg, jpg or pngМинимум 100 x 100 пикс.\nМаксимум 6000x4000 пикс.\nФайл не более 25Мб)',
+		'(Jpeg, jpg or png\nМинимум 100 x 100 пикс.\nМаксимум 6000x4000 пикс.\nФайл не более 25Мб)',
 	profileButtonChangeEmail: 'ИЗМЕНИТЬ ИМЕЙЛ',
 	profileButtonChangePassword: 'ИЗМЕНИТЬ ПАРОЛЬ',
 	profielButtonCancel: 'ОТМЕНА',
