@@ -9,8 +9,8 @@ export type BaseUser = {
 
 export type UserCompletness = { complete: boolean };
 
-export type NewUser = BaseUser & { passwordPlain: string };
-export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string };
+export type NewUser = BaseUser & { passwordPlain: string; language: LanguageOption };
+export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string; language: LanguageOption; };
 
 export type User42 = BaseUser & { id42: number; avatar: string | undefined };
 export type New42UserWithHashedPwd = BaseUser & { passwordHash: string; id42: number; activationCode: string; avatar: string | undefined | null };
@@ -81,7 +81,7 @@ export type Photo = {
 	imageType: string;
 	dataBase64: string;
 };
-export type LanguageOption = 'enUS' | 'ruRU' | 'seSWE';
+export type LanguageOption = 'enUS' | 'ruRU' | 'svSE';
 
 export type Session = NewSessionUser & { sessionId: string; expiresAt: Date };
 export type AuthState = { state: string; createdAt: Date };

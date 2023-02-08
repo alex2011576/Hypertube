@@ -50,8 +50,8 @@ const getPasswordHash = async (userId: string): Promise<string> => {
 
 const addNewUser = async (newUser: NewUserWithHashedPwd): Promise<User> => {
 	const query = {
-		text: 'insert into users(username, email, password_hash, firstname, lastname, activation_code) values($1, $2, $3, $4, $5, $6) returning *',
-		values: [newUser.username, newUser.email, newUser.passwordHash, newUser.firstname, newUser.lastname, newUser.activationCode]
+		text: 'insert into users(username, email, password_hash, firstname, lastname, activation_code, language) values($1, $2, $3, $4, $5, $6, $7) returning *',
+		values: [newUser.username, newUser.email, newUser.passwordHash, newUser.firstname, newUser.lastname, newUser.activationCode, newUser.language]
 	};
 
 	let res;
