@@ -32,7 +32,7 @@ const SignUpForm = () => {
 	const [showPassword, setShow] = useState(false);
 
 	const [{ userLanguage }] = useStateValue();
-
+	
 	const alert = useContext(AlertContext);
 	const navigate = useNavigate();
 
@@ -60,7 +60,6 @@ const SignUpForm = () => {
 			lastname: lastname.value,
 			language: userLanguage
 		};
-		console.log(newUser);
 		addNewUser(newUser);
 	};
 
