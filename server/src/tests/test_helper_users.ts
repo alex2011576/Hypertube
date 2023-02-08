@@ -14,7 +14,8 @@ export const newUser: NewUser = {
 	email: 'matcha@test.com',
 	passwordPlain: 'Test!111',
 	firstname: 'lorem',
-	lastname: 'ipsum'
+	lastname: 'ipsum',
+	language: 'ruRU'
 };
 
 export const secondUser: NewUser = {
@@ -22,7 +23,8 @@ export const secondUser: NewUser = {
 	email: 'matcha2@test.com',
 	passwordPlain: 'Test!111',
 	firstname: 'lorem',
-	lastname: 'ipsum'
+	lastname: 'ipsum',
+	language: 'ruRU'
 };
 
 export const user3: NewUser = {
@@ -30,7 +32,8 @@ export const user3: NewUser = {
 	email: 'matcha3@test.com',
 	passwordPlain: 'Test!111',
 	firstname: 'lorem',
-	lastname: 'lorem'
+	lastname: 'lorem',
+	language: 'ruRU'
 };
 
 export const user4: NewUser = {
@@ -38,7 +41,8 @@ export const user4: NewUser = {
 	email: 'matcha4@test.com',
 	passwordPlain: 'Test!111',
 	firstname: 'lorem',
-	lastname: 'lorem'
+	lastname: 'lorem',
+	language: 'ruRU'
 };
 
 export const user5: NewUser = {
@@ -46,7 +50,8 @@ export const user5: NewUser = {
 	email: 'matcha5@test.com',
 	passwordPlain: 'Test!111',
 	firstname: 'lorem',
-	lastname: 'lorem'
+	lastname: 'lorem',
+	language: 'ruRU'
 };
 
 export const user6: NewUser = {
@@ -54,7 +59,8 @@ export const user6: NewUser = {
 	email: 'matcha6@test.com',
 	passwordPlain: 'Test!111',
 	firstname: 'lorem',
-	lastname: 'lorem'
+	lastname: 'lorem',
+	language: 'ruRU'
 };
 
 export const user7: NewUser = {
@@ -62,7 +68,8 @@ export const user7: NewUser = {
 	email: 'matcha7@test.com',
 	passwordPlain: 'Test!111',
 	firstname: 'lorem',
-	lastname: 'lorem'
+	lastname: 'lorem',
+	language: 'ruRU'
 };
 
 export const user8: NewUser = {
@@ -70,7 +77,8 @@ export const user8: NewUser = {
 	email: 'matcha8@test.com',
 	passwordPlain: 'Test!111',
 	firstname: 'lorem',
-	lastname: 'lorem'
+	lastname: 'lorem',
+	language: 'ruRU'
 };
 
 export const user9: NewUser = {
@@ -78,7 +86,8 @@ export const user9: NewUser = {
 	email: 'matcha9@test.com',
 	passwordPlain: 'Test!111',
 	firstname: 'lorem',
-	lastname: 'lorem'
+	lastname: 'lorem',
+	language: 'ruRU'
 };
 
 export const user10: NewUser = {
@@ -86,7 +95,8 @@ export const user10: NewUser = {
 	email: 'matcha10@test.com',
 	passwordPlain: 'Test!111',
 	firstname: 'lorem',
-	lastname: 'lorem'
+	lastname: 'lorem',
+	language: 'ruRU'
 };
 
 //For login
@@ -106,138 +116,71 @@ export const profileDataNewUser = {
 	username: 'matcha',
 	firstname: 'lorem',
 	lastname: 'ipsum',
-	birthday: new Date('1999-03-22').toISOString(),
-	gender: 'male',
-	orientation: 'straight',
-	bio: 'born sleepy',
-	tags: ['Sauna', 'Swimming', 'Biking', 'BBQ', 'Drummer'],
-	location: 'Helsinki, Finland',
-	fameRating: 45
+	language: 'ruRU',
+	photo: undefined,
 };
 
 export const profileDataSecondUser = {
 	username: 'matcha2',
 	firstname: 'lorem',
 	lastname: 'ipsum',
-	birthday: new Date('1999-03-22').toISOString(),
-	gender: 'male',
-	orientation: 'gay',
-	bio: 'born sleepy',
-	tags: ['Sauna', 'Swimming', 'Biking', 'BBQ', 'Drummer'],
-	location: 'Helsinki, Finland',
-	fameRating: 50
+	language: 'ruRU'
 };
 
 export const profileData3 = {
 	username: 'matcha3',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	birthday: new Date('2001-03-22').toISOString(),
-	gender: 'male',
-	orientation: 'gay',
-	bio: 'born sleepy',
-	tags: ['Swimming', 'Tea', 'Shisha', 'Pets'],
-	coordinates: { lat: 60.22828798969436, lon: 25.125732421875004 }, //14km
-	location: 'Helsinki, Finland',
-	fameRating: 70
+	language: 'ruRU'
 };
 
 export const profileData4 = {
 	username: 'matcha4',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	birthday: new Date('2001-03-22').toISOString(),
-	gender: 'male',
-	orientation: 'bi',
-	bio: 'born sleepy',
-	tags: ['Sauna', 'Drummer', 'Pets', 'Cinema'],
-	coordinates: { lat: 60.2154326997618, lon: 24.954802826567956 }, //6km
-	location: 'Helsinki, Finland',
-	fameRating: 75
+	language: 'ruRU'
 };
 
 export const profileData5 = {
 	username: 'matcha5',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	birthday: new Date('2000-03-22').toISOString(),
-	gender: 'female',
-	orientation: 'straight',
-	bio: 'born sleepy',
-	tags: ['Swimming', 'Biking', 'Cinema'],
-	coordinates: { lat: 60.31062731740045, lon: 25.043457884888564 }, //17km
-	location: 'Helsinki, Finland',
-	fameRating: 90
+	language: 'ruRU'
 };
 
 export const profileData6 = {
 	username: 'matcha6',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	birthday: new Date('1954-03-22').toISOString(),
-	gender: 'female',
-	orientation: 'gay',
-	bio: 'born sleepy',
-	tags: ['BBQ', 'Drummer'],
-	coordinates: { lat: 60.41395589336234, lon: 24.708251953125004 }, //30km
-	location: 'Helsinki, Finland',
-	fameRating: 35
+	language: 'ruRU'
 };
 
 export const profileData7 = {
 	username: 'matcha7',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	birthday: new Date('1998-03-22').toISOString(),
-	gender: 'female',
-	orientation: 'bi',
-	bio: 'born sleepy',
-	tags: ['Reading', 'Singing', 'Poetry', 'Sauna', 'Pets'],
-	coordinates: { lat: 60.17874561927682, lon: 24.923508597420668 }, //2km
-	location: 'Helsinki, Finland',
-	fameRating: 47
+	language: 'ruRU'
 };
 
 export const profileData8 = {
 	username: 'matcha8',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	birthday: new Date('2001-03-22').toISOString(),
-	gender: 'male',
-	orientation: 'bi',
-	bio: 'born sleepy',
-	tags: ['Sauna', 'Drummer', 'Pets', 'Cinema', 'Reading'],
-	coordinates: { lat: 60.17874561927682, lon: 24.923508597420668 }, //6km
-	location: 'Helsinki, Finland',
-	fameRating: 75
+	language: 'ruRU'
 };
 
 export const profileData9 = {
 	username: 'matcha',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	birthday: new Date('1988-03-22').toISOString(),
-	gender: 'female',
-	orientation: 'gay',
-	bio: 'born sleepy',
-	tags: ['Sauna', 'BBQ', 'Drummer', 'Pets', 'Singing'],
-	coordinates: { lat: 60.44640011398113, lon: 24.367675781250004 }, //45km
-	location: 'Helsinki, Finland',
-	fameRating: 35
+	language: 'ruRU'
 };
 
 export const profileData10 = {
 	username: 'matcha10',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	birthday: new Date('1978-03-22').toISOString(),
-	gender: 'female',
-	orientation: 'bi',
-	bio: 'born sleepy',
-	tags: ['Reading', 'Singing', 'Poetry', 'Sauna', 'Pets'],
-	coordinates: { lat: 60.44640011398113, lon: 24.367675781250004 }, //45km
-	location: 'Helsinki, Finland',
-	fameRating: 100
+	language: 'ruRU'
 };
 
 //Public Profiles
@@ -245,122 +188,68 @@ export const publicProfile1 = {
 	username: 'matcha',
 	firstname: 'lorem',
 	lastname: 'ipsum',
-	gender: 'male',
-	orientation: 'straight',
-	bio: 'born sleepy',
-	tags: ['Sauna', 'Swimming', 'Biking', 'BBQ', 'Drummer'],
-	location: 'Helsinki, Finland',
-	fameRating: 47
+	language: 'ruRU'
 };
 
 export const publicProfile2 = {
 	username: 'matcha2',
 	firstname: 'lorem',
 	lastname: 'ipsum',
-	gender: 'male',
-	orientation: 'gay',
-	bio: 'born sleepy',
-	tags: ['Sauna', 'Swimming', 'Biking', 'BBQ', 'Drummer'],
-	location: 'Helsinki, Finland',
-	fameRating: 47
+	language: 'ruRU'
 };
 
 export const publicProfile3 = {
 	username: 'matcha3',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	age: 21,
-	gender: 'male',
-	orientation: 'gay',
-	bio: 'born sleepy',
-	tags: ['Swimming', 'Tea', 'Shisha', 'Pets'],
-	distance: 794,
-	location: 'Helsinki, Finland',
-	fameRating: 46
+	language: 'ruRU'
 };
 
 export const publicProfile4 = {
 	username: 'matcha4',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	age: 21,
-	gender: 'male',
-	orientation: 'bi',
-	bio: 'born sleepy',
-	tags: ['Sauna', 'Drummer', 'Pets', 'Cinema'],
-	distance: 6,
-	location: 'Helsinki, Finland',
-	fameRating: 46
+	language: 'ruRU'
 };
 
 export const publicProfile5 = {
 	username: 'matcha5',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	gender: 'female',
-	orientation: 'straight',
-	bio: 'born sleepy',
-	tags: ['Swimming', 'Biking', 'Cinema'],
-	location: 'Helsinki, Finland',
-	fameRating: 45
+	language: 'ruRU'
 };
 
 export const publicProfile6 = {
 	username: 'matcha6',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	gender: 'female',
-	orientation: 'gay',
-	bio: 'born sleepy',
-	tags: ['BBQ', 'Drummer'],
-	location: 'Helsinki, Finland',
-	fameRating: 44
+	language: 'ruRU'
 };
 
 export const publicProfile7 = {
 	username: 'matcha7',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	gender: 'female',
-	orientation: 'bi',
-	bio: 'born sleepy',
-	tags: ['Reading', 'Singing', 'Poetry', 'Sauna', 'Pets'],
-	location: 'Helsinki, Finland',
-	fameRating: 47
+	language: 'ruRU'
 };
 
 export const publicProfile8 = {
 	username: 'matcha8',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	gender: 'male',
-	orientation: 'bi',
-	bio: 'born sleepy',
-	tags: ['Sauna', 'Drummer', 'Pets', 'Cinema', 'Reading'],
-	location: 'Helsinki, Finland',
-	fameRating: 47
+	language: 'ruRU'
 };
 
 export const publicProfile9 = {
 	username: 'matcha9',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	gender: 'female',
-	orientation: 'gay',
-	bio: 'born sleepy',
-	tags: ['Sauna', 'BBQ', 'Drummer', 'Pets', 'Singing'],
-	location: 'Helsinki, Finland',
-	fameRating: 47
+	language: 'ruRU'
 };
 
 export const publicProfile10 = {
 	username: 'matcha10',
 	firstname: 'lorem',
 	lastname: 'lorem',
-	gender: 'female',
-	orientation: 'bi',
-	bio: 'born sleepy',
-	tags: ['Reading', 'Singing', 'Poetry', 'Sauna', 'Pets'],
-	location: 'Helsinki, Finland',
-	fameRating: 47
+	language: 'ruRU'
 };
