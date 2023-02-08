@@ -1,4 +1,4 @@
-import { Dictionary } from "../types";
+import { Dictionary } from '../types';
 
 export const ruRU: Dictionary = {
 	main: 'Главная страница',

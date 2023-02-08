@@ -34,8 +34,7 @@ export const reducer = (state: State, action: Action): State => {
 				return {
 					...state,
 					loggedUser: action.payload,
-					dictionary:
-						dictionaryList[action.payload.language],
+					dictionary: dictionaryList[action.payload.language],
 					themeWithLocale: themeWithLocale(action.payload.language)
 				};
 			else {

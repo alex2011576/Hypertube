@@ -78,11 +78,23 @@ const App = () => {
 								/>
 								<Route
 									path="/auth/42/callback"
-									element={!loggedUser ? <Login.Callback42 /> : <Navigate to="/" />}
+									element={
+										!loggedUser ? (
+											<Login.Callback42 />
+										) : (
+											<Navigate to="/" />
+										)
+									}
 								/>
 								<Route
 									path="/auth/github/callback"
-									element={!loggedUser ? <Login.CallbackGithub /> : <Navigate to="/" />}
+									element={
+										!loggedUser ? (
+											<Login.CallbackGithub />
+										) : (
+											<Navigate to="/" />
+										)
+									}
 								/>
 								<Route
 									path="/signup"

@@ -1,4 +1,4 @@
-import { Dictionary } from "../types";
+import { Dictionary } from '../types';
 
 export const enUS: Dictionary = {
 	main: 'Main page',
