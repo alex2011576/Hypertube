@@ -50,8 +50,8 @@ const getPasswordHash = async (userId: string): Promise<string> => {
 
 const addNewUser = async (newUser: NewUserWithHashedPwd): Promise<User> => {
 	const query = {
-		text: 'insert into users(username, email, password_hash, firstname, lastname, activation_code) values($1, $2, $3, $4, $5, $6) returning *',
-		values: [newUser.username, newUser.email, newUser.passwordHash, newUser.firstname, newUser.lastname, newUser.activationCode]
+		text: 'insert into users(username, email, password_hash, firstname, lastname, activation_code, language) values($1, $2, $3, $4, $5, $6, $7) returning *',
+		values: [newUser.username, newUser.email, newUser.passwordHash, newUser.firstname, newUser.lastname, newUser.activationCode, newUser.language]
 	};
 
 	let res;
@@ -334,7 +334,19 @@ const updateUserDataByUserId = async (userId: string, updatedProfile: UserProfil
 			updatedProfile.photo?.imageDataUrl
 		]
 	};
-	await pool.query(query);
+	try {
+		await pool.query(query);
+	} catch (error) {
+		if (error instanceof Error) {
+			if (error.message === 'duplicate key value violates unique constraint "users_username_key"') {
+				throw new ValidationError('Username already exists');
+			}
+			if (error.message === 'duplicate key value violates unique constraint "users_email_key"') {
+				throw new ValidationError('This email was already used');
+			}
+		}
+		throw error;
+	}
 };
 
 export {

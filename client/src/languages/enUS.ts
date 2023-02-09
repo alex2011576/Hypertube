@@ -1,4 +1,6 @@
-export const enUS = {
+import { Dictionary } from '../types';
+
+export const enUS: Dictionary = {
 	main: 'Main page',
 
 	// Text Fields
@@ -60,7 +62,7 @@ export const enUS = {
 		'Please enter your current password in order to safely change it.',
 	textFieldCurrentPassword: 'Current Password',
 	textFieldNewPassword: 'New Password',
-
+	publicProfileHeader: 'HYPERTUBER',
 	// Navbar
 	navbarLogin: 'LOGIN',
 	navbarSignup: 'SIGN UP',

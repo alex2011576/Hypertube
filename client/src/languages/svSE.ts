@@ -1,4 +1,6 @@
-export const svSE = {
+import { Dictionary } from '../types';
+
+export const svSE: Dictionary = {
 	main: 'Huvudsida',
 
 	// Text Fields
@@ -59,6 +61,9 @@ export const svSE = {
 	profilePasswordInfoText: 'Vänligen ange ditt nuvarande lösenord för att säkert ändra det.',
 	textFieldCurrentPassword: 'Nuvarande lösenord',
 	textFieldNewPassword: 'Nytt lösenord',
+
+	// Public Profile
+	publicProfileHeader: 'HYPERTUBER',
 
 	// Navbar
 	navbarLogin: 'Logga in',

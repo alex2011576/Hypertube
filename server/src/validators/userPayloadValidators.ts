@@ -129,15 +129,16 @@ export const validateEmailToken = (token: unknown): string => {
 	return trimmedToken;
 };
 
-type Fields = { username: unknown; email: unknown; passwordPlain: unknown; firstname: unknown; lastname: unknown };
+type Fields = { username: unknown; email: unknown; passwordPlain: unknown; firstname: unknown; lastname: unknown; language: unknown; };
 
-export const parseNewUserPayload = ({ username, email, passwordPlain, firstname, lastname }: Fields): NewUser => {
+export const parseNewUserPayload = ({ username, email, passwordPlain, firstname, lastname, language }: Fields): NewUser => {
 	const newUser: NewUser = {
 		username: parseUsername(username),
 		email: parseEmail(email),
 		passwordPlain: validatePassword(passwordPlain),
 		firstname: parseFirstname(firstname),
-		lastname: parseLastname(lastname)
+		lastname: parseLastname(lastname),
+		language: parseLanguageOption(language)
 	};
 	return newUser;
 };

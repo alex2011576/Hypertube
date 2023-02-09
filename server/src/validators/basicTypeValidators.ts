@@ -36,7 +36,7 @@ const isStringRepresentedInteger = (string: unknown): string is string => {
 };
 
 const isLanguageOption = (languageOption: unknown): languageOption is LanguageOption => {
-	return languageOption === 'enUS' || languageOption === 'ruRU' || languageOption === 'seSWE';
+	return languageOption === 'enUS' || languageOption === 'ruRU' || languageOption === 'svSE';
 };
 
 const isPhotoObject = (photo: unknown): photo is { imageDataUrl: string } => {

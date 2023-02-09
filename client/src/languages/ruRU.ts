@@ -1,4 +1,6 @@
-export const ruRU = {
+import { Dictionary } from '../types';
+
+export const ruRU: Dictionary = {
 	main: 'Главная страница',
 
 	// Text Fields
@@ -59,6 +61,9 @@ export const ruRU = {
 	profilePasswordInfoText: 'Введите текущий пароль для безопасной смены пароля.',
 	textFieldCurrentPassword: 'Текущий пароль',
 	textFieldNewPassword: 'Новый пароль',
+
+	// Public Profile
+	publicProfileHeader: 'ПОЛЬЗОВАТЕЛЬ',
 
 	// Navbar
 	navbarLogin: 'ВХОД',
