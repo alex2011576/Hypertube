@@ -60,3 +60,13 @@ export type ProfilePublic = {
 export type Dictionary = {
 	[key: string]: string;
 };
+
+export type MovieThumbnail = {
+	id: number;
+	imdbCode: string;
+	title: string;
+	year: number;
+	summary: string;
+	cover: string;
+	rating: number;
+};

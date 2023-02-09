@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { setLoggedUser, useStateValue } from '../state';
 import { useContext, useEffect } from 'react';
@@ -32,7 +33,6 @@ const Callback42 = () => {
 			}
 		};
 		authenticate42();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -70,7 +70,6 @@ const CallbackGithub = () => {
 			}
 		};
 		authenticateGH();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

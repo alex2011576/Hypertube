@@ -13,7 +13,7 @@ import LoginForm from './components/LoginForm';
 import Login from './components/LoginCallbacks';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Main from './components/Main';
+import Library from './components/Library/Library';
 import useModal from './hooks/useModal';
 import Text from './components/Text';
 import PublicProfile from './components/PublicProfile';
@@ -60,7 +60,7 @@ const App = () => {
 						<StyledBox>
 							<AlertSnackBar />
 							<Routes>
-								<Route path="/" element={<Main />} />
+								<Route path="/" element={<Library />} />
 								<Route
 									path="/login"
 									element={
