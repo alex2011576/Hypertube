@@ -8,7 +8,8 @@ export const newUserWithHashedPwd: NewUserWithHashedPwd = {
 	passwordHash: 'Test!111',
 	firstname: 'lorem',
 	lastname: 'ipsum',
-	activationCode: 'qwertyuio21316546'
+	activationCode: 'qwertyuio21316546',
+	language: 'ruRU'
 };
 
 export const ipAddress = '194.136.126.42'; //Hive
