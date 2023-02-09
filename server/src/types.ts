@@ -10,7 +10,7 @@ export type BaseUser = {
 export type UserCompletness = { complete: boolean };
 
 export type NewUser = BaseUser & { passwordPlain: string; language: LanguageOption };
-export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string; language: LanguageOption; };
+export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string; language: LanguageOption };
 
 export type User42 = BaseUser & { id42: number; avatar: string | undefined };
 export type New42UserWithHashedPwd = BaseUser & { passwordHash: string; id42: number; activationCode: string; avatar: string | undefined | null };
@@ -99,3 +99,13 @@ export type EmailUpdateRequest = { userId: string; email: string; token: string;
 export type PasswordResetRequest = NewPasswordResetRequest & { token: string; expiresAt: Date };
 
 export type AuthType = '42' | 'github';
+
+export type MovieThumbnail = {
+	id: number;
+	imdbCode: string;
+	title: string;
+	year: number;
+	summary: string;
+	cover: string;
+	rating: number;
+};
