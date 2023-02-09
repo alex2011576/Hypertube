@@ -4,19 +4,19 @@ import { SnackbarProvider } from 'notistack';
 import { useStateValue } from './state';
 
 import ProfileSettings from './components/ProfileSettings';
+import PublicProfile from './components/PublicProfile';
 import ForgotPassword from './components/ForgotPassword';
 import AlertSnackBar from './components/AlertSnackBar';
 import AlertProvider from './components/AlertProvider';
 import CustomModal from './components/CustomModal';
 import SignUpForm from './components/SignUpForm';
-import LoginForm from './components/LoginForm';
 import Login from './components/LoginCallbacks';
+import LoginForm from './components/LoginForm';
+import Library from './components/Library';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Library from './components/Library/Library';
 import useModal from './hooks/useModal';
 import Text from './components/Text';
-import PublicProfile from './components/PublicProfile';
 
 const StyledBox = styled(Box)`
 	text-align: center;

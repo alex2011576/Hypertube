@@ -19,9 +19,15 @@ type YTSMovie = {
 	rating: number;
 };
 
-export const getInitialMovies = async (): Promise<MovieThumbnail[]> => {
+export const getInitialMovies = async (page?: number, limit?: number): Promise<MovieThumbnail[]> => {
 	try {
-		const response = await axios.get<YTSPayload>(`https://yts.torrentbay.to/api/v2/list_movies.json?sort_by=download_count&order_by=desc`);
+		const response =
+			page && limit
+				? await axios.get<YTSPayload>(
+						`https://yts.torrentbay.to/api/v2/list_movies.json?page=${page}&limit=${limit}&sort_by=download_count&order_by=desc`
+				)
+				: await axios.get<YTSPayload>(`https://yts.torrentbay.to/api/v2/list_movies.json?sort_by=download_count&order_by=desc`);
+
 		const movies = response.data.data.movies;
 		const movieThumbnails: MovieThumbnail[] = movies.map((movie: YTSMovie) => {
 			return {
