@@ -77,7 +77,49 @@ export const ruRU: Dictionary = {
 	passwordLength: 'Длина 8-42 символа',
 	invalidPassword: 'Неверный формат',
 	invalidEmail: 'Неверный формат',
-	incorrectField: 'Неверный формат'
+	incorrectField: 'Неверный формат',
 
 	// Backend Errors
+
+	// ParseUsername
+	usernameNotString: 'Username invalid type',
+	usernameMissing: 'Username is missing',
+	usernameTooShort: 'Username is too short',
+	usernameTooLong: 'Username is too long',
+	usernameInvalid: 'Username is invalid',
+
+	// ParseEmail
+	emailNotString: 'Email invalid type',
+	emailMissing: 'Email is missing',
+	emailInvalid: 'Email is invalid',
+
+	// ParsePassword
+	passwordNotString: 'Password invalid type',
+	passwordTooShort: 'Password is too short',
+	passwordTooLong: 'Password is too long',
+	passwordWeak: 'Password is too weak',
+
+	// ParseFirstName
+	firstNameNotString: 'First name invalid type',
+	firstNameMissing: 'First name is missing',
+	firstNameTooLong: 'First name is too long',
+	firstNameInvalid: 'First name is invalid',
+
+	// ParseLastName
+	lastNameNotString: 'Last name invalid type',
+	lastNameMissing: 'Last name is missing',
+	lastNameTooLong: 'Last name is too long',
+	lastNameInvalid: 'Last name is invalid',
+
+	// ParsePasswordToken
+	tokenPasswordNotString: 'Token invalid type',
+	tokenPasswordMissing: 'Token is missing',
+	tokenPasswordResetInvalid: 'Password reset token is invalid',
+	tokenPasswordResetInvalidFormat: 'Password reset code format invalid',
+
+	// ParseEmailToken
+	tokenEmailNotString: 'Token invalid type',
+	tokenEmailMissing: 'Token is missing',
+	tokenEmailInvalid: 'Email change token is invalid',
+	tokenEmailInvalidFormat: 'Email change code format invalid',
 };

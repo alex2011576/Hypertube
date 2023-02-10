@@ -1,6 +1,7 @@
 import { Dictionary } from '../types';
 
 export const enUS: Dictionary = {
+
 	main: 'Main page',
 
 	// Text Fields
@@ -75,7 +76,58 @@ export const enUS: Dictionary = {
 	passwordLength: 'Length: 8-42 characters',
 	invalidPassword: 'Check the input',
 	invalidEmail: 'Incorrect email format',
-	incorrectField: 'Incorrect field'
+	incorrectField: 'Incorrect field',
 
 	// Backend Errors
+
+	// ParseUsername
+	usernameNotString: 'Username invalid type',
+	usernameMissing: 'Username is missing',
+	usernameTooShort: 'Username is too short',
+	usernameTooLong: 'Username is too long',
+	usernameInvalid: 'Username is invalid',
+
+	// ParseEmail
+	emailNotString: 'Email invalid type',
+	emailMissing: 'Email is missing',
+	emailInvalid: 'Email is invalid',
+
+	// ParsePassword
+	passwordNotString: 'Password invalid type',
+	passwordTooShort: 'Password is too short',
+	passwordTooLong: 'Password is too long',
+	passwordWeak: 'Password is too weak',
+
+	// ParseFirstName
+	firstNameNotString: 'First name invalid type',
+	firstNameMissing: 'First name is missing',
+	firstNameTooLong: 'First name is too long',
+	firstNameInvalid: 'First name is invalid',
+
+	// ParseLastName
+	lastNameNotString: 'Last name invalid type',
+	lastNameMissing: 'Last name is missing',
+	lastNameTooLong: 'Last name is too long',
+	lastNameInvalid: 'Last name is invalid',
+
+	// ParsePasswordToken
+	tokenPasswordNotString: 'Token invalid type',
+	tokenPasswordMissing: 'Token is missing',
+	tokenPasswordResetInvalid: 'Password reset token is invalid',
+	tokenPasswordResetInvalidFormat: 'Password reset code format invalid',
+
+	// ParseEmailToken
+	tokenEmailNotString: 'Token invalid type',
+	tokenEmailMissing: 'Token is missing',
+	tokenEmailInvalid: 'Email change token is invalid',
+	tokenEmailInvalidFormat: 'Email change code format invalid',
+
+	// imageValidation
+	imageInvalidFormat: 'Invalid images format! Image is not an Image Data URI',
+	imageInvalidType: 'Invalid images format! Allowed types: "image/jpeg", "image/png", "image/jpg"',
+	ImageSizeTooBig: 'Invalid images format! Image is too big: 25mb max',
+	imageCorrupted: 'Invalid images format! Image is corrupted',
+	imageTooSmall: 'Invalid images format! Image is too small. Min 10x10 pixels',
+	imageTooBig: 'Invalid images format! Image is too big. Max 6000x4000 pixels',
+	imageAspectRatio: 'Invalid images format! Image is of unacceptable ratio.',
 };

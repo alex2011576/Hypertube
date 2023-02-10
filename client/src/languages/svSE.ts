@@ -77,7 +77,49 @@ export const svSE: Dictionary = {
 	passwordLength: 'längd: 8-42 tecken',
 	invalidPassword: 'Kontrollera lösenordet',
 	invalidEmail: 'Ogiltigt e-postformat',
-	incorrectField: 'Ogiltigt fält'
+	incorrectField: 'Ogiltigt fält',
 
 	// Backend Errors
+
+	// ParseUsername
+	usernameNotString: 'Användarnamn ogiltig typ',
+	usernameMissing: 'Användarnamn saknas',
+	usernameTooShort: 'Användarnamn för kort',
+	usernameTooLong: 'Användarnamn för långt',
+	usernameInvalid: 'Användarnamn ogiltigt',
+
+	// ParseEmail
+	emailNotString: 'E-post ogiltig typ',
+	emailMissing: 'E-post saknas',
+	emailInvalid: 'E-post ogiltigt',
+
+	// ParsePassword
+	passwordNotString: 'Lösenord ogiltig typ',
+	passwordTooShort: 'Lösenord för kort',
+	passwordTooLong: 'Lösenord för långt',
+	passwordWeak: 'Lösenord för svagt',
+
+	// ParseFirstName
+	firstNameNotString: 'Förnamn ogiltig typ',
+	firstNameMissing: 'Förnamn saknas',
+	firstNameTooLong: 'Förnamn för långt',
+	firstNameInvalid: 'Förnamn ogiltigt',
+
+	// ParseLastName
+	lastNameNotString: 'Efternamn ogiltig typ',
+	lastNameMissing: 'Efternamn saknas',
+	lastNameTooLong: 'Efternamn för långt',
+	lastNameInvalid: 'Efternamn ogiltigt',
+
+	// ParsePasswordToken
+	tokenPasswordNotString: 'Token ogiltig typ',
+	tokenPasswordMissing: 'Token saknas',
+	tokenPasswordResetInvalid: 'Lösenordsåterställningstoken är ogiltig',
+	tokenPasswordResetInvalidFormat: 'Lösenordsåterställningskodformat är ogiltigt',
+
+	// ParseEmailToken
+	tokenEmailNotString: 'Token ogiltig typ',
+	tokenEmailMissing: 'Token saknas',
+	tokenEmailInvalid: 'E-poständringstoken är ogiltig',
+	tokenEmailInvalidFormat: 'E-poständringskodformat är ogiltigt',
 };
