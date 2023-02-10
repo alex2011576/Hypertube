@@ -4,19 +4,19 @@ import { SnackbarProvider } from 'notistack';
 import { useStateValue } from './state';
 
 import ProfileSettings from './components/ProfileSettings';
+import PublicProfile from './components/PublicProfile';
 import ForgotPassword from './components/ForgotPassword';
 import AlertSnackBar from './components/AlertSnackBar';
 import AlertProvider from './components/AlertProvider';
 import CustomModal from './components/CustomModal';
 import SignUpForm from './components/SignUpForm';
-import LoginForm from './components/LoginForm';
 import Login from './components/LoginCallbacks';
+import LoginForm from './components/LoginForm';
+import Library from './components/Library';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Main from './components/Main';
 import useModal from './hooks/useModal';
 import Text from './components/Text';
-import PublicProfile from './components/PublicProfile';
 
 const StyledBox = styled(Box)`
 	text-align: center;
@@ -60,7 +60,7 @@ const App = () => {
 						<StyledBox>
 							<AlertSnackBar />
 							<Routes>
-								<Route path="/" element={<Main />} />
+								<Route path="/" element={<Library />} />
 								<Route
 									path="/login"
 									element={
@@ -78,11 +78,23 @@ const App = () => {
 								/>
 								<Route
 									path="/auth/42/callback"
-									element={!loggedUser ? <Login.Callback42 /> : <Navigate to="/" />}
+									element={
+										!loggedUser ? (
+											<Login.Callback42 />
+										) : (
+											<Navigate to="/" />
+										)
+									}
 								/>
 								<Route
 									path="/auth/github/callback"
-									element={!loggedUser ? <Login.CallbackGithub /> : <Navigate to="/" />}
+									element={
+										!loggedUser ? (
+											<Login.CallbackGithub />
+										) : (
+											<Navigate to="/" />
+										)
+									}
 								/>
 								<Route
 									path="/signup"

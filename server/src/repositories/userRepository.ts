@@ -17,7 +17,8 @@ const userMapper = (row: any): User => {
 		lastname: getString(row['lastname']),
 		createdAt: getDate(row['created_at']),
 		isActive: getBoolean(row['is_active']),
-		activationCode: getString(row['activation_code'])
+		activationCode: getString(row['activation_code']),
+		language: getString(row['language'])
 	};
 };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,8 +50,8 @@ const getPasswordHash = async (userId: string): Promise<string> => {
 
 const addNewUser = async (newUser: NewUserWithHashedPwd): Promise<User> => {
 	const query = {
-		text: 'insert into users(username, email, password_hash, firstname, lastname, activation_code) values($1, $2, $3, $4, $5, $6) returning *',
-		values: [newUser.username, newUser.email, newUser.passwordHash, newUser.firstname, newUser.lastname, newUser.activationCode]
+		text: 'insert into users(username, email, password_hash, firstname, lastname, activation_code, language) values($1, $2, $3, $4, $5, $6, $7) returning *',
+		values: [newUser.username, newUser.email, newUser.passwordHash, newUser.firstname, newUser.lastname, newUser.activationCode, newUser.language]
 	};
 
 	let res;
@@ -141,7 +142,7 @@ const addNewGHUser = async (newUser: NewGHUserWithHashedPwd): Promise<User> => {
 
 const findUserByUsername = async (username: string): Promise<User | undefined> => {
 	const query = {
-		text: 'select id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code from users where username = $1',
+		text: 'select id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code, language from users where username = $1',
 		values: [username]
 	};
 	const res = await pool.query(query);
@@ -153,7 +154,7 @@ const findUserByUsername = async (username: string): Promise<User | undefined> =
 
 const findUserBy42id = async (id42: number): Promise<User | undefined> => {
 	const query = {
-		text: 'select id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code from users where id_42 = $1',
+		text: 'select id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code, language from users where id_42 = $1',
 		values: [id42]
 	};
 	const res = await pool.query(query);
@@ -164,7 +165,7 @@ const findUserBy42id = async (id42: number): Promise<User | undefined> => {
 };
 const findUserByGHid = async (idGitHub: number): Promise<User | undefined> => {
 	const query = {
-		text: 'select id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code from users where id_git_hub = $1',
+		text: 'select id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code, language from users where id_git_hub = $1',
 		values: [idGitHub]
 	};
 	const res = await pool.query(query);
@@ -188,7 +189,7 @@ const isUserById = async (id: string): Promise<boolean> => {
 
 const findUserByEmail = async (email: string): Promise<User | undefined> => {
 	const query = {
-		text: 'select id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code from users where email = $1',
+		text: 'select id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code, language from users where email = $1',
 		values: [email]
 	};
 	const res = await pool.query(query);
@@ -200,7 +201,7 @@ const findUserByEmail = async (email: string): Promise<User | undefined> => {
 
 const findUserByActivationCode = async (activationCode: string): Promise<User | undefined> => {
 	const query = {
-		text: 'select id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code from users where activation_code = $1',
+		text: 'select id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code, language from users where activation_code = $1',
 		values: [activationCode]
 	};
 	const res = await pool.query(query);
@@ -265,7 +266,7 @@ const clearUsers = async (): Promise<void> => {
 
 const getUserByUserId = async (userId: string): Promise<User | undefined> => {
 	const query = {
-		text: 'select id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code from users where id = $1',
+		text: 'select id, username, email, password_hash, firstname, lastname, created_at, is_active, activation_code, language from users where id = $1',
 		values: [userId]
 	};
 	const res = await pool.query(query);
@@ -333,7 +334,19 @@ const updateUserDataByUserId = async (userId: string, updatedProfile: UserProfil
 			updatedProfile.photo?.imageDataUrl
 		]
 	};
-	await pool.query(query);
+	try {
+		await pool.query(query);
+	} catch (error) {
+		if (error instanceof Error) {
+			if (error.message === 'duplicate key value violates unique constraint "users_username_key"') {
+				throw new ValidationError('Username already exists');
+			}
+			if (error.message === 'duplicate key value violates unique constraint "users_email_key"') {
+				throw new ValidationError('This email was already used');
+			}
+		}
+		throw error;
+	}
 };
 
 export {

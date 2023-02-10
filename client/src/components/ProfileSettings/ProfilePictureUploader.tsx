@@ -1,18 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 //prettier-ignore
 import {Box, Button, Container, styled, Tooltip, tooltipClasses, TooltipProps, Typography } from '@mui/material';
-import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
-//prettier-ignore
-import {
-	getValidImage,
-	openFileDialog
-} from '../../utils/imageUploaderAndValidator';
 import { Fragment, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { PhotoType } from '../../types';
-//import { useStateValue } from '../../state';
+import { getValidImage, openFileDialog } from '../../utils/imageUploaderAndValidator';
 import { AlertContext } from '../AlertProvider';
-//import profileService from '../../services/profile';
-//import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { PhotoType } from '../../types';
+import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
+import profilePlaceholder from './profilePlaceholder.jpeg';
 import Text from '../Text';
 
 const ProfilePictureUploader: React.FC<{
@@ -21,9 +15,7 @@ const ProfilePictureUploader: React.FC<{
 	setImage: (photo: PhotoType | undefined) => void;
 }> = ({ photo, image, setImage }) => {
 	const [imageIndex, setImageIndex] = useState<number>(-1);
-	//const [{ loggedUser }] = useStateValue();
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const { success: successCallback, error: errorCallback } = useContext(AlertContext);
+	const { error: errorCallback } = useContext(AlertContext);
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
@@ -67,11 +59,11 @@ const ProfilePictureUploader: React.FC<{
 						<Fragment>
 							<Typography color="inherit">
 								<strong>
-									<Text tid='profileImageUpload' />
+									<Text tid="profileImageUpload" />
 									<br />
 								</strong>
 							</Typography>
-							<Text tid='profileImageTypography' />
+							<Text tid="profileImageTypography" />
 						</Fragment>
 					}
 				>
@@ -156,7 +148,7 @@ const icon = {
 };
 
 const placeholder = {
-	img: 'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg',
+	img: profilePlaceholder,
 	title: 'Placeholder',
 	featured: true
 };

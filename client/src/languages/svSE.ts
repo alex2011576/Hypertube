@@ -1,4 +1,6 @@
-export const seSWE = {
+import { Dictionary } from '../types';
+
+export const svSE: Dictionary = {
 	main: 'Huvudsida',
 
 	// Text Fields
@@ -47,7 +49,7 @@ export const seSWE = {
 	profileRequiredField: 'Obligatoriskt fält',
 	profileImageUpload: 'Klicka för att ladda upp ny bild.',
 	profileImageTypography:
-		'(Jpeg, jpg eller png\nMinimum 450 x 450 pixlar\nMaximum 6000x4000 pixlar\nMax 25Mb)',
+		'(Jpeg, jpg eller png\nMinimum 100 x 100 pixlar\nMaximum 6000x4000 pixlar\nMax 25Mb)',
 	profileButtonChangeEmail: 'ÄNDRA E-POST',
 	profileButtonChangePassword: 'ÄNDRA LÖSENORD',
 	profielButtonCancel: 'AVBRYT',
@@ -56,10 +58,12 @@ export const seSWE = {
 	profileEmailInfoText:
 		'Aktiveringslänk kommer att skickas till den angivna e-postadressen. Följ länken från vårt meddelande för att ange din nya e-postadress.',
 	profilePasswordTitle: 'Ändra lösenord',
-	profilePasswordInfoText:
-		'Vänligen ange ditt nuvarande lösenord för att säkert ändra det.',
+	profilePasswordInfoText: 'Vänligen ange ditt nuvarande lösenord för att säkert ändra det.',
 	textFieldCurrentPassword: 'Nuvarande lösenord',
 	textFieldNewPassword: 'Nytt lösenord',
+
+	// Public Profile
+	publicProfileHeader: 'HYPERTUBER',
 
 	// Navbar
 	navbarLogin: 'Logga in',

@@ -37,7 +37,7 @@ export const getValidImage = async (
 		const size = file[0].size;
 
 		if (allowedImageTypes.indexOf(type) < 0) return [undefined, 'Invalid image type'];
-		if (width < 450 || height < 450) return [undefined, 'Image is too small'];
+		if (width < 100 || height < 100) return [undefined, 'Image is too small'];
 		if (width > 6000 || height > 4000) return [undefined, 'Image is too big'];
 		if (!size || size > 25000000) return [undefined, 'Invalid size'];
 		if (width > height && height / width < 0.6) return [undefined, 'Invalid ratio'];

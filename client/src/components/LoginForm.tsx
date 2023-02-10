@@ -1,5 +1,5 @@
 //prettier-ignore
-import { Box, Button, TextField, Checkbox, Grid, FormControlLabel, Container, Link, Typography } from '@mui/material';
+import { Box, Button, TextField, Checkbox, FormControlLabel, Container, Link, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { setLoggedUser, StateContext } from '../state';
@@ -8,7 +8,7 @@ import { useField } from '../hooks/useField';
 import { Auth42, AuthGH } from './AuthButtons';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import signUpService from '../services/signup';
+import userService from '../services/users';
 import loginService from '../services/login';
 import OrDivider from './OrDivider';
 import Text from './Text';
@@ -36,7 +36,7 @@ const LoginForm = () => {
 		const activateAccount = async () => {
 			if (activationCode) {
 				try {
-					await signUpService.activate(activationCode);
+					await userService.activate(activationCode);
 					navigate('/login');
 					alert.success('Account activated successfully!');
 				} catch (err) {
@@ -108,44 +108,40 @@ const LoginForm = () => {
 					<Box
 						sx={{
 							display: 'flex',
-							alignItems: 'stretch',
+							flexDirection: { xs: 'column', sm: 'row' },
+							alignItems: { xs: 'stretch' },
 							width: '100%',
-							justifyContent: 'space-between'
+							justifyContent: { xs: 'stretch', sm: 'space-between' }
 						}}
 					>
-						<Grid item xs={12} sx={{ marginLeft: '5px' }}>
-							<FormControlLabel
-								label={
-									<Box component="div" fontSize={'0.9rem'}>
-										<Text tid="showPassword" />
-									</Box>
-								}
-								control={
-									<Checkbox
-										sx={{ p: '0 4px' }}
-										color="primary"
-										onChange={() => setShow(!showPassword)}
-										icon={<VisibilityOffOutlinedIcon fontSize="small" />}
-										checkedIcon={
-											<VisibilityOutlinedIcon fontSize={'small'} />
-										}
-									/>
-								}
-							/>
-						</Grid>
-						<Grid item xs>
-							<Link
-								href="/forgot_password"
-								variant="body2"
-								sx={{
-									display: 'flex',
-									justifyContent: 'flex-end',
-									textAlign: 'right'
-								}}
-							>
-								<Text tid="troubleLoggingIn" />
-							</Link>
-						</Grid>
+						<FormControlLabel
+							label={
+								<Box component="div" fontSize={'0.9rem'}>
+									<Text tid="showPassword" />
+								</Box>
+							}
+							control={
+								<Checkbox
+									sx={{ p: '0 4px' }}
+									color="primary"
+									onChange={() => setShow(!showPassword)}
+									icon={<VisibilityOffOutlinedIcon fontSize="small" />}
+									checkedIcon={<VisibilityOutlinedIcon fontSize={'small'} />}
+								/>
+							}
+							sx={{ margin: 0 }}
+						/>
+						<Link
+							href="/forgot_password"
+							variant="body2"
+							sx={{
+								display: 'flex',
+								justifyContent: 'flex-end',
+								textAlign: 'right'
+							}}
+						>
+							<Text tid="troubleLoggingIn" />
+						</Link>
 					</Box>
 					{validateLoginForm(username.value, password.value) ? (
 						<Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }}>

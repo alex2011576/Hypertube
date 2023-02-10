@@ -10,6 +10,7 @@ import { sessionExtractor } from '../utils/middleware';
 import { CustomRequest } from '../types';
 import { findUpdateEmailRequestByToken } from '../repositories/updateEmailRequestRepository';
 import { getUserAvatarByUserId, getUserDataByUserId, updateUserDataByUserId } from '../repositories/userRepository';
+import { isStringRepresentedInteger } from '../validators/basicTypeValidators';
 
 const router = express.Router();
 
@@ -133,10 +134,16 @@ router.get(
 	'/:id',
 	sessionExtractor,
 	asyncHandler(async (req: CustomRequest, res) => {
-		if (!req.session || !req.session.userId || req.session.userId !== req.params.id) {
+		if (!req.session || !req.session.userId) {
 			throw new AppError(`No rights to get profile data`, 400);
 		}
-		const result = await getUserDataByUserId(req.session.userId);
+		if (!isStringRepresentedInteger(req.params.id)) {
+			throw new AppError(`User doesn't exist`, 400);
+		}
+		const result = await getUserDataByUserId(req.params.id);
+		if (!result) {
+			throw new AppError(`User doesn't exist`, 400);
+		}
 		res.status(200).json(result);
 	})
 );
@@ -145,10 +152,13 @@ router.get(
 	'/:id/photo',
 	sessionExtractor,
 	asyncHandler(async (req: CustomRequest, res) => {
-		if (!req.session || !req.session.userId || req.session.userId !== req.params.id) {
+		if (!req.session || !req.session.userId) {
 			throw new AppError(`No rights to get profile data`, 400);
 		}
-		const avatarDataURL = await getUserAvatarByUserId(req.session.userId);
+		if (!isStringRepresentedInteger(req.params.id)) {
+			throw new AppError(`User doesn't exist`, 400);
+		}
+		const avatarDataURL = await getUserAvatarByUserId(req.params.id);
 		// if (!avatarDataURL) {
 		// 	res.status(200).json(undefined);
 		// 	return;

@@ -1,4 +1,6 @@
-export const ruRU = {
+import { Dictionary } from '../types';
+
+export const ruRU: Dictionary = {
 	main: 'Главная страница',
 
 	// Text Fields
@@ -41,31 +43,33 @@ export const ruRU = {
 	passwordResetSubmitButton: 'ОК',
 
 	// Profile Form
-	titleProfile: 'PROFILE SETTINGS',
-	profileButtonUpdate: 'UPDATE PROFILE',
-	profileUpdateToolTip: 'Please fill all the required fields',
-	profileRequiredField: 'Required field',
-	profileImageUpload: 'Click to upload new image.',
+	titleProfile: 'НАСТРОЙКИ ПРОФИЛЯ',
+	profileButtonUpdate: 'ОБНОВИТЬ',
+	profileUpdateToolTip: 'Пожалуйста заполни обязательные поля',
+	profileRequiredField: 'Обязательное поле',
+	profileImageUpload: 'Кликни чтоб обновить фото.',
 	profileImageTypography:
-		'(Jpeg, jpg or png\nMinimum 450 x 450 pixels\nMaximum 6000x4000 pixels\nMax 25Mb)',
-	profileButtonChangeEmail: 'CHANGE EMAIL',
-	profileButtonChangePassword: 'CHANGE PASSWORD',
-	profielButtonCancel: 'CANCEL',
-	profielButtonSend: 'SEND',
+		'(Jpeg, jpg or png\nМинимум 100 x 100 пикс.\nМаксимум 6000x4000 пикс.\nФайл не более 25Мб)',
+	profileButtonChangeEmail: 'ИЗМЕНИТЬ ИМЕЙЛ',
+	profileButtonChangePassword: 'ИЗМЕНИТЬ ПАРОЛЬ',
+	profielButtonCancel: 'ОТМЕНА',
+	profielButtonSend: 'ОК',
 	profileEmailTitle: 'Change email',
 	profileEmailInfoText:
-		'Activation link will be sent to the email address provided.Please follow the link from our message in order to set your new email address.',
-	profilePasswordTitle: 'Change password',
-	profilePasswordInfoText:
-		'Please enter your current password in order to safely change it.',
-	textFieldCurrentPassword: 'Current Password',
-	textFieldNewPassword: 'New Password',
+		'Ссылка для активации будет выслана на указанный имейл адрес. Пожалуйста пройдите по ссылке чтобы сменить имейл адрес.',
+	profilePasswordTitle: 'Изменить пароль',
+	profilePasswordInfoText: 'Введите текущий пароль для безопасной смены пароля.',
+	textFieldCurrentPassword: 'Текущий пароль',
+	textFieldNewPassword: 'Новый пароль',
+
+	// Public Profile
+	publicProfileHeader: 'ПОЛЬЗОВАТЕЛЬ',
 
 	// Navbar
 	navbarLogin: 'ВХОД',
 	navbarSignup: 'РЕГИСТРАЦИЯ',
-	navbarLogout: 'LOGOUT',
-	navbarProfile: 'PROFILE',
+	navbarLogout: 'ВЫХОД',
+	navbarProfile: 'ПРОФИЛЬ',
 
 	// Validations
 	invalidUsernameLength: 'Длина 4-21 символов',

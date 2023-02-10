@@ -1,4 +1,6 @@
-export const enUS = {
+import { Dictionary } from '../types';
+
+export const enUS: Dictionary = {
 	main: 'Main page',
 
 	// Text Fields
@@ -47,7 +49,7 @@ export const enUS = {
 	profileRequiredField: 'Required field',
 	profileImageUpload: 'Click to upload new image.',
 	profileImageTypography:
-		'(Jpeg, jpg or png\nMinimum 450 x 450 pixels\nMaximum 6000x4000 pixels\nMax 25Mb)',
+		'(Jpeg, jpg or png\nMinimum 100 x 100 pixels\nMaximum 6000x4000 pixels\nMax 25Mb)',
 	profileButtonChangeEmail: 'CHANGE EMAIL',
 	profileButtonChangePassword: 'CHANGE PASSWORD',
 	profielButtonCancel: 'CANCEL',
@@ -60,7 +62,7 @@ export const enUS = {
 		'Please enter your current password in order to safely change it.',
 	textFieldCurrentPassword: 'Current Password',
 	textFieldNewPassword: 'New Password',
-
+	publicProfileHeader: 'HYPERTUBER',
 	// Navbar
 	navbarLogin: 'LOGIN',
 	navbarSignup: 'SIGN UP',

@@ -13,6 +13,7 @@ export type Action =
 	  };
 
 export const setLoggedUser = (loggedUser: LoggedUser | undefined): Action => {
+	loggedUser && localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
 	return {
 		type: 'SET_LOGGED_USER',
 		payload: loggedUser
@@ -32,7 +33,9 @@ export const reducer = (state: State, action: Action): State => {
 			if (action.payload)
 				return {
 					...state,
-					loggedUser: action.payload
+					loggedUser: action.payload,
+					dictionary: dictionaryList[action.payload.language],
+					themeWithLocale: themeWithLocale(action.payload.language)
 				};
 			else {
 				return { ...state, loggedUser: undefined };
