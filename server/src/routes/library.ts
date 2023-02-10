@@ -16,13 +16,14 @@ router.get(
 			throw new AppError(`User is not logged in`, 400);
 		}
 		let result;
-		if (!req.query.page && !req.query.limit) {
+		const queryTerm = req.query.queryTerm as string | undefined;
+		if (!req.query.queryTerm && !req.query.page) {
 			result = await getInitialMovies();
 		} else {
 			if (!isStringRepresentedInteger(req.query.page) || !isStringRepresentedInteger(req.query.limit)) {
 				throw new ValidationError(`Limit and offset should be string represented integers`);
 			}
-			result = await getInitialMovies(Number(req.query.page), Number(req.query.limit));
+			result = await getInitialMovies(queryTerm, Number(req.query.page), Number(req.query.limit));
 		}
 		res.status(200).json(result);
 	})
