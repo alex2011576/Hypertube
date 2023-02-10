@@ -1,5 +1,6 @@
 import { Card, CardActionArea, styled, Typography } from '@mui/material';
 import { MovieThumbnail } from '../../types';
+import moviePlaceholder from './moviePlaceholder.png';
 
 const Background = styled('div', {
 	shouldForwardProp: (prop) => prop !== 'myProp'
@@ -19,20 +20,20 @@ const AbsoluteContent = styled('div')`
 `;
 
 const Thumbnail = ({ movie }: { movie: MovieThumbnail }) => {
+	const cover = movie.cover.length ? movie.cover : moviePlaceholder;
+	const title = movie.title.length ? movie.title : 'No title';
+	const year = movie.year > 0 ? movie.year : '';
+	const rating = movie.rating > 0 ? movie.rating + ' ⭑' : '';
+	const summary = movie.summary.length ? movie.summary.slice(0, 85) + '...' : '';
+
 	return (
 		<Card sx={{ width: 370 }}>
 			<CardActionArea>
-				<Background src={movie.cover}>
+				<Background src={cover}>
 					<AbsoluteContent>
-						<Typography gutterBottom variant="h5" m={0}>
-							{movie.title}
-						</Typography>
-						<Typography variant="subtitle1">
-							{movie.year + ' ' + movie.rating + ' ⭑'}
-						</Typography>
-						<Typography variant="body2">
-							{movie.summary.slice(0, 85) + '...'}
-						</Typography>
+						<Typography variant="h5">{title}</Typography>
+						<Typography variant="subtitle1">{year + ' ' + rating}</Typography>
+						<Typography variant="body2">{summary}</Typography>
 					</AbsoluteContent>
 				</Background>
 			</CardActionArea>
