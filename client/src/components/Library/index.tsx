@@ -6,9 +6,17 @@ import withAuthRequired from '../AuthRequired';
 import LoadingIcon from '../LoadingIcon';
 import Thumbnail from './Thumbnail';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import SearchField from './SearchField';
 
-const center = { justifyContent: 'center' };
-const height = { height: '208px' };
+const wrapperStyle = {
+	pt: 3,
+	display: 'flex',
+	flexDirection: 'column',
+	alignItems: 'center'
+};
+
+const cardHeight = { height: '208px' };
+const centeredGrid = { justifyContent: 'center', pt: 5 };
 
 const Library = () => {
 	const [pageNumber, setPageNumber] = useState(1);
@@ -64,8 +72,9 @@ const Library = () => {
 	if (!moviesData) return <LoadingIcon />;
 
 	return (
-		<Container maxWidth={'xl'} sx={{ pt: 5 }}>
-			<Grid container gap={2} sx={center}>
+		<Container maxWidth={'xl'} sx={wrapperStyle}>
+			<SearchField />
+			<Grid container gap={2} sx={centeredGrid}>
 				{thumbnails.map((movie, i) => (
 					<Box
 						key={i}
@@ -73,7 +82,7 @@ const Library = () => {
 							? { ref: lastDisplayedMovieRef }
 							: {})}
 					>
-						<Card sx={height}>
+						<Card sx={cardHeight}>
 							<Thumbnail movie={movie} />
 						</Card>
 					</Box>
