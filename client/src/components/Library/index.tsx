@@ -22,6 +22,7 @@ const Library = () => {
 	const [pageNumber, setPageNumber] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 	const [thumbnails, setThumbnails] = useState<MovieThumbnail[]>([]);
+	const [queryTerm, setQueryTerm] = useState<string>('');
 
 	const {
 		data: moviesData,
@@ -32,9 +33,14 @@ const Library = () => {
 		error: Error | undefined;
 		loading: boolean;
 	} = useServiceCall(
-		async () => await libraryService.getInitialMovies(pageNumber, 20),
-		[pageNumber]
+		async () => await libraryService.getInitialMovies(queryTerm, pageNumber, 20),
+		[pageNumber, queryTerm]
 	);
+
+	const handleOnChange = () => {
+		setPageNumber(1);
+		setThumbnails([]);
+	};
 
 	const observer = useRef<IntersectionObserver | null>(null);
 	const lastDisplayedMovieRef = useCallback(
@@ -73,7 +79,11 @@ const Library = () => {
 
 	return (
 		<Container maxWidth={'xl'} sx={wrapperStyle}>
-			<SearchField />
+			<SearchField
+				setQueryTerm={setQueryTerm}
+				queryTerm={queryTerm}
+				handleOnChange={handleOnChange}
+			/>
 			<Grid container gap={2} sx={centeredGrid}>
 				{thumbnails.map((movie, i) => (
 					<Box
