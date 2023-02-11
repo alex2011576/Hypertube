@@ -2,15 +2,15 @@
 import { Box, SelectChangeEvent, Paper, IconButton, InputBase, FormControl, InputLabel, Select, MenuItem, ToggleButton } from '@mui/material';
 import { Dispatch, SetStateAction, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import styled from '@emotion/styled';
 
 const wrapperStyle = {
 	p: '0.5rem',
 	display: 'flex',
 	alignItems: 'center',
 	flexDirection: 'column',
-	width: '70%',
-	minWidth: '300px'
+	width: '65%',
+	minWidth: '300px',
+	// border: 'none'
 };
 
 const inputFieldStyle = {
@@ -24,11 +24,10 @@ const inputFieldStyle = {
 
 const flexRow = { display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%' };
 
-const Selectors = styled(Box)`
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-`;
+// const Selectors = styled(Box)`
+// 	display: flex;
+// 	width: 100%;
+// `;
 
 export default function SearchField({
 	setQueryTerm: setInputValue,
@@ -98,7 +97,13 @@ export default function SearchField({
 					onChange={handleChange}
 				/>
 			</Paper>
-			<Selectors sx={flexRow}>
+			<Box
+				sx={{
+					display: 'flex',
+					width: '100%',
+					flexDirection: { xs: 'column', sm: 'column', md: 'row' }
+				}}
+			>
 				<Box sx={flexRow}>
 					<Paper sx={{ ...inputFieldStyle, mr: '1rem' }}>
 						<FormControl variant="standard" sx={{ width: '100%' }}>
@@ -151,7 +156,7 @@ export default function SearchField({
 					</Paper>
 					<ToggleButton
 						color="primary"
-						sx={{ maxWidth: '5rem', height: '3rem', border: 'none' }}
+						sx={{ maxWidth: '5rem', height: '2.9rem', border: 'none' }}
 						value="check"
 						selected={reverseOrder}
 						onChange={() => {
@@ -161,7 +166,7 @@ export default function SearchField({
 						Reverse
 					</ToggleButton>
 				</Box>
-			</Selectors>
+			</Box>
 		</Paper>
 	);
 }

@@ -27,7 +27,7 @@ const Thumbnail = ({ movie }: { movie: MovieThumbnail }) => {
 	const summary = movie.summary.length ? movie.summary.slice(0, 85) + '...' : '';
 
 	return (
-		<Card sx={{ width: 370 }}>
+		<Card sx={{ width: { xs: 300, sm: 320, md: 370 } }}>
 			<CardActionArea>
 				<Background src={cover}>
 					<AbsoluteContent>
