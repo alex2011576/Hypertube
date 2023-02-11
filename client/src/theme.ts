@@ -110,6 +110,16 @@ const theme = createTheme({
 					}
 				}
 			}
+		},
+		MuiSelect: {
+			styleOverrides: {
+				select: {
+					':focus': {
+						backgroundColor: 'transparent', 
+						border: 'none'
+					}
+				}
+			}
 		}
 	}
 });
