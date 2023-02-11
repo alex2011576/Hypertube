@@ -17,7 +17,7 @@ router.get(
 		}
 		let result;
 		const queryTerm = req.query.queryTerm as string | undefined;
-		if (!req.query.queryTerm && !req.query.page) {
+		if (!req.query.queryTerm && !req.query.page && !req.query.limit) {
 			result = await getInitialMovies();
 		} else {
 			if (!isStringRepresentedInteger(req.query.page) || !isStringRepresentedInteger(req.query.limit)) {
