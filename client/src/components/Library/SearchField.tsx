@@ -1,7 +1,7 @@
 //prettier-ignore
 import { Box, styled, Paper, IconButton, InputBase, ToggleButton, Autocomplete, TextField } from '@mui/material';
 import { genres, sortCriteria } from './autocompleteOptions';
-import { Dispatch, SetStateAction } from 'react';
+import { SetStateAction } from 'react';
 import { SearchQuery } from '../../types';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -54,7 +54,6 @@ export default function SearchField({
 	searchQuery: SearchQuery;
 	setSearchQuery: (searchQuery: SearchQuery) => void;
 }) {
-
 	const handleChange = (event: { target: { value: SetStateAction<string> } }) => {
 		const queryTerm = event.target.value as string;
 		queryTerm.length

@@ -32,6 +32,7 @@ const Library = () => {
 
 	const [searchQuery, setSearchQuery] = useState<SearchQuery>(initialQuery);
 	//console.log(searchQuery);
+
 	const {
 		data: moviesData,
 		error: moviesError,
@@ -53,7 +54,7 @@ const Library = () => {
 	const setSearchQueryAndReset = (searchQuery: SearchQuery) => {
 		handleOnChange();
 		setSearchQuery(searchQuery);
-	}
+	};
 
 	const observer = useRef<IntersectionObserver | null>(null);
 	const lastDisplayedMovieRef = useCallback(
@@ -94,10 +95,7 @@ const Library = () => {
 
 	return (
 		<Wrapper maxWidth={'xl'}>
-			<SearchField
-				searchQuery={searchQuery}
-				setSearchQuery={setSearchQueryAndReset}
-			/>
+			<SearchField searchQuery={searchQuery} setSearchQuery={setSearchQueryAndReset} />
 			<Grid container gap={2} sx={centeredGrid}>
 				{thumbnails.map((movie, i) => (
 					<Box
