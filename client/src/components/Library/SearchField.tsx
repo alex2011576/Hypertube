@@ -89,74 +89,49 @@ export default function SearchField({
 				<IconButton type="button" aria-label="search">
 					<SearchIcon />
 				</IconButton>
-				<InputBase
-					sx={{ width: '100%' }}
-					placeholder="Search"
-					aria-label="Search movies"
-					value={inputValue}
-					onChange={handleChange}
-				/>
-			</Paper>
-			<Box
-				sx={{
-					display: 'flex',
-					width: '100%',
-					flexDirection: { xs: 'column', sm: 'column', md: 'row' }
-				}}
-			>
-				<Box sx={flexRow}>
-					<Paper sx={{ ...inputFieldStyle, mr: '1rem' }}>
-						<FormControl variant="standard" sx={{ width: '100%' }}>
-							<InputLabel>Genre</InputLabel>
-							<Select
-								sx={{
-									pb: '14px',
-									textAlign: 'left',
-									minWidth: '130px',
-									overflow: 'scroll'
+			<SelectorsWrapper>
+				<InputField sx={{ mr: { md: '10px' } }}>
+					<Autocomplete
+						onChange={(_event, value) => value && setGenre(value)}
+						options={genres}
+						fullWidth
+						renderInput={(params) => (
+							<TextField
+								{...params}
+								label="Genre"
+								variant="standard"
+								sx={autocompleteStyle}
+								InputProps={{
+									...params.InputProps,
+									disableUnderline: true
 								}}
-								value={genre}
-								disableUnderline
-								onChange={handleGenreChange}
-							>
-								<MenuItem value="">
-									<em>All</em>
-								</MenuItem>
-								{genres.map((genre) => (
-									<MenuItem key={genre} value={genre.toLowerCase()}>
-										{genre}
-									</MenuItem>
-								))}
-							</Select>
-						</FormControl>
-					</Paper>
-				</Box>
-				<Box sx={flexRow}>
-					<Paper sx={{ ...inputFieldStyle, mr: '1rem' }}>
-						<FormControl variant="standard" sx={{ width: '100%' }}>
-							<InputLabel>Sort by</InputLabel>
-							<Select
-								sx={{
-									pb: '14px',
-									textAlign: 'left',
-									minWidth: '130px',
-									overflow: 'scroll'
-								}}
-								value={sortBy}
-								disableUnderline
-								onChange={handleSortCriteriaChange}
-							>
-								{sortCriteria.map((criteria) => (
-									<MenuItem key={criteria} value={criteria.toLowerCase()}>
-										{criteria}
-									</MenuItem>
-								))}
-							</Select>
-						</FormControl>
-					</Paper>
-					<ToggleButton
+							/>
+						)}
+					/>
+				</InputField>
+				<SortSelectorRow>
+					<InputField>
+						<Autocomplete
+							value={sortBy}
+							onChange={(_event, value) => value && setSortBy(value)}
+							options={sortCriteria}
+							fullWidth
+							renderInput={(params) => (
+								<TextField
+									{...params}
+									label="Sort by"
+									variant="standard"
+									sx={autocompleteStyle}
+									InputProps={{
+										...params.InputProps,
+										disableUnderline: true
+									}}
+								/>
+							)}
+						/>
+					</InputField>
+					<ReverseButton
 						color="primary"
-						sx={{ maxWidth: '5rem', height: '2.9rem', border: 'none' }}
 						value="check"
 						selected={reverseOrder}
 						onChange={() => {
@@ -164,8 +139,8 @@ export default function SearchField({
 						}}
 					>
 						Reverse
-					</ToggleButton>
-				</Box>
+					</ReverseButton>
+				</SortSelectorRow>
 			</Box>
 		</Paper>
 	);
