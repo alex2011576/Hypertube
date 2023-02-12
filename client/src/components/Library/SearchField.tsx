@@ -1,9 +1,11 @@
 //prettier-ignore
 import { Box, styled, Paper, IconButton, InputBase, ToggleButton, Autocomplete, TextField } from '@mui/material';
-import { Dispatch, SetStateAction } from 'react';
 import { genres, sortCriteria } from './autocompleteOptions';
+import { Dispatch, SetStateAction } from 'react';
+import { SearchQuery } from '../../types';
 import SearchIcon from '@mui/icons-material/Search';
-import { Query } from '../../types';
+
+const autocompleteStyle = { minWidth: '130px', pb: '0.8rem' };
 
 const SearchContainer = styled(Paper)`
 	padding: 0.5rem;
@@ -13,8 +15,6 @@ const SearchContainer = styled(Paper)`
 	width: 65%;
 	min-width: 300px;
 `;
-
-const autocompleteStyle = { minWidth: '130px', pb: '0.8rem' };
 
 const InputField = styled(Paper)`
 	height: 3rem;
@@ -48,20 +48,18 @@ const SelectorsWrapper = styled(Box)`
 `;
 
 export default function SearchField({
-	query,
-	setQuery,
-	handleOnChange
+	searchQuery,
+	setSearchQuery
 }: {
-	query: Query;
-	setQuery: Dispatch<SetStateAction<Query>>;
-	handleOnChange: () => void;
+	searchQuery: SearchQuery;
+	setSearchQuery: (searchQuery: SearchQuery) => void;
 }) {
+
 	const handleChange = (event: { target: { value: SetStateAction<string> } }) => {
 		const queryTerm = event.target.value as string;
 		queryTerm.length
-			? setQuery({ ...query, queryTerm, sortBy: 'Title' })
-			: setQuery({ ...query, queryTerm: '', sortBy: 'Rating' });
-		handleOnChange();
+			? setSearchQuery({ ...searchQuery, queryTerm, sortBy: 'Title' })
+			: setSearchQuery({ ...searchQuery, queryTerm: '', sortBy: 'Rating' });
 	};
 
 	return (
@@ -76,7 +74,7 @@ export default function SearchField({
 				<InputField sx={{ mr: { md: '10px' } }}>
 					<Autocomplete
 						onChange={(_event, value) =>
-							value && setQuery({ ...query, genre: value })
+							setSearchQuery({ ...searchQuery, genre: value || '' })
 						}
 						options={genres}
 						fullWidth
@@ -97,9 +95,9 @@ export default function SearchField({
 				<SortSelectorRow>
 					<InputField>
 						<Autocomplete
-							value={query.sortBy}
+							value={searchQuery.sortBy}
 							onChange={(_event, value) =>
-								value && setQuery({ ...query, sortBy: value })
+								setSearchQuery({ ...searchQuery, sortBy: value || 'Title' })
 							}
 							options={sortCriteria}
 							fullWidth
@@ -120,9 +118,12 @@ export default function SearchField({
 					<ReverseButton
 						color="primary"
 						value="check"
-						selected={query.reverseOrder}
+						selected={searchQuery.reverseOrder}
 						onChange={() => {
-							setQuery({ ...query, reverseOrder: !query.reverseOrder });
+							setSearchQuery({
+								...searchQuery,
+								reverseOrder: !searchQuery.reverseOrder
+							});
 						}}
 					>
 						Reverse
