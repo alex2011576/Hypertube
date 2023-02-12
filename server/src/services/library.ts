@@ -1,4 +1,5 @@
 import { MovieThumbnail } from '../types';
+import { Query } from '../types';
 import axios from 'axios';
 
 type YTSPayload = {
@@ -19,21 +20,20 @@ type YTSMovie = {
 	rating: number;
 };
 
-export const getInitialMovies = async (queryTerm?: string, page?: number, limit?: number): Promise<MovieThumbnail[]> => {
+const getOrder = (sortBy: string, reverseOrder: boolean): string => {
+	if (sortBy === 'Title') return reverseOrder ? 'desc' : 'asc';
+	else return reverseOrder ? 'asc' : 'desc';
+};
+
+export const getInitialMovies = async (query: Query): Promise<MovieThumbnail[]> => {
 	try {
-		const queryTermValue: string | undefined = queryTerm && queryTerm.length ? queryTerm : undefined;
-		let response;
-		if (page && limit && queryTermValue) {
-			response = await axios.get<YTSPayload>(
-				`https://yts.torrentbay.to/api/v2/list_movies.json?page=${page}&limit=${limit}&query_term=${queryTermValue}&sort_by=title&order_by=asc`
-			);
-		} else if (page && limit && !queryTermValue) {
-			response = await axios.get<YTSPayload>(
-				`https://yts.torrentbay.to/api/v2/list_movies.json?page=${page}&limit=${limit}&sort_by=rating&order_by=desc`
-			);
-		} else {
-			response = await axios.get<YTSPayload>(`https://yts.torrentbay.to/api/v2/list_movies.json?sort_by=download_count&order_by=desc`);
-		}
+		const { queryTerm, genre, sortBy, reverseOrder, page, limit } = query;
+		const sortCriteria = sortBy === 'Downloads' ? 'downloads_count' : sortBy.toLowerCase();
+		const order = getOrder(sortBy, reverseOrder);
+
+		const response = await axios.get<YTSPayload>(`https://yts.torrentbay.to/api/v2/list_movies.json`, {
+			params: { page: page, limit: limit, query_term: queryTerm, genre: genre, sort_by: sortCriteria, order_by: order }
+		});
 
 		const movies = response.data.data.movies;
 		const movieThumbnails: MovieThumbnail[] = movies
@@ -51,7 +51,7 @@ export const getInitialMovies = async (queryTerm?: string, page?: number, limit?
 			: [];
 		return movieThumbnails;
 	} catch (err) {
-		console.log('Response err: ', err);
+		console.log('Response err: ', err); //rm later
 	}
 	return [];
 };
