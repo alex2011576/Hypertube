@@ -1,16 +1,17 @@
 import axios from 'axios';
 import { apiBaseUrl } from '../constants';
+import { Query } from '../types';
 import { handleAxiosError } from '../utils/errors';
 import getAuthHeader from './auth';
 
-const getInitialMovies = async (queryTerm: string, page: number, limit: number) => {
+const getInitialMovies = async (query: Query, page: number, limit: number) => {
 	try {
-		const queryTermParameter = queryTerm.length ? `queryTerm=${queryTerm}&` : '';
 		const config = {
 			headers: { Authorization: getAuthHeader() }
 		};
-		const response = await axios.get(
-			`${apiBaseUrl}/library?${queryTermParameter}page=${page}&limit=${limit}`,
+		const response = await axios.post(
+			`${apiBaseUrl}/library`,
+			{ ...query, page, limit},
 			config
 		);
 		return response.data;

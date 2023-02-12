@@ -31,7 +31,7 @@ const Library = () => {
 	};
 
 	const [query, setQuery] = useState<Query>(initialQuery);
-	console.log(query);
+	// console.log(query);
 
 	const {
 		data: moviesData,
@@ -42,8 +42,8 @@ const Library = () => {
 		error: Error | undefined;
 		loading: boolean;
 	} = useServiceCall(
-		async () => await libraryService.getInitialMovies(query.queryTerm, pageNumber, 20),
-		[pageNumber, query.queryTerm]
+		async () => await libraryService.getInitialMovies(query, pageNumber, 20),
+		[pageNumber, query]
 	);
 
 	const handleOnChange = () => {
