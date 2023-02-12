@@ -1,5 +1,5 @@
 import { MovieThumbnail } from '../types';
-import { Query } from '../types';
+import { SearchQuery } from '../types';
 import axios from 'axios';
 
 type YTSPayload = {
@@ -25,9 +25,9 @@ const getOrder = (sortBy: string, reverseOrder: boolean): string => {
 	else return reverseOrder ? 'asc' : 'desc';
 };
 
-export const getInitialMovies = async (query: Query): Promise<MovieThumbnail[]> => {
+export const getInitialMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnail[]> => {
 	try {
-		const { queryTerm, genre, sortBy, reverseOrder, page, limit } = query;
+		const { queryTerm, genre, sortBy, reverseOrder, page, limit } = searchQuery;
 		const sortCriteria = sortBy === 'Downloads' ? 'downloads_count' : sortBy.toLowerCase();
 		const order = getOrder(sortBy, reverseOrder);
 

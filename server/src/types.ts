@@ -111,7 +111,7 @@ export type MovieThumbnail = {
 	rating: number;
 };
 
-export const QuerySchema = t.type({
+export const SearchQuerySchema = t.type({
 	queryTerm: t.string,
 	genre: t.string,
 	sortBy: t.string,
@@ -120,4 +120,4 @@ export const QuerySchema = t.type({
 	limit: t.number
 });
 
-export type Query = t.TypeOf<typeof QuerySchema>;
+export type SearchQuery = t.TypeOf<typeof SearchQuerySchema>;

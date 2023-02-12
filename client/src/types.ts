@@ -71,7 +71,7 @@ export type MovieThumbnail = {
 	rating: number;
 };
 
-export type Query = {
+export type SearchQuery = {
 	queryTerm: string;
 	genre: string;
 	sortBy: string;
