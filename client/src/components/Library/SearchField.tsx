@@ -1,6 +1,6 @@
 //prettier-ignore
 import { Box, styled, Paper, IconButton, InputBase, ToggleButton, Autocomplete, TextField } from '@mui/material';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { genres, sortCriteria } from './autocompleteOptions';
 import SearchIcon from '@mui/icons-material/Search';
 import { Query } from '../../types';
@@ -48,12 +48,7 @@ const SelectorsWrapper = styled(Box)`
 `;
 
 export default function SearchField({
-	query: {
-		queryTerm: defaultQueryTerm,
-		sortBy: defaultSortBy,
-		genre: defaultGenre,
-		reverseOrder: defaultReverseOrder
-	},
+	query,
 	setQuery,
 	handleOnChange
 }: {
@@ -61,19 +56,11 @@ export default function SearchField({
 	setQuery: Dispatch<SetStateAction<Query>>;
 	handleOnChange: () => void;
 }) {
-	const [queryTerm, setQueryTerm] = useState<string>(defaultQueryTerm);
-	const [genre, setGenre] = useState<string>(defaultGenre);
-	const [sortBy, setSortBy] = useState<string>(defaultSortBy);
-	const [reverseOrder, setReverseOrder] = useState<boolean>(defaultReverseOrder);
-
-	useEffect(() => {
-		setQuery({ queryTerm, genre, sortBy, reverseOrder });
-	}, [queryTerm, sortBy, reverseOrder, setQuery, genre]);
-
 	const handleChange = (event: { target: { value: SetStateAction<string> } }) => {
 		const queryTerm = event.target.value as string;
-		queryTerm.length ? setSortBy('Title') : setSortBy('Rating');
-		setQueryTerm(queryTerm);
+		queryTerm.length
+			? setQuery({ ...query, queryTerm, sortBy: 'Title' })
+			: setQuery({ ...query, queryTerm: '', sortBy: 'Rating' });
 		handleOnChange();
 	};
 
@@ -88,7 +75,9 @@ export default function SearchField({
 			<SelectorsWrapper>
 				<InputField sx={{ mr: { md: '10px' } }}>
 					<Autocomplete
-						onChange={(_event, value) => value && setGenre(value)}
+						onChange={(_event, value) =>
+							value && setQuery({ ...query, genre: value })
+						}
 						options={genres}
 						fullWidth
 						renderInput={(params) => (
@@ -108,8 +97,10 @@ export default function SearchField({
 				<SortSelectorRow>
 					<InputField>
 						<Autocomplete
-							value={sortBy}
-							onChange={(_event, value) => value && setSortBy(value)}
+							value={query.sortBy}
+							onChange={(_event, value) =>
+								value && setQuery({ ...query, sortBy: value })
+							}
 							options={sortCriteria}
 							fullWidth
 							renderInput={(params) => (
@@ -129,9 +120,9 @@ export default function SearchField({
 					<ReverseButton
 						color="primary"
 						value="check"
-						selected={reverseOrder}
+						selected={query.reverseOrder}
 						onChange={() => {
-							setReverseOrder(!reverseOrder);
+							setQuery({ ...query, reverseOrder: !query.reverseOrder });
 						}}
 					>
 						Reverse
