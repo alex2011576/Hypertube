@@ -1,94 +1,90 @@
 //prettier-ignore
-import { Box, SelectChangeEvent, Paper, IconButton, InputBase, FormControl, InputLabel, Select, MenuItem, ToggleButton } from '@mui/material';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Box, styled, Paper, IconButton, InputBase, ToggleButton, Autocomplete, TextField } from '@mui/material';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { genres, sortCriteria } from './autocompleteOptions';
 import SearchIcon from '@mui/icons-material/Search';
+import { Query } from '../../types';
 
-const wrapperStyle = {
-	p: '0.5rem',
-	display: 'flex',
-	alignItems: 'center',
-	flexDirection: 'column',
-	width: '65%',
-	minWidth: '300px',
-	// border: 'none'
-};
+const SearchContainer = styled(Paper)`
+	padding: 0.5rem;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 65%;
+	min-width: 300px;
+`;
 
-const inputFieldStyle = {
-	height: '3rem',
-	p: '0.7rem',
-	m: '0.5rem 0',
-	display: 'flex',
-	alignItems: 'center',
-	width: '100%'
-};
+const autocompleteStyle = { minWidth: '130px', pb: '0.8rem' };
 
-const flexRow = { display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%' };
+const InputField = styled(Paper)`
+	height: 3rem;
+	padding: 0.7rem;
+	margin: 0.3rem 0;
+	display: flex;
+	align-items: center;
+	width: 100%;
+`;
 
-// const Selectors = styled(Box)`
-// 	display: flex;
-// 	width: 100%;
-// `;
+const SortSelectorRow = styled(Box)`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+`;
+
+const ReverseButton = styled(ToggleButton)`
+	max-width: 5rem;
+	height: 2.9rem;
+	border: none;
+	margin-left: 10px;
+`;
+
+const SelectorsWrapper = styled(Box)`
+	width: 100%;
+	display: flex;
+	${(props) => props.theme.breakpoints.down('md')} {
+		flex-direction: column;
+	}
+`;
 
 export default function SearchField({
-	setQueryTerm: setInputValue,
-	queryTerm: inputValue,
+	query: {
+		queryTerm: defaultQueryTerm,
+		sortBy: defaultSortBy,
+		genre: defaultGenre,
+		reverseOrder: defaultReverseOrder
+	},
+	setQuery,
 	handleOnChange
 }: {
-	setQueryTerm: Dispatch<SetStateAction<string>>;
-	queryTerm: string;
+	query: Query;
+	setQuery: Dispatch<SetStateAction<Query>>;
 	handleOnChange: () => void;
 }) {
-	const [sortBy, setSortBy] = useState('');
-	const [genre, setGenre] = useState('');
-	const [reverseOrder, setReverseOrder] = useState<boolean>(false);
-	const sortCriteria = ['Title', 'Rating', 'Year', 'Downloads'];
-	const genres = [
-		'Action',
-		'Adventure',
-		'Animation',
-		'Biography',
-		'Comedy',
-		'Crime',
-		'Documentary',
-		'Drama',
-		'Family',
-		'Fantasy',
-		'Film-Noir',
-		'Game-Show',
-		'History',
-		'Horror',
-		'Music',
-		'Musical',
-		'Mystery',
-		'News',
-		'Reality-TV',
-		'Romance',
-		'Sci-Fi',
-		'Sport',
-		'Talk-Show',
-		'Thriller',
-		'War',
-		'Western'
-	];
-	const handleSortCriteriaChange = (event: { target: { value: string } }) => {
-		setSortBy(event.target.value as string);
-	};
+	const [queryTerm, setQueryTerm] = useState<string>(defaultQueryTerm);
+	const [genre, setGenre] = useState<string>(defaultGenre);
+	const [sortBy, setSortBy] = useState<string>(defaultSortBy);
+	const [reverseOrder, setReverseOrder] = useState<boolean>(defaultReverseOrder);
 
-	const handleGenreChange = (event: SelectChangeEvent) => {
-		setGenre(event.target.value as string);
-	};
+	useEffect(() => {
+		setQuery({ queryTerm, genre, sortBy, reverseOrder });
+	}, [queryTerm, sortBy, reverseOrder, setQuery, genre]);
 
 	const handleChange = (event: { target: { value: SetStateAction<string> } }) => {
-		setInputValue(event.target.value);
+		const queryTerm = event.target.value as string;
+		queryTerm.length ? setSortBy('Title') : setSortBy('Rating');
+		setQueryTerm(queryTerm);
 		handleOnChange();
 	};
 
 	return (
-		<Paper sx={wrapperStyle}>
-			<Paper sx={inputFieldStyle}>
-				<IconButton type="button" aria-label="search">
+		<SearchContainer>
+			<InputField>
+				<IconButton>
 					<SearchIcon />
 				</IconButton>
+				<InputBase onChange={handleChange} placeholder="Search" fullWidth />
+			</InputField>
 			<SelectorsWrapper>
 				<InputField sx={{ mr: { md: '10px' } }}>
 					<Autocomplete
@@ -141,7 +137,7 @@ export default function SearchField({
 						Reverse
 					</ReverseButton>
 				</SortSelectorRow>
-			</Box>
-		</Paper>
+			</SelectorsWrapper>
+		</SearchContainer>
 	);
 }

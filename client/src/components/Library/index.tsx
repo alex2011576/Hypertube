@@ -1,6 +1,6 @@
 import { Alert, Container, Grid, Card, Box } from '@mui/material';
 import { useServiceCall } from '../../hooks/useServiceCall';
-import { MovieThumbnail } from '../../types';
+import { MovieThumbnail, Query } from '../../types';
 import libraryService from '../../services/library';
 import withAuthRequired from '../AuthRequired';
 import LoadingIcon from '../LoadingIcon';
@@ -19,10 +19,19 @@ const cardHeight = { height: '208px' };
 const centeredGrid = { justifyContent: 'center', pt: 5 };
 
 const Library = () => {
-	const [pageNumber, setPageNumber] = useState(1);
-	const [hasMore, setHasMore] = useState(true);
+	const [pageNumber, setPageNumber] = useState<number>(1);
+	const [hasMore, setHasMore] = useState<boolean>(true);
 	const [thumbnails, setThumbnails] = useState<MovieThumbnail[]>([]);
-	const [queryTerm, setQueryTerm] = useState<string>('');
+
+	const initialQuery = {
+		queryTerm: '',
+		genre: '',
+		sortBy: 'Rating',
+		reverseOrder: false
+	};
+
+	const [query, setQuery] = useState<Query>(initialQuery);
+	console.log(query);
 
 	const {
 		data: moviesData,
@@ -33,8 +42,8 @@ const Library = () => {
 		error: Error | undefined;
 		loading: boolean;
 	} = useServiceCall(
-		async () => await libraryService.getInitialMovies(queryTerm, pageNumber, 20),
-		[pageNumber, queryTerm]
+		async () => await libraryService.getInitialMovies(query.queryTerm, pageNumber, 20),
+		[pageNumber, query.queryTerm]
 	);
 
 	const handleOnChange = () => {
@@ -59,8 +68,10 @@ const Library = () => {
 
 	useEffect(() => {
 		if (moviesData) {
-			if (moviesData.length === 0) {
+			if (!moviesData.length) {
 				setHasMore(false);
+			} else if (pageNumber === 1) {
+				setThumbnails(moviesData);
 			} else {
 				setThumbnails((prevThumbnails) => {
 					const arrTemp = [...prevThumbnails, ...moviesData];
@@ -72,18 +83,14 @@ const Library = () => {
 				setHasMore(moviesData.length > 0);
 			}
 		}
-	}, [moviesData, setThumbnails]);
+	}, [moviesData, pageNumber, setThumbnails]);
 
 	if (moviesError) return <Alert severity="error">Error occurred, please try again</Alert>;
 	if (!moviesData) return <LoadingIcon />;
 
 	return (
 		<Container maxWidth={'xl'} sx={wrapperStyle}>
-			<SearchField
-				setQueryTerm={setQueryTerm}
-				queryTerm={queryTerm}
-				handleOnChange={handleOnChange}
-			/>
+			<SearchField query={query} setQuery={setQuery} handleOnChange={handleOnChange} />
 			<Grid container gap={2} sx={centeredGrid}>
 				{thumbnails.map((movie, i) => (
 					<Box

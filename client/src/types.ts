@@ -70,3 +70,10 @@ export type MovieThumbnail = {
 	cover: string;
 	rating: number;
 };
+
+export type Query = {
+	queryTerm: string;
+	genre: string;
+	sortBy: string;
+	reverseOrder: boolean;
+};
