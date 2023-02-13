@@ -42,7 +42,7 @@ const Library = () => {
 		error: Error | undefined;
 		loading: boolean;
 	} = useServiceCall(
-		async () => await libraryService.getInitialMovies(searchQuery, pageNumber, 20),
+		async () => await libraryService.getMovies(searchQuery, pageNumber, 20),
 		[pageNumber, searchQuery]
 	);
 

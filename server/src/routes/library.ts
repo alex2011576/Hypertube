@@ -1,7 +1,7 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
 import { CustomRequest, SearchQuerySchema } from '../types';
-import { getInitialMovies } from '../services/library';
+import { getMovies } from '../services/library';
 import { sessionExtractor } from '../utils/middleware';
 import { AppError, ValidationError } from '../errors';
 import { isRight } from 'fp-ts/lib/Either';
@@ -19,7 +19,7 @@ router.post(
 		if (!isRight(searchQuery)) {
 			throw new ValidationError(`Error parsing query: ${searchQuery.left}`);
 		}
-		const result = await getInitialMovies(searchQuery.right);
+		const result = await getMovies(searchQuery.right);
 		res.status(200).json(result);
 	})
 );

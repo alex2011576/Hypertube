@@ -4,7 +4,7 @@ import { SearchQuery } from '../types';
 import { handleAxiosError } from '../utils/errors';
 import getAuthHeader from './auth';
 
-const getInitialMovies = async (searchQuery: SearchQuery, page: number, limit: number) => {
+const getMovies = async (searchQuery: SearchQuery, page: number, limit: number) => {
 	try {
 		const config = {
 			headers: { Authorization: getAuthHeader() }
@@ -20,5 +20,5 @@ const getInitialMovies = async (searchQuery: SearchQuery, page: number, limit: n
 	}
 };
 
-const moduleExports = { getInitialMovies };
+const moduleExports = { getMovies };
 export default moduleExports;

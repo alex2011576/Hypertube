@@ -25,7 +25,7 @@ const getOrder = (sortBy: string, reverseOrder: boolean): string => {
 	else return reverseOrder ? 'asc' : 'desc';
 };
 
-export const getInitialMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnail[]> => {
+export const getMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnail[]> => {
 	try {
 		const { queryTerm, genre, sortBy, reverseOrder, page, limit } = searchQuery;
 		const sortCriteria = sortBy === 'Downloads' ? 'download_count' : sortBy.toLowerCase();
