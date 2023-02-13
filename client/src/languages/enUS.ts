@@ -174,7 +174,7 @@ export const enUS: Dictionary = {
 
 	// library.ts
 	libraryUserNotLoggedIn: 'User is not logged in',
-	libraryLimitOffsetNotNumber: 'Limit and offset should be string represented integers',
+	errorParsingSearchQuery: 'Error parsing search query',
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Missing activation code',

@@ -15,11 +15,9 @@ router.post(
 		if (!req.session || !req.session.userId) {
 			throw new AppError(`libraryUserNotLoggedIn`, 400);
 		}
-    
 		const searchQuery = SearchQuerySchema.decode(req.body);
 		if (!isRight(searchQuery)) {
-    //error parsing search query
-				throw new ValidationError(`libraryLimitOffsetNotNumber`);
+			throw new ValidationError(`errorParsingSearchQuery`);
 		}
 		const result = await getMovies(searchQuery.right);
 		res.status(200).json(result);

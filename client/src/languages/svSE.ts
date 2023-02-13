@@ -161,7 +161,7 @@ export const svSE: Dictionary = {
 
 	// library.ts
 	libraryUserNotLoggedIn: 'Användaren är inte inloggad',
-	libraryLimitOffsetNotNumber: 'begränsning och offset ska vara strängrepresenterade heltal',
+	errorParsingSearchQuery: 'Error parsing search query',
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Saknar återställningskod',
