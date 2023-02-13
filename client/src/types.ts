@@ -78,3 +78,15 @@ export type SearchQuery = {
 	sortBy: string;
 	reverseOrder: boolean;
 };
+
+export type YtsMovieData = MovieThumbnail & {
+	titleEnglish: string;
+	descriptionIntro: string;
+	runtime: number;
+	genres: string[];
+	downloadCount: number;
+	likeCount: number;
+	language: string;
+	largeScreenshotImage: string;
+	// quality: string[];
+};
