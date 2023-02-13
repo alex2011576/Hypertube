@@ -1,8 +1,8 @@
 import { useStateValue } from '../state';
 
-// Testing Error message translation
+// Testing message translation
 // Usage: const { translate } = useTranslate();
-// const errorMessage = translate("tid");
+// const message = translate("tid");
 
 export const useTranslate = () => {
 	const [{ dictionary }] = useStateValue();
