@@ -87,8 +87,8 @@ export const ruRU: Dictionary = {
 	invalidEmail: 'Неверный формат',
 	incorrectField: 'Неверный формат',
 
-	// Library
-	libraryError: 'Произошла ошибка, Пожалуйста попробуйте снова',
+	// Movies
+	moviesError: 'Произошла ошибка, Пожалуйста попробуйте снова',
 
 	// Alerts
 	alertLogout: 'Выход осуществлен',
@@ -159,8 +159,8 @@ export const ruRU: Dictionary = {
 	userNameExists: 'Имя пользователя занято',
 	emailExists: 'Этот адрес уже занят',
 
-	// library.ts
-	libraryUserNotLoggedIn: 'Пожалуйста войдите в свой аккаунт',
+	// movies.ts
+	moviesUserNotLoggedIn: 'Пожалуйста войдите в свой аккаунт',
 	errorParsingSearchQuery: 'Ошибка обрботки поискового запроса',
 
 	// routes/users.ts

@@ -48,7 +48,7 @@ export const getMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnai
 						rating: movie.rating || 0,
 						isWatched: false // <= function to check if watched here
 					};
-			  })
+			})
 			: [];
 		return movieThumbnails;
 	} catch (err) {

@@ -11,14 +11,14 @@ import AlertProvider from './components/AlertProvider';
 import CustomModal from './components/CustomModal';
 import UpdateEmail from './components/UpdateEmail';
 import SignUpForm from './components/SignUpForm';
-import Login from './components/LoginCallbacks';
 import LoginForm from './components/LoginForm';
-import Library from './components/Library';
+import Login from './components/LoginCallbacks';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import useModal from './hooks/useModal';
+import Movies from './components/Movies';
+import Movie from './components/Movie';
 import Text from './components/Text';
-import MoviePage from './components/MoviePage';
 
 const StyledBox = styled(Box)`
 	text-align: center;
@@ -62,7 +62,7 @@ const App = () => {
 						<StyledBox>
 							<AlertSnackBar />
 							<Routes>
-								<Route path="/" element={<Library />} />
+								<Route path="/" element={<Movies />} />
 								<Route
 									path="/login"
 									element={
@@ -131,7 +131,8 @@ const App = () => {
 								<Route path="/profile" element={<ProfileSettings />} />
 								<Route path="/profile/:id" element={<PublicProfile />} />
 								<Route path="/update_email" element={<UpdateEmail />} />
-								<Route path="/movie/:id" element={<MoviePage />} />
+								<Route path="/movies/" element={<Movies />} />
+								<Route path="/movies/:id" element={<Movie />} />
 								<Route path="*" element={<Navigate to="/" replace />} />
 							</Routes>
 							<Footer />

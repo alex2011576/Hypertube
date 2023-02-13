@@ -88,8 +88,8 @@ export const svSE: Dictionary = {
 	invalidEmail: 'Ogiltigt e-postformat',
 	incorrectField: 'Ogiltigt fält',
 
-	// Library
-	libraryError: 'Ett fel uppstod, försök igen',
+	// Movies
+	moviesError: 'Ett fel uppstod, försök igen',
 
 	// Alerts
 	alertLogout: 'Loggade ut',
@@ -159,8 +159,8 @@ export const svSE: Dictionary = {
 	userNameExists: 'Användarnamn existerar redan',
 	emailExists: 'Denna e-post har redan använts',
 
-	// library.ts
-	libraryUserNotLoggedIn: 'Användaren är inte inloggad',
+	// movies.ts
+	moviesUserNotLoggedIn: 'Användaren är inte inloggad',
 	errorParsingSearchQuery: 'Error parsing search query',
 
 	// routes/users.ts

@@ -87,8 +87,8 @@ export const enUS: Dictionary = {
 	invalidEmail: 'Incorrect email format',
 	incorrectField: 'Incorrect field',
 
-	// Library
-	libraryError: 'Error occurred, please try again',
+	// Movies
+	moviesError: 'Error occurred, please try again',
 
 	// Alerts
 	alertLogout: 'Logged out',
@@ -172,8 +172,8 @@ export const enUS: Dictionary = {
 	userNameExists: 'Username already exists',
 	emailExists: 'This email was already used',
 
-	// library.ts
-	libraryUserNotLoggedIn: 'User is not logged in',
+	// movies.ts
+	moviesUserNotLoggedIn: 'User is not logged in',
 	errorParsingSearchQuery: 'Error parsing search query',
 
 	// routes/users.ts
