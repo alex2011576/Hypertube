@@ -1,4 +1,5 @@
 import { MovieThumbnail } from '../types';
+import { SearchQuery } from '../types';
 import axios from 'axios';
 
 type YTSPayload = {
@@ -19,21 +20,20 @@ type YTSMovie = {
 	rating: number;
 };
 
-export const getInitialMovies = async (queryTerm?: string, page?: number, limit?: number): Promise<MovieThumbnail[]> => {
+const getOrder = (sortBy: string, reverseOrder: boolean): string => {
+	if (sortBy === 'Title') return reverseOrder ? 'desc' : 'asc';
+	else return reverseOrder ? 'asc' : 'desc';
+};
+
+export const getMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnail[]> => {
 	try {
-		const queryTermValue: string | undefined = queryTerm && queryTerm.length ? queryTerm : undefined;
-		let response;
-		if (page && limit && queryTermValue) {
-			response = await axios.get<YTSPayload>(
-				`https://yts.torrentbay.to/api/v2/list_movies.json?page=${page}&limit=${limit}&query_term=${queryTermValue}&sort_by=title&order_by=asc`
-			);
-		} else if (page && limit && !queryTermValue) {
-			response = await axios.get<YTSPayload>(
-				`https://yts.torrentbay.to/api/v2/list_movies.json?page=${page}&limit=${limit}&sort_by=rating&order_by=desc`
-			);
-		} else {
-			response = await axios.get<YTSPayload>(`https://yts.torrentbay.to/api/v2/list_movies.json?sort_by=download_count&order_by=desc`);
-		}
+		const { queryTerm, genre, sortBy, reverseOrder, page, limit } = searchQuery;
+		const sortCriteria = sortBy === 'Downloads' ? 'download_count' : sortBy.toLowerCase();
+		const order = getOrder(sortBy, reverseOrder);
+
+		const response = await axios.get<YTSPayload>(`https://yts.torrentbay.to/api/v2/list_movies.json`, {
+			params: { page: page, limit: limit, query_term: queryTerm, genre: genre, sort_by: sortCriteria, order_by: order }
+		});
 
 		const movies = response.data.data.movies;
 		const movieThumbnails: MovieThumbnail[] = movies
@@ -45,13 +45,14 @@ export const getInitialMovies = async (queryTerm?: string, page?: number, limit?
 						year: movie.year || 0,
 						summary: movie.summary || '',
 						cover: movie.large_cover_image || '',
-						rating: movie.rating || 0
+						rating: movie.rating || 0,
+						isWatched: false // <= function to check if watched here
 					};
 			  })
 			: [];
 		return movieThumbnails;
 	} catch (err) {
-		console.log('Response err: ', err);
+		console.log('Response err: ', err); //rm later
 	}
 	return [];
 };

@@ -9,6 +9,7 @@ import ForgotPassword from './components/ForgotPassword';
 import AlertSnackBar from './components/AlertSnackBar';
 import AlertProvider from './components/AlertProvider';
 import CustomModal from './components/CustomModal';
+import UpdateEmail from './components/UpdateEmail';
 import SignUpForm from './components/SignUpForm';
 import Login from './components/LoginCallbacks';
 import LoginForm from './components/LoginForm';
@@ -129,8 +130,7 @@ const App = () => {
 								<Route path="/profile" element={<ProfileSettings />} />
 
 								<Route path="/profile/:id" element={<PublicProfile />} />
-								{/* <Route path="/profile" element={<ProfileEditor />} />
-							<Route path="/update_email" element={<UpdateEmail />} /> */}
+								<Route path="/update_email" element={<UpdateEmail />} />
 								<Route path="*" element={<Navigate to="/" replace />} />
 							</Routes>
 							<Footer />

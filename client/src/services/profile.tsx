@@ -74,11 +74,16 @@ const updatePassword = async ({
 	}
 };
 
+export const updateEmailByToken = async (updateToken: string): Promise<void> => {
+	await axios.put(`${apiBaseUrl}/users/update_email/${updateToken}`);
+};
+
 const moduleExports = {
 	getProfile,
 	getPhoto,
 	updateProfile,
 	requestUpdateEmail,
-	updatePassword
+	updatePassword,
+	updateEmailByToken
 };
 export default moduleExports;

@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import * as t from 'io-ts';
 
 export type BaseUser = {
 	username: string;
@@ -108,4 +109,16 @@ export type MovieThumbnail = {
 	summary: string;
 	cover: string;
 	rating: number;
+	isWatched: boolean;
 };
+
+export const SearchQuerySchema = t.type({
+	queryTerm: t.string,
+	genre: t.string,
+	sortBy: t.string,
+	reverseOrder: t.boolean,
+	page: t.number,
+	limit: t.number
+});
+
+export type SearchQuery = t.TypeOf<typeof SearchQuerySchema>;

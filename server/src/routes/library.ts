@@ -1,30 +1,27 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
-import { AppError, ValidationError } from '../errors';
-import { getInitialMovies } from '../services/library';
-import { CustomRequest } from '../types';
+import { CustomRequest, SearchQuerySchema } from '../types';
+import { getMovies } from '../services/library';
 import { sessionExtractor } from '../utils/middleware';
-import { isStringRepresentedInteger } from '../validators/basicTypeValidators';
+import { AppError, ValidationError } from '../errors';
+import { isRight } from 'fp-ts/lib/Either';
 
 const router = express.Router();
 
-router.get(
+router.post(
 	'/',
 	sessionExtractor,
 	asyncHandler(async (req: CustomRequest, res) => {
 		if (!req.session || !req.session.userId) {
 			throw new AppError(`libraryUserNotLoggedIn`, 400);
 		}
-		let result;
-		const queryTerm = req.query.queryTerm as string | undefined;
-		if (!req.query.queryTerm && !req.query.page) {
-			result = await getInitialMovies();
-		} else {
-			if (!isStringRepresentedInteger(req.query.page) || !isStringRepresentedInteger(req.query.limit)) {
+    
+		const searchQuery = SearchQuerySchema.decode(req.body);
+		if (!isRight(searchQuery)) {
+    //error parsing search query
 				throw new ValidationError(`libraryLimitOffsetNotNumber`);
-			}
-			result = await getInitialMovies(queryTerm, Number(req.query.page), Number(req.query.limit));
 		}
+		const result = await getMovies(searchQuery.right);
 		res.status(200).json(result);
 	})
 );
