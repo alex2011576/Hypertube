@@ -61,6 +61,15 @@ export const svSE: Dictionary = {
 	profilePasswordInfoText: 'Vänligen ange ditt nuvarande lösenord för att säkert ändra det.',
 	textFieldCurrentPassword: 'Nuvarande lösenord',
 	textFieldNewPassword: 'Nytt lösenord',
+	profileFormSuccess: 'Profilinställningar har uppdaterats!',
+	profileFormError: 'Det gick inte att uppdatera profilinställningar. Var god försök igen.',
+	profileLoadingError:
+		'Det gick inte att läsa in sidan med kontoinställningar, försök igen senare.',
+	profileUpdatePasswordSuccess: 'Lösenordet har uppdaterats!',
+	profileUpdatePasswordError: 'Det gick inte att uppdatera lösenorder. Var god försök igen.',
+	profileUpdateEmailSuccess: 'Aktiveringslänk skickad till ny e-post!',
+	profileUpdateEmailError:
+		'Det gick inte att uppdatera e-postadressen. Var god försök igen.',
 
 	// Public Profile
 	publicProfileHeader: 'HYPERTUBER',
@@ -79,21 +88,28 @@ export const svSE: Dictionary = {
 	invalidEmail: 'Ogiltigt e-postformat',
 	incorrectField: 'Ogiltigt fält',
 
-	// ProfileSettings/index.tsx
-	errorLoadingProfile:
-		'Det gick inte att läsa in sidan med kontoinställningar, försök igen senare.',
+	// Library
+	libraryError: 'Ett fel uppstod, försök igen',
 
-	// ProfileForm.txs
-	profileFormSuccess: 'Profilinställningar har uppdaterats!',
-	profileFormError: 'Det gick inte att uppdatera profilinställningar. Var god försök igen.',
+	// Alerts
+	alertLogout: 'Loggade ut',
+	alertSuccessPasswordResetLink: 'Återställ länk skickad! Kontrollera din inkorg.',
+	alertErrorPasswordResetLink: 'Det gick inte att skicka länken. Var god försök igen.',
+	alertLoginSuccess: 'Inloggad. Välkommen!',
+	alertLoginError: 'Kunde inte logga in. Var god försök igen.',
+	alertAccountActivated: 'Kontot har aktiverats!',
+	alertErrorOccured: 'Ett fel uppstod, försök igen.',
+	alertNewUserSuccess: 'Ny användare har skapats! Aktiveringslänk skickat till e-post.',
+	alertNewUserError: 'Det gick inte att skapa en ny användare. Var god försök igen.',
+	alertInvalidPasswordResetLink: 'Ogiltig återställningslänk. Var god försök igen.',
+	alertPasswordResetSuccess: 'Lösenordet har ändrats!',
+	alertPasswordResetError: 'Det gick inte att återställa lösenordet. Var god försök igen.',
 
-	// UpdatePasswordForm.tsx
-	updatePasswordFormSuccess: 'Lösenordet har uppdaterats!',
-	updatePasswordFormError: 'Det gick inte att uppdatera lösenorder. Var god försök igen.',
+	// AxiosError
+	axiosNetworkError: 'Nätverksfel',
 
-	// UpdateEmailForm.tsx
-	updateEmailFormSuccess: 'Aktiveringslänk skickad till ny e-post!',
-	updateEmailFormError: 'Det gick inte att uppdatera e-postadressen. Var god försök igen.',
+	// AuthError
+	authError: 'Sessionen har löpt ut, vänligen logga in igen.',
 
 	// Backend Errors -----------------------------------------------------------------------
 

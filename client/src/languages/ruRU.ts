@@ -61,6 +61,13 @@ export const ruRU: Dictionary = {
 	profilePasswordInfoText: 'Введите текущий пароль для безопасной смены пароля.',
 	textFieldCurrentPassword: 'Текущий пароль',
 	textFieldNewPassword: 'Новый пароль',
+	profileFormSuccess: 'Profile settings were updated!',
+	profileFormError: 'Unable to update profile settings. Please try again.',
+	profileLoadingError: 'Error loading account settings page, please try again...',
+	profileUpdatePasswordSuccess: 'Password was changed successfully!',
+	profileUpdatePasswordError: 'Unable to update password. Please try again.',
+	profileUpdateEmailSuccess: 'Activation link sent to new email!',
+	profileUpdateEmailError: 'Unable to update email address. Please try again.',
 
 	// Public Profile
 	publicProfileHeader: 'ПОЛЬЗОВАТЕЛЬ',
@@ -79,20 +86,28 @@ export const ruRU: Dictionary = {
 	invalidEmail: 'Неверный формат',
 	incorrectField: 'Неверный формат',
 
-	// ProfileSettings/index.tsx
-	errorLoadingProfile: 'Error loading account settings page, please try again...',
+	// Library
+	libraryError: 'Error occurred, please try again',
 
-	// ProfileForm.txs
-	profileFormSuccess: 'Profile settings were updated!',
-	profileFormError: 'Unable to update profile settings. Please try again.',
+	// Alerts
+	alertLogout: 'Logged out',
+	alertSuccessPasswordResetLink: 'Reset link sent! Please check your inbox.',
+	alertErrorPasswordResetLink: 'Unable to send a link. Please try again.',
+	alertLoginSuccess: 'Logged in successfully. Welcome!',
+	alertLoginError: 'Unable to login. Please try again.',
+	alertAccountActivated: 'Account activated successfully!',
+	alertErrorOccured: 'Error occurred, please try again.',
+	alertNewUserSuccess: 'New user has been created! Activation link is sent to email.',
+	alertNewUserError: 'Unable to create a new user. Please try again.',
+	alertInvalidPasswordResetLink: 'Invalid reset link. Please try again.',
+	alertPasswordResetSuccess: 'Password changed successfully!',
+	alertPasswordResetError: 'Unable to reset password. Please try again.',
 
-	// UpdatePasswordForm.tsx
-	updatePasswordFormSuccess: 'Password was changed successfully!',
-	updatePasswordFormError: 'Unable to update password. Please try again.',
+	// AxiosError
+	axiosNetworkError: 'Network error',
 
-	// UpdateEmailForm.tsx
-	updateEmailFormSuccess: 'Activation link sent to new email!',
-	updateEmailFormError: 'Unable to update email address. Please try again.',
+	// AuthError
+	authError: 'Session expired, please login again.',
 
 	// Backend Errors -----------------------------------------------------------------------
 
