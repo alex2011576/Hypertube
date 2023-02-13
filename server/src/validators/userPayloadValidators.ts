@@ -14,122 +14,130 @@ const tokenRegex = /[a-z0-9\-]{36}/;
 
 export const parseUsername = (username: unknown): string => {
 	if (!username || !isString(username)) {
-		throw new ValidationError(`Missing username / Expected username to be string, got: ${typeof username}`);
+		// throw new ValidationError(`Missing username / Expected username to be string, got: ${typeof username}`);
+		throw new ValidationError('usernameNotString');
 	}
 	const trimmedUsername = username.trim();
 	if (!trimmedUsername) {
-		throw new ValidationError('Missing username');
+		throw new ValidationError('usernameMissing');
 	}
 	if (trimmedUsername.length < 4) {
-		throw new ValidationError('Username is too short');
+		throw new ValidationError('usernameTooShort');
 	}
 	if (trimmedUsername.length > 21) {
-		throw new ValidationError('Username is too long');
+		throw new ValidationError('usernameTooLong');
 	}
 	if (!usernameRegex.test(trimmedUsername)) {
-		throw new ValidationError('Invalid username');
+		throw new ValidationError('usernameInvalid');
 	}
 	return trimmedUsername;
 };
 
 export const parseEmail = (email: unknown): string => {
 	if (!email || !isString(email)) {
-		throw new ValidationError(`Missing email / Expected email to be string, got: ${typeof email}`);
+		// throw new ValidationError(`Missing email / Expected email to be string, got: ${typeof email}`);
+		throw new ValidationError('emailNotString');
 	}
 	const trimmedEmail = email.toLowerCase().trim();
 	if (!trimmedEmail) {
-		throw new ValidationError('Missing email');
+		throw new ValidationError('emailMissing');
 	}
 	if (!emailRegex.test(trimmedEmail)) {
-		throw new ValidationError('Invalid email');
+		throw new ValidationError('emailInvalid');
 	}
 	return trimmedEmail;
 };
 
 export const validatePassword = (passwordPlain: unknown): string => {
 	if (!passwordPlain || !isString(passwordPlain)) {
-		throw new ValidationError(`Missing password / Expected password to be string, got: ${typeof passwordPlain}`);
+		// throw new ValidationError(`Missing password / Expected password to be string, got: ${typeof passwordPlain}`);
+		throw new ValidationError('passwordNotString');
 	}
 	if (passwordPlain.length < 8) {
-		throw new ValidationError('Password is too short');
+		throw new ValidationError('passwordTooShort');
 	}
 	if (passwordPlain.length > 42) {
-		throw new ValidationError('Password is too long');
+		throw new ValidationError('passwordTooLong');
 	}
 	if (!passwordRegex.test(passwordPlain)) {
-		throw new ValidationError('Weak password');
+		throw new ValidationError('passwordWeak');
 	}
 	return passwordPlain;
 };
 
 export const parseFirstname = (firstname: unknown): string => {
 	if (!firstname || !isString(firstname)) {
-		throw new ValidationError(`Missing first name / Expected firstname to be string, got: ${typeof firstname}`);
+		// throw new ValidationError(`Missing first name / Expected firstname to be string, got: ${typeof firstname}`);
+		throw new ValidationError('firstnameNotString');
 	}
 	const trimmedFirstname = firstname.trim().replace(/\s\s+/g, ' ');
 	if (!trimmedFirstname) {
-		throw new ValidationError('Missing firstname');
+		throw new ValidationError('firstnameMissing');
 	}
 	if (trimmedFirstname.length > 21) {
-		throw new ValidationError('First name is too long');
+		throw new ValidationError('firstnameTooLong');
 	}
 	if (!nameRegex.test(trimmedFirstname)) {
-		throw new ValidationError('Invalid firstname');
+		throw new ValidationError('firstnameInvalid');
 	}
 	return trimmedFirstname;
 };
 
 export const parseLastname = (lastname: unknown): string => {
 	if (!lastname || !isString(lastname)) {
-		throw new ValidationError(`Missing last name / Expected lastname to be string, got: ${typeof lastname}`);
+		// throw new ValidationError(`Missing last name / Expected lastname to be string, got: ${typeof lastname}`);
+		throw new ValidationError('lastnameNotString');
 	}
 	const trimmedLastname = lastname.trim().replace(/\s\s+/g, ' ');
 	if (!trimmedLastname) {
-		throw new ValidationError('Missing lastname');
+		throw new ValidationError('lastnameMissing');
 	}
 	if (trimmedLastname.length > 41) {
-		throw new ValidationError('Lastname is too long');
+		throw new ValidationError('lastnameTooLong');
 	}
 	if (!nameRegex.test(trimmedLastname)) {
-		throw new ValidationError('Invalid lastname');
+		throw new ValidationError('lastnameInvalid');
 	}
 	return trimmedLastname;
 };
 
 export const validateToken = (token: unknown): string => {
 	if (!token || !isString(token)) {
-		throw new ValidationError(`Missing token or not string: ${typeof token}`);
+		// throw new ValidationError(`Missing token or not string: ${typeof token}`);
+		throw new ValidationError('tokenPasswordNotString');
 	}
 	const trimmedToken = token.trim();
 	if (!trimmedToken) {
-		throw new ValidationError('Missing token');
+		throw new ValidationError('tokenPasswordMissing');
 	}
 	if (trimmedToken.length !== 36) {
-		throw new ValidationError('Invalid password reset code');
+		throw new ValidationError('tokenPasswordResetInvalid');
 	}
 	if (!tokenRegex.test(trimmedToken)) {
-		throw new ValidationError('Invalid password reset code format');
-	}
-	return trimmedToken;
-};
-export const validateEmailToken = (token: unknown): string => {
-	if (!token || !isString(token)) {
-		throw new ValidationError(`Missing token or not string: ${typeof token}`);
-	}
-	const trimmedToken = token.trim();
-	if (!trimmedToken) {
-		throw new ValidationError('Missing token');
-	}
-	if (trimmedToken.length !== 36) {
-		throw new ValidationError('Invalid email reset code');
-	}
-	if (!tokenRegex.test(trimmedToken)) {
-		throw new ValidationError('Invalid email reset code format');
+		throw new ValidationError('tokenPasswordResetInvalidFormat');
 	}
 	return trimmedToken;
 };
 
-type Fields = { username: unknown; email: unknown; passwordPlain: unknown; firstname: unknown; lastname: unknown; language: unknown; };
+export const validateEmailToken = (token: unknown): string => {
+	if (!token || !isString(token)) {
+		// throw new ValidationError(`Missing token or not string: ${typeof token}`);
+		throw new ValidationError('tokenEmailNotString');
+	}
+	const trimmedToken = token.trim();
+	if (!trimmedToken) {
+		throw new ValidationError('tokenEmailMissing');
+	}
+	if (trimmedToken.length !== 36) {
+		throw new ValidationError('tokenEmailInvalid');
+	}
+	if (!tokenRegex.test(trimmedToken)) {
+		throw new ValidationError('tokenEmailInvalidFormat');
+	}
+	return trimmedToken;
+};
+
+type Fields = { username: unknown; email: unknown; passwordPlain: unknown; firstname: unknown; lastname: unknown; language: unknown };
 
 export const parseNewUserPayload = ({ username, email, passwordPlain, firstname, lastname, language }: Fields): NewUser => {
 	const newUser: NewUser = {

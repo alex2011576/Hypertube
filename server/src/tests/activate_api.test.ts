@@ -41,7 +41,7 @@ describe('account activation', () => {
 				.expect(400)
 				.expect('Content-Type', /application\/json/);
 
-			expect(res.body.error).toContain('Account already activated');
+			expect(res.body.error).toContain('usersAccountAlreadyActivated');
 		}
 	});
 
@@ -53,7 +53,7 @@ describe('account activation', () => {
 				.expect(400)
 				.expect('Content-Type', /application\/json/);
 
-			expect(res.body.error).toContain("Activation code doesn't exist");
+			expect(res.body.error).toContain('usersActivationCodeMissing');
 		}
 	});
 });

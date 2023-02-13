@@ -18,7 +18,7 @@ const ForgotPassword = () => {
 				try {
 					await userService.checkResetToken(resetToken);
 				} catch (err) {
-					alert.error('Invalid reset link. Please try again.');
+					alert.error('alertInvalidPasswordResetLink');
 					navigate('/forgot_password');
 				}
 			}

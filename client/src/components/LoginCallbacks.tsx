@@ -22,12 +22,9 @@ const Callback42 = () => {
 					const loggedInUser = await loginService.auth42(code, state);
 					dispatch(setLoggedUser(loggedInUser));
 					navigate('/');
-					alert.success(`Logged in successfully. Welcome!`);
+					alert.success('alertLoginSuccess');
 				} catch (err) {
-					alert.error(
-						err.response?.data?.error ||
-							'Failed to authenticate. Please try again.'
-					);
+					alert.error(err.response?.data?.error || 'alertLoginError');
 					navigate('/login');
 				}
 			}
@@ -59,12 +56,9 @@ const CallbackGithub = () => {
 					const loggedInUser = await loginService.authGitHub(code, state);
 					dispatch(setLoggedUser(loggedInUser));
 					navigate('/');
-					alert.success(`Logged in successfully. Welcome!`);
+					alert.success('alertLoginSuccess');
 				} catch (err) {
-					alert.error(
-						err.response?.data?.error ||
-							'Failed to authenticate. Please try again.'
-					);
+					alert.error(err.response?.data?.error || 'alertLoginError');
 					navigate('/login');
 				}
 			}

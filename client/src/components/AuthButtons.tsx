@@ -24,7 +24,7 @@ export const Auth42 = () => {
 		try {
 			window.location.href = `${apiBaseUrl}/login/42`;
 		} catch (err) {
-			alert.error('Error occurred, please try again.');
+			alert.error('alertErrorOccured');
 		}
 	};
 
@@ -43,7 +43,7 @@ export const AuthGH = () => {
 		try {
 			window.location.href = `${apiBaseUrl}/login/github`;
 		} catch (err) {
-			alert.error('Error occurred, please try again.');
+			alert.error('alertErrorOccured');
 		}
 	};
 

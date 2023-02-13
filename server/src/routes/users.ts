@@ -46,7 +46,7 @@ router.post(
 router.get(
 	'/forgot_password/',
 	asyncHandler(() => {
-		throw new AppError('Missing activation code', 400);
+		throw new AppError('usersForgotPasswordMissingToken', 400);
 	})
 );
 
@@ -57,7 +57,7 @@ router.get(
 		const token = validateToken(req.params.id);
 		const passwordResetRequsest = await findPasswordResetRequestByToken(token);
 		if (!passwordResetRequsest) {
-			throw new AppError('Invalid reset link. Please try again.', 400);
+			throw new AppError('usersForgotPasswordInvalidToken', 400);
 		}
 		res.status(200).end();
 	})
@@ -70,7 +70,7 @@ router.post(
 		const token = validateToken(req.params.id);
 		const passwordResetRequest = await findPasswordResetRequestByToken(token);
 		if (!passwordResetRequest) {
-			throw new AppError('Reset password code is missing or expired. Please try again.', 400);
+			throw new AppError('usersForgotPasswordMissingOrExpired', 400);
 		}
 		const password = validatePassword(req.body.password);
 		await changeForgottenPassword(passwordResetRequest.userId, password);
@@ -84,7 +84,7 @@ router.post(
 	sessionExtractor,
 	asyncHandler(async (req: CustomRequest, res) => {
 		if (!req.session || !req.session.userId || req.session.userId !== req.params.id) {
-			throw new AppError(`No rights to update profile data`, 400);
+			throw new AppError(`usersNoRightsToUpdate`, 400);
 		}
 		const email = parseEmail(req.body.email);
 		await sendUpdateEmailLink(req.session.userId, email);
@@ -95,7 +95,7 @@ router.post(
 router.put(
 	'/update_email',
 	asyncHandler(() => {
-		throw new AppError('Missing activation code', 400);
+		throw new AppError('usersUpdateEmailMissingToken', 400);
 	})
 );
 
@@ -107,7 +107,7 @@ router.put(
 		const token = validateEmailToken(req.params.token);
 		const emailResetRequsest = await findUpdateEmailRequestByToken(token);
 		if (!emailResetRequsest) {
-			throw new AppError('Invalid reset link. Please try again.', 400);
+			throw new AppError('usersUpdateEmailInvalidToken', 400);
 		}
 		await changeUserEmail(emailResetRequsest);
 		res.status(200).end();
@@ -120,7 +120,7 @@ router.put(
 	sessionExtractor,
 	asyncHandler(async (req: CustomRequest, res) => {
 		if (!req.session || !req.session.userId || req.session.userId !== req.params.id) {
-			throw new AppError(`No rights to update profile data`, 400);
+			throw new AppError(`usersNoRightsToUpdate`, 400);
 		}
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 		const oldPassword = validatePassword(req.body.oldPassword);
@@ -135,14 +135,14 @@ router.get(
 	sessionExtractor,
 	asyncHandler(async (req: CustomRequest, res) => {
 		if (!req.session || !req.session.userId) {
-			throw new AppError(`No rights to get profile data`, 400);
+			throw new AppError(`usersNoRightsToGet`, 400);
 		}
 		if (!isStringRepresentedInteger(req.params.id)) {
-			throw new AppError(`User doesn't exist`, 400);
+			throw new AppError(`usersUserNotFound`, 400);
 		}
 		const result = await getUserDataByUserId(req.params.id);
 		if (!result) {
-			throw new AppError(`User doesn't exist`, 400);
+			throw new AppError(`usersUserNotFound`, 400);
 		}
 		res.status(200).json(result);
 	})
@@ -153,10 +153,10 @@ router.get(
 	sessionExtractor,
 	asyncHandler(async (req: CustomRequest, res) => {
 		if (!req.session || !req.session.userId) {
-			throw new AppError(`No rights to get profile data`, 400);
+			throw new AppError(`usersNoRightsToGet`, 400);
 		}
 		if (!isStringRepresentedInteger(req.params.id)) {
-			throw new AppError(`User doesn't exist`, 400);
+			throw new AppError(`usersUserNotFound`, 400);
 		}
 		const avatarDataURL = await getUserAvatarByUserId(req.params.id);
 		// if (!avatarDataURL) {
@@ -172,7 +172,7 @@ router.put(
 	sessionExtractor,
 	asyncHandler(async (req: CustomRequest, res) => {
 		if (!req.session || !req.session.userId || req.session.userId !== req.params.id) {
-			throw new AppError(`No rights to update profile data`, 400);
+			throw new AppError(`usersNoRightsToUpdate`, 400);
 		}
 		const userId = req.session.userId;
 

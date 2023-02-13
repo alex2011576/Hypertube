@@ -6,6 +6,7 @@ import libraryService from '../../services/library';
 import withAuthRequired from '../AuthRequired';
 import LoadingIcon from '../LoadingIcon';
 import SearchField from './SearchField';
+import Text from '../Text';
 import Thumbnail from './Thumbnail';
 
 const centeredGrid = { justifyContent: 'center', pt: 5 };
@@ -90,7 +91,7 @@ const Library = () => {
 		}
 	}, [hasMore, moviesData, pageNumber, setThumbnails]);
 
-	if (moviesError) return <Alert severity="error">Error occurred, please try again</Alert>;
+	if (moviesError) return <Alert severity="error"><Text tid='libraryError' /></Alert>;
 	if (!moviesData) return <LoadingIcon />;
 
 	return (

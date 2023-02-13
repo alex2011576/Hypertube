@@ -38,12 +38,9 @@ const LoginForm = () => {
 				try {
 					await userService.activate(activationCode);
 					navigate('/login');
-					alert.success('Account activated successfully!');
+					alert.success('alertAccountActivated');
 				} catch (err) {
-					alert.error(
-						err.response?.data?.error ||
-							'Unable to activate account. Please try again.'
-					);
+					alert.error(err.response?.data?.error || 'alertLoginError');
 					navigate('/login');
 				}
 			}
@@ -62,11 +59,11 @@ const LoginForm = () => {
 
 		try {
 			const loggedInUser = await loginService.login(userToLogin);
-			alert.success(`Logged in successfully. Welcome!`);
 			dispatch(setLoggedUser(loggedInUser));
+			alert.success('alertLoginSuccess');
 			navigate('/');
 		} catch (err) {
-			alert.error(err.response?.data?.error || 'Unable to login. Please try again.');
+			alert.error(err.response?.data?.error || 'alertLoginError');
 		}
 	};
 

@@ -63,7 +63,7 @@ describe('send email reset link on email/update request', () => {
 			.expect(401)
 			.expect('Content-Type', /application\/json/);
 
-		expect(resFromEmailUpdate.body.error).toContain('Access denied, no token provided');
+		expect(resFromEmailUpdate.body.error).toContain('sessionTokenMissing');
 		expect(sendMailMock).toBeCalledTimes(0);
 	});
 
@@ -74,7 +74,7 @@ describe('send email reset link on email/update request', () => {
 			.send({ email: newUser.email })
 			.expect(400);
 
-		expect(resFromEmailUpdate.body.error).toContain('Please provide new email address');
+		expect(resFromEmailUpdate.body.error).toContain('usersProvideNewEmail');
 		expect(sendMailMock).toBeCalledTimes(0);
 	});
 
@@ -87,7 +87,7 @@ describe('send email reset link on email/update request', () => {
 			.expect(400);
 
 		// console.log(resFromEmailUpdate.body.error);
-		expect(resFromEmailUpdate.body.error).toContain('This email is already taken');
+		expect(resFromEmailUpdate.body.error).toContain('usersEmailTaken');
 		expect(sendMailMock).toBeCalledTimes(0);
 	});
 });
@@ -115,16 +115,16 @@ describe('update email after request has been sent', () => {
 	});
 
 	it.each([
-		[undefined, 'Invalid email reset code'],
-		[null, 'Invalid email reset code'],
-		['', 'Missing activation code'],
-		['    ', 'Missing activation code'],
-		['		', 'Missing activation code'],
-		['12345', 'Invalid email reset code'], //too short
-		['1234567890123456789012345678901234567890', 'Invalid email reset code'], //too long 40chars
-		['2>-)837428374t-2983<32v74slk-dkfhkhf', 'Invalid email reset code'],
-		['!0831j37-7cbb-4ca0-91cb-5fda0cee63!3', 'Invalid email reset code'],
-		['42e7ed49-58f4-4ca7-b478-3d3805a7bb7>', 'Invalid email reset code']
+		[undefined, 'tokenEmailInvalid'],
+		[null, 'tokenEmailInvalid'],
+		['', 'tokenEmailMissing'],
+		['    ', 'tokenEmailMissing'],
+		['		', 'tokenEmailMissing'],
+		['12345', 'tokenEmailInvalid'], //too short
+		['1234567890123456789012345678901234567890', 'tokenEmailInvalid'], //too long 40chars
+		['2>-)837428374t-2983<32v74slk-dkfhkhf', 'tokenEmailInvalid'],
+		['!0831j37-7cbb-4ca0-91cb-5fda0cee63!3', 'tokenEmailInvalid'],
+		['42e7ed49-58f4-4ca7-b478-3d3805a7bb7>', 'tokenEmailInvalid']
 	])('fails with incorectly formatted token %s %s', async (invalidToken, expectedErrorMessage) => {
 		// console.log(`Payload: ${invalidToken}, Expected msg: ${expectedErrorMessage}`);
 		const res = await api.put(`/api/users/update_email/${invalidToken}`).expect(400);
@@ -135,6 +135,6 @@ describe('update email after request has been sent', () => {
 	test('fails with valid but non existing/expired token in db', async () => {
 		const res = await api.put(`/api/users/update_email/9bcd25f2-7667-4736-8770-0a132c5a7dca`).expect(400);
 		if (!res.body.error) fail();
-		expect(res.body.error).toContain('Invalid reset link. Please try again.');
+		expect(res.body.error).toContain('usersUpdateEmailInvalidToken');
 	});
 });

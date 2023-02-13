@@ -56,7 +56,7 @@ const ProfileEditor = () => {
 	if (profileError || photosError)
 		return (
 			<Alert severity="error">
-				Error loading account settings page, please try again...
+				<Text tid='profileLoadingError' />
 			</Alert>
 		);
 

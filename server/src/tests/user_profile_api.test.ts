@@ -37,21 +37,21 @@ describe('check access to profile page', () => {
 			.expect(401)
 			.expect('Content-Type', /application\/json/);
 
-		expect(resFromProfilePage.body.error).toContain('Access denied, no token provided');
+		expect(resFromProfilePage.body.error).toContain('sessionTokenMissing');
 	});
 	test('should fail when no id in request', async () => {
 		const resFromProfilePage = await api
 			.get(`/api/users`)
 			.set({ Authorization: `bearer ${loginRes.body.token}` })
 			.expect(404);
-		expect(resFromProfilePage.body.error).toContain('Unknown endpoint');
+		expect(resFromProfilePage.body.error).toContain('errorUnknownEndpoint');
 	});
 	test('should fail request with wrong id in request', async () => {
 		const resFromProfilePage = await api
 			.get(`/api/users/11111111`)
 			.set({ Authorization: `bearer ${loginRes.body.token}` })
 			.expect(400);
-		expect(resFromProfilePage.body.error).toContain(`User doesn't exist`);
+		expect(resFromProfilePage.body.error).toContain(`usersUserNotFound`);
 	});
 	test('fails when no session in db', async () => {
 		await clearSessions();
@@ -61,7 +61,7 @@ describe('check access to profile page', () => {
 			.expect(401)
 			.expect('Content-Type', /application\/json/);
 
-		expect(resFromProfilePage.body.error).toContain('No sessions found');
+		expect(resFromProfilePage.body.error).toContain('sessionNotFound');
 	});
 });
 
@@ -136,17 +136,17 @@ describe('Check responses and requests to /api/users/:id', () => {
 			await api
 				.put(`/api/users/${id}`)
 				.set({ Authorization: `bearer ${loginRes.body.token}` })
-				.send({...profileDataNewUser, photo: { imageDataUrl: DataURL}})
+				.send({ ...profileDataNewUser, photo: { imageDataUrl: DataURL } })
 				.expect(200);
 			const newResFromProfile = await getAvatarFromProfile(loginRes);
 			expect(newResFromProfile.body).toBeTruthy();
 			console.log(newResFromProfile.body);
-			
+
 			expect(JSON.parse(newResFromProfile.text)).toEqual({ imageDataUrl: DataURL });
 		});
 
 		it.each([
-			[{ ...profileDataNewUser, username: undefined }, 'Missing username'],
+			[{ ...profileDataNewUser, username: undefined }, 'usernameMissing'],
 			[{ ...profileDataNewUser, firstname: undefined }, 'Missing first name'],
 			[{ ...profileDataNewUser, lastname: undefined }, 'Missing last name']
 		])(`put fails with missing profile payload values`, async (invalidInputs, expectedErrorMessage) => {
@@ -160,13 +160,13 @@ describe('Check responses and requests to /api/users/:id', () => {
 			expect(res.body.error).toContain(expectedErrorMessage);
 		});
 		it.each([
-			[{ ...profileDataNewUser, username: '			' }, 'Missing username'],
-			[{ ...profileDataNewUser, username: 'mat' }, 'Username is too short'],
-			[{ ...profileDataNewUser, username: 'matcmatchamatchamatchaha' }, 'Username is too long'], //22chars
-			[{ ...profileDataNewUser, username: 'tes<3>' }, 'Invalid username'],
-			[{ ...profileDataNewUser, username: 'te st' }, 'Invalid username'],
-			[{ ...profileDataNewUser, username: 'te	st' }, 'Invalid username'],
-			[{ ...profileDataNewUser, username: 'te{st' }, 'Invalid username']
+			[{ ...profileDataNewUser, username: '			' }, 'usernameMissing'],
+			[{ ...profileDataNewUser, username: 'mat' }, 'usernameTooShort'],
+			[{ ...profileDataNewUser, username: 'matcmatchamatchamatchaha' }, 'usernameTooLong'], //22chars
+			[{ ...profileDataNewUser, username: 'tes<3>' }, 'usernameInvalid'],
+			[{ ...profileDataNewUser, username: 'te st' }, 'usernameInvalid'],
+			[{ ...profileDataNewUser, username: 'te	st' }, 'usernameInvalid'],
+			[{ ...profileDataNewUser, username: 'te{st' }, 'usernameInvalid']
 		])(`put fails with misformatted username`, async (invalidInputs, expectedErrorMessage) => {
 			const res = await api
 				.put(`/api/users/${id}`)
@@ -176,11 +176,11 @@ describe('Check responses and requests to /api/users/:id', () => {
 				.expect('Content-Type', /application\/json/);
 			// console.log(res.body.error);
 			expect(res.body.error).toContain(expectedErrorMessage);
-		});	
+		});
 		it.each([
-			[{ ...profileDataNewUser, photo: { imageDataUrl: InvDataURL} }, 'Invalid'],
-			[{ ...profileDataNewUser, photo: { imageDataUrl: InvDataURL2} }, 'Invalid'], //22chars
-			[{ ...profileDataNewUser, photo: { imageDataUrl: InvDataURL3} }, 'Invalid'],
+			[{ ...profileDataNewUser, photo: { imageDataUrl: InvDataURL } }, 'Invalid'],
+			[{ ...profileDataNewUser, photo: { imageDataUrl: InvDataURL2 } }, 'Invalid'], //22chars
+			[{ ...profileDataNewUser, photo: { imageDataUrl: InvDataURL3 } }, 'Invalid']
 		])(`put fails with misformatted avatar`, async (invalidInputs, expectedErrorMessage) => {
 			const res = await api
 				.put(`/api/users/${id}`)
@@ -190,28 +190,28 @@ describe('Check responses and requests to /api/users/:id', () => {
 				.expect('Content-Type', /application\/json/);
 			// console.log(res.body.error);
 			expect(res.body.error).toContain(expectedErrorMessage);
-		});	
+		});
 
 		describe('check that no duplicates are allowed in username', () => {
-
 			beforeAll(async () => {
 				await createNewUser(secondUser);
 				loginRes = await initLoggedUser(secondUser.username, credentialsSecondUser);
 				id = <string>JSON.parse(loginRes.text).id;
 				resFromProfile = await getResFromProfile(loginRes);
 			});
-			it.each([
-				[{ ...secondUser, username: 'matcha' }, 'Username already exists']
-			])(`put fails with duplicate value for unique params`, async (invalidInputs, expectedErrorMessage) => {
-				const res = await api
-					.put(`/api/users/${id}`)
-					.set({ Authorization: `bearer ${loginRes.body.token}` })
-					.send(invalidInputs)
-					.expect(400)
-					.expect('Content-Type', /application\/json/);
-				//console.log(res.body.error);
-				expect(res.body.error).toContain(expectedErrorMessage);
-			});
+			it.each([[{ ...secondUser, username: 'matcha' }, 'userNameExists']])(
+				`put fails with duplicate value for unique params`,
+				async (invalidInputs, expectedErrorMessage) => {
+					const res = await api
+						.put(`/api/users/${id}`)
+						.set({ Authorization: `bearer ${loginRes.body.token}` })
+						.send(invalidInputs)
+						.expect(400)
+						.expect('Content-Type', /application\/json/);
+					//console.log(res.body.error);
+					expect(res.body.error).toContain(expectedErrorMessage);
+				}
+			);
 		});
 	});
 });
