@@ -99,6 +99,8 @@ export const enUS: Dictionary = {
 	// Movies
 	moviesError: 'Error occurred, please try again',
 
+	//Movie
+
 	// Alerts
 	alertLogout: 'Logged out',
 	alertSuccessPasswordResetLink: 'Reset link sent! Please check your inbox.',
@@ -112,6 +114,7 @@ export const enUS: Dictionary = {
 	alertInvalidPasswordResetLink: 'Invalid reset link. Please try again.',
 	alertPasswordResetSuccess: 'Password changed successfully!',
 	alertPasswordResetError: 'Unable to reset password. Please try again.',
+	alertMissingMovieId: 'Missing movie id',
 
 	// AxiosError
 	axiosNetworkError: 'Network error',
@@ -184,6 +187,9 @@ export const enUS: Dictionary = {
 	// movies.ts
 	moviesUserNotLoggedIn: 'User is not logged in',
 	errorParsingSearchQuery: 'Error parsing search query',
+
+	//movie.ts
+	movieMovieNotFound: 'Movie not found.',
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Missing activation code',

@@ -45,7 +45,8 @@ export const ruRU: Dictionary = {
 
 	// Set Password Form
 	setPasswordTitle: 'СОЗДАТЬ ПАРОЛЬ',
-	setPasswordInfoText: 'Cохраните пароль для Hypertube. Так по-необходимости Вы сможете войти используя имя пользователя и пароль.',
+	setPasswordInfoText:
+		'Cохраните пароль для Hypertube. Так по-необходимости Вы сможете войти используя имя пользователя и пароль.',
 	submitBtn: 'OK',
 	alertSuccessSetPassword: 'Спасибо, пароль сохранен.',
 	alertErrorSetPassword: 'Ошибка, пожалуйста попробуйте снова',
@@ -98,6 +99,8 @@ export const ruRU: Dictionary = {
 	// Movies
 	moviesError: 'Произошла ошибка, Пожалуйста попробуйте снова',
 
+	//Movie
+
 	// Alerts
 	alertLogout: 'Выход осуществлен',
 	alertSuccessPasswordResetLink: 'Ссылка выслана! Пожалуйста проверьте почтовый ящик.',
@@ -112,6 +115,7 @@ export const ruRU: Dictionary = {
 	alertInvalidPasswordResetLink: 'Неверная ссылка. Пожалуйста попробуйте снова.',
 	alertPasswordResetSuccess: 'Пароль успешно изменен!',
 	alertPasswordResetError: 'Не получилось сменить пароль. Пожалуйста попробуйте снова.',
+	alertMissingMovieId: 'Номер фильма отсутствует',
 
 	// AxiosError
 	axiosNetworkError: 'Ошибка связи',
@@ -170,6 +174,9 @@ export const ruRU: Dictionary = {
 	// movies.ts
 	moviesUserNotLoggedIn: 'Пожалуйста войдите в свой аккаунт',
 	errorParsingSearchQuery: 'Ошибка обрботки поискового запроса',
+
+	//movie.ts
+	movieMovieNotFound: 'Фильм не найден.',
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Код активации отсутствует',
