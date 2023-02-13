@@ -13,7 +13,7 @@ router.get(
 	sessionExtractor,
 	asyncHandler(async (req: CustomRequest, res) => {
 		if (!req.session || !req.session.userId) {
-			throw new AppError(`User is not logged in`, 400);
+			throw new AppError(`libraryUserNotLoggedIn`, 400);
 		}
 		let result;
 		const queryTerm = req.query.queryTerm as string | undefined;
@@ -21,7 +21,7 @@ router.get(
 			result = await getInitialMovies();
 		} else {
 			if (!isStringRepresentedInteger(req.query.page) || !isStringRepresentedInteger(req.query.limit)) {
-				throw new ValidationError(`Limit and offset should be string represented integers`);
+				throw new ValidationError(`libraryLimitOffsetNotNumber`);
 			}
 			result = await getInitialMovies(queryTerm, Number(req.query.page), Number(req.query.limit));
 		}

@@ -117,7 +117,7 @@ export const profileDataNewUser = {
 	firstname: 'lorem',
 	lastname: 'ipsum',
 	language: 'ruRU',
-	photo: undefined,
+	photo: undefined
 };
 
 export const profileDataSecondUser = {

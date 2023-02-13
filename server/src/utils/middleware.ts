@@ -19,12 +19,12 @@ export const sessionIdExtractor = (req: any, _res: any, next: any) => {
 export const sessionExtractor = asyncHandler(async (req: CustomRequest, res: any, next: any) => {
 	const sessionId = req.sessionId;
 	if (!sessionId) {
-		res.status(401).json({ error: 'Error: Access denied, no token provided' });
+		res.status(401).json({ error: 'sessionTokenMissing' });
 		return;
 	}
 	const session = await findSessionBySessionId(sessionId);
 	if (!session) {
-		res.status(401).json({ error: 'Error: No sessions found or expired' });
+		res.status(401).json({ error: 'sessionNotFound' });
 		return;
 	}
 	req.session = session;

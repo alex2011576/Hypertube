@@ -34,12 +34,13 @@ export const globalErrorHandler = (err: any, _req: Request, res: Response, _next
 	}
 	console.log(err);
 	res.status(500).json({
-		error: `Unexpected error: ${getErrorMessage(err)}`
+		//error: `Unexpected error: ${getErrorMessage(err)}`
+		error: 'errorUnexpectedError'
 	});
 };
 
 export const unknownEndpoint = (_req: Request, res: Response) => {
-	res.status(404).send({ error: 'Unknown endpoint' });
+	res.status(404).send({ error: 'errorUnknownEndpoint' });
 };
 
 export const getErrorMessage = (error: unknown) => {

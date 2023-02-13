@@ -47,7 +47,7 @@ export const getInitialMovies = async (queryTerm?: string, page?: number, limit?
 						cover: movie.large_cover_image || '',
 						rating: movie.rating || 0
 					};
-			})
+			  })
 			: [];
 		return movieThumbnails;
 	} catch (err) {

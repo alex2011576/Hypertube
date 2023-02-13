@@ -137,7 +137,7 @@ export const validateEmailToken = (token: unknown): string => {
 	return trimmedToken;
 };
 
-type Fields = { username: unknown; email: unknown; passwordPlain: unknown; firstname: unknown; lastname: unknown; language: unknown; };
+type Fields = { username: unknown; email: unknown; passwordPlain: unknown; firstname: unknown; lastname: unknown; language: unknown };
 
 export const parseNewUserPayload = ({ username, email, passwordPlain, firstname, lastname, language }: Fields): NewUser => {
 	const newUser: NewUser = {

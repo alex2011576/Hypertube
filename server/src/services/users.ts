@@ -67,10 +67,10 @@ export const sendActivationCode = (user: User): void => {
 export const activateAccount = async (activationCode: string): Promise<void> => {
 	const user = await findUserByActivationCode(activationCode);
 	if (!user) {
-		throw new AppError("Activation code doesn't exist", 400);
+		throw new AppError('usersActivationCodeMissing', 400);
 	}
 	if (user.isActive) {
-		throw new AppError('Account already activated', 400);
+		throw new AppError('usersAccountAlreadyActivated', 400);
 	}
 	if (!user.isActive) {
 		await setUserAsActive(activationCode);
@@ -81,11 +81,11 @@ export const activateAccount = async (activationCode: string): Promise<void> => 
 export const sendResetLink = async (email: string): Promise<void> => {
 	const user = await findUserByEmail(email);
 	if (!user) {
-		throw new AppError("Couldn't find this email address.", 400);
+		throw new AppError('usersEmailNotFound', 400);
 	}
 
 	if (!user.isActive) {
-		throw new AppError('Account is not active, please activate account first.', 400);
+		throw new AppError('usersAccountNotActivated', 400);
 	}
 
 	const resetRequset = await findPasswordResetRequestByUserId(user.id);
@@ -95,7 +95,7 @@ export const sendResetLink = async (email: string): Promise<void> => {
 
 	const newResetRequset = await addPasswordResetRequest(user.id);
 	if (!newResetRequset) {
-		throw new AppError('Error creating reset link, please try again', 400);
+		throw new AppError('usersErrorCreatingResetLink', 400);
 	}
 	sendResetPasswordLink(user, newResetRequset);
 };
@@ -124,7 +124,7 @@ export const updatePassword = async (userId: string, oldPasswordPlain: string, n
 	const oldPwdHash = await getPasswordHash(userId);
 	const confirmOldPassword = await bcrypt.compare(oldPasswordPlain, oldPwdHash);
 	if (!confirmOldPassword) {
-		throw new AppError('Wrong old password, please try again', 400);
+		throw new AppError('usersWrongOldPassword', 400);
 	}
 	const passwordHash = await createHashedPassword(newPasswordPlain);
 	await updateUserPassword(userId, passwordHash);
@@ -134,9 +134,9 @@ export const sendUpdateEmailLink = async (id: string, email: string): Promise<vo
 	const userWithThisEmail = await findUserByEmail(email);
 	if (userWithThisEmail) {
 		if (userWithThisEmail.id === id) {
-			throw new AppError('Please provide new email address', 400);
+			throw new AppError('usersProvideNewEmail', 400);
 		} else {
-			throw new AppError('This email is already taken. Please try another email address.', 400);
+			throw new AppError('usersEmailTaken', 400);
 		}
 	}
 	const updateRequest = await findUpdateEmailRequestByUserId(id);
@@ -146,7 +146,7 @@ export const sendUpdateEmailLink = async (id: string, email: string): Promise<vo
 
 	const newUpdateRequest = await addUpdateEmailRequest(id, email);
 	if (!newUpdateRequest) {
-		throw new AppError('Error creating reset link, please try again', 400);
+		throw new AppError('usersErrorCreatingResetLink', 400);
 	}
 	mailEmailUpdateLink(email, newUpdateRequest);
 };

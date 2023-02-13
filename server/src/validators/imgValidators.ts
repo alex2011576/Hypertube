@@ -37,7 +37,7 @@ export const parseImage = async (photo: unknown): Promise<PhotoType | undefined>
 	if (width <= 0 || height <= 0) {
 		throw new ValidationError('imageCorrupted');
 	}
-	if (width < 10|| height < 10) {
+	if (width < 10 || height < 10) {
 		throw new ValidationError('imageTooSmall');
 	}
 	if (width > 6000 || height > 4000) {
