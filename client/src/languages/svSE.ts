@@ -80,7 +80,8 @@ export const svSE: Dictionary = {
 	incorrectField: 'Ogiltigt fält',
 
 	// ProfileSettings/index.tsx
-	errorLoadingProfile: 'Det gick inte att läsa in sidan med kontoinställningar, försök igen senare.',
+	errorLoadingProfile:
+		'Det gick inte att läsa in sidan med kontoinställningar, försök igen senare.',
 
 	// ProfileForm.txs
 	profileFormSuccess: 'Profilinställningar har uppdaterats!',
@@ -153,18 +154,19 @@ export const svSE: Dictionary = {
 		'Koden för återställning av lösenord saknas eller har upphört att gälla. Var god försök igen.',
 	usersNoRightsToUpdate: 'Inga rättigheter att uppdatera profildata',
 	usersNoRightsToGet: 'Inga rättigheter att få profildata',
-	usersUserNotFound: "Användaren finns inte",
+	usersUserNotFound: 'Användaren finns inte',
 	usersUpdateEmailMissingToken: 'Saknar återställningskod',
 	usersUpdateEmailInvalidToken: 'Ogiltig återställningslänk. Var god försök ige',
 	// services/users.ts
-	usersActivationCodeMissing: "Återställningskoden finns inte",
+	usersActivationCodeMissing: 'Återställningskoden finns inte',
 	usersAccountAlreadyActivated: 'Kontot är redan aktiverat',
-	usersEmailNotFound: "Det gick inte att hitta den här e-postadressen.",
+	usersEmailNotFound: 'Det gick inte att hitta den här e-postadressen.',
 	usersAccountNotActivated: 'Kontot är inte aktiverat, aktivera kontot först.',
 	usersErrorCreatingResetLink: 'Det gick inte att skapa återställningslänk, försök igen',
 	usersWrongOldPassword: 'Fel gammalt lösenord, försök igen',
 	usersProvideNewEmail: 'Ange ett nytt e-postadress',
-	usersEmailTaken: 'Den här e-postadressen är redan tagen. Försök med en annan e-postadress.',
+	usersEmailTaken:
+		'Den här e-postadressen är redan tagen. Försök med en annan e-postadress.',
 
 	// login.ts
 	loginUserNotFound: 'Användaren hittades inte',
