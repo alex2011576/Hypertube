@@ -4,7 +4,7 @@ import moviePlaceholder from './moviePlaceholder.png';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 
 const Background = styled('div', {
-	shouldForwardProp: (prop) => prop !== 'myProp'
+	shouldForwardProp: (prop) => prop !== 'isWatched'
 })<{ src?: string; isWatched?: boolean }>(({ src, isWatched }) => ({
 	position: 'relative',
 	height: '208px',
