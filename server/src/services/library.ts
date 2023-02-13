@@ -28,7 +28,7 @@ const getOrder = (sortBy: string, reverseOrder: boolean): string => {
 export const getInitialMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnail[]> => {
 	try {
 		const { queryTerm, genre, sortBy, reverseOrder, page, limit } = searchQuery;
-		const sortCriteria = sortBy === 'Downloads' ? 'downloads_count' : sortBy.toLowerCase();
+		const sortCriteria = sortBy === 'Downloads' ? 'download_count' : sortBy.toLowerCase();
 		const order = getOrder(sortBy, reverseOrder);
 
 		const response = await axios.get<YTSPayload>(`https://yts.torrentbay.to/api/v2/list_movies.json`, {

@@ -75,7 +75,7 @@ const Library = () => {
 		if (moviesData) {
 			if (!moviesData.length) {
 				setHasMore(false);
-			} else if (pageNumber === 1) {
+			} else if (pageNumber === 1 && hasMore) {
 				setThumbnails(moviesData);
 			} else {
 				setThumbnails((prevThumbnails) => {
@@ -88,7 +88,7 @@ const Library = () => {
 				setHasMore(moviesData.length > 0);
 			}
 		}
-	}, [moviesData, pageNumber, setThumbnails]);
+	}, [hasMore, moviesData, pageNumber, setThumbnails]);
 
 	if (moviesError) return <Alert severity="error">Error occurred, please try again</Alert>;
 	if (!moviesData) return <LoadingIcon />;
