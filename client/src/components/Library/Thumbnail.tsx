@@ -1,5 +1,6 @@
 import { Card, CardActionArea, Chip, styled, Typography } from '@mui/material';
 import { MovieThumbnail } from '../../types';
+import { Link } from 'react-router-dom';
 import moviePlaceholder from './moviePlaceholder.png';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 
@@ -37,25 +38,27 @@ const Thumbnail = ({ movie }: { movie: MovieThumbnail }) => {
 
 	return (
 		<Card sx={{ width: { xs: 300, sm: 320, md: 370 } }}>
-			<CardActionArea>
-				<Background src={cover} isWatched={movie.isWatched}>
-					{movie.isWatched && (
-						<ChipPosition>
-							<Chip
-								icon={<VisibilityRoundedIcon />}
-								label="WATCHED"
-								color="primary"
-								sx={{ alignItems: 'center', m: 1 }}
-							/>
-						</ChipPosition>
-					)}
-					<AbsoluteContent>
-						<Typography variant="h5">{title}</Typography>
-						<Typography variant="subtitle1">{year + ' ' + rating}</Typography>
-						<Typography variant="body2">{summary}</Typography>
-					</AbsoluteContent>
-				</Background>
-			</CardActionArea>
+			<Link to={`/movie/${movie.imdbCode}`}>
+				<CardActionArea>
+					<Background src={cover} isWatched={movie.isWatched}>
+						{movie.isWatched && (
+							<ChipPosition>
+								<Chip
+									icon={<VisibilityRoundedIcon />}
+									label="WATCHED"
+									color="primary"
+									sx={{ alignItems: 'center', m: 1 }}
+								/>
+							</ChipPosition>
+						)}
+						<AbsoluteContent>
+							<Typography variant="h5">{title}</Typography>
+							<Typography variant="subtitle1">{year + ' ' + rating}</Typography>
+							<Typography variant="body2">{summary}</Typography>
+						</AbsoluteContent>
+					</Background>
+				</CardActionArea>
+			</Link>
 		</Card>
 	);
 };

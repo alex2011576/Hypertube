@@ -18,6 +18,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import useModal from './hooks/useModal';
 import Text from './components/Text';
+import MoviePage from './components/MoviePage';
 
 const StyledBox = styled(Box)`
 	text-align: center;
@@ -128,9 +129,9 @@ const App = () => {
 									}
 								/>
 								<Route path="/profile" element={<ProfileSettings />} />
-
 								<Route path="/profile/:id" element={<PublicProfile />} />
 								<Route path="/update_email" element={<UpdateEmail />} />
+								<Route path="/movie/:id" element={<MoviePage />} />
 								<Route path="*" element={<Navigate to="/" replace />} />
 							</Routes>
 							<Footer />
