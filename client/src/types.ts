@@ -69,6 +69,7 @@ export type MovieThumbnail = {
 	summary: string;
 	cover: string;
 	rating: number;
+	isWatched: boolean;
 };
 
 export type SearchQuery = {

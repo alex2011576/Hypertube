@@ -109,6 +109,7 @@ export type MovieThumbnail = {
 	summary: string;
 	cover: string;
 	rating: number;
+	isWatched: boolean;
 };
 
 export const SearchQuerySchema = t.type({

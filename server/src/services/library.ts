@@ -45,7 +45,8 @@ export const getInitialMovies = async (searchQuery: SearchQuery): Promise<MovieT
 						year: movie.year || 0,
 						summary: movie.summary || '',
 						cover: movie.large_cover_image || '',
-						rating: movie.rating || 0
+						rating: movie.rating || 0,
+						isWatched: false // <= function to check if watched here
 					};
 			})
 			: [];
