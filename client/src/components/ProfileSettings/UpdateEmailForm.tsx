@@ -31,9 +31,9 @@ const UpdateEmailForm = () => {
 	}) => {
 		try {
 			await profileService.requestUpdateEmail({userId, email});
-			successCallback(`Activation link sent to new email.`);
+			successCallback('profileUpdateEmailSuccess');
 		} catch (err) {
-			errorCallback(err.message || 'Unable to update email address. Please try again.');
+			errorCallback(err.message || 'profileUpdateEmailError');
 		}
 	};
 

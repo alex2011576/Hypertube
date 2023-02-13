@@ -39,7 +39,7 @@ const Navbar = () => {
 	const handleLogout = async (event: any) => {
 		event.preventDefault();
 		logoutUser(dispatch);
-		alert.success('Logged out');
+		alert.success('alertLogout');
 		navigate('/');
 	};
 

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AlertStatus } from '../types';
+import { useTranslate } from '../hooks/useTranslate';
+
 
 type AlertContextValue = {
 	alert: AlertStatus;
@@ -18,6 +20,7 @@ export const AlertContext = React.createContext<AlertContextValue>({
 const AlertProvider = ({ children }: any) => {
 	const [alert, setAlert] = useState(AlertStatus.None);
 	const [alertText, setAlertText] = useState<string | undefined>(undefined);
+	const { translate } = useTranslate();
 
 	const timerRef = useRef<undefined | number>(undefined);
 
@@ -46,12 +49,12 @@ const AlertProvider = ({ children }: any) => {
 				alert,
 				alertText,
 				success: (text: string) => {
-					setAlertText(text);
+					setAlertText(translate(text));
 					setAlert(AlertStatus.Success);
 					runAlert();
 				},
 				error: (text: string) => {
-					setAlertText(text);
+					setAlertText(translate(text));
 					setAlert(AlertStatus.Error);
 					runAlert();
 				}

@@ -61,6 +61,13 @@ export const ruRU: Dictionary = {
 	profilePasswordInfoText: 'Введите текущий пароль для безопасной смены пароля.',
 	textFieldCurrentPassword: 'Текущий пароль',
 	textFieldNewPassword: 'Новый пароль',
+	profileFormSuccess: 'Profile settings were updated!',
+	profileFormError: 'Unable to update profile settings. Please try again.',
+	profileLoadingError: 'Error loading account settings page, please try again...',
+	profileUpdatePasswordSuccess: 'Password was changed successfully!',
+	profileUpdatePasswordError: 'Unable to update password. Please try again.',
+	profileUpdateEmailSuccess: 'Activation link sent to new email!',
+	profileUpdateEmailError: 'Unable to update email address. Please try again.',
 
 	// Public Profile
 	publicProfileHeader: 'ПОЛЬЗОВАТЕЛЬ',
@@ -77,7 +84,109 @@ export const ruRU: Dictionary = {
 	passwordLength: 'Длина 8-42 символа',
 	invalidPassword: 'Неверный формат',
 	invalidEmail: 'Неверный формат',
-	incorrectField: 'Неверный формат'
+	incorrectField: 'Неверный формат',
 
-	// Backend Errors
+	// Library
+	libraryError: 'Error occurred, please try again',
+
+	// Alerts
+	alertLogout: 'Logged out',
+	alertSuccessPasswordResetLink: 'Reset link sent! Please check your inbox.',
+	alertErrorPasswordResetLink: 'Unable to send a link. Please try again.',
+	alertLoginSuccess: 'Logged in successfully. Welcome!',
+	alertLoginError: 'Unable to login. Please try again.',
+	alertAccountActivated: 'Account activated successfully!',
+	alertErrorOccured: 'Error occurred, please try again.',
+	alertNewUserSuccess: 'New user has been created! Activation link is sent to email.',
+	alertNewUserError: 'Unable to create a new user. Please try again.',
+	alertInvalidPasswordResetLink: 'Invalid reset link. Please try again.',
+	alertPasswordResetSuccess: 'Password changed successfully!',
+	alertPasswordResetError: 'Unable to reset password. Please try again.',
+
+	// AxiosError
+	axiosNetworkError: 'Network error',
+
+	// AuthError
+	authError: 'Session expired, please login again.',
+
+	// Backend Errors -----------------------------------------------------------------------
+
+	// ParseUsername
+	usernameNotString: 'Username invalid type',
+	usernameMissing: 'Username is missing',
+	usernameTooShort: 'Username is too short',
+	usernameTooLong: 'Username is too long',
+	usernameInvalid: 'Username is invalid',
+
+	// ParseEmail
+	emailNotString: 'Email invalid type',
+	emailMissing: 'Email is missing',
+	emailInvalid: 'Email is invalid',
+
+	// ParsePassword
+	passwordNotString: 'Password invalid type',
+	passwordTooShort: 'Password is too short',
+	passwordTooLong: 'Password is too long',
+	passwordWeak: 'Password is too weak',
+
+	// ParseFirstName
+	firstNameNotString: 'First name invalid type',
+	firstNameMissing: 'First name is missing',
+	firstNameTooLong: 'First name is too long',
+	firstNameInvalid: 'First name is invalid',
+
+	// ParseLastName
+	lastNameNotString: 'Last name invalid type',
+	lastNameMissing: 'Last name is missing',
+	lastNameTooLong: 'Last name is too long',
+	lastNameInvalid: 'Last name is invalid',
+
+	// ParsePasswordToken
+	tokenPasswordNotString: 'Token invalid type',
+	tokenPasswordMissing: 'Token is missing',
+	tokenPasswordResetInvalid: 'Password reset token is invalid',
+	tokenPasswordResetInvalidFormat: 'Password reset code format invalid',
+
+	// ParseEmailToken
+	tokenEmailNotString: 'Token invalid type',
+	tokenEmailMissing: 'Token is missing',
+	tokenEmailInvalid: 'Email change token is invalid',
+	tokenEmailInvalidFormat: 'Email change code format invalid',
+
+	// userRepository.ts
+	userNameExists: 'Username already exists',
+	emailExists: 'This email was already used',
+
+	// library.ts
+	libraryUserNotLoggedIn: 'User is not logged in',
+	libraryLimitOffsetNotNumber: 'Limit and offset should be string represented integers',
+
+	// routes/users.ts
+	usersForgotPasswordMissingToken: 'Missing activation code',
+	usersForgotPasswordInvalidToken: 'Invalid reset link. Please try again.',
+	usersForgotPasswordMissingOrExpired:
+		'Reset password code is missing or expired. Please try again.',
+	usersNoRightsToUpdate: 'No rights to update profile data',
+	usersNoRightsToGet: 'No rights to get profile data',
+	usersUserNotFound: "User doesn't exist",
+	usersUpdateEmailMissingToken: 'Missing activation code',
+	usersUpdateEmailInvalidToken: 'Invalid reset link. Please try again.',
+	// services/users.ts
+	usersActivationCodeMissing: "Activation code doesn't exist",
+	usersAccountAlreadyActivated: 'Account already activated',
+	usersEmailNotFound: "Couldn't find this email address.",
+	usersAccountNotActivated: 'Account is not active, please activate account first.',
+	usersErrorCreatingResetLink: 'Error creating reset link, please try again',
+	usersWrongOldPassword: 'Wrong old password, please try again',
+	usersProvideNewEmail: 'Please provide new email address',
+	usersEmailTaken: 'This email is already taken. Please try another email address.',
+
+	// login.ts
+	loginUserNotFound: 'User not found',
+	loginWrongPassword: 'Wrong password',
+	loginAccountNotActivated: 'Account is not active',
+	loginForeignStateRequest: 'Foreign state in request query',
+
+	//error.ts
+	errorUnknownEndpoint: 'Unknown endpoint'
 };

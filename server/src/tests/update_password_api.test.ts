@@ -41,7 +41,7 @@ describe('test update password access', () => {
 			.expect(401)
 			.expect('Content-Type', /application\/json/);
 
-		expect(resFromPassUpdate.body.error).toContain('Access denied, no token provided');
+		expect(resFromPassUpdate.body.error).toContain('sessionTokenMissing');
 	});
 	test('fails when no session in db', async () => {
 		await clearSessions();
@@ -51,7 +51,7 @@ describe('test update password access', () => {
 			.expect(401)
 			.expect('Content-Type', /application\/json/);
 
-		expect(resFromPassUpdate.body.error).toContain('No sessions found');
+		expect(resFromPassUpdate.body.error).toContain('sessionNotFound');
 	});
 	test('relogin with new password ', async () => {
 		await api
@@ -76,6 +76,6 @@ describe('test update password access', () => {
 			.post('/api/login')
 			.send({ ...credentialsNewUser })
 			.expect(401);
-		expect(resFromLogin.body.error).toContain('Wrong password');
+		expect(resFromLogin.body.error).toContain('loginWrongPassword');
 	});
 });

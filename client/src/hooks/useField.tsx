@@ -1,5 +1,5 @@
 import { SetStateAction, useState } from 'react';
-import { useErrorTranslate } from './useErrorTranslate';
+import { useTranslate } from './useTranslate';
 
 export const useField = (
 	type: string,
@@ -7,14 +7,14 @@ export const useField = (
 	validationFn: (value: string) => string | undefined
 ) => {
 	const [value, setValue] = useState('');
-	const { errorTranslate } = useErrorTranslate();
+	const { translate } = useTranslate();
 
 	const onChange = (event: { target: { value: SetStateAction<string> } }) =>
 		setValue(event.target.value);
 
 	let errorMessage;
 	if (value !== '') {
-		errorMessage = errorTranslate(validationFn(value)!);
+		errorMessage = translate(validationFn(value)!);
 	}
 	
 	return {
@@ -33,14 +33,14 @@ export const useFieldWithReset = (
 	validationFn: (value: string) => string | undefined
 ) => {
 	const [value, setValue] = useState('');
-	const { errorTranslate } = useErrorTranslate();
+	const { translate } = useTranslate();
 
 	const onChange = (event: { target: { value: SetStateAction<string> } }) =>
 		setValue(event.target.value);
 
 	let errorMessage;
 	if (value !== '') {
-		errorMessage = errorTranslate(validationFn(value)!);
+		errorMessage = translate(validationFn(value)!);
 	}
 
 	const reset = () => setValue('');

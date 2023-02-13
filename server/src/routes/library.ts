@@ -13,11 +13,13 @@ router.post(
 	sessionExtractor,
 	asyncHandler(async (req: CustomRequest, res) => {
 		if (!req.session || !req.session.userId) {
-			throw new AppError(`User is not logged in`, 400);
+			throw new AppError(`libraryUserNotLoggedIn`, 400);
 		}
+    
 		const searchQuery = SearchQuerySchema.decode(req.body);
 		if (!isRight(searchQuery)) {
-			throw new ValidationError(`Error parsing query: ${searchQuery.left}`);
+    //error parsing search query
+				throw new ValidationError(`libraryLimitOffsetNotNumber`);
 		}
 		const result = await getMovies(searchQuery.right);
 		res.status(200).json(result);

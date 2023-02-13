@@ -41,18 +41,18 @@ router.post(
 
 		const user = await findUserByUsername(parsedUsername);
 		if (!user) {
-			res.status(401).json({ error: 'User not found' });
+			res.status(401).json({ error: 'loginUserNotFound' });
 			return;
 		}
 
 		const passwordCorrect = await bcrypt.compare(parsedPassword, user.passwordHash);
 		if (!passwordCorrect) {
-			res.status(401).json({ error: 'Wrong password' });
+			res.status(401).json({ error: 'loginWrongPassword' });
 			return;
 		}
 
 		if (!user.isActive) {
-			res.status(401).json({ error: 'Account is not active' });
+			res.status(401).json({ error: 'loginAccountNotActivated' });
 			return;
 		}
 
@@ -61,7 +61,7 @@ router.post(
 		// 	return;
 		// }
 
-		const session = await addSession({ userId: user.id, username: user.username, email: user.email, language: user.language  });
+		const session = await addSession({ userId: user.id, username: user.username, email: user.email, language: user.language });
 		res.status(200).send({ token: session.sessionId, username: session.username, id: session.userId, language: session.language });
 	})
 );
@@ -85,7 +85,7 @@ router.get(
 		const code = req.query.code as string;
 
 		if (!(await isAuthState(state))) {
-			res.status(401).send({ error: 'Foreign state in request query' });
+			res.status(401).send({ error: 'loginForeignStateRequest' });
 			return;
 		}
 
@@ -112,7 +112,7 @@ router.get(
 		const code = req.query.code as string;
 
 		if (!(await isAuthState(state))) {
-			res.status(401).send({ error: 'Foreign state in request query' });
+			res.status(401).send({ error: 'loginForeignStateRequest' });
 			return;
 		}
 
