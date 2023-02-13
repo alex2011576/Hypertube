@@ -79,7 +79,22 @@ export const svSE: Dictionary = {
 	invalidEmail: 'Ogiltigt e-postformat',
 	incorrectField: 'Ogiltigt fält',
 
-	// Backend Errors
+	// ProfileSettings/index.tsx
+	errorLoadingProfile: 'Det gick inte att läsa in sidan med kontoinställningar, försök igen senare.',
+
+	// ProfileForm.txs
+	profileFormSuccess: 'Profilinställningar har uppdaterats!',
+	profileFormError: 'Det gick inte att uppdatera profilinställningar. Var god försök igen.',
+
+	// UpdatePasswordForm.tsx
+	updatePasswordFormSuccess: 'Lösenordet har uppdaterats!',
+	updatePasswordFormError: 'Det gick inte att uppdatera lösenorder. Var god försök igen.',
+
+	// UpdateEmailForm.tsx
+	updateEmailFormSuccess: 'Aktiveringslänk skickad till ny e-post!',
+	updateEmailFormError: 'Det gick inte att uppdatera e-postadressen. Var god försök igen.',
+
+	// Backend Errors -----------------------------------------------------------------------
 
 	// ParseUsername
 	usernameNotString: 'Användarnamn ogiltig typ',
@@ -122,4 +137,41 @@ export const svSE: Dictionary = {
 	tokenEmailMissing: 'Token saknas',
 	tokenEmailInvalid: 'E-poständringstoken är ogiltig',
 	tokenEmailInvalidFormat: 'E-poständringskodformat är ogiltigt',
+
+	// userRepository.ts
+	userNameExists: 'Användarnamn existerar redan',
+	emailExists: 'Denna e-post har redan använts',
+
+	// library.ts
+	libraryUserNotLoggedIn: 'Användaren är inte inloggad',
+	libraryLimitOffsetNotNumber: 'begränsning och offset ska vara strängrepresenterade heltal',
+
+	// routes/users.ts
+	usersForgotPasswordMissingToken: 'Saknar återställningskod',
+	usersForgotPasswordInvalidToken: 'Ogiltig återställningslänk. Var god försök igen',
+	usersForgotPasswordMissingOrExpired:
+		'Koden för återställning av lösenord saknas eller har upphört att gälla. Var god försök igen.',
+	usersNoRightsToUpdate: 'Inga rättigheter att uppdatera profildata',
+	usersNoRightsToGet: 'Inga rättigheter att få profildata',
+	usersUserNotFound: "Användaren finns inte",
+	usersUpdateEmailMissingToken: 'Saknar återställningskod',
+	usersUpdateEmailInvalidToken: 'Ogiltig återställningslänk. Var god försök ige',
+	// services/users.ts
+	usersActivationCodeMissing: "Återställningskoden finns inte",
+	usersAccountAlreadyActivated: 'Kontot är redan aktiverat',
+	usersEmailNotFound: "Det gick inte att hitta den här e-postadressen.",
+	usersAccountNotActivated: 'Kontot är inte aktiverat, aktivera kontot först.',
+	usersErrorCreatingResetLink: 'Det gick inte att skapa återställningslänk, försök igen',
+	usersWrongOldPassword: 'Fel gammalt lösenord, försök igen',
+	usersProvideNewEmail: 'Ange ett nytt e-postadress',
+	usersEmailTaken: 'Den här e-postadressen är redan tagen. Försök med en annan e-postadress.',
+
+	// login.ts
+	loginUserNotFound: 'Användaren hittades inte',
+	loginWrongPassword: 'Fel lösenord',
+	loginAccountNotActivated: 'Kontot är inte aktivt',
+	loginForeignStateRequest: 'Främmande state i begärd förfrågan',
+
+	//error.ts
+	errorUnknownEndpoint: 'Okänd slutpunkt'
 };

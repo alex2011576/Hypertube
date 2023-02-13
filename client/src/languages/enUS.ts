@@ -1,7 +1,6 @@
 import { Dictionary } from '../types';
 
 export const enUS: Dictionary = {
-
 	main: 'Main page',
 
 	// Text Fields
@@ -63,7 +62,10 @@ export const enUS: Dictionary = {
 		'Please enter your current password in order to safely change it.',
 	textFieldCurrentPassword: 'Current Password',
 	textFieldNewPassword: 'New Password',
+
+	// Public Profile
 	publicProfileHeader: 'HYPERTUBER',
+
 	// Navbar
 	navbarLogin: 'LOGIN',
 	navbarSignup: 'SIGN UP',
@@ -78,7 +80,22 @@ export const enUS: Dictionary = {
 	invalidEmail: 'Incorrect email format',
 	incorrectField: 'Incorrect field',
 
-	// Backend Errors
+	// ProfileSettings/index.tsx
+	errorLoadingProfile: 'Error loading account settings page, please try again...',
+
+	// ProfileForm.txs
+	profileFormSuccess: 'Profile settings were updated!',
+	profileFormError: 'Unable to update profile settings. Please try again.',
+
+	// UpdatePasswordForm.tsx
+	updatePasswordFormSuccess: 'Password was changed successfully!',
+	updatePasswordFormError: 'Unable to update password. Please try again.',
+
+	// UpdateEmailForm.tsx
+	updateEmailFormSuccess: 'Activation link sent to new email!',
+	updateEmailFormError: 'Unable to update email address. Please try again.',
+
+	// Backend Errors -----------------------------------------------------------------------
 
 	// ParseUsername
 	usernameNotString: 'Username invalid type',
@@ -124,10 +141,53 @@ export const enUS: Dictionary = {
 
 	// imageValidation
 	imageInvalidFormat: 'Invalid images format! Image is not an Image Data URI',
-	imageInvalidType: 'Invalid images format! Allowed types: "image/jpeg", "image/png", "image/jpg"',
+	imageInvalidType:
+		'Invalid images format! Allowed types: "image/jpeg", "image/png", "image/jpg"',
 	ImageSizeTooBig: 'Invalid images format! Image is too big: 25mb max',
 	imageCorrupted: 'Invalid images format! Image is corrupted',
 	imageTooSmall: 'Invalid images format! Image is too small. Min 10x10 pixels',
 	imageTooBig: 'Invalid images format! Image is too big. Max 6000x4000 pixels',
 	imageAspectRatio: 'Invalid images format! Image is of unacceptable ratio.',
+
+	// middleware.ts
+	sessionTokenMissing: 'Access denied, no token provided',
+	sessionNotFound: 'No sessions found or expired',
+
+	// userRepository.ts
+	userNameExists: 'Username already exists',
+	emailExists: 'This email was already used',
+
+	// library.ts
+	libraryUserNotLoggedIn: 'User is not logged in',
+	libraryLimitOffsetNotNumber: 'Limit and offset should be string represented integers',
+
+	// routes/users.ts
+	usersForgotPasswordMissingToken: 'Missing activation code',
+	usersForgotPasswordInvalidToken: 'Invalid reset link. Please try again.',
+	usersForgotPasswordMissingOrExpired:
+		'Reset password code is missing or expired. Please try again.',
+	usersNoRightsToUpdate: 'No rights to update profile data',
+	usersNoRightsToGet: 'No rights to get profile data',
+	usersUserNotFound: "User doesn't exist",
+	usersUpdateEmailMissingToken: 'Missing activation code',
+	usersUpdateEmailInvalidToken: 'Invalid reset link. Please try again.',
+	// services/users.ts
+	usersActivationCodeMissing: "Activation code doesn't exist",
+	usersAccountAlreadyActivated: 'Account already activated',
+	usersEmailNotFound: "Couldn't find this email address.",
+	usersAccountNotActivated: 'Account is not active, please activate account first.',
+	usersErrorCreatingResetLink: 'Error creating reset link, please try again',
+	usersWrongOldPassword: 'Wrong old password, please try again',
+	usersProvideNewEmail: 'Please provide new email address',
+	usersEmailTaken: 'This email is already taken. Please try another email address.',
+
+	// login.ts
+	loginUserNotFound: 'User not found',
+	loginWrongPassword: 'Wrong password',
+	loginAccountNotActivated: 'Account is not active',
+	loginForeignStateRequest: 'Foreign state in request query',
+
+	//error.ts
+	errorUnexpectedError: 'Unexpected error',
+	errorUnknownEndpoint: 'Unknown endpoint'
 };

@@ -79,7 +79,22 @@ export const ruRU: Dictionary = {
 	invalidEmail: 'Неверный формат',
 	incorrectField: 'Неверный формат',
 
-	// Backend Errors
+	// ProfileSettings/index.tsx
+	errorLoadingProfile: 'Error loading account settings page, please try again...',
+
+	// ProfileForm.txs
+	profileFormSuccess: 'Profile settings were updated!',
+	profileFormError: 'Unable to update profile settings. Please try again.',
+
+	// UpdatePasswordForm.tsx
+	updatePasswordFormSuccess: 'Password was changed successfully!',
+	updatePasswordFormError: 'Unable to update password. Please try again.',
+
+	// UpdateEmailForm.tsx
+	updateEmailFormSuccess: 'Activation link sent to new email!',
+	updateEmailFormError: 'Unable to update email address. Please try again.',
+
+	// Backend Errors -----------------------------------------------------------------------
 
 	// ParseUsername
 	usernameNotString: 'Username invalid type',
@@ -122,4 +137,41 @@ export const ruRU: Dictionary = {
 	tokenEmailMissing: 'Token is missing',
 	tokenEmailInvalid: 'Email change token is invalid',
 	tokenEmailInvalidFormat: 'Email change code format invalid',
+
+	// userRepository.ts
+	userNameExists: 'Username already exists',
+	emailExists: 'This email was already used',
+
+	// library.ts
+	libraryUserNotLoggedIn: 'User is not logged in',
+	libraryLimitOffsetNotNumber: 'Limit and offset should be string represented integers',
+
+	// routes/users.ts
+	usersForgotPasswordMissingToken: 'Missing activation code',
+	usersForgotPasswordInvalidToken: 'Invalid reset link. Please try again.',
+	usersForgotPasswordMissingOrExpired:
+		'Reset password code is missing or expired. Please try again.',
+	usersNoRightsToUpdate: 'No rights to update profile data',
+	usersNoRightsToGet: 'No rights to get profile data',
+	usersUserNotFound: "User doesn't exist",
+	usersUpdateEmailMissingToken: 'Missing activation code',
+	usersUpdateEmailInvalidToken: 'Invalid reset link. Please try again.',
+	// services/users.ts
+	usersActivationCodeMissing: "Activation code doesn't exist",
+	usersAccountAlreadyActivated: 'Account already activated',
+	usersEmailNotFound: "Couldn't find this email address.",
+	usersAccountNotActivated: 'Account is not active, please activate account first.',
+	usersErrorCreatingResetLink: 'Error creating reset link, please try again',
+	usersWrongOldPassword: 'Wrong old password, please try again',
+	usersProvideNewEmail: 'Please provide new email address',
+	usersEmailTaken: 'This email is already taken. Please try another email address.',
+
+	// login.ts
+	loginUserNotFound: 'User not found',
+	loginWrongPassword: 'Wrong password',
+	loginAccountNotActivated: 'Account is not active',
+	loginForeignStateRequest: 'Foreign state in request query',
+
+	//error.ts
+	errorUnknownEndpoint: 'Unknown endpoint'
 };
