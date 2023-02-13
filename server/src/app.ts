@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import userRouter from './routes/users';
 import loginRouter from './routes/login';
+import libraryRouter from './routes/library';
 
 import { globalErrorHandler, unknownEndpoint } from './errors';
 
@@ -23,7 +24,7 @@ app.use(sessionIdExtractor);
 
 app.use('/api/login', loginRouter);
 app.use('/api/users', userRouter);
-
+app.use('/api/library', libraryRouter);
 // Error handler for errors
 app.use(globalErrorHandler);
 

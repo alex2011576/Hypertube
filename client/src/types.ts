@@ -60,3 +60,21 @@ export type ProfilePublic = {
 export type Dictionary = {
 	[key: string]: string;
 };
+
+export type MovieThumbnail = {
+	id: number;
+	imdbCode: string;
+	title: string;
+	year: number;
+	summary: string;
+	cover: string;
+	rating: number;
+	isWatched: boolean;
+};
+
+export type SearchQuery = {
+	queryTerm: string;
+	genre: string;
+	sortBy: string;
+	reverseOrder: boolean;
+};
