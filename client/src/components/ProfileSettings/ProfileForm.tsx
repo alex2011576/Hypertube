@@ -53,11 +53,10 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 						language: language.value as LanguageOption
 					})
 				);
-			successCallback(`Profile settings were updated!.`);
+			successCallback('profileFormSuccess');
 		} catch (err) {
 			errorCallback(
-				err.response?.data?.error ||
-					'Unable to update profile settings. Please try again.'
+				err.response?.data?.error || 'profileFormError'
 			);
 		}
 	};
