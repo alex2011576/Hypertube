@@ -31,9 +31,9 @@ const UpdateEmailForm = () => {
 	}) => {
 		try {
 			await profileService.requestUpdateEmail({userId, email});
-			successCallback('updateEmailFormSuccess');
+			successCallback('profileUpdateEmailSuccess');
 		} catch (err) {
-			errorCallback(err.message || 'updateEmailFormError');
+			errorCallback(err.message || 'profileUpdateEmailError');
 		}
 	};
 

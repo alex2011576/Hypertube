@@ -23,12 +23,10 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 
 		try {
 			await userService.resetPassword(token, password.value);
-			alert.success('Password changed successfully!');
+			alert.success('alertPasswordResetSuccess');
 			navigate('/login');
 		} catch (err) {
-			alert.error(
-				err.response?.data?.error || 'Unable to reset password. Please try again.'
-			);
+			alert.error(err.response?.data?.error || 'alertPasswordResetError');
 			navigate('/forgot_password');
 		}
 	};

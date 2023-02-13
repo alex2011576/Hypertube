@@ -53,10 +53,10 @@ const UpdatePasswordForm = () => {
 	}) => {
 		try {
 			await profileService.updatePassword({ userId, oldPassword, password });
-			successCallback('updatePasswordFormSuccess');
+			successCallback('profileUpdatePasswordSuccess');
 		} catch (err) {
 			errorCallback(
-				err.response?.data?.error || 'updatePasswordFormError'
+				err.response?.data?.error || 'profileUpdatePasswordError'
 			);
 		}
 	};

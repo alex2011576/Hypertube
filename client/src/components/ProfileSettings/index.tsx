@@ -56,7 +56,7 @@ const ProfileEditor = () => {
 	if (profileError || photosError)
 		return (
 			<Alert severity="error">
-				<Text tid='errorLoadingProfile' />
+				<Text tid='profileLoadingError' />
 			</Alert>
 		);
 

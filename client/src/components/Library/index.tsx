@@ -7,6 +7,7 @@ import LoadingIcon from '../LoadingIcon';
 import Thumbnail from './Thumbnail';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SearchField from './SearchField';
+import Text from '../Text';
 
 const wrapperStyle = {
 	pt: 3,
@@ -74,7 +75,7 @@ const Library = () => {
 		}
 	}, [moviesData, setThumbnails]);
 
-	if (moviesError) return <Alert severity="error">Error occurred, please try again</Alert>;
+	if (moviesError) return <Alert severity="error"><Text tid='libraryError' /></Alert>;
 	if (!moviesData) return <LoadingIcon />;
 
 	return (
