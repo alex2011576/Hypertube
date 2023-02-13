@@ -6,6 +6,7 @@ export const enUS: Dictionary = {
 	// Text Fields
 	textFieldUsername: 'Username',
 	textFieldPassword: 'Password',
+	textFieldConfirmPassword: 'Confirm Password',
 	textFieldEmail: 'Email',
 	textFieldFirstName: 'First Name',
 	textFieldLastName: 'Last Name',
@@ -41,6 +42,14 @@ export const enUS: Dictionary = {
 	forgotPasswordSignup: 'Sign Up',
 	passwordResetSignup: "Don't have an account? Sign Up",
 	passwordResetSubmitButton: 'SUBMIT',
+
+	// Set Password Form
+	setPasswordTitle: 'SET PASSWORD',
+	setPasswordInfoText:
+		'Save you password for Hypertube to be able to login with your username and password if needed.',
+	submitBtn: 'SUBMIT',
+	alertSuccessSetPassword: 'Thank you, password has been saved.',
+	alertErrorSetPassword: 'Error setting password, please try again',
 
 	// Profile Form
 	titleProfile: 'PROFILE SETTINGS',

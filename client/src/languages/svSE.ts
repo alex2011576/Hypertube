@@ -6,6 +6,7 @@ export const svSE: Dictionary = {
 	// Text Fields
 	textFieldUsername: 'Användarnamn',
 	textFieldPassword: 'Lösenord',
+	textFieldConfirmPassword: 'Bekräfta lösenord',
 	textFieldEmail: 'E-post',
 	textFieldFirstName: 'Förnamn',
 	textFieldLastName: 'Efternamn',
@@ -41,6 +42,14 @@ export const svSE: Dictionary = {
 	forgotPasswordSignup: 'Bli medlem',
 	passwordResetSignup: 'Har du inget konto? Bli medlem',
 	passwordResetSubmitButton: 'SPARA',
+
+	// Set Password Form
+	setPasswordTitle: 'VÄLJ LÖSENORD',
+	setPasswordInfoText:
+		'Save you password for Hypertube to be able to login with your username and password if needed.',
+	submitBtn: 'SUBMIT',
+	alertSuccessSetPassword: 'Thank you, password has been saved.',
+	alertErrorSetPassword: 'Error setting password, please try again',
 
 	// Profile Form
 	titleProfile: 'KONTOINSTÄLLNINGAR',

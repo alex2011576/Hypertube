@@ -6,6 +6,7 @@ export const ruRU: Dictionary = {
 	// Text Fields
 	textFieldUsername: 'Имя пользователя',
 	textFieldPassword: 'Пароль',
+	textFieldConfirmPassword: 'Подтвердите пароль',
 	textFieldEmail: 'Имейл адрес',
 	textFieldFirstName: 'Имя',
 	textFieldLastName: 'Фамилия',
@@ -42,10 +43,17 @@ export const ruRU: Dictionary = {
 	passwordResetSignup: 'Нет аккаута? Зарегистрироваться',
 	passwordResetSubmitButton: 'ОК',
 
+	// Set Password Form
+	setPasswordTitle: 'СОЗДАТЬ ПАРОЛЬ',
+	setPasswordInfoText: 'Cохраните пароль для Hypertube. Так по-необходимости Вы сможете войти используя имя пользователя и пароль.',
+	submitBtn: 'OK',
+	alertSuccessSetPassword: 'Спасибо, пароль сохранен.',
+	alertErrorSetPassword: 'Ошибка, пожалуйста попробуйте снова',
+
 	// Profile Form
 	titleProfile: 'НАСТРОЙКИ ПРОФИЛЯ',
 	profileButtonUpdate: 'ОБНОВИТЬ',
-	profileUpdateToolTip: 'Пожалуйста заполни обязательные поля',
+	profileUpdateToolTip: 'Пожалуйста заполните обязательные поля',
 	profileRequiredField: 'Обязательное поле',
 	profileImageUpload: 'Кликни чтоб обновить фото.',
 	profileImageTypography:
