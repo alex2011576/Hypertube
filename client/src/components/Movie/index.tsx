@@ -1,6 +1,6 @@
 import { Alert, Box, Container, styled, Typography } from '@mui/material';
-import { useParams } from 'react-router-dom';
 import { useServiceCall } from '../../hooks/useServiceCall';
+import { useParams } from 'react-router-dom';
 import { MovieData } from '../../types';
 import withAuthRequired from '../AuthRequired';
 import movieService from '../../services/movie';

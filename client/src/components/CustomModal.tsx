@@ -1,9 +1,9 @@
 //prettier-ignore
 import { Dialog, DialogContent, DialogTitle, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
+import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
 import CloseIcon from '@mui/icons-material/Close';
 import ReactDOM from 'react-dom';
 import React from 'react';
-import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
 
 interface DialogTitleProps {
 	children?: React.ReactNode;
