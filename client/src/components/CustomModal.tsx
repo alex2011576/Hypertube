@@ -53,11 +53,11 @@ const CustomModal = ({
 			{isOpen
 				? ReactDOM.createPortal(
 						<React.Fragment>
-							<Dialog open={isOpen} fullScreen={fullScreen} >
+							<Dialog open={isOpen} fullScreen={fullScreen}>
 								<CustomDialogTitle onClose={handleToggle}>
 									{title}
 								</CustomDialogTitle>
-								<DialogContent sx={{padding: 0}} dividers>
+								<DialogContent sx={{ padding: 0 }} dividers>
 									{children}
 								</DialogContent>
 							</Dialog>
