@@ -71,7 +71,7 @@ const ProfileEditor = () => {
 
 	return (
 		<>
-			<Container maxWidth={'sm'} sx={{ mt: 4, mb: 8 }}>
+			<Container maxWidth={'sm'} sx={{ mt: 4, mb: 4 }}>
 				<Paper>
 					<StyledHeader variant="h6" color="primary">
 						<Text tid='titleProfile' />

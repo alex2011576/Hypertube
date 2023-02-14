@@ -25,7 +25,7 @@ const StyledBox = styled(Box)`
 	text-align: center;
 	flex-grow: 1;
 	position: relative;
-	top: 5rem;
+	top: 64px;
 	max-width: 100%;
 	min-width: 320px;
 `;

@@ -14,8 +14,7 @@ const Background = styled('div', {
 	shouldForwardProp: (prop) => prop !== 'src'
 })<{ src?: string; isWatched?: boolean }>(({ src }) => ({
 	position: 'relative',
-	bottom: '1rem',
-	height: '100vw',
+	height: '100vh',
 	width: '100%',
 	backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.9150253851540616) 0%, rgba(0,0,0,0.9038209033613446) 18%, rgba(0,0,0,0.42) 100%), url(${src})`,
 	display: 'flex',
