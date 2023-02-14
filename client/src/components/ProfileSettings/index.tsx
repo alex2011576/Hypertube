@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// import { getPhotos, getProfile } from '../../services/profile';
 import { Paper, styled, Container, Box, Typography, Divider, Alert } from '@mui/material';
 import { getProfile, getPhoto } from '../../services/profile';
 import { PhotoType, UserData } from '../../types';
