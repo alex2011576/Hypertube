@@ -5,7 +5,7 @@ import { CustomRequest, SearchQuerySchema } from '../types';
 import { AppError, ValidationError } from '../errors';
 import { sessionExtractor } from '../utils/middleware';
 import { getMovies } from '../services/movies';
-import { getMovie } from '../services/movie';
+import { getMovieData } from '../services/movie';
 import { isRight } from 'fp-ts/lib/Either';
 
 const router = express.Router();
@@ -39,7 +39,7 @@ router.get(
 		const userId = req.session.userId;
 		const ytsMovieId = req.params.id;
 
-		const result = await getMovie(userId, ytsMovieId);
+		const result = await getMovieData(userId, ytsMovieId);
 		if (!result) {
 			throw new AppError(`movieMovieNotFound`, 400);
 		}

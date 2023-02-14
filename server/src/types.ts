@@ -8,7 +8,7 @@ export type BaseUser = {
 	lastname: string;
 };
 
-export type UserCompletness = { complete: boolean };
+export type UserCompleteness = { complete: boolean };
 
 export type NewUser = BaseUser & { passwordPlain: string; language: LanguageOption };
 export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string; language: LanguageOption };
@@ -133,4 +133,17 @@ export type YtsMovieData = MovieThumbnail & {
 	language: string;
 	largeScreenshotImage: string;
 	// quality: string[];
+};
+
+export type OmdbMovieData = {
+	director: string;
+	writer: string;
+	actors: string[];
+	country: string;
+	awards: string;
+};
+
+export type MovieData = {
+	ytsMovieData: YtsMovieData;
+	omdbMovieData: OmdbMovieData | undefined;
 };
