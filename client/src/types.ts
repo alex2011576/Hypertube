@@ -90,3 +90,16 @@ export type YtsMovieData = MovieThumbnail & {
 	largeScreenshotImage: string;
 	// quality: string[];
 };
+
+export type OmdbMovieData = {
+	director: string;
+	writer: string;
+	actors: string[];
+	country: string;
+	awards: string;
+};
+
+export type MovieData = {
+	ytsMovieData: YtsMovieData;
+	omdbMovieData: OmdbMovieData | undefined;
+};

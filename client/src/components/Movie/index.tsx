@@ -1,7 +1,7 @@
 import { Alert, Box, Container, styled, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useServiceCall } from '../../hooks/useServiceCall';
-import { YtsMovieData } from '../../types';
+import { MovieData } from '../../types';
 import withAuthRequired from '../AuthRequired';
 import movieService from '../../services/movie';
 import LoadingIcon from '../LoadingIcon';
@@ -42,6 +42,14 @@ const Row = styled(Box)`
 	align-items: flex-start;
 `;
 
+const stringOrEmptyString = (value: string | undefined, placeholder: string): string => {
+	return value?.length ? value : placeholder;
+};
+
+const numberOrEmptyString = (value: number): string | number => {
+	return value && value > 0 ? value : '';
+};
+
 const MoviePage = () => {
 	const { id: movieId } = useParams();
 	// if (!movieId) return <Navigate to="/" />;
@@ -50,7 +58,7 @@ const MoviePage = () => {
 		data: movieData,
 		error: movieError
 	}: {
-		data: YtsMovieData | undefined;
+		data: MovieData | undefined;
 		error: Error | undefined;
 	} = useServiceCall(async () => await movieService.getMovie(movieId), []);
 
@@ -62,22 +70,28 @@ const MoviePage = () => {
 		);
 	if (!movieData) return <LoadingIcon />;
 
-	const title = movieData.title.length ? movieData.title : 'No title';
-	const year = movieData.year > 0 ? movieData.year : '';
-	const summary = movieData.summary.length ? movieData.summary : '';
-	const cover = movieData.cover.length ? movieData.cover : moviePlaceholder;
-	const rating = movieData.rating > 0 ? '⭑ ' + movieData.rating : '';
-	const isWatched = movieData.isWatched;
-	const titleEnglish = movieData.titleEnglish || '';
-	const synopsis = movieData.descriptionIntro.length ? movieData.descriptionIntro : '';
-	const runtime = movieData.runtime > 0 ? movieData.runtime : '';
-	const genres = movieData.genres.length ? movieData.genres : [''];
-	const downloadCount = movieData.downloadCount > 0 ? movieData.downloadCount : '';
-	const likeCount = movieData.likeCount > 0 ? movieData.likeCount : '';
-	const language = movieData.language.length ? movieData.language : '';
-	const background = movieData.cover.length
-		? movieData.largeScreenshotImage
-		: moviePlaceholder;
+	const { ytsMovieData: yts, omdbMovieData: omdb } = movieData;
+
+	const title = stringOrEmptyString(yts.title, 'No title');
+	const year = numberOrEmptyString(yts.year);
+	const summary = stringOrEmptyString(yts.summary, '');
+	const cover = stringOrEmptyString(yts.cover, moviePlaceholder);
+	const rating = yts.rating > 0 ? '⭑ ' + yts.rating : '';
+	const isWatched = yts.isWatched;
+	const titleEnglish = stringOrEmptyString(yts.titleEnglish, '');
+	const synopsis = stringOrEmptyString(yts.descriptionIntro, '');
+	const runtime = numberOrEmptyString(yts.runtime);
+	const genres = yts.genres.length ? yts.genres : [''];
+	const downloadCount = numberOrEmptyString(yts.downloadCount);
+	const likeCount = numberOrEmptyString(yts.likeCount);
+	const language = stringOrEmptyString(yts.language, '');
+	const background = stringOrEmptyString(yts.largeScreenshotImage, moviePlaceholder);
+
+	const director = stringOrEmptyString(omdb?.director, '');
+	const writor = stringOrEmptyString(omdb?.writer, '');
+	const actors = omdb?.actors.length ? omdb.actors : [''];
+	const country = stringOrEmptyString(omdb?.country, '');
+	const awards = stringOrEmptyString(omdb?.awards, '');
 
 	return (
 		<Background src={background}>
@@ -97,7 +111,6 @@ const MoviePage = () => {
 					</Typography>
 					<Typography color={'text.disabled'}>{genres[0]}</Typography>
 					<Typography color={'text.secondary'} ml={1}>
-						{' '}
 						{language.toUpperCase()}
 					</Typography>
 				</Row>
