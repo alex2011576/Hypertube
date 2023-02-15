@@ -20,9 +20,17 @@ const Callback42 = () => {
 			if (code && state) {
 				try {
 					const loggedInUser = await loginService.auth42(code, state);
-					dispatch(setLoggedUser(loggedInUser));
-					navigate('/');
-					alert.success('alertLoginSuccess');
+					const { passwordSet } = loggedInUser;
+					delete loggedInUser.passwordSet;
+					if (passwordSet === false) {
+						dispatch(setLoggedUser(loggedInUser));
+						navigate('/set_password');
+						alert.success('alertLoginSuccessPasswordNotSet');
+					} else {
+						dispatch(setLoggedUser(loggedInUser));
+						navigate('/');
+						alert.success('alertLoginSuccess');
+					}
 				} catch (err) {
 					alert.error(err.response?.data?.error || 'alertLoginError');
 					navigate('/login');
@@ -54,9 +62,17 @@ const CallbackGithub = () => {
 			if (code && state) {
 				try {
 					const loggedInUser = await loginService.authGitHub(code, state);
-					dispatch(setLoggedUser(loggedInUser));
-					navigate('/');
-					alert.success('alertLoginSuccess');
+					const { passwordSet } = loggedInUser;
+					delete loggedInUser.passwordSet;
+					if (passwordSet === false) {
+						dispatch(setLoggedUser(loggedInUser));
+						navigate('/set_password');
+						alert.success('alertLoginSuccessPasswordNotSet');
+					} else {
+						dispatch(setLoggedUser(loggedInUser));
+						navigate('/');
+						alert.success('alertLoginSuccess');
+					}
 				} catch (err) {
 					alert.error(err.response?.data?.error || 'alertLoginError');
 					navigate('/login');
