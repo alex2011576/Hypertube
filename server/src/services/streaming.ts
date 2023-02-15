@@ -2,7 +2,7 @@ import { recordDownloading, searchInDownloads, setDownloadComplete } from '../re
 import { FileInfo, IMDB, StreamQuality, YtsMovieDetailsJson } from '../types';
 import axios from 'axios';
 import { getErrorMessage, TorrentError } from '../errors';
-import { convertBytes, getMagnetLink, waitForFileToExist } from '../utils/helpers';
+import { checkFileSize, convertBytes, getMagnetLink } from '../utils/helpers';
 import path from 'path';
 import torrentStream from 'torrent-stream';
 
@@ -23,7 +23,6 @@ export const getStreamStatus = async (imdb: IMDB, quality: StreamQuality) => {
 				}
 			}
 		);
-		// const movie = data.data.movie;
 		if (!data || !data.data || !data.data.movie || !data.data.movie.torrents) {
 			throw new TorrentError(`No torrents avaliable for movie with imdb=${imdb}`);
 		}
@@ -44,18 +43,15 @@ export const getStreamStatus = async (imdb: IMDB, quality: StreamQuality) => {
 		const magnetLink = getMagnetLink(filmTitle, hash);
 
 		const movieFile = await downloadTorrent(magnetLink, imdb, quality);
-		console.log('resolved');
-		await waitForFileToExist(movieFile.path);
-		console.log('file created');
-		
-
-		return 'not in downloads';
+		const currentSize = checkFileSize(`movies/${movieFile.path}`);
+		const progress = currentSize / movieFile.size * 100;
+		return `Ready to play, ${progress.toFixed(2)}% (${convertBytes(currentSize)}) downloaded`;
 	}
 };
 
 const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQuality): Promise<FileInfo> => {
 	let resolved = false;
-	const videoPath = path.resolve(__dirname, '../../assets');
+	const videoPath = path.resolve(__dirname, '../../movies');
 	const options = {
 		trackers: [
 			'udp://open.demonii.com:1337/announce',
@@ -91,6 +87,7 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 	const engine = torrentStream(magnetLink, options);
 	let file: TorrentStream.TorrentFile;
 	let fileInfo: FileInfo;
+	let progress = -1;
 	
 	console.log(videoPath);
 	return new Promise((resolve, reject) => {
@@ -115,7 +112,8 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 			file = files[0];
 
 			fileInfo = {
-				path: `${videoPath}/${file.path}`,
+				// path: `${videoPath}/${file.path}`,
+				path: `${file.path}`,
 				type: file.name.split('.').pop() as string,
 				size: file.length,
 				imdb: imdb,
@@ -130,7 +128,6 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 					console.log('Engine connection destroyed');
 					if (!resolved) {
 						resolved = true;
-						// reject('failed to save download info!');
 						reject(new TorrentError('failed to save download info!'));
 					}
 				});
@@ -138,11 +135,15 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 		});
 
 		engine.on('download', () => {
-			console.log(`Downloading...`);
 			if (file) {
-				const ratio = (engine.swarm.downloaded / file.length) * 100;
-				console.log(`downloaded ${(ratio.toFixed(0))}% (${convertBytes(engine.swarm.downloaded)} from ${convertBytes(file?.length)} bytes)`);
-				if (!resolved) {
+				const donwloaded = checkFileSize(`movies/${file.path}`);
+				const ratio = (donwloaded / file.length) * 100;
+				if (ratio >= progress){
+					progress = ratio + 1;
+					console.log(`Downloading...`);
+					console.log(`Progress: ${(ratio.toFixed(0))}% (${convertBytes(donwloaded)} / ${convertBytes(file?.length)} bytes)`);
+				}
+				if (!resolved && donwloaded >= 5 * 1024 * 1024) {
 					resolved = true;
 					resolve(fileInfo);
 				}
@@ -151,24 +152,32 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 
 		engine.on('idle', () => {
 			engine.destroy(() => {
-				if (file && engine.swarm.downloaded >= file.length) {
-					console.log('All files downloaded');
-					//would be good to make generic function to take function and retry them returning error on reject or function return on resolve
-					setDownloadComplete(imdb, quality)
-						.catch((err) => console.log(`Download completion update failed:\n${getErrorMessage(err)}\n Trying update competion again...`))
-						.then(() => setDownloadComplete(imdb, quality))
-						.catch((err) => console.log(`Download completion update failed again:\n${getErrorMessage(err)}\n`));
-				} else {
-					console.log('idle state, files are not downloaded');
-					console.log('initiate auto destruction');
-					if (!resolved) {
-						resolved = true;
-						reject(new TorrentError('autodistruction'));
+				searchInDownloads(imdb, quality)
+				.then((isInDownloads)=>{
+					if (isInDownloads) {
+						console.log('All files downloaded');
+						setDownloadComplete(imdb, quality)
+							.catch((err) => console.log(`Download completion update failed:\n${getErrorMessage(err)}\n Trying update competion again...`))
+							.then(() => setDownloadComplete(imdb, quality))
+							.catch((err) => console.log(`Download completion update failed again:\n${getErrorMessage(err)}\n`));
+						
+						if (!resolved) {
+							resolved = true;
+							resolve(fileInfo);
+						}
+					} else {
+						console.log('Files are not downloaded');
+						if (!resolved) {
+							resolved = true;
+							reject(new TorrentError('autodistruction'));
+						}
 					}
-				}
-				console.log('Engine connection destroyed');
-			});
+					console.log('Engine connection destroyed');
+				})
+				.catch(() => console.log('error'));
+			}); 
 		});
-		// void imdb, quality;
 	});
 };
+// engine.swarm.downloaded shows how much was downloaded since initiation, but the download would continue if files has already existed. Since, it is a bad idea
+//to log download ratio based on engine.swarm.downloaded 

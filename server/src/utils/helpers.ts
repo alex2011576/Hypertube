@@ -64,24 +64,67 @@ export function convertBytes(bytes: number): string {
 	}
 }
 
-export const waitForFileToExist = (path: string): Promise<void> => {
-	return new Promise<void>((resolve, _reject) => {
-		const watcher = fs.watch('movies', (eventType: string, filename: string) => {
-			if (eventType === 'rename' && filename === path) {
-				watcher.close();
-				resolve();
-			}
-		});
+// export const waitForFileToExist = (path: string): Promise<void> => {
+// 	return new Promise<void>((resolve, _reject) => {
+// 		const watcher = fs.watch(`movies`, (eventType: string, filename: string) => {
+// 			if (eventType && filename) {
+// 				console.log(eventType);
+// 				console.log(filename);
+// 				console.log('watch registered file event');
+// 				watcher.close();
+// 				resolve();
+// 			}
+// 		});
 
-		if (fs.existsSync(`movies/${path}`)) {
-			watcher.close();
-			resolve();
-		}
-	});
-};
+// 		if (fs.existsSync(`movies/${path}`)) {
+// 			console.log('old file');
+// 			watcher.close();
+// 			resolve();
+// 		}
+// 	});
+// };
 
 export const isPasswordSet = (password: string): boolean => {
-	if(password === "notSet")
-		return false;
+	if (password === 'notSet') return false;
 	return true;
+};
+
+// export const watchFileSize = (filePath: string): Promise<number> => {
+// 	return new Promise((resolve, reject) => {
+// 		let watcher: fs.FSWatcher | null = null;
+// 		let size = 0;
+
+// 		const checkFileSize = () => {
+// 			const stats = fs.statSync(`movies/${filePath}`);
+// 			size = stats.size;
+// 			if (size >= 5 * 1024 * 1024) {
+// 				if (watcher) watcher.close();
+// 				resolve(size);
+// 			}
+// 		};
+
+// 		try {
+// 			checkFileSize();
+// 			watcher = fs.watch(`movies/${filePath}`, (eventType, _filename) => {
+// 				if (eventType === 'change') {
+// 					checkFileSize();
+// 				}
+// 			});
+// 		} catch (err) {
+// 			reject(err);
+// 		}
+// 	});
+// };
+
+export const checkFileSize = (filePath: string) => {
+	const checkFileSize = () => {
+		const stats = fs.statSync(`${filePath}`);
+		return stats.size;
+	};
+	
+	if (fs.existsSync(`${filePath}`)) {
+		return checkFileSize();
+	} 
+	console.log('no file');
+	return 0;
 };
