@@ -45,7 +45,8 @@ export const ruRU: Dictionary = {
 
 	// Set Password Form
 	setPasswordTitle: 'СОЗДАТЬ ПАРОЛЬ',
-	setPasswordInfoText: 'Cохраните пароль для Hypertube. Так по-необходимости Вы сможете войти используя имя пользователя и пароль.',
+	setPasswordInfoText:
+		'Cохраните пароль для Hypertube. Так по-необходимости Вы сможете войти используя имя пользователя и пароль.',
 	submitBtn: 'OK',
 	alertSuccessSetPassword: 'Спасибо, пароль сохранен.',
 	alertErrorSetPassword: 'Ошибка, пожалуйста попробуйте снова',

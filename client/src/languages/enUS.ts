@@ -46,7 +46,7 @@ export const enUS: Dictionary = {
 	// Set Password Form
 	setPasswordTitle: 'SET PASSWORD',
 	setPasswordInfoText:
-		'Save you password for Hypertube to be able to login with your username and password if needed.',
+		'Save your password for Hypertube to be able to login with your username and password if needed.',
 	submitBtn: 'SUBMIT',
 	alertSuccessSetPassword: 'Thank you, password has been saved.',
 	alertErrorSetPassword: 'Error setting password, please try again',
