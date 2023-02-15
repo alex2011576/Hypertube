@@ -141,7 +141,6 @@ const MoviePage = () => {
 									<InfoOutlinedIcon color={'primary'} sx={{ ml: 2 }} />
 								</Tooltip>
 							</Box>
-							ƒf
 						</Row>
 					</Title>
 					<Typography color={'white'} sx={{ fontWeight: 600 }}>
