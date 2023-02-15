@@ -25,6 +25,7 @@ type YTSMoviePayload = {
 	like_count: number;
 	language: string;
 	large_screenshot_image1: string;
+	background_image: string;
 	// quality: string[];
 };
 
@@ -51,7 +52,8 @@ const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<Yts
 			downloadCount: movie.download_count || 0,
 			likeCount: movie.like_count || 0,
 			language: movie.language || '',
-			largeScreenshotImage: movie.large_screenshot_image1 || ''
+			largeScreenshotImage: movie.large_screenshot_image1 || '',
+			backgroundImage: movie.background_image || ''
 		};
 
 		return ytsMovieData;
@@ -62,6 +64,7 @@ const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<Yts
 };
 
 type OmdbMoviePayload = {
+	Plot: string;
 	Director: string;
 	Writer: string;
 	Actors: string;
@@ -77,9 +80,10 @@ const getOmdbMovieData = async (imdbCode: string): Promise<OmdbMovieData | undef
 
 		const movie: OmdbMoviePayload = omdbPayload.data;
 		const omdbMovieData: OmdbMovieData = {
+			plot: movie.Plot || '',
 			director: movie.Director || '',
 			writer: movie.Writer || '',
-			actors: movie.Actors.split(', ') || [''],
+			actors: movie.Actors || '',
 			country: movie.Country || '',
 			awards: movie.Awards || ''
 		};

@@ -132,13 +132,15 @@ export type YtsMovieData = MovieThumbnail & {
 	likeCount: number;
 	language: string;
 	largeScreenshotImage: string;
+	backgroundImage: string;
 	// quality: string[];
 };
 
 export type OmdbMovieData = {
+	plot: string;
 	director: string;
 	writer: string;
-	actors: string[];
+	actors: string;
 	country: string;
 	awards: string;
 };
