@@ -61,7 +61,7 @@ const Creators = styled(Box)`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	margin-bottom: 1rem;
+	margin: 1rem 0;
 `;
 
 const stringOrPlaceholder = (value: string | undefined, placeholder: string): string => {
@@ -146,14 +146,29 @@ const MoviePage = () => {
 					<Typography color={'white'} sx={{ fontWeight: 600 }}>
 						{title === titleEnglish ? '' : title.toUpperCase()}
 					</Typography>
-
-					<Row
-						sx={{
-							display: 'flex',
-							width: '100%',
-							justifyContent: 'space-between'
-						}}
-					></Row>
+					<Row>
+						{country && (
+							<Typography color={'text.disabled'} mr={1}>
+								{country + (year && country && ',')}
+							</Typography>
+						)}
+						<Typography color={'white'}>{year}</Typography>
+					</Row>
+					<Row>
+						{runtime && (
+							<Typography
+								color={'text.disabled'}
+								sx={{ display: 'flex', alignItems: 'center', mr: 1 }}
+							>
+								<WatchLaterIcon fontSize="small" sx={{ mr: '5px' }} />{' '}
+								{runtime}
+							</Typography>
+						)}
+						<Typography color={'text.secondary'} mr={1}>
+							{language.toUpperCase()}
+						</Typography>
+						<Typography color={'text.disabled'}>{genres[0]}</Typography>
+					</Row>
 					<Creators>
 						{director.length > 3 && (
 							<Typography color={'text.disabled'}>
@@ -165,36 +180,15 @@ const MoviePage = () => {
 								Written by: <strong>{writer}</strong> {/*TID!*/}
 							</Typography>
 						)}
-					</Creators>
-					<Row>
-						<Typography color={'text.disabled'} mr={1}>
-							{country + (year && country && ',')}
-						</Typography>
-						<Typography color={'white'}>{year}</Typography>
-					</Row>
-					<Row>
-						{runtime && (
-							<Typography
-								color={'text.disabled'}
-								sx={{ display: 'flex', alignItems: 'center' }}
-							>
-								<WatchLaterIcon fontSize="small" sx={{ mr: '5px' }} />{' '}
-								{runtime}
-							</Typography>
+						{actors.length > 3 && (
+							<Box>
+								<Typography color={'text.disabled'}>
+									Cast: <strong>{actors}</strong>
+									{/*TID!*/}
+								</Typography>
+							</Box>
 						)}
-						<Typography color={'text.secondary'} ml={1}>
-							{language.toUpperCase()}
-						</Typography>
-						<Typography color={'text.disabled'} ml={1}>
-							{genres[0]}
-						</Typography>
-					</Row>
-					<Box>
-						<Typography color={'text.secondary'}>
-							Cast: <strong>{actors}</strong>
-							{/*TID!*/}
-						</Typography>
-					</Box>
+					</Creators>
 				</InfoColumn>
 				{plot.length > 3 && (
 					// <InfoColumn sx={{ width: '42%' }}>
