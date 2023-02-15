@@ -1,4 +1,5 @@
 import axios from 'axios';
+import getAuthHeader from './auth';
 import { apiBaseUrl } from '../constants';
 import { NewUser } from '../types';
 
@@ -25,12 +26,26 @@ const resetPassword = async (token: string, passwordPlain: string): Promise<void
 	});
 };
 
+const setPassword = async (passwordPlain: string, confirmPasswordPlain: string, userId: string): Promise<void> => {
+	const config = {
+		headers: { Authorization: getAuthHeader() }
+	};
+	await axios.put(`${apiBaseUrl}/users/${userId}/set_password`,
+		{
+			password: passwordPlain,
+			confirmPassword: confirmPasswordPlain
+		}, 
+		config
+	);
+};
+
 const moduleExports = {
 	create,
 	activate,
 	requestPasswordReset,
 	checkResetToken,
-	resetPassword
+	resetPassword,
+	setPassword
 };
 
 export default moduleExports;

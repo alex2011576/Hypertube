@@ -6,6 +6,7 @@ export const enUS: Dictionary = {
 	// Text Fields
 	textFieldUsername: 'Username',
 	textFieldPassword: 'Password',
+	textFieldConfirmPassword: 'Confirm Password',
 	textFieldEmail: 'Email',
 	textFieldFirstName: 'First Name',
 	textFieldLastName: 'Last Name',
@@ -41,6 +42,14 @@ export const enUS: Dictionary = {
 	forgotPasswordSignup: 'Sign Up',
 	passwordResetSignup: "Don't have an account? Sign Up",
 	passwordResetSubmitButton: 'SUBMIT',
+
+	// Set Password Form
+	setPasswordTitle: 'SET PASSWORD',
+	setPasswordInfoText:
+		'Save your password for Hypertube to be able to login with your username and password if needed.',
+	submitBtn: 'SUBMIT',
+	alertSuccessSetPassword: 'Thank you, password has been saved.',
+	alertErrorSetPassword: 'Error setting password, please try again',
 
 	// Profile Form
 	titleProfile: 'PROFILE SETTINGS',
@@ -87,8 +96,10 @@ export const enUS: Dictionary = {
 	invalidEmail: 'Incorrect email format',
 	incorrectField: 'Incorrect field',
 
-	// Library
-	libraryError: 'Error occurred, please try again',
+	// Movies
+	moviesError: 'Error occurred, please try again',
+
+	//Movie
 
 	// Alerts
 	alertLogout: 'Logged out',
@@ -103,6 +114,7 @@ export const enUS: Dictionary = {
 	alertInvalidPasswordResetLink: 'Invalid reset link. Please try again.',
 	alertPasswordResetSuccess: 'Password changed successfully!',
 	alertPasswordResetError: 'Unable to reset password. Please try again.',
+	alertMissingMovieId: 'Missing movie id',
 
 	// AxiosError
 	axiosNetworkError: 'Network error',
@@ -172,9 +184,12 @@ export const enUS: Dictionary = {
 	userNameExists: 'Username already exists',
 	emailExists: 'This email was already used',
 
-	// library.ts
-	libraryUserNotLoggedIn: 'User is not logged in',
-	libraryLimitOffsetNotNumber: 'Limit and offset should be string represented integers',
+	// movies.ts
+	moviesUserNotLoggedIn: 'User is not logged in',
+	errorParsingSearchQuery: 'Error parsing search query',
+
+	//movie.ts
+	movieMovieNotFound: 'Movie not found.',
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Missing activation code',
@@ -186,6 +201,7 @@ export const enUS: Dictionary = {
 	usersUserNotFound: "User doesn't exist",
 	usersUpdateEmailMissingToken: 'Missing activation code',
 	usersUpdateEmailInvalidToken: 'Invalid reset link. Please try again.',
+	usersPasswordsDoNotMatch: 'Passwords do not match',
 	// services/users.ts
 	usersActivationCodeMissing: "Activation code doesn't exist",
 	usersAccountAlreadyActivated: 'Account already activated',

@@ -6,6 +6,7 @@ export const ruRU: Dictionary = {
 	// Text Fields
 	textFieldUsername: 'Имя пользователя',
 	textFieldPassword: 'Пароль',
+	textFieldConfirmPassword: 'Подтвердите пароль',
 	textFieldEmail: 'Имейл адрес',
 	textFieldFirstName: 'Имя',
 	textFieldLastName: 'Фамилия',
@@ -42,10 +43,18 @@ export const ruRU: Dictionary = {
 	passwordResetSignup: 'Нет аккаута? Зарегистрироваться',
 	passwordResetSubmitButton: 'ОК',
 
+	// Set Password Form
+	setPasswordTitle: 'СОЗДАТЬ ПАРОЛЬ',
+	setPasswordInfoText:
+		'Cохраните пароль для Hypertube. Так по-необходимости Вы сможете войти используя имя пользователя и пароль.',
+	submitBtn: 'OK',
+	alertSuccessSetPassword: 'Спасибо, пароль сохранен.',
+	alertErrorSetPassword: 'Ошибка, пожалуйста попробуйте снова',
+
 	// Profile Form
 	titleProfile: 'НАСТРОЙКИ ПРОФИЛЯ',
 	profileButtonUpdate: 'ОБНОВИТЬ',
-	profileUpdateToolTip: 'Пожалуйста заполни обязательные поля',
+	profileUpdateToolTip: 'Пожалуйста заполните обязательные поля',
 	profileRequiredField: 'Обязательное поле',
 	profileImageUpload: 'Кликни чтоб обновить фото.',
 	profileImageTypography:
@@ -61,13 +70,14 @@ export const ruRU: Dictionary = {
 	profilePasswordInfoText: 'Введите текущий пароль для безопасной смены пароля.',
 	textFieldCurrentPassword: 'Текущий пароль',
 	textFieldNewPassword: 'Новый пароль',
-	profileFormSuccess: 'Profile settings were updated!',
-	profileFormError: 'Unable to update profile settings. Please try again.',
-	profileLoadingError: 'Error loading account settings page, please try again...',
-	profileUpdatePasswordSuccess: 'Password was changed successfully!',
-	profileUpdatePasswordError: 'Unable to update password. Please try again.',
-	profileUpdateEmailSuccess: 'Activation link sent to new email!',
-	profileUpdateEmailError: 'Unable to update email address. Please try again.',
+	profileFormSuccess: 'Профиль успешно обновлен!',
+	profileFormError: 'Ошибка в процессе обновления профиля. Пожалуйста попробуйте снова',
+	profileLoadingError: 'Ошибка загрузки страницы, Пожалуйста попробуйте снова...',
+	profileUpdatePasswordSuccess: 'Пароль успешно изменен!',
+	profileUpdatePasswordError: 'Ошибка в процессе смены пароля. Пожалуйста попробуйте снова.',
+	profileUpdateEmailSuccess: 'Ссылка активации выслана на новый имейл адрес!',
+	profileUpdateEmailError:
+		'Ошибка в процессе обновления имейл адреса. Пожалуйста попробуйте снова.',
 
 	// Public Profile
 	publicProfileHeader: 'ПОЛЬЗОВАТЕЛЬ',
@@ -86,107 +96,116 @@ export const ruRU: Dictionary = {
 	invalidEmail: 'Неверный формат',
 	incorrectField: 'Неверный формат',
 
-	// Library
-	libraryError: 'Error occurred, please try again',
+	// Movies
+	moviesError: 'Произошла ошибка, Пожалуйста попробуйте снова',
+
+	//Movie
 
 	// Alerts
-	alertLogout: 'Logged out',
-	alertSuccessPasswordResetLink: 'Reset link sent! Please check your inbox.',
-	alertErrorPasswordResetLink: 'Unable to send a link. Please try again.',
-	alertLoginSuccess: 'Logged in successfully. Welcome!',
-	alertLoginError: 'Unable to login. Please try again.',
-	alertAccountActivated: 'Account activated successfully!',
-	alertErrorOccured: 'Error occurred, please try again.',
-	alertNewUserSuccess: 'New user has been created! Activation link is sent to email.',
-	alertNewUserError: 'Unable to create a new user. Please try again.',
-	alertInvalidPasswordResetLink: 'Invalid reset link. Please try again.',
-	alertPasswordResetSuccess: 'Password changed successfully!',
-	alertPasswordResetError: 'Unable to reset password. Please try again.',
+	alertLogout: 'Выход осуществлен',
+	alertSuccessPasswordResetLink: 'Ссылка выслана! Пожалуйста проверьте почтовый ящик.',
+	alertErrorPasswordResetLink: 'Произошла ошибка. Пожалуйста попробуйте снова.',
+	alertLoginSuccess: 'Вход осуществлен. Добро пожаловать!',
+	alertLoginError: 'Ошибка входа Пожалуйста попробуйте снова.',
+	alertAccountActivated: 'Аккаунт успешно активирован!',
+	alertErrorOccured: 'Произошла ошибка, Пожалуйста попробуйте снова.',
+	alertNewUserSuccess:
+		'Новый пользователь успешно создан! Ссылка активации выслана на указанный имейл адрес.',
+	alertNewUserError: 'Ошибка в процессе создания аккаунта. Пожалуйста попробуйте снова.',
+	alertInvalidPasswordResetLink: 'Неверная ссылка. Пожалуйста попробуйте снова.',
+	alertPasswordResetSuccess: 'Пароль успешно изменен!',
+	alertPasswordResetError: 'Не получилось сменить пароль. Пожалуйста попробуйте снова.',
+	alertMissingMovieId: 'Номер фильма отсутствует',
 
 	// AxiosError
-	axiosNetworkError: 'Network error',
+	axiosNetworkError: 'Ошибка связи',
 
 	// AuthError
-	authError: 'Session expired, please login again.',
+	authError: 'Сессия истекла, пожалуйста войдите снова.',
 
 	// Backend Errors -----------------------------------------------------------------------
 
 	// ParseUsername
-	usernameNotString: 'Username invalid type',
-	usernameMissing: 'Username is missing',
-	usernameTooShort: 'Username is too short',
-	usernameTooLong: 'Username is too long',
-	usernameInvalid: 'Username is invalid',
+	usernameNotString: 'Неверный тип строки: Имя пользователя',
+	usernameMissing: 'Отсутствует имя пользователя',
+	usernameTooShort: 'Слишком короткое имя пользователя',
+	usernameTooLong: 'Слишком длинное имя пользователя',
+	usernameInvalid: 'Неверный формат',
 
 	// ParseEmail
-	emailNotString: 'Email invalid type',
-	emailMissing: 'Email is missing',
-	emailInvalid: 'Email is invalid',
+	emailNotString: 'Неверный тип строки: Имейл',
+	emailMissing: 'Отсутствует имейл',
+	emailInvalid: 'Неверный формат',
 
 	// ParsePassword
-	passwordNotString: 'Password invalid type',
-	passwordTooShort: 'Password is too short',
-	passwordTooLong: 'Password is too long',
-	passwordWeak: 'Password is too weak',
+	passwordNotString: 'Неверный тип строки: Пароль',
+	passwordTooShort: 'Слишком короткий пароль',
+	passwordTooLong: 'Слишком длинный пароль',
+	passwordWeak: 'Слабый пароль',
 
 	// ParseFirstName
-	firstNameNotString: 'First name invalid type',
-	firstNameMissing: 'First name is missing',
-	firstNameTooLong: 'First name is too long',
-	firstNameInvalid: 'First name is invalid',
+	firstNameNotString: 'Неверный тип строки: Имя',
+	firstNameMissing: 'Отсутсвует имя',
+	firstNameTooLong: 'Слишком длинное имя',
+	firstNameInvalid: 'Неверный формат: Имя',
 
 	// ParseLastName
-	lastNameNotString: 'Last name invalid type',
-	lastNameMissing: 'Last name is missing',
-	lastNameTooLong: 'Last name is too long',
-	lastNameInvalid: 'Last name is invalid',
+	lastNameNotString: 'Неверный тип строки: Фамилия',
+	lastNameMissing: 'Отсутствует фамилия',
+	lastNameTooLong: 'Слишком длинная фамилия',
+	lastNameInvalid: 'Неверный формат: Фамилия',
 
 	// ParsePasswordToken
-	tokenPasswordNotString: 'Token invalid type',
-	tokenPasswordMissing: 'Token is missing',
-	tokenPasswordResetInvalid: 'Password reset token is invalid',
-	tokenPasswordResetInvalidFormat: 'Password reset code format invalid',
+	tokenPasswordNotString: 'Неверный тип строки: Токен',
+	tokenPasswordMissing: 'Токен отсутствует',
+	tokenPasswordResetInvalid: 'Неверный токен для смены пароля',
+	tokenPasswordResetInvalidFormat: 'Формат кода для смены пароля неверен',
 
 	// ParseEmailToken
-	tokenEmailNotString: 'Token invalid type',
-	tokenEmailMissing: 'Token is missing',
-	tokenEmailInvalid: 'Email change token is invalid',
-	tokenEmailInvalidFormat: 'Email change code format invalid',
+	tokenEmailNotString: 'Неверный тип строки: Токен',
+	tokenEmailMissing: 'Токен отсутствует',
+	tokenEmailInvalid: 'Неверный токен для смены имейла',
+	tokenEmailInvalidFormat: 'Формат кода для смены имейла неверен',
 
 	// userRepository.ts
-	userNameExists: 'Username already exists',
-	emailExists: 'This email was already used',
+	userNameExists: 'Имя пользователя занято',
+	emailExists: 'Этот адрес уже занят',
 
-	// library.ts
-	libraryUserNotLoggedIn: 'User is not logged in',
-	libraryLimitOffsetNotNumber: 'Limit and offset should be string represented integers',
+	// movies.ts
+	moviesUserNotLoggedIn: 'Пожалуйста войдите в свой аккаунт',
+	errorParsingSearchQuery: 'Ошибка обрботки поискового запроса',
+
+	//movie.ts
+	movieMovieNotFound: 'Фильм не найден.',
 
 	// routes/users.ts
-	usersForgotPasswordMissingToken: 'Missing activation code',
-	usersForgotPasswordInvalidToken: 'Invalid reset link. Please try again.',
+	usersForgotPasswordMissingToken: 'Код активации отсутствует',
+	usersForgotPasswordInvalidToken: 'Неверная ссылка. Пожалуйста попробуйте снова.',
 	usersForgotPasswordMissingOrExpired:
-		'Reset password code is missing or expired. Please try again.',
-	usersNoRightsToUpdate: 'No rights to update profile data',
-	usersNoRightsToGet: 'No rights to get profile data',
-	usersUserNotFound: "User doesn't exist",
-	usersUpdateEmailMissingToken: 'Missing activation code',
-	usersUpdateEmailInvalidToken: 'Invalid reset link. Please try again.',
+		'Код для смены пароля отсутсвует или неверен. Пожалуйста попробуйте снова.',
+	usersNoRightsToUpdate: 'Нет прав для смены настроек',
+	usersNoRightsToGet: 'Нет прав для получения информации',
+	usersUserNotFound: 'Пользователь не существует',
+	usersUpdateEmailMissingToken: 'Код активации отсутствует',
+	usersUpdateEmailInvalidToken: 'Неверная ссылка.. Пожалуйста попробуйте снова.',
+	usersPasswordsDoNotMatch: 'Passwords do not match',
 	// services/users.ts
-	usersActivationCodeMissing: "Activation code doesn't exist",
-	usersAccountAlreadyActivated: 'Account already activated',
-	usersEmailNotFound: "Couldn't find this email address.",
-	usersAccountNotActivated: 'Account is not active, please activate account first.',
-	usersErrorCreatingResetLink: 'Error creating reset link, please try again',
-	usersWrongOldPassword: 'Wrong old password, please try again',
-	usersProvideNewEmail: 'Please provide new email address',
-	usersEmailTaken: 'This email is already taken. Please try another email address.',
+	usersActivationCodeMissing: 'Такого кода активации не существует.',
+	usersAccountAlreadyActivated: 'Аккаунт уже активирован',
+	usersEmailNotFound: 'Имейл адрес не найдет.',
+	usersAccountNotActivated: 'Пожалуйста активируйте аккаунт.',
+	usersErrorCreatingResetLink:
+		'Ошибка в процессе формирования ссылки для сброса. Пожалуйста попробуйте снова',
+	usersWrongOldPassword: 'Неверный старый пароль, Пожалуйста попробуйте снова',
+	usersProvideNewEmail: 'Пожалуйста введите новый имейл адрес',
+	usersEmailTaken: 'Этот адрес уже занят.',
 
 	// login.ts
-	loginUserNotFound: 'User not found',
-	loginWrongPassword: 'Wrong password',
-	loginAccountNotActivated: 'Account is not active',
-	loginForeignStateRequest: 'Foreign state in request query',
+	loginUserNotFound: 'Пользовател не найден',
+	loginWrongPassword: 'Неверный пароль',
+	loginAccountNotActivated: 'Аккаунт не активирован',
+	loginForeignStateRequest: 'Неизвестный статус',
 
 	//error.ts
-	errorUnknownEndpoint: 'Unknown endpoint'
+	errorUnknownEndpoint: 'Неизвестный путь'
 };

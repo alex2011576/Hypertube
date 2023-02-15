@@ -79,3 +79,9 @@ export const waitForFileToExist = (path: string): Promise<void> => {
 		}
 	});
 };
+
+export const isPasswordSet = (password: string): boolean => {
+	if(password === "notSet")
+		return false;
+	return true;
+};
