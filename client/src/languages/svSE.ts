@@ -46,10 +46,10 @@ export const svSE: Dictionary = {
 	// Set Password Form
 	setPasswordTitle: 'VÄLJ LÖSENORD',
 	setPasswordInfoText:
-		'Save you password for Hypertube to be able to login with your username and password if needed.',
-	submitBtn: 'SUBMIT',
-	alertSuccessSetPassword: 'Thank you, password has been saved.',
-	alertErrorSetPassword: 'Error setting password, please try again',
+		'Spara ditt lösenord för Hypertube för att kunna logga in med ditt användarnamn och lösenord vid behov.',
+	submitBtn: 'SKICKA',
+	alertSuccessSetPassword: 'Tack, lösenordet har sparats.',
+	alertErrorSetPassword: 'Det gick inte att spara lösenordet, försök igen',
 
 	// Profile Form
 	titleProfile: 'KONTOINSTÄLLNINGAR',
@@ -187,7 +187,8 @@ export const svSE: Dictionary = {
 	usersNoRightsToGet: 'Inga rättigheter att få profildata',
 	usersUserNotFound: 'Användaren finns inte',
 	usersUpdateEmailMissingToken: 'Saknar återställningskod',
-	usersUpdateEmailInvalidToken: 'Ogiltig återställningslänk. Var god försök ige',
+	usersUpdateEmailInvalidToken: 'Ogiltig återställningslänk. Var god försök igen',
+	usersPasswordsDoNotMatch: 'Lösenorden matchar inte',
 	// services/users.ts
 	usersActivationCodeMissing: 'Återställningskoden finns inte',
 	usersAccountAlreadyActivated: 'Kontot är redan aktiverat',

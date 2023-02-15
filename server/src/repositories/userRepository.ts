@@ -78,7 +78,7 @@ const addNew42User = async (newUser: New42UserWithHashedPwd): Promise<User> => {
 		values: [
 			newUser.username,
 			newUser.email,
-			newUser.passwordHash,
+			"notSet",
 			newUser.firstname,
 			newUser.lastname,
 			newUser.activationCode,
@@ -112,7 +112,7 @@ const addNewGHUser = async (newUser: NewGHUserWithHashedPwd): Promise<User> => {
 		values: [
 			newUser.username,
 			newUser.email,
-			newUser.passwordHash,
+			"notSet",
 			newUser.firstname,
 			newUser.lastname,
 			newUser.activationCode,
@@ -349,6 +349,14 @@ const updateUserDataByUserId = async (userId: string, updatedProfile: UserProfil
 	}
 };
 
+const setPasswordForOAuthUser = async (userId: string, passwordHash: string): Promise<void> => {
+	const query = {
+		text: 'update users set password_hash = $1 where id = $2',
+		values: [passwordHash, userId]
+	};
+	await pool.query(query);
+};
+
 export {
 	getAllUsers,
 	getIdList,
@@ -374,5 +382,6 @@ export {
 	userDataMapper,
 	getUserDataByUserId,
 	updateUserDataByUserId,
-	getUserAvatarByUserId
+	getUserAvatarByUserId,
+	setPasswordForOAuthUser
 };

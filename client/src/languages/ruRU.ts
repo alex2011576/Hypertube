@@ -188,6 +188,7 @@ export const ruRU: Dictionary = {
 	usersUserNotFound: 'Пользователь не существует',
 	usersUpdateEmailMissingToken: 'Код активации отсутствует',
 	usersUpdateEmailInvalidToken: 'Неверная ссылка.. Пожалуйста попробуйте снова.',
+	usersPasswordsDoNotMatch: 'Passwords do not match',
 	// services/users.ts
 	usersActivationCodeMissing: 'Такого кода активации не существует.',
 	usersAccountAlreadyActivated: 'Аккаунт уже активирован',

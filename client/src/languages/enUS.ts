@@ -46,7 +46,7 @@ export const enUS: Dictionary = {
 	// Set Password Form
 	setPasswordTitle: 'SET PASSWORD',
 	setPasswordInfoText:
-		'Save you password for Hypertube to be able to login with your username and password if needed.',
+		'Save your password for Hypertube to be able to login with your username and password if needed.',
 	submitBtn: 'SUBMIT',
 	alertSuccessSetPassword: 'Thank you, password has been saved.',
 	alertErrorSetPassword: 'Error setting password, please try again',
@@ -201,6 +201,7 @@ export const enUS: Dictionary = {
 	usersUserNotFound: "User doesn't exist",
 	usersUpdateEmailMissingToken: 'Missing activation code',
 	usersUpdateEmailInvalidToken: 'Invalid reset link. Please try again.',
+	usersPasswordsDoNotMatch: 'Passwords do not match',
 	// services/users.ts
 	usersActivationCodeMissing: "Activation code doesn't exist",
 	usersAccountAlreadyActivated: 'Account already activated',

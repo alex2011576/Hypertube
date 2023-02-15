@@ -4,7 +4,7 @@ import { AuthType, Session, User42, UserData42, UserDataGH, UserGitHub } from '.
 import { deleteUserByEmail, findUserBy42id, findUserByEmail, findUserByGHid, setUser42id, setUserGHid } from '../repositories/userRepository';
 import { addSession } from '../repositories/sessionRepository';
 import { createNew42User, createNewGHUser } from './users';
-import { adjustUsername, imgUrlToBase64 } from '../utils/helpers';
+import { adjustUsername, imgUrlToBase64, isPasswordSet } from '../utils/helpers';
 
 export const requestAuthToken = async (
 	code: string,
@@ -73,7 +73,7 @@ export const Auth42 = async (code: string) => {
 	};
 
 	const session = await logIn42(user42);
-	return { token: session.sessionId, username: session.username, id: session.userId, language: session.language };
+	return { token: session.sessionId, username: session.username, id: session.userId, language: session.language, passwordSet: session.isPasswordSet};
 };
 
 export const logIn42 = async (user42: User42): Promise<Session> => {
@@ -90,6 +90,7 @@ export const logIn42 = async (user42: User42): Promise<Session> => {
 		}
 	}
 	const session = await addSession({ userId: user.id, username: user.username, email: user.email, language: user.language });
+	session.isPasswordSet = isPasswordSet(user.passwordHash);
 	return session;
 };
 
@@ -123,7 +124,7 @@ export const AuthGitHub = async (code: string) => {
 	};
 
 	const session = await logInGitHub(userGH);
-	return { token: session.sessionId, username: session.username, id: session.userId, language: session.language };
+	return { token: session.sessionId, username: session.username, id: session.userId, language: session.language, passwordSet: session.isPasswordSet };
 };
 
 export const logInGitHub = async (userGH: UserGitHub): Promise<Session> => {
@@ -141,5 +142,6 @@ export const logInGitHub = async (userGH: UserGitHub): Promise<Session> => {
 	}
 	console.log(user);
 	const session = await addSession({ userId: user.id, username: user.username, email: user.email, language: user.language });
+	session.isPasswordSet = isPasswordSet(user.passwordHash);
 	return session;
 };

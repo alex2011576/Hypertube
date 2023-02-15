@@ -85,7 +85,8 @@ export type Photo = {
 };
 export type LanguageOption = 'enUS' | 'ruRU' | 'svSE';
 
-export type Session = NewSessionUser & { sessionId: string; expiresAt: Date };
+export type PasswordSet = { isPasswordSet?: boolean};
+export type Session = NewSessionUser & { sessionId: string; expiresAt: Date } & PasswordSet;
 export type AuthState = { state: string; createdAt: Date };
 
 export interface CustomRequest extends Request {
