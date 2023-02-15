@@ -1,10 +1,18 @@
-import { isStringArray } from './validators/basicTypeValidators';
+import { StreamQuality } from './types';
+import { isQuality, isStringArray } from './validators/basicTypeValidators';
 
 function getString(value: unknown): string {
 	if (typeof value === 'string') {
 		return value;
 	}
 	throw `Expected value to be string, got: ${typeof value}`;
+}
+
+function getStreamQuality(value: unknown): StreamQuality {
+	if (isQuality(value)) {
+		return value;
+	}
+	throw `Expected value to be StreamQuality, got: ${typeof value}`;
 }
 
 function getStringOrUndefined(value: unknown): string | undefined {
@@ -78,4 +86,4 @@ const getDateOrUndefined = (value: unknown): Date | undefined => {
 	throw `Expected value to be date, got: ${typeof value}`;
 };
 
-export { getString, getStringOrUndefined, getNumber, getBoolean, getDate, getDateOrUndefined, getBdDateOrUndefined, getStringArrayOrUndefined, getBdDate };
+export { getString, getStringOrUndefined, getNumber, getBoolean, getDate, getDateOrUndefined, getBdDateOrUndefined, getStringArrayOrUndefined, getBdDate, getStreamQuality };

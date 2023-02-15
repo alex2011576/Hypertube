@@ -99,3 +99,30 @@ export type EmailUpdateRequest = { userId: string; email: string; token: string;
 export type PasswordResetRequest = NewPasswordResetRequest & { token: string; expiresAt: Date };
 
 export type AuthType = '42' | 'github';
+
+export type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+
+export type IMDB = `tt${number}`;
+
+export type FileInfo = {
+	id?: string;
+	path: string;
+	type: string;
+	size: number;
+	completed?: boolean;
+	imdb: IMDB;
+	quality: StreamQuality;
+	downloadTime?: Date;
+};
+
+type Torrent = { [key: string]: string | number } & { hash: string;};
+
+export type MyMovieDetails = {[key: string]: string | number};
+
+export type YtsMovieDetailsJson = { 
+	data: { 
+		movie: MyMovieDetails & { torrents: Torrent[]; title_long: string;};
+	} 
+};
+
+export type StreamQuality = '720p' | '1080p' | '3D';
