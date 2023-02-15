@@ -6,6 +6,7 @@ export const svSE: Dictionary = {
 	// Text Fields
 	textFieldUsername: 'Användarnamn',
 	textFieldPassword: 'Lösenord',
+	textFieldConfirmPassword: 'Bekräfta lösenord',
 	textFieldEmail: 'E-post',
 	textFieldFirstName: 'Förnamn',
 	textFieldLastName: 'Efternamn',
@@ -41,6 +42,14 @@ export const svSE: Dictionary = {
 	forgotPasswordSignup: 'Bli medlem',
 	passwordResetSignup: 'Har du inget konto? Bli medlem',
 	passwordResetSubmitButton: 'SPARA',
+
+	// Set Password Form
+	setPasswordTitle: 'VÄLJ LÖSENORD',
+	setPasswordInfoText:
+		'Spara ditt lösenord för Hypertube för att kunna logga in med ditt användarnamn och lösenord vid behov.',
+	submitBtn: 'SKICKA',
+	alertSuccessSetPassword: 'Tack, lösenordet har sparats.',
+	alertErrorSetPassword: 'Det gick inte att spara lösenordet, försök igen',
 
 	// Profile Form
 	titleProfile: 'KONTOINSTÄLLNINGAR',
@@ -88,8 +97,8 @@ export const svSE: Dictionary = {
 	invalidEmail: 'Ogiltigt e-postformat',
 	incorrectField: 'Ogiltigt fält',
 
-	// Library
-	libraryError: 'Ett fel uppstod, försök igen',
+	// Movies
+	moviesError: 'Ett fel uppstod, försök igen',
 
 	// Alerts
 	alertLogout: 'Loggade ut',
@@ -159,9 +168,9 @@ export const svSE: Dictionary = {
 	userNameExists: 'Användarnamn existerar redan',
 	emailExists: 'Denna e-post har redan använts',
 
-	// library.ts
-	libraryUserNotLoggedIn: 'Användaren är inte inloggad',
-	libraryLimitOffsetNotNumber: 'begränsning och offset ska vara strängrepresenterade heltal',
+	// movies.ts
+	moviesUserNotLoggedIn: 'Användaren är inte inloggad',
+	errorParsingSearchQuery: 'Error parsing search query',
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Saknar återställningskod',
@@ -172,7 +181,8 @@ export const svSE: Dictionary = {
 	usersNoRightsToGet: 'Inga rättigheter att få profildata',
 	usersUserNotFound: 'Användaren finns inte',
 	usersUpdateEmailMissingToken: 'Saknar återställningskod',
-	usersUpdateEmailInvalidToken: 'Ogiltig återställningslänk. Var god försök ige',
+	usersUpdateEmailInvalidToken: 'Ogiltig återställningslänk. Var god försök igen',
+	usersPasswordsDoNotMatch: 'Lösenorden matchar inte',
 	// services/users.ts
 	usersActivationCodeMissing: 'Återställningskoden finns inte',
 	usersAccountAlreadyActivated: 'Kontot är redan aktiverat',

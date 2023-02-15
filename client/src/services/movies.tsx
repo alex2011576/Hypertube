@@ -1,8 +1,8 @@
 import axios from 'axios';
+import getAuthHeader from './auth';
+import { handleAxiosError } from '../utils/errors';
 import { apiBaseUrl } from '../constants';
 import { SearchQuery } from '../types';
-import { handleAxiosError } from '../utils/errors';
-import getAuthHeader from './auth';
 
 const getMovies = async (searchQuery: SearchQuery, page: number, limit: number) => {
 	try {
@@ -10,7 +10,7 @@ const getMovies = async (searchQuery: SearchQuery, page: number, limit: number) 
 			headers: { Authorization: getAuthHeader() }
 		};
 		const response = await axios.post(
-			`${apiBaseUrl}/library`,
+			`${apiBaseUrl}/movies`,
 			{ ...searchQuery, page, limit },
 			config
 		);

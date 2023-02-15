@@ -9,8 +9,10 @@ import { findPasswordResetRequestByToken } from '../repositories/passwordResetRe
 import { sessionExtractor } from '../utils/middleware';
 import { CustomRequest } from '../types';
 import { findUpdateEmailRequestByToken } from '../repositories/updateEmailRequestRepository';
-import { getUserAvatarByUserId, getUserDataByUserId, updateUserDataByUserId } from '../repositories/userRepository';
+import { getUserAvatarByUserId, getUserDataByUserId, updateUserDataByUserId, setPasswordForOAuthUser } from '../repositories/userRepository';
 import { isStringRepresentedInteger } from '../validators/basicTypeValidators';
+import { createHashedPassword } from '../services/users';
+
 
 const router = express.Router();
 
@@ -180,6 +182,26 @@ router.put(
 		const updatedProfile = await parseUserProfilePayload(req.body);
 
 		await updateUserDataByUserId(userId, updatedProfile);
+		res.status(200).end();
+	})
+);
+
+// set password for OAuth user
+router.put(
+	'/:id/set_password',
+	sessionExtractor,
+	asyncHandler( async (req: CustomRequest, res) => {
+		if (!req.session || !req.session.userId) {
+			throw new AppError(`usersNoRightsToUpdate`, 400);
+		}
+		const userId = req.session.userId;
+		const password = validatePassword(req.body.password);
+		const confirmPassword = validatePassword(req.body.confirmPassword);
+		if (password !== confirmPassword) {
+			throw new AppError(`usersPasswordsDoNotMatch`, 400);
+		}
+		const passwordHash = await createHashedPassword(password);
+		await setPasswordForOAuthUser(userId, passwordHash);
 		res.status(200).end();
 	})
 );

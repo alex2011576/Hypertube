@@ -2,12 +2,12 @@ import { Alert, Container, Grid, Card, Box, styled } from '@mui/material';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { MovieThumbnail, SearchQuery } from '../../types';
 import { useServiceCall } from '../../hooks/useServiceCall';
-import libraryService from '../../services/library';
+import moviesService from '../../services/movies';
 import withAuthRequired from '../AuthRequired';
 import LoadingIcon from '../LoadingIcon';
 import SearchField from './SearchField';
-import Text from '../Text';
 import Thumbnail from './Thumbnail';
+import Text from '../Text';
 
 const centeredGrid = { justifyContent: 'center', pt: 5 };
 const cardHeight = { height: '208px' };
@@ -19,7 +19,7 @@ const Wrapper = styled(Container)`
 	align-items: center;
 `;
 
-const Library = () => {
+const Movies = () => {
 	const [pageNumber, setPageNumber] = useState<number>(1);
 	const [hasMore, setHasMore] = useState<boolean>(true);
 	const [thumbnails, setThumbnails] = useState<MovieThumbnail[]>([]);
@@ -43,7 +43,7 @@ const Library = () => {
 		error: Error | undefined;
 		loading: boolean;
 	} = useServiceCall(
-		async () => await libraryService.getMovies(searchQuery, pageNumber, 20),
+		async () => await moviesService.getMovies(searchQuery, pageNumber, 20),
 		[pageNumber, searchQuery]
 	);
 
@@ -91,7 +91,7 @@ const Library = () => {
 		}
 	}, [hasMore, moviesData, pageNumber, setThumbnails]);
 
-	if (moviesError) return <Alert severity="error"><Text tid='libraryError' /></Alert>;
+	if (moviesError) return <Alert severity="error"><Text tid='moviesError' /></Alert>;
 	if (!moviesData) return <LoadingIcon />;
 
 	return (
@@ -115,4 +115,4 @@ const Library = () => {
 	);
 };
 
-export default withAuthRequired(Library);
+export default withAuthRequired(Movies);
