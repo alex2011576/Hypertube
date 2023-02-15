@@ -81,3 +81,7 @@ export const validateProfileForm = (username: string, firstname: string, lastnam
 		? true
 		: false;
 };
+
+export const validateSetPasswordForm = (password: string, confirmPassword: string) => {
+	return !validatePassword(password) && password === confirmPassword ? true : false;
+};
