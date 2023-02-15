@@ -195,6 +195,7 @@ export const enUS: Dictionary = {
 	usersUserNotFound: "User doesn't exist",
 	usersUpdateEmailMissingToken: 'Missing activation code',
 	usersUpdateEmailInvalidToken: 'Invalid reset link. Please try again.',
+	usersPasswordsDoNotMatch: 'Passwords do not match',
 	// services/users.ts
 	usersActivationCodeMissing: "Activation code doesn't exist",
 	usersAccountAlreadyActivated: 'Account already activated',

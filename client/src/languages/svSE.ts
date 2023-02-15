@@ -181,7 +181,8 @@ export const svSE: Dictionary = {
 	usersNoRightsToGet: 'Inga rättigheter att få profildata',
 	usersUserNotFound: 'Användaren finns inte',
 	usersUpdateEmailMissingToken: 'Saknar återställningskod',
-	usersUpdateEmailInvalidToken: 'Ogiltig återställningslänk. Var god försök ige',
+	usersUpdateEmailInvalidToken: 'Ogiltig återställningslänk. Var god försök igen',
+	usersPasswordsDoNotMatch: 'Lösenorden matchar inte',
 	// services/users.ts
 	usersActivationCodeMissing: 'Återställningskoden finns inte',
 	usersAccountAlreadyActivated: 'Kontot är redan aktiverat',
