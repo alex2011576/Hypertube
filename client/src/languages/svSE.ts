@@ -100,6 +100,8 @@ export const svSE: Dictionary = {
 	// Movies
 	moviesError: 'Ett fel uppstod, försök igen',
 
+	//Movie
+
 	// Alerts
 	alertLogout: 'Loggade ut',
 	alertSuccessPasswordResetLink: 'Återställ länk skickad! Kontrollera din inkorg.',
@@ -113,6 +115,7 @@ export const svSE: Dictionary = {
 	alertInvalidPasswordResetLink: 'Ogiltig återställningslänk. Var god försök igen.',
 	alertPasswordResetSuccess: 'Lösenordet har ändrats!',
 	alertPasswordResetError: 'Det gick inte att återställa lösenordet. Var god försök igen.',
+	alertMissingMovieId: 'Missing movie id', // <- ENG
 
 	// AxiosError
 	axiosNetworkError: 'Nätverksfel',
@@ -171,6 +174,9 @@ export const svSE: Dictionary = {
 	// movies.ts
 	moviesUserNotLoggedIn: 'Användaren är inte inloggad',
 	errorParsingSearchQuery: 'Error parsing search query',
+
+	//movie.ts
+	movieMovieNotFound: 'Movie not found', // <- ENG
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Saknar återställningskod',

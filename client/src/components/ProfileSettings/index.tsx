@@ -1,17 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// import { getPhotos, getProfile } from '../../services/profile';
 import { Paper, styled, Container, Box, Typography, Divider, Alert } from '@mui/material';
+import { getProfile, getPhoto } from '../../services/profile';
 import { PhotoType, UserData } from '../../types';
 import { useServiceCall } from '../../hooks/useServiceCall';
 import { useStateValue } from '../../state';
-import ProfileForm from './ProfileForm';
-import withAuthRequired from '../AuthRequired';
-import UpdateEmailForm from './UpdateEmailForm';
 import UpdatePasswordForm from './UpdatePasswordForm';
-import ProfilePictureUploader from './ProfilePictureUploader';
-import { getProfile, getPhoto } from '../../services/profile';
+import UpdateEmailForm from './UpdateEmailForm';
+import withAuthRequired from '../AuthRequired';
+import ProfileForm from './ProfileForm';
 import Text from '../Text';
-
 
 const StyledButtons = styled('div')(() => ({
 	background: 'white',
@@ -56,7 +52,7 @@ const ProfileEditor = () => {
 	if (profileError || photosError)
 		return (
 			<Alert severity="error">
-				<Text tid='profileLoadingError' />
+				<Text tid="profileLoadingError" />
 			</Alert>
 		);
 
@@ -70,25 +66,23 @@ const ProfileEditor = () => {
 	};
 
 	return (
-		<>
-			<Container maxWidth={'sm'} sx={{ mt: 4, mb: 8 }}>
-				<Paper>
-					<StyledHeader variant="h6" color="primary">
-						<Text tid='titleProfile' />
-					</StyledHeader>
-					<Divider />
-					<StyledWrapper>
-						<ProfileForm userData={userData} photo={photosData} />
-					</StyledWrapper>
-				</Paper>
-				<Paper sx={{ marginTop: 5 }}>
-					<StyledButtons>
-						<UpdateEmailForm />
-						<UpdatePasswordForm />
-					</StyledButtons>
-				</Paper>
-			</Container>
-		</>
+		<Container maxWidth={'sm'} sx={{ mt: 4, mb: 4 }}>
+			<Paper>
+				<StyledHeader variant="h6" color="primary">
+					<Text tid="titleProfile" />
+				</StyledHeader>
+				<Divider />
+				<StyledWrapper>
+					<ProfileForm userData={userData} photo={photosData} />
+				</StyledWrapper>
+			</Paper>
+			<Paper sx={{ marginTop: 5 }}>
+				<StyledButtons>
+					<UpdateEmailForm />
+					<UpdatePasswordForm />
+				</StyledButtons>
+			</Paper>
+		</Container>
 	);
 };
 

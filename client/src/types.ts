@@ -78,3 +78,30 @@ export type SearchQuery = {
 	sortBy: string;
 	reverseOrder: boolean;
 };
+
+export type YtsMovieData = MovieThumbnail & {
+	titleEnglish: string;
+	descriptionIntro: string;
+	runtime: number;
+	genres: string[];
+	downloadCount: number;
+	likeCount: number;
+	language: string;
+	largeScreenshotImage: string;
+	backgroundImage: string;
+	// quality: string[];
+};
+
+export type OmdbMovieData = {
+	plot: string;
+	director: string;
+	writer: string;
+	actors: string;
+	country: string;
+	awards: string;
+};
+
+export type MovieData = {
+	ytsMovieData: YtsMovieData;
+	omdbMovieData: OmdbMovieData | undefined;
+};

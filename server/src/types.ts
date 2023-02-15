@@ -8,7 +8,7 @@ export type BaseUser = {
 	lastname: string;
 };
 
-export type UserCompletness = { complete: boolean };
+export type UserCompleteness = { complete: boolean };
 
 export type NewUser = BaseUser & { passwordPlain: string; language: LanguageOption };
 export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string; language: LanguageOption };
@@ -123,3 +123,30 @@ export const SearchQuerySchema = t.type({
 });
 
 export type SearchQuery = t.TypeOf<typeof SearchQuerySchema>;
+
+export type YtsMovieData = MovieThumbnail & {
+	titleEnglish: string;
+	descriptionIntro: string;
+	runtime: number;
+	genres: string[];
+	downloadCount: number;
+	likeCount: number;
+	language: string;
+	largeScreenshotImage: string;
+	backgroundImage: string;
+	// quality: string[];
+};
+
+export type OmdbMovieData = {
+	plot: string;
+	director: string;
+	writer: string;
+	actors: string;
+	country: string;
+	awards: string;
+};
+
+export type MovieData = {
+	ytsMovieData: YtsMovieData;
+	omdbMovieData: OmdbMovieData | undefined;
+};

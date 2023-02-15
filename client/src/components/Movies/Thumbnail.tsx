@@ -38,7 +38,7 @@ const Thumbnail = ({ movie }: { movie: MovieThumbnail }) => {
 
 	return (
 		<Card sx={{ width: { xs: 300, sm: 320, md: 370 } }}>
-			<Link to={`/movie/${movie.imdbCode}`}>
+			<Link to={`/movies/${movie.id}`}>
 				<CardActionArea>
 					<Background src={cover} isWatched={movie.isWatched}>
 						{movie.isWatched && (

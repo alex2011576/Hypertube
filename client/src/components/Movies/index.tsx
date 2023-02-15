@@ -1,4 +1,4 @@
-import { Alert, Container, Grid, Card, Box, styled } from '@mui/material';
+import { Alert, Container, Grid, Card, Box, styled, Typography } from '@mui/material';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { MovieThumbnail, SearchQuery } from '../../types';
 import { useServiceCall } from '../../hooks/useServiceCall';
@@ -91,26 +91,39 @@ const Movies = () => {
 		}
 	}, [hasMore, moviesData, pageNumber, setThumbnails]);
 
-	if (moviesError) return <Alert severity="error"><Text tid='moviesError' /></Alert>;
+	if (moviesError)
+		return (
+			<Alert severity="error">
+				<Text tid="moviesError" />
+			</Alert>
+		);
 	if (!moviesData) return <LoadingIcon />;
 
 	return (
 		<Wrapper maxWidth={'xl'}>
 			<SearchField searchQuery={searchQuery} setSearchQuery={setSearchQueryAndReset} />
-			<Grid container gap={2} sx={centeredGrid}>
-				{thumbnails.map((movie, i) => (
-					<Box
-						key={i}
-						{...(thumbnails.length === i + 1
-							? { ref: lastDisplayedMovieRef }
-							: {})}
-					>
-						<Card sx={cardHeight}>
-							<Thumbnail movie={movie} />
-						</Card>
-					</Box>
-				))}
-			</Grid>
+			{thumbnails.length ? (
+				<Grid container gap={2} sx={centeredGrid}>
+					{thumbnails.map((movie, i) => (
+						<Box
+							key={i}
+							{...(thumbnails.length === i + 1
+								? { ref: lastDisplayedMovieRef }
+								: {})}
+						>
+							<Card sx={cardHeight}>
+								<Thumbnail movie={movie} />
+							</Card>
+						</Box>
+					))}
+				</Grid>
+			) : (
+				<Container sx={{ height: '100vh' }}>
+					<Typography variant="h5" sx={{ m: 10 }} color={'text.secondary'}>
+						No movies found
+					</Typography>
+				</Container>
+			)}
 		</Wrapper>
 	);
 };
