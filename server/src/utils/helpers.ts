@@ -46,3 +46,9 @@ export const imgUrlToBase64 = async (url: string | undefined | null) => {
 		return undefined;
 	}
 };
+
+export const isPasswordSet = (password: string): boolean => {
+	if(password === "notSet")
+		return false;
+	return true;
+};
