@@ -127,6 +127,7 @@ export type YtsMovieDetailsJson = {
 };
 
 export type StreamQuality = '720p' | '1080p' | '3D';
+
 export type MovieThumbnail = {
 	id: number;
 	imdbCode: string;

@@ -1,6 +1,7 @@
 import Jimp from 'jimp';
 import { findUserByUsername } from '../repositories/userRepository';
 import { BaseUser } from '../types';
+import fs from 'fs';
 
 export const adjustUsername = async (user: BaseUser) => {
 	let oldUserSameUsername = await findUserByUsername(user.username);
@@ -62,3 +63,19 @@ export function convertBytes(bytes: number): string {
 		return (bytes / 1073741824).toFixed(2) + ' GB';
 	}
 }
+
+export const waitForFileToExist = (path: string): Promise<void> => {
+	return new Promise<void>((resolve, _reject) => {
+		const watcher = fs.watch('movies', (eventType: string, filename: string) => {
+			if (eventType === 'rename' && filename === path) {
+				watcher.close();
+				resolve();
+			}
+		});
+
+		if (fs.existsSync(`movies/${path}`)) {
+			watcher.close();
+			resolve();
+		}
+	});
+};
