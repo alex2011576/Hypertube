@@ -4,19 +4,20 @@ import { SnackbarProvider } from 'notistack';
 import { useStateValue } from './state';
 
 import ProfileSettings from './components/ProfileSettings';
+import PublicProfile from './components/PublicProfile';
 import ForgotPassword from './components/ForgotPassword';
 import AlertSnackBar from './components/AlertSnackBar';
 import AlertProvider from './components/AlertProvider';
 import CustomModal from './components/CustomModal';
+import UpdateEmail from './components/UpdateEmail';
 import SignUpForm from './components/SignUpForm';
-import LoginForm from './components/LoginForm';
 import Login from './components/LoginCallbacks';
+import LoginForm from './components/LoginForm';
+import Library from './components/Library';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Main from './components/Main';
 import useModal from './hooks/useModal';
 import Text from './components/Text';
-import PublicProfile from './components/PublicProfile';
 
 const StyledBox = styled(Box)`
 	text-align: center;
@@ -60,7 +61,7 @@ const App = () => {
 						<StyledBox>
 							<AlertSnackBar />
 							<Routes>
-								<Route path="/" element={<Main />} />
+								<Route path="/" element={<Library />} />
 								<Route
 									path="/login"
 									element={
@@ -129,8 +130,7 @@ const App = () => {
 								<Route path="/profile" element={<ProfileSettings />} />
 
 								<Route path="/profile/:id" element={<PublicProfile />} />
-								{/* <Route path="/profile" element={<ProfileEditor />} />
-							<Route path="/update_email" element={<UpdateEmail />} /> */}
+								<Route path="/update_email" element={<UpdateEmail />} />
 								<Route path="*" element={<Navigate to="/" replace />} />
 							</Routes>
 							<Footer />

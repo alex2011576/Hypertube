@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { setLoggedUser, useStateValue } from '../state';
 import { useContext, useEffect } from 'react';
@@ -21,18 +22,14 @@ const Callback42 = () => {
 					const loggedInUser = await loginService.auth42(code, state);
 					dispatch(setLoggedUser(loggedInUser));
 					navigate('/');
-					alert.success(`Logged in successfully. Welcome!`);
+					alert.success('alertLoginSuccess');
 				} catch (err) {
-					alert.error(
-						err.response?.data?.error ||
-							'Failed to authenticate. Please try again.'
-					);
+					alert.error(err.response?.data?.error || 'alertLoginError');
 					navigate('/login');
 				}
 			}
 		};
 		authenticate42();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -59,18 +56,14 @@ const CallbackGithub = () => {
 					const loggedInUser = await loginService.authGitHub(code, state);
 					dispatch(setLoggedUser(loggedInUser));
 					navigate('/');
-					alert.success(`Logged in successfully. Welcome!`);
+					alert.success('alertLoginSuccess');
 				} catch (err) {
-					alert.error(
-						err.response?.data?.error ||
-							'Failed to authenticate. Please try again.'
-					);
+					alert.error(err.response?.data?.error || 'alertLoginError');
 					navigate('/login');
 				}
 			}
 		};
 		authenticateGH();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

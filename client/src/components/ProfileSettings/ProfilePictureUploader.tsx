@@ -6,6 +6,7 @@ import { getValidImage, openFileDialog } from '../../utils/imageUploaderAndValid
 import { AlertContext } from '../AlertProvider';
 import { PhotoType } from '../../types';
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
+import profilePlaceholder from './profilePlaceholder.jpeg';
 import Text from '../Text';
 
 const ProfilePictureUploader: React.FC<{
@@ -58,11 +59,11 @@ const ProfilePictureUploader: React.FC<{
 						<Fragment>
 							<Typography color="inherit">
 								<strong>
-									<Text tid='profileImageUpload' />
+									<Text tid="profileImageUpload" />
 									<br />
 								</strong>
 							</Typography>
-							<Text tid='profileImageTypography' />
+							<Text tid="profileImageTypography" />
 						</Fragment>
 					}
 				>
@@ -147,7 +148,7 @@ const icon = {
 };
 
 const placeholder = {
-	img: 'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg',
+	img: profilePlaceholder,
 	title: 'Placeholder',
 	featured: true
 };

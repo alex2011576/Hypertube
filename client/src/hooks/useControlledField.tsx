@@ -1,5 +1,5 @@
 import { SetStateAction, useState } from 'react';
-import { useErrorTranslate } from './useErrorTranslate';
+import { useTranslate } from './useTranslate';
 
 export const useControlledField = (
 	type: string,
@@ -7,7 +7,7 @@ export const useControlledField = (
 	label: JSX.Element,
 	validationFn: (value: string) => string | undefined
 ) => {
-	const { errorTranslate } = useErrorTranslate();
+	const { translate } = useTranslate();
 	let [value, setValue] = useState<string>(fetchedValue);
 
 	const onChange = (event: { target: { value: SetStateAction<string> } }) => {
@@ -15,8 +15,8 @@ export const useControlledField = (
 	};
 
 	let errorMessage;
-	if (value) errorMessage = errorTranslate(validationFn(value)!);
-	if (!value && fetchedValue) errorMessage = errorTranslate('profileRequiredField');
+	if (value) errorMessage = translate(validationFn(value)!);
+	if (!value && fetchedValue) errorMessage = translate('profileRequiredField');
 
 	return {
 		type,

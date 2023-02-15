@@ -139,7 +139,7 @@ export const logInGitHub = async (userGH: UserGitHub): Promise<Session> => {
 			user = oldUserSameEmail;
 		}
 	}
-    console.log(user);
-	const session = await addSession({ userId: user.id, username: user.username, email: user.email, language: user.language});
+	console.log(user);
+	const session = await addSession({ userId: user.id, username: user.username, email: user.email, language: user.language });
 	return session;
 };

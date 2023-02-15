@@ -60,10 +60,10 @@ const addNewUser = async (newUser: NewUserWithHashedPwd): Promise<User> => {
 	} catch (error) {
 		if (error instanceof Error) {
 			if (error.message === 'duplicate key value violates unique constraint "users_username_key"') {
-				throw new ValidationError('Username already exists');
+				throw new ValidationError('userNameExists');
 			}
 			if (error.message === 'duplicate key value violates unique constraint "users_email_key"') {
-				throw new ValidationError('This email was already used');
+				throw new ValidationError('emailExists');
 			}
 		}
 		throw error;
@@ -94,10 +94,10 @@ const addNew42User = async (newUser: New42UserWithHashedPwd): Promise<User> => {
 	} catch (error) {
 		if (error instanceof Error) {
 			if (error.message === 'duplicate key value violates unique constraint "users_username_key"') {
-				throw new ValidationError('Username already exists');
+				throw new ValidationError('userNameExists');
 			}
 			if (error.message === 'duplicate key value violates unique constraint "users_email_key"') {
-				throw new ValidationError('This email was already used');
+				throw new ValidationError('emailExists');
 			}
 		}
 		throw error;
@@ -128,10 +128,10 @@ const addNewGHUser = async (newUser: NewGHUserWithHashedPwd): Promise<User> => {
 	} catch (error) {
 		if (error instanceof Error) {
 			if (error.message === 'duplicate key value violates unique constraint "users_username_key"') {
-				throw new ValidationError('Username already exists');
+				throw new ValidationError('userNameExists');
 			}
 			if (error.message === 'duplicate key value violates unique constraint "users_email_key"') {
-				throw new ValidationError('This email was already used');
+				throw new ValidationError('emailExists');
 			}
 		}
 		throw error;
@@ -253,7 +253,7 @@ const updateUserEmail = async (userId: string, email: string): Promise<void> => 
 	} catch (error) {
 		if (error instanceof Error) {
 			if (error.message === 'duplicate key value violates unique constraint "users_email_key"') {
-				throw new ValidationError('This email was already used');
+				throw new ValidationError('emailExists');
 			}
 		}
 		throw error;
@@ -339,10 +339,10 @@ const updateUserDataByUserId = async (userId: string, updatedProfile: UserProfil
 	} catch (error) {
 		if (error instanceof Error) {
 			if (error.message === 'duplicate key value violates unique constraint "users_username_key"') {
-				throw new ValidationError('Username already exists');
+				throw new ValidationError('userNameExists');
 			}
 			if (error.message === 'duplicate key value violates unique constraint "users_email_key"') {
-				throw new ValidationError('This email was already used');
+				throw new ValidationError('emailExists');
 			}
 		}
 		throw error;

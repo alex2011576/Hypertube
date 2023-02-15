@@ -62,7 +62,7 @@ describe('user login', () => {
 			.expect('Content-Type', /application\/json/);
 
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-		expect(res.body.error).toContain('Account is not active');
+		expect(res.body.error).toContain('loginAccountNotActivated');
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 		const sessions = await findSessionsByUserId(res.body.id);
 		expect(sessions).toBeFalsy();
@@ -76,7 +76,7 @@ describe('user login', () => {
 			.expect(401)
 			.expect('Content-Type', /application\/json/);
 
-		expect(res.body.error).toContain('User not found');
+		expect(res.body.error).toContain('loginUserNotFound');
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 		const sessions = await findSessionsByUserId(res.body.id);
 		expect(sessions).toBeFalsy();
@@ -90,7 +90,7 @@ describe('user login', () => {
 			.expect(401)
 			.expect('Content-Type', /application\/json/);
 
-		expect(res.body.error).toContain('Wrong password');
+		expect(res.body.error).toContain('loginWrongPassword');
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 		const sessions = await findSessionsByUserId(res.body.id);
 		expect(sessions).toBeFalsy();
@@ -98,28 +98,28 @@ describe('user login', () => {
 	});
 
 	it.each([
-		[{ password }, 'Missing username'],
+		[{ password }, 'usernameMissing'],
 		[{ username }, 'Missing password'],
 
-		[{ username: '          ' }, 'Missing username'],
-		[{ username: '			' }, 'Missing username'],
+		[{ username: '          ' }, 'usernameMissing'],
+		[{ username: '			' }, 'usernameMissing'],
 
-		[{ username: 'mat', password }, 'Username is too short'],
-		[{ username: 'matcmatchamatchamatchaha', password }, 'Username is too long'], //22chars
-		[{ username: 'tes<3>', password }, 'Invalid username'],
-		[{ username: 'te st', password }, 'Invalid username'],
-		[{ username: 'te	st', password }, 'Invalid username'],
-		[{ username: 'te{st', password }, 'Invalid username'],
+		[{ username: 'mat', password }, 'usernameTooShort'],
+		[{ username: 'matcmatchamatchamatchaha', password }, 'usernameTooLong'], //22chars
+		[{ username: 'tes<3>', password }, 'usernameInvalid'],
+		[{ username: 'te st', password }, 'usernameInvalid'],
+		[{ username: 'te	st', password }, 'usernameInvalid'],
+		[{ username: 'te{st', password }, 'usernameInvalid'],
 
-		[{ username, password: 'Test!1' }, 'Password is too short'],
-		[{ username, password: 'Test!111Test!111Test!111Test!111Test!111Te2' }, 'Password is too long'], //43
-		[{ username, password: 'testtest' }, 'Weak password'],
-		[{ username, password: '12345678' }, 'Weak password'],
-		[{ username, password: '12345678' }, 'Weak password'],
-		[{ username, password: 'T!111111' }, 'Weak password'],
-		[{ username, password: 't!111111' }, 'Weak password'],
-		[{ username, password: 'TestTest!' }, 'Weak password'],
-		[{ username, password: 'Test11111' }, 'Weak password']
+		[{ username, password: 'Test!1' }, 'passwordTooShort'],
+		[{ username, password: 'Test!111Test!111Test!111Test!111Test!111Te2' }, 'passwordTooLong'], //43
+		[{ username, password: 'testtest' }, 'passwordWeak'],
+		[{ username, password: '12345678' }, 'passwordWeak'],
+		[{ username, password: '12345678' }, 'passwordWeak'],
+		[{ username, password: 'T!111111' }, 'passwordWeak'],
+		[{ username, password: 't!111111' }, 'passwordWeak'],
+		[{ username, password: 'TestTest!' }, 'passwordWeak'],
+		[{ username, password: 'Test11111' }, 'passwordWeak']
 	])(`login fails with incorrect input values (failed by basic validators)`, async (invalidInputs, expectedErrorMessage) => {
 		// console.log(`Payload: ${incorrectUser}, Expected msg: ${expectedErrorMessage}`);
 		const res = await api

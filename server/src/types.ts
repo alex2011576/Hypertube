@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import * as t from 'io-ts';
 
 export type BaseUser = {
 	username: string;
@@ -10,7 +11,7 @@ export type BaseUser = {
 export type UserCompletness = { complete: boolean };
 
 export type NewUser = BaseUser & { passwordPlain: string; language: LanguageOption };
-export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string; language: LanguageOption; };
+export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string; language: LanguageOption };
 
 export type User42 = BaseUser & { id42: number; avatar: string | undefined };
 export type New42UserWithHashedPwd = BaseUser & { passwordHash: string; id42: number; activationCode: string; avatar: string | undefined | null };
@@ -126,3 +127,24 @@ export type YtsMovieDetailsJson = {
 };
 
 export type StreamQuality = '720p' | '1080p' | '3D';
+export type MovieThumbnail = {
+	id: number;
+	imdbCode: string;
+	title: string;
+	year: number;
+	summary: string;
+	cover: string;
+	rating: number;
+	isWatched: boolean;
+};
+
+export const SearchQuerySchema = t.type({
+	queryTerm: t.string,
+	genre: t.string,
+	sortBy: t.string,
+	reverseOrder: t.boolean,
+	page: t.number,
+	limit: t.number
+});
+
+export type SearchQuery = t.TypeOf<typeof SearchQuerySchema>;

@@ -58,7 +58,7 @@ describe('send password reset link on forgot pwd request', () => {
 
 		const res = await api.post('/api/users/forgot_password').send({ email: user.email }).expect(400);
 
-		expect(res.body.error).toContain('Account is not active');
+		expect(res.body.error).toContain('loginAccountNotActivated');
 		expect(sendMailMock).toBeCalledTimes(0);
 	});
 
@@ -68,7 +68,7 @@ describe('send password reset link on forgot pwd request', () => {
 			.send({ email: 'wrong.com' })
 			.expect(400)
 			.expect('Content-Type', /application\/json/);
-		expect(res.body.error).toContain('Invalid email');
+		expect(res.body.error).toContain('emailInvalid');
 	});
 
 	test('fails with valid but not existing email', async () => {
@@ -77,7 +77,7 @@ describe('send password reset link on forgot pwd request', () => {
 			.send({ email: 'wrong@wrong.com' })
 			.expect(400)
 			.expect('Content-Type', /application\/json/);
-		expect(res.body.error).toContain(`Couldn't find this email address.`);
+		expect(res.body.error).toContain(`usersEmailNotFound`);
 	});
 });
 
@@ -112,18 +112,18 @@ describe('visit password-reset link', () => {
 	});
 
 	it.each([
-		[undefined, 'Invalid password reset code'],
-		[null, 'Invalid password reset code'],
-		['', 'Missing activation code'],
-		['    ', 'Missing activation code'],
-		['		', 'Missing activation code'],
+		[undefined, 'tokenPasswordResetInvalid'],
+		[null, 'tokenPasswordResetInvalid'],
+		['', 'tokenPasswordMissing'],
+		['    ', 'tokenPasswordMissing'],
+		['		', 'tokenPasswordMissing'],
 
-		['12345', 'Invalid password reset code'], //too short
-		['1234567890123456789012345678901234567890', 'Invalid password reset code'], //too long 40chars
+		['12345', 'tokenPasswordResetInvalid'], //too short
+		['1234567890123456789012345678901234567890', 'tokenPasswordResetInvalid'], //too long 40chars
 
-		['2>-)837428374t-2983<32v74slk-dkfhkhf', 'Invalid password reset code format'],
-		['!0831j37-7cbb-4ca0-91cb-5fda0cee63!3', 'Invalid password reset code format'],
-		['42e7ed49-58f4-4ca7-b478-3d3805a7bb7>', 'Invalid password reset code format']
+		['2>-)837428374t-2983<32v74slk-dkfhkhf', 'tokenPasswordResetInvalidFormat'],
+		['!0831j37-7cbb-4ca0-91cb-5fda0cee63!3', 'tokenPasswordResetInvalidFormat'],
+		['42e7ed49-58f4-4ca7-b478-3d3805a7bb7>', 'tokenPasswordResetInvalidFormat']
 	])('fails with incorectly formatted token %s %s', async (invalidToken, expectedErrorMessage) => {
 		// console.log(`Payload: ${invalidToken}, Expected msg: ${expectedErrorMessage}`);
 		const res = await api.get(`/api/users/forgot_password/${invalidToken}`).expect(400);
@@ -181,15 +181,15 @@ describe('set new password', () => {
 	});
 
 	it.each([
-		[undefined, 'Invalid password reset code'],
-		[null, 'Invalid password reset code'],
+		[undefined, 'tokenPasswordResetInvalid'],
+		[null, 'tokenPasswordResetInvalid'],
 
-		['12345', 'Invalid password reset code'], //too short
-		['1234567890123456789012345678901234567890', 'Invalid password reset code'], //too long 40chars
+		['12345', 'tokenPasswordResetInvalid'], //too short
+		['1234567890123456789012345678901234567890', 'tokenPasswordResetInvalid'], //too long 40chars
 
-		['2>-)837428374t-2983<32v74slk-dkfhkhf', 'Invalid password reset code format'],
-		['!0831j37-7cbb-4ca0-91cb-5fda0cee63!3', 'Invalid password reset code format'],
-		['42e7ed49-58f4-4ca7-b478-3d3805a7bb7>', 'Invalid password reset code format']
+		['2>-)837428374t-2983<32v74slk-dkfhkhf', 'tokenPasswordResetInvalidFormat'],
+		['!0831j37-7cbb-4ca0-91cb-5fda0cee63!3', 'tokenPasswordResetInvalidFormat'],
+		['42e7ed49-58f4-4ca7-b478-3d3805a7bb7>', 'tokenPasswordResetInvalidFormat']
 	])('fails to set new pwd with incorrect token %s %s', async (invalidToken, expectedErrorMessage) => {
 		const res = await api.post(`/api/users/forgot_password/${invalidToken}`).send({ password: 'NewTest!111' }).expect(400);
 		if (!res.body.error) fail();
@@ -215,15 +215,15 @@ describe('set new password', () => {
 		[null, 'Missing password'],
 		['', 'Missing password'],
 
-		['Test!1', 'Password is too short'],
-		['Test!111Test!111Test!111Test!111Test!12211T3e', 'Password is too long'], //43
-		['testtest', 'Weak password'],
-		['12345678', 'Weak password'],
-		['12345678', 'Weak password'],
-		['T!111111', 'Weak password'],
-		['t!111111', 'Weak password'],
-		['TestTest!', 'Weak password'],
-		['Test11111', 'Weak password']
+		['Test!1', 'passwordTooShort'],
+		['Test!111Test!111Test!111Test!111Test!12211T3e', 'passwordTooLong'], //43
+		['testtest', 'passwordWeak'],
+		['12345678', 'passwordWeak'],
+		['12345678', 'passwordWeak'],
+		['T!111111', 'passwordWeak'],
+		['t!111111', 'passwordWeak'],
+		['TestTest!', 'passwordWeak'],
+		['Test11111', 'passwordWeak']
 	])('fails to set new pwd incorrect password provided %s %s', async (invalidPassword, expectedErrorMessage) => {
 		const user = await findUserByUsername(newUser.username);
 		if (!user) fail();
