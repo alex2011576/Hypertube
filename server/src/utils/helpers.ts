@@ -1,6 +1,7 @@
 import Jimp from 'jimp';
 import { findUserByUsername } from '../repositories/userRepository';
 import { BaseUser } from '../types';
+import fs from 'fs';
 
 export const adjustUsername = async (user: BaseUser) => {
 	let oldUserSameUsername = await findUserByUsername(user.username);
@@ -47,8 +48,83 @@ export const imgUrlToBase64 = async (url: string | undefined | null) => {
 	}
 };
 
+export const generateMagnetLink = (filmTitle: string, hash: string) => {
+	return `magnet:?xt=urn:btih:${hash}&dn=${filmTitle.split(' ').join('+')}`;
+};
+
+export function convertBytes(bytes: number): string {
+	if (bytes < 1024) {
+		return bytes + ' B';
+	} else if (bytes < 1048576) {
+		return (bytes / 1024).toFixed(2) + ' KB';
+	} else if (bytes < 1073741824) {
+		return (bytes / 1048576).toFixed(2) + ' MB';
+	} else {
+		return (bytes / 1073741824).toFixed(2) + ' GB';
+	}
+}
+
+// export const waitForFileToExist = (path: string): Promise<void> => {
+// 	return new Promise<void>((resolve, _reject) => {
+// 		const watcher = fs.watch(`movies`, (eventType: string, filename: string) => {
+// 			if (eventType && filename) {
+// 				console.log(eventType);
+// 				console.log(filename);
+// 				console.log('watch registered file event');
+// 				watcher.close();
+// 				resolve();
+// 			}
+// 		});
+
+// 		if (fs.existsSync(`movies/${path}`)) {
+// 			console.log('old file');
+// 			watcher.close();
+// 			resolve();
+// 		}
+// 	});
+// };
+
 export const isPasswordSet = (password: string): boolean => {
-	if(password === "notSet")
-		return false;
+	if (password === 'notSet') return false;
 	return true;
+};
+
+// export const watchFileSize = (filePath: string): Promise<number> => {
+// 	return new Promise((resolve, reject) => {
+// 		let watcher: fs.FSWatcher | null = null;
+// 		let size = 0;
+
+// 		const checkFileSize = () => {
+// 			const stats = fs.statSync(`movies/${filePath}`);
+// 			size = stats.size;
+// 			if (size >= 5 * 1024 * 1024) {
+// 				if (watcher) watcher.close();
+// 				resolve(size);
+// 			}
+// 		};
+
+// 		try {
+// 			checkFileSize();
+// 			watcher = fs.watch(`movies/${filePath}`, (eventType, _filename) => {
+// 				if (eventType === 'change') {
+// 					checkFileSize();
+// 				}
+// 			});
+// 		} catch (err) {
+// 			reject(err);
+// 		}
+// 	});
+// };
+
+export const checkFileSize = (filePath: string) => {
+	const checkFileSize = () => {
+		const stats = fs.statSync(`${filePath}`);
+		return stats.size;
+	};
+	
+	if (fs.existsSync(`${filePath}`)) {
+		return checkFileSize();
+	} 
+	console.log('no file');
+	return 0;
 };

@@ -1,4 +1,4 @@
-import { LanguageOption } from '../types';
+import { LanguageOption, IMDB, StreamQuality } from '../types';
 
 const isString = (text: unknown): text is string => {
 	return typeof text === 'string' || text instanceof String;
@@ -45,4 +45,13 @@ const isPhotoObject = (photo: unknown): photo is { imageDataUrl: string } => {
 	}
 	return false;
 };
-export { isString, isNumber, isNumberOrUndefined, isDate, isStringArray, isStringRepresentedInteger, isLanguageOption, isPhotoObject };
+
+const isIMDB = (id: unknown): id is IMDB => {
+	if (isString(id) && id.match(/(?=^.{9,10}$)(^tt[\d]{7,8})$/)) return true;
+	return false;
+};
+
+const isQuality = (quality: unknown): quality is StreamQuality => {
+	return quality === '720p' || quality === '1080p' || quality === '3D';
+};
+export { isString, isNumber, isNumberOrUndefined, isDate, isStringArray, isStringRepresentedInteger, isLanguageOption, isPhotoObject, isIMDB, isQuality };

@@ -24,6 +24,15 @@ export class AuthError extends AppError {
 	}
 }
 
+export class TorrentError extends AppError {
+	constructor(message: string) {
+		super(message, 424);
+		this.name = 'Torrent Error';
+	}
+	//418 i'm a teapot
+	//404
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const globalErrorHandler = (err: any, _req: Request, res: Response, _next: NextFunction) => {
 	if (err instanceof AppError) {
