@@ -181,3 +181,25 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 };
 // engine.swarm.downloaded shows how much was downloaded since initiation, but the download would continue if files has already existed. Since, it is a bad idea
 //to log download ratio based on engine.swarm.downloaded 
+
+export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: string): Promise<StreamContent> => {
+	const movie = await searchInDownloads(imdb, quality);
+	if (!movie) throw new AppError('Movie not found', 404);
+	let code = 206;
+	let start = Number(range.replace(/\D/g, ''));
+	if (start > movie.size - 1) {
+		start = 0;
+		code = 416;
+	}
+	const CHUNK_SIZE = 10 ** 6; // 1MB
+	const end = Math.min(start + CHUNK_SIZE, movie.size - 1);
+	const contentLength = end - start + 1;
+	const headers = {
+		'Content-Range': `bytes ${start}-${end}/${movie.size}`,
+		'Accept-Ranges': 'bytes',
+		'Content-Length': contentLength,
+		'Content-Type': `video/${movie.type}`
+	};
+	const stream = fs.createReadStream(`movies/${movie.path}`, { start, end });
+	return { code: code, headers: headers, stream: stream };
+};
