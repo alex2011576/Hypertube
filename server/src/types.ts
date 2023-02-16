@@ -1,5 +1,6 @@
 import { Request } from 'express';
 import * as t from 'io-ts';
+import fs from 'fs';
 
 export type BaseUser = {
 	username: string;
@@ -176,4 +177,17 @@ export type OmdbMovieData = {
 export type MovieData = {
 	ytsMovieData: YtsMovieData;
 	omdbMovieData: OmdbMovieData | undefined;
+};
+
+export type StreamContent = {
+	code: number;
+	headers: {[key: string]: string | number};
+	stream: fs.ReadStream;
+};
+
+export type StreamStatus = {
+    ready: boolean;
+    progress: string;
+    downloaded?: string;
+    info?: string;
 };
