@@ -48,7 +48,7 @@ export const imgUrlToBase64 = async (url: string | undefined | null) => {
 	}
 };
 
-export const getMagnetLink = (filmTitle: string, hash: string) => {
+export const generateMagnetLink = (filmTitle: string, hash: string) => {
 	return `magnet:?xt=urn:btih:${hash}&dn=${filmTitle.split(' ').join('+')}`;
 };
 
