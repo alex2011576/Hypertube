@@ -61,6 +61,7 @@ export const ruRU: Dictionary = {
 		'(Jpeg, jpg or png\nМинимум 100 x 100 пикс.\nМаксимум 6000x4000 пикс.\nФайл не более 25Мб)',
 	profileButtonChangeEmail: 'ИЗМЕНИТЬ ИМЕЙЛ',
 	profileButtonChangePassword: 'ИЗМЕНИТЬ ПАРОЛЬ',
+	profileButtonSetPassword: 'SET PASSWORD',
 	profielButtonCancel: 'ОТМЕНА',
 	profielButtonSend: 'ОК',
 	profileEmailTitle: 'Change email',
@@ -116,6 +117,7 @@ export const ruRU: Dictionary = {
 	alertPasswordResetSuccess: 'Пароль успешно изменен!',
 	alertPasswordResetError: 'Не получилось сменить пароль. Пожалуйста попробуйте снова.',
 	alertMissingMovieId: 'Номер фильма отсутствует',
+	alertLoginSuccessPasswordNotSet: 'Logged in successfully. Please set your password.',
 
 	// AxiosError
 	axiosNetworkError: 'Ошибка связи',

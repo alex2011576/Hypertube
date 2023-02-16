@@ -61,6 +61,7 @@ export const enUS: Dictionary = {
 		'(Jpeg, jpg or png\nMinimum 100 x 100 pixels\nMaximum 6000x4000 pixels\nMax 25Mb)',
 	profileButtonChangeEmail: 'CHANGE EMAIL',
 	profileButtonChangePassword: 'CHANGE PASSWORD',
+	profileButtonSetPassword: 'SET PASSWORD',
 	profielButtonCancel: 'CANCEL',
 	profielButtonSend: 'SEND',
 	profileEmailTitle: 'Change email',
@@ -115,6 +116,7 @@ export const enUS: Dictionary = {
 	alertPasswordResetSuccess: 'Password changed successfully!',
 	alertPasswordResetError: 'Unable to reset password. Please try again.',
 	alertMissingMovieId: 'Missing movie id',
+	alertLoginSuccessPasswordNotSet: 'Logged in successfully. Please set your password.',
 
 	// AxiosError
 	axiosNetworkError: 'Network error',

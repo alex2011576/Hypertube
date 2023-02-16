@@ -61,6 +61,7 @@ export const svSE: Dictionary = {
 		'(Jpeg, jpg eller png\nMinimum 100 x 100 pixlar\nMaximum 6000x4000 pixlar\nMax 25Mb)',
 	profileButtonChangeEmail: 'ÄNDRA E-POST',
 	profileButtonChangePassword: 'ÄNDRA LÖSENORD',
+	profileButtonSetPassword: 'STÄLL IN LÖSENORD',
 	profielButtonCancel: 'AVBRYT',
 	profielButtonSend: 'SKICKA',
 	profileEmailTitle: 'Ändra e-post',
@@ -116,6 +117,7 @@ export const svSE: Dictionary = {
 	alertPasswordResetSuccess: 'Lösenordet har ändrats!',
 	alertPasswordResetError: 'Det gick inte att återställa lösenordet. Var god försök igen.',
 	alertMissingMovieId: 'Missing movie id', // <- ENG
+	alertLoginSuccessPasswordNotSet: 'Logged in successfully. Please set your password.',
 
 	// AxiosError
 	axiosNetworkError: 'Nätverksfel',
