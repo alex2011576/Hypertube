@@ -1,11 +1,11 @@
 import * as locales from '@mui/material/locale';
-import { createTheme, Theme } from '@mui/material';
-import { createContext, useContext, useReducer } from 'react';
-import { dictionaryList } from '../languages';
+import { parseLanguageOption } from '../utils/languageOptionValidator';
 import { Dictionary, LanguageOption, LoggedUser } from '../types';
+import { createContext, useContext, useReducer } from 'react';
+import { createTheme, Theme } from '@mui/material';
+import { dictionaryList } from '../languages';
 import { Action } from './reducer';
 import theme from '../theme';
-import { parseLanguageOption } from '../utils/languageOptionValidator';
 
 let user: LoggedUser | undefined;
 const loggedUserJSON = localStorage.getItem('loggedUser');
@@ -19,7 +19,7 @@ userLanguage =
 		: parseLanguageOption(languageFromLocalStorage);
 
 type SupportedLocales = keyof typeof locales;
-console.log(userLanguage);
+
 export const themeWithLocale = (userLanguage: LanguageOption) =>
 	createTheme(theme, locales[userLanguage as SupportedLocales]);
 
