@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-export const translate = async (text: string, language: string | undefined) => {
-	if (!language || !text.length || language === 'en') return text;
+export const translate = async (text: string, language: string): Promise<string> => {
 	try {
 		const params = new URLSearchParams();
 		params.append('q', text);
