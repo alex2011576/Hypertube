@@ -1,52 +1,59 @@
 import { recordDownloading, searchInDownloads, setDownloadComplete } from '../repositories/downloadsRepository';
-import { FileInfo, IMDB, StreamQuality, YtsMovieDetailsJson } from '../types';
+import { FileInfo, IMDB, StreamContent, StreamQuality, StreamStatus, YtsMovieDetailsJson } from '../types';
 import axios from 'axios';
-import { getErrorMessage, TorrentError } from '../errors';
-import { checkFileSize, convertBytes, getMagnetLink } from '../utils/helpers';
+import { AppError, getErrorMessage, TorrentError } from '../errors';
+import { checkFileSize, convertBytes, generateMagnetLink } from '../utils/helpers';
 import path from 'path';
 import torrentStream from 'torrent-stream';
+import fs from 'fs';
 
-export const getStreamStatus = async (imdb: IMDB, quality: StreamQuality) => {
+export const getStreamStatus = async (imdb: IMDB, quality: StreamQuality): Promise<StreamStatus> => {
 	const isInDownloads = await searchInDownloads(imdb, quality);
 	if (isInDownloads && isInDownloads.completed) {
-		return 'Ready to play';
-	} else {
-		console.log('not in downloads');
-		console.log('imdb:', imdb);
-
-		const { data }: { data: YtsMovieDetailsJson } = await axios.get(
-			// `https://yts.mx/api/v2/movie_details.json?imdb_id=tt1111111`, {
-			`https://yts.mx/api/v2/movie_details.json?imdb_id=${imdb}`,
-			{
-				headers: {
-					Accept: 'application/json'
-				}
-			}
-		);
-		if (!data || !data.data || !data.data.movie || !data.data.movie.torrents) {
-			throw new TorrentError(`No torrents avaliable for movie with imdb=${imdb}`);
-		}
-		const movieData = data.data.movie;
-
-		//filer by quality
-		let torrents = movieData.torrents.filter((torrent) => torrent.quality === quality);
-		if (torrents.length < 1) throw new TorrentError(`Quality ${quality} is not avaliable`);
-		//sort by seeds
-		if (torrents.length > 1) {
-			torrents = torrents.sort((a, b) => (a.seeds > b.seeds ? -1 : 1));
-		}
-
-		const filmTitle = movieData.title_long;
-		const hash = torrents[0].hash;
-		if (!filmTitle || !hash) throw new TorrentError(`No torrents avaliable for movie with imdb=${imdb}`);
-
-		const magnetLink = getMagnetLink(filmTitle, hash);
-
-		const movieFile = await downloadTorrent(magnetLink, imdb, quality);
-		const currentSize = checkFileSize(`movies/${movieFile.path}`);
-		const progress = currentSize / movieFile.size * 100;
-		return `Ready to play, ${progress.toFixed(2)}% (${convertBytes(currentSize)}) downloaded`;
+		return { ready: true, progress: '100' };
 	}
+
+	const magnetLink = await getTorrentFileMagnetLink(imdb, quality);
+	const movieFile = await downloadTorrent(magnetLink, imdb, quality);
+	const currentSize = checkFileSize(`movies/${movieFile.path}`);
+	const progress = (currentSize / movieFile.size) * 100;
+	return {
+		ready: true,
+		progress: progress.toFixed(2),
+		downloaded: convertBytes(currentSize),
+		info: `Ready to play, ${progress.toFixed(2)}% (${convertBytes(currentSize)}) downloaded`
+	};
+};
+
+const getTorrentFileMagnetLink = async (imdb: IMDB, quality: StreamQuality) => {
+	const { data }: { data: YtsMovieDetailsJson } = await axios.get(
+		// `https://yts.mx/api/v2/movie_details.json?imdb_id=tt1111111`, {
+		`https://yts.mx/api/v2/movie_details.json?imdb_id=${imdb}`,
+		{
+			headers: {
+				Accept: 'application/json'
+			}
+		}
+	);
+	if (!data || !data.data || !data.data.movie || !data.data.movie.torrents) {
+		throw new TorrentError(`No torrents avaliable for movie with imdb=${imdb}`);
+	}
+	const movieData = data.data.movie;
+
+	//filer by quality
+	let torrents = movieData.torrents.filter((torrent) => torrent.quality === quality);
+	if (torrents.length < 1) throw new TorrentError(`Quality ${quality} is not avaliable`);
+	//sort by seeds
+	if (torrents.length > 1) {
+		torrents = torrents.sort((a, b) => (a.seeds > b.seeds ? -1 : 1));
+	}
+
+	const filmTitle = movieData.title_long;
+	const hash = torrents[0].hash;
+	if (!filmTitle || !hash) throw new TorrentError(`No torrents avaliable for movie with imdb=${imdb}`);
+
+	const magnetLink = generateMagnetLink(filmTitle, hash);
+	return magnetLink;
 };
 
 const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQuality): Promise<FileInfo> => {
@@ -88,7 +95,7 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 	let file: TorrentStream.TorrentFile;
 	let fileInfo: FileInfo;
 	let progress = -1;
-	
+
 	console.log(videoPath);
 	return new Promise((resolve, reject) => {
 		engine.on('torrent', () => {
@@ -138,10 +145,10 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 			if (file) {
 				const donwloaded = checkFileSize(`movies/${file.path}`);
 				const ratio = (donwloaded / file.length) * 100;
-				if (ratio >= progress){
+				if (ratio >= progress) {
 					progress = ratio + 1;
 					console.log(`Downloading...`);
-					console.log(`Progress: ${(ratio.toFixed(0))}% (${convertBytes(donwloaded)} / ${convertBytes(file?.length)} bytes)`);
+					console.log(`Progress: ${ratio.toFixed(0)}% (${convertBytes(donwloaded)} / ${convertBytes(file?.length)} bytes)`);
 				}
 				if (!resolved && donwloaded >= 5 * 1024 * 1024) {
 					resolved = true;
@@ -153,34 +160,34 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 		engine.on('idle', () => {
 			engine.destroy(() => {
 				searchInDownloads(imdb, quality)
-				.then((isInDownloads)=>{
-					if (isInDownloads) {
-						console.log('All files downloaded');
-						setDownloadComplete(imdb, quality)
-							.catch((err) => console.log(`Download completion update failed:\n${getErrorMessage(err)}\n Trying update competion again...`))
-							.then(() => setDownloadComplete(imdb, quality))
-							.catch((err) => console.log(`Download completion update failed again:\n${getErrorMessage(err)}\n`));
-						
-						if (!resolved) {
-							resolved = true;
-							resolve(fileInfo);
+					.then((isInDownloads) => {
+						if (isInDownloads) {
+							console.log('All files downloaded');
+							setDownloadComplete(imdb, quality)
+								.catch((err) => console.log(`Download completion update failed:\n${getErrorMessage(err)}\n Trying update competion again...`))
+								.then(() => setDownloadComplete(imdb, quality))
+								.catch((err) => console.log(`Download completion update failed again:\n${getErrorMessage(err)}\n`));
+
+							if (!resolved) {
+								resolved = true;
+								resolve(fileInfo);
+							}
+						} else {
+							console.log('Files are not downloaded');
+							if (!resolved) {
+								resolved = true;
+								reject(new TorrentError('autodistruction'));
+							}
 						}
-					} else {
-						console.log('Files are not downloaded');
-						if (!resolved) {
-							resolved = true;
-							reject(new TorrentError('autodistruction'));
-						}
-					}
-					console.log('Engine connection destroyed');
-				})
-				.catch(() => console.log('error'));
-			}); 
+						console.log('Engine connection destroyed');
+					})
+					.catch(() => console.log('error'));
+			});
 		});
 	});
 };
 // engine.swarm.downloaded shows how much was downloaded since initiation, but the download would continue if files has already existed. Since, it is a bad idea
-//to log download ratio based on engine.swarm.downloaded 
+//to log download ratio based on engine.swarm.downloaded
 
 export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: string): Promise<StreamContent> => {
 	const movie = await searchInDownloads(imdb, quality);
