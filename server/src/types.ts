@@ -1,5 +1,6 @@
 import { Request } from 'express';
 import * as t from 'io-ts';
+import fs from 'fs';
 
 export type BaseUser = {
 	username: string;
@@ -102,6 +103,33 @@ export type PasswordResetRequest = NewPasswordResetRequest & { token: string; ex
 
 export type AuthType = '42' | 'github';
 
+export type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+
+export type IMDB = `tt${number}`;
+
+export type FileInfo = {
+	id?: string;
+	path: string;
+	type: string;
+	size: number;
+	completed?: boolean;
+	imdb: IMDB;
+	quality: StreamQuality;
+	downloadTime?: Date;
+};
+
+type Torrent = { [key: string]: string | number } & { hash: string;};
+
+export type MyMovieDetails = {[key: string]: string | number};
+
+export type YtsMovieDetailsJson = { 
+	data: { 
+		movie: MyMovieDetails & { torrents: Torrent[]; title_long: string;};
+	} 
+};
+
+export type StreamQuality = '720p' | '1080p' | '3D';
+
 export type MovieThumbnail = {
 	id: number;
 	imdbCode: string;
@@ -149,4 +177,17 @@ export type OmdbMovieData = {
 export type MovieData = {
 	ytsMovieData: YtsMovieData;
 	omdbMovieData: OmdbMovieData | undefined;
+};
+
+export type StreamContent = {
+	code: number;
+	headers: {[key: string]: string | number};
+	stream: fs.ReadStream;
+};
+
+export type StreamStatus = {
+    ready: boolean;
+    progress: string;
+    downloaded?: string;
+    info?: string;
 };

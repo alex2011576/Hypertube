@@ -51,6 +51,19 @@ create table update_email_requests
 
 create index update_email_requests_user_id on update_email_requests (user_id);
 
+create table downloads (
+	id bigserial not null primary key,
+	path  varchar not null,
+	type varchar not null,
+	size bigint not null,
+	completed boolean not null default false,
+	imdb varchar not null,
+	quality varchar not null,
+	download_time timestamptz not null default now()
+);
+
+create index downloads_imdb on downloads (imdb);
+
 CREATE FUNCTION expire_table_delete_old_rows() RETURNS trigger
     LANGUAGE plpgsql
     AS $$

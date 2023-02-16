@@ -105,3 +105,10 @@ export type MovieData = {
 	ytsMovieData: YtsMovieData;
 	omdbMovieData: OmdbMovieData | undefined;
 };
+
+export type StreamStatus = {
+    ready: boolean;
+    progress: string;
+    downloaded?: string;
+    info?: string;
+};
