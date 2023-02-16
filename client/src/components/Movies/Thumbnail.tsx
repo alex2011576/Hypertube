@@ -3,6 +3,7 @@ import { MovieThumbnail } from '../../types';
 import { Link } from 'react-router-dom';
 import moviePlaceholder from './moviePlaceholder.png';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
+import { stringOrPlaceholder, numberOrUndefined } from '../../utils/helpers';
 
 const Background = styled('div', {
 	shouldForwardProp: (prop) => prop !== 'isWatched'
@@ -30,10 +31,10 @@ const AbsoluteContent = styled('div')`
 `;
 
 const Thumbnail = ({ movie }: { movie: MovieThumbnail }) => {
-	const cover = movie.cover.length ? movie.cover : moviePlaceholder;
-	const title = movie.title.length ? movie.title : 'No title';
-	const year = movie.year > 0 ? movie.year : '';
-	const rating = movie.rating > 0 ? movie.rating + ' ⭑' : '';
+	const cover = stringOrPlaceholder(movie.cover, moviePlaceholder);
+	const title = stringOrPlaceholder(movie.title, 'No title');
+	const year = numberOrUndefined(movie.year);
+	const rating = numberOrUndefined(movie.rating) ? movie.rating + ' ⭑' : '';
 	const summary = movie.summary.length ? movie.summary.slice(0, 85) + '...' : '';
 
 	return (
