@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-export const translate = async (text: string, language: string): Promise<string> => {
+export const translate = async (text: string, targetLanguage: string): Promise<string> => {
 	try {
 		const params = new URLSearchParams();
 		params.append('q', text);
 		params.append('source', 'en');
-		params.append('target', language || 'en');
+		params.append('target', targetLanguage);
 		params.append('api_key', 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
 
 		const res = await axios.post('https://libretranslate.de/translate', params, {
