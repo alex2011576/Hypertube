@@ -14,25 +14,21 @@ const PlayerWrapper = styled('div')<ReactPlayerProps>`
 	position: relative;
 	height: 65%;
 `;
-//should be getting imdb and quality here? 
+//should be getting imdb and quality here?
 const Player: React.FC<ReactPlayerProps> = (props) => {
-	const { light, background } = props;
+	const { light, id, quality } = props;
 	const [state, dispatch] = React.useReducer(reducer, INITIAL_STATE);
 	const playerRef = React.useRef<ReactPlayer>(null);
 	const wrapperRef = React.useRef<HTMLDivElement>(null);
-	console.log(state);
 
 	const {
 		data: movieData,
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		error: movieError,
 		loading
 	}: {
 		data?: StreamStatus;
-		error?: Error;
 		loading: boolean;
 	} = useServiceCall(
-		async () => await streamService.getMovieStatus('tt2386490', '1080p'),
+		async () => await streamService.getMovieStatus(id, quality),
 		[]
 	);
 
@@ -62,16 +58,15 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 		dispatch({ type: 'DURATION', payload: duration });
 	};
 
-	if(movieData) console.log(`${movieData.progress}`);	
+	if (movieData) console.log(`${movieData.progress}`);
 
 	return (
-		<PlayerWrapper state={state} ref={wrapperRef} sx={{ backgroundImage: background }}>
+		<PlayerWrapper state={state} ref={wrapperRef}>
 			{loading ? (
-				 <LoadingIcon />
+				<LoadingIcon />
 			) : (
 				<ReactPlayer
-					url={`http://localhost:3001/api/stream/tt2386490/1080p`}
-					// url={``}
+					url={`http://localhost:3001/api/stream/${id}/${quality}`}
 					width="100%"
 					height="100%"
 					light={light}
