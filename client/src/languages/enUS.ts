@@ -99,7 +99,16 @@ export const enUS: Dictionary = {
 	// Movies
 	moviesError: 'Error occurred, please try again',
 
-	//Movie
+	//SearchField
+	reverse: 'Reverse',
+
+	//Plot
+	plot: 'PLOT',
+	
+	//Creators
+	director: 'Directed by',
+	writer: 'Written by',
+	actors: 'Cast',
 
 	// Alerts
 	alertLogout: 'Logged out',

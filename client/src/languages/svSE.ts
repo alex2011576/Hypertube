@@ -100,7 +100,16 @@ export const svSE: Dictionary = {
 	// Movies
 	moviesError: 'Ett fel uppstod, försök igen',
 
-	//Movie
+	//SearchField
+	reverse: 'Omvänd',
+
+	//Plot
+	plot: 'PLOT',
+
+	//Creators
+	director: 'Regisserad av',
+	writer: 'Skriven av',
+	actors: 'Skådespelare',
 
 	// Alerts
 	alertLogout: 'Loggade ut',

@@ -99,7 +99,17 @@ export const ruRU: Dictionary = {
 	// Movies
 	moviesError: 'Произошла ошибка, Пожалуйста попробуйте снова',
 
-	//Movie
+	//SearchField
+	search: 'Поиск',
+	reverse: 'Реверс',
+
+	//Plot
+	plot: 'СЮЖЕТ',
+
+	//Creators
+	director: 'Режиссер',
+	writer: 'Сценарист',
+	actors: 'Актеры',
 
 	// Alerts
 	alertLogout: 'Выход осуществлен',
@@ -118,7 +128,7 @@ export const ruRU: Dictionary = {
 	alertMissingMovieId: 'Номер фильма отсутствует',
 
 	// AxiosError
-	axiosNetworkError: 'Ошибка связи',
+	axiosNetworkError: 'Ошибка подключения',
 
 	// AuthError
 	authError: 'Сессия истекла, пожалуйста войдите снова.',

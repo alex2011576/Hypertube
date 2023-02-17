@@ -1,4 +1,5 @@
 import { Box, Typography, styled } from '@mui/material';
+import Text from '../Text';
 
 const Wrapper = styled(Box)`
 	display: flex;
@@ -6,8 +7,6 @@ const Wrapper = styled(Box)`
 	align-items: flex-start;
 	margin: 1rem 0;
 `;
-
-
 
 const Creators = ({
 	director,
@@ -22,19 +21,18 @@ const Creators = ({
 		<Wrapper>
 			{director.length > 3 && (
 				<Typography color={'text.disabled'}>
-					Directed by: <strong>{director}</strong> {/*TID!*/}
+					<Text tid="director" />: <strong>{director}</strong>
 				</Typography>
 			)}
 			{writer.length > 3 && (
 				<Typography color={'text.disabled'}>
-					Written by: <strong>{writer}</strong> {/*TID!*/}
+					<Text tid="writer" />: <strong>{writer}</strong>
 				</Typography>
 			)}
 			{actors.length > 3 && (
 				<Box>
 					<Typography color={'text.disabled'}>
-						Cast: <strong>{actors}</strong>
-						{/*TID!*/}
+						<Text tid="actors" />: <strong>{actors}</strong>
 					</Typography>
 				</Box>
 			)}
