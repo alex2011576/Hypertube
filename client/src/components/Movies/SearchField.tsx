@@ -97,9 +97,6 @@ export default function SearchField({
 			: setSearchQuery({ ...searchQuery, queryTerm: '', sortBy: 'rating' });
 	};
 
-	console.log(searchQuery.genre);
-	console.log(searchQuery.sortBy);
-
 	return (
 		<SearchContainer>
 			<InputField>
