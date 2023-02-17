@@ -2,19 +2,25 @@ import { recordDownloading, searchInDownloads, setDownloadComplete } from '../re
 import { FileInfo, IMDB, StreamContent, StreamQuality, StreamStatus, YtsMovieDetailsJson } from '../types';
 import axios from 'axios';
 import { AppError, getErrorMessage, TorrentError } from '../errors';
-import { checkFileSize, convertBytes, generateMagnetLink } from '../utils/helpers';
+import { checkFileSize, convertBytes, fileIsDownloading, generateMagnetLink } from '../utils/helpers';
 import path from 'path';
 import torrentStream from 'torrent-stream';
 import fs from 'fs';
 
 export const getStreamStatus = async (imdb: IMDB, quality: StreamQuality): Promise<StreamStatus> => {
+	let movieFile: FileInfo;
 	const isInDownloads = await searchInDownloads(imdb, quality);
+
 	if (isInDownloads && isInDownloads.completed) {
-		return { ready: true, progress: '100' };
+			return { ready: true, progress: '100' };
+	}
+	else if (isInDownloads && await fileIsDownloading(`movies/${isInDownloads.path}`)) {
+		movieFile = isInDownloads;
+	} else {
+		const magnetLink = await getTorrentFileMagnetLink(imdb, quality);
+		movieFile = await downloadTorrent(magnetLink, imdb, quality);
 	}
 
-	const magnetLink = await getTorrentFileMagnetLink(imdb, quality);
-	const movieFile = await downloadTorrent(magnetLink, imdb, quality);
 	const currentSize = checkFileSize(`movies/${movieFile.path}`);
 	const progress = (currentSize / movieFile.size) * 100;
 	return {
