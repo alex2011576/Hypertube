@@ -112,3 +112,16 @@ export type StreamStatus = {
 	downloaded?: string;
 	info?: string;
 };
+
+export type UserReview = {
+	text: string;
+	rating: number;
+};
+
+export type ReviewType = {
+	text: string;
+	rating: number;
+	userId: string;
+	username: string;
+	// photo: PhotoType | undefined;
+};
