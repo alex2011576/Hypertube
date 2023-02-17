@@ -12,7 +12,7 @@ export const enUS: Dictionary = {
 	textFieldLastName: 'Last Name',
 	passwordTooltip:
 		'Password should be at least 8 characters long, contain at least one uppercase and lowercase letter, number and symbols',
-
+	textFieldReview: 'Leave your review',
 	// Checkbox
 	showPassword: 'Show password',
 	showPasswords: 'Show passwords',
@@ -95,6 +95,7 @@ export const enUS: Dictionary = {
 	invalidPassword: 'Check the input',
 	invalidEmail: 'Incorrect email format',
 	incorrectField: 'Incorrect field',
+	tooLongInput: 'Maximum 300 characters',
 
 	// Movies
 	moviesError: 'Error occurred, please try again',
@@ -104,11 +105,14 @@ export const enUS: Dictionary = {
 
 	//Plot
 	plot: 'PLOT',
-	
+
 	//Creators
 	director: 'Directed by',
 	writer: 'Written by',
 	actors: 'Cast',
+
+	//Reviews
+	reviews: 'WHAT ARE PEOPLE SAYING?',
 
 	// Alerts
 	alertLogout: 'Logged out',

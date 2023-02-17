@@ -12,6 +12,7 @@ export const svSE: Dictionary = {
 	textFieldLastName: 'Efternamn',
 	passwordTooltip:
 		'Lösenordet ska vara minst 8 tecken lång, innehålla minst en stor och liten bokstav, siffror och symboler',
+	textFieldReview: 'Lämna din recension',
 
 	// Checkbox
 	showPassword: 'Visa lösenord',
@@ -96,6 +97,7 @@ export const svSE: Dictionary = {
 	invalidPassword: 'Kontrollera lösenordet',
 	invalidEmail: 'Ogiltigt e-postformat',
 	incorrectField: 'Ogiltigt fält',
+	tooLongInput: 'Max 300 tecken',
 
 	// Movies
 	moviesError: 'Ett fel uppstod, försök igen',
@@ -110,6 +112,9 @@ export const svSE: Dictionary = {
 	director: 'Regisserad av',
 	writer: 'Skriven av',
 	actors: 'Skådespelare',
+
+	//Reviews
+	reviews: 'RECENSIONER',
 
 	// Alerts
 	alertLogout: 'Loggade ut',

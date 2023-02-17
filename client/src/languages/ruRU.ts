@@ -12,6 +12,7 @@ export const ruRU: Dictionary = {
 	textFieldLastName: 'Фамилия',
 	passwordTooltip:
 		'Длина пароля минимум 8 символов, должен содержать одну заглавную и одну строчную букву, цифру и символ.',
+	textFieldReview: 'Оставить рецензию',
 
 	// Checkbox
 	showPassword: 'Показать пароль',
@@ -63,7 +64,7 @@ export const ruRU: Dictionary = {
 	profileButtonChangePassword: 'ИЗМЕНИТЬ ПАРОЛЬ',
 	profielButtonCancel: 'ОТМЕНА',
 	profielButtonSend: 'ОК',
-	profileEmailTitle: 'Change email',
+	profileEmailTitle: 'Изменить имейл',
 	profileEmailInfoText:
 		'Ссылка для активации будет выслана на указанный имейл адрес. Пожалуйста пройдите по ссылке чтобы сменить имейл адрес.',
 	profilePasswordTitle: 'Изменить пароль',
@@ -95,6 +96,7 @@ export const ruRU: Dictionary = {
 	invalidPassword: 'Неверный формат',
 	invalidEmail: 'Неверный формат',
 	incorrectField: 'Неверный формат',
+	tooLongInput: 'Максимум 300 символов',
 
 	// Movies
 	moviesError: 'Произошла ошибка, Пожалуйста попробуйте снова',
@@ -110,6 +112,9 @@ export const ruRU: Dictionary = {
 	director: 'Режиссер',
 	writer: 'Сценарист',
 	actors: 'Актеры',
+
+	//Reviews
+	reviews: 'ОТЗЫВЫ',
 
 	// Alerts
 	alertLogout: 'Выход осуществлен',
