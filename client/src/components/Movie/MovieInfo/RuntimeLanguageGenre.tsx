@@ -1,6 +1,6 @@
 import { Box, Typography, styled } from '@mui/material';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
-import { useTranslateCallback } from '../../hooks/useTranslateCallback';
+import { useTranslateCallback } from '../../../hooks/useTranslateCallback';
 
 const Row = styled(Box)`
 	display: flex;

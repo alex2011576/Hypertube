@@ -1,5 +1,5 @@
 import { Box, Typography, styled } from '@mui/material';
-import Text from '../Text';
+import Text from '../../Text';
 
 const Wrapper = styled(Box)`
 	display: flex;

@@ -5,10 +5,10 @@ import PlayCircleOutlineRoundedIcon from '@mui/icons-material/PlayCircleOutlineR
 import { reducer, INITIAL_STATE } from './Player.reducer';
 import { styled } from '@mui/material';
 
-import { useServiceCall } from '../../hooks/useServiceCall';
-import streamService from '../../services/stream';
-import { StreamStatus } from '../../types';
-import LoadingIcon from '../LoadingIcon';
+import { useServiceCall } from '../../../hooks/useServiceCall';
+import streamService from '../../../services/stream';
+import { StreamStatus } from '../../../types';
+import LoadingIcon from '../../LoadingIcon';
 
 const PlayerWrapper = styled('div')<ReactPlayerProps>`
 	position: relative;

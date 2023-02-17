@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import Text from '../Text';
+import Text from '../../Text';
 
 const CountryAndYear = ({ plot }: { plot: string }) => {
 	return plot.length > 3 ? (

@@ -1,7 +1,7 @@
 import { Container, styled } from '@mui/material';
-import { stringOrPlaceholder, numberOrUndefined } from '../../utils/helpers';
-import { useTranslateCallback } from '../../hooks/useTranslateCallback';
-import { MovieData } from '../../types';
+import { stringOrPlaceholder, numberOrUndefined } from '../../../utils/helpers';
+import { useTranslateCallback } from '../../../hooks/useTranslateCallback';
+import { MovieData } from '../../../types';
 import Creators from './Creators';
 import Title from './Title';
 import CountryAndYear from './CountryAndYear';
