@@ -12,7 +12,7 @@ import LoadingIcon from '../../LoadingIcon';
 
 const PlayerWrapper = styled('div')<ReactPlayerProps>`
 	position: relative;
-	height: 65%;
+	height: 520px;
 `;
 //should be getting imdb and quality here?
 const Player: React.FC<ReactPlayerProps> = (props) => {

@@ -9,6 +9,7 @@ import withAuthRequired from '../AuthRequired';
 import movieService from '../../services/movie';
 import LoadingIcon from '../LoadingIcon';
 import MovieInfo from './MovieInfo';
+import Reviews from './Reviews/';
 import Player from './Player';
 // import Text from '../Text';
 
@@ -16,7 +17,7 @@ const Background = styled('div', {
 	shouldForwardProp: (prop) => prop !== 'src'
 })<{ src?: string }>(({ src }) => ({
 	position: 'relative',
-	height: '100vh',
+	height: 'fit-content',
 	width: '100%',
 	minWidth: '320px',
 	backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.9150253851540616) 0%, rgba(0,0,0,0.9038209033613446) 18%, rgba(0,0,0,0.42) 100%), url(${src})`,
@@ -55,7 +56,8 @@ const MoviePage = () => {
 				id={yts.imdbCode}
 				quality={torrents[0].quality}
 			/>
-			<MovieInfo movieData={movieData} />;
+			<MovieInfo movieData={movieData} />
+			<Reviews movieId={yts.id} />
 		</Background>
 	);
 };
