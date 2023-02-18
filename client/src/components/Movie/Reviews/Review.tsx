@@ -34,7 +34,7 @@ const Review = ({ review }: { review: ReviewType }) => {
 	return (
 		<Card theme={theme}>
 			<ReviewHeader>
-				<Avatar alt={review.username} src={placeholder} />
+				<Avatar alt={review.username} src={review.photo?.imageDataUrl || placeholder} />
 				<StyledBox>
 					<Rating value={review.rating} readOnly precision={1} size="small" />
 					<StyledLink theme={theme} to={`/profile/${review.userId}`}>
