@@ -35,23 +35,22 @@ export const StyledBox = styled(Box)`
 	margin-left: 1rem;
 `;
 
-const ReviewForm = () => {
+const ReviewForm = ({ movieId }: { movieId: number }) => {
 	const review = useField('text', <Text tid="textFieldReview" />, validateReview);
 	const [rating, setRating] = useState<number | null>(0);
 	// const alert = useContext(AlertContext);
 
 	const handleSubmit = async (event: any) => {
 		event.preventDefault();
-
 		const userReview: UserReview = { text: review.value, rating: rating || 0 };
-
 		console.log(userReview);
 		// try {
-		// 	await movieService.leaveReview(userReview);
+		// 	await movieService.review(movieId, userReview);
 		// } catch (err) {
-		// 	alert.error(err.response?.data?.error || 'alertLoginError');
+		// 	alert.error('alertPostReviewError');
 		// }
 	};
+
 	return (
 		<Card theme={theme}>
 			<Rating
@@ -78,7 +77,7 @@ const ReviewForm = () => {
 					fullWidth
 				/>
 				<Button type="submit" size="large">
-					SEND {/* TID */}
+					<Text tid='sendReview' />
 				</Button>
 			</Box>
 		</Card>
