@@ -76,7 +76,7 @@ const ReviewForm = ({ movieId }: { movieId: number }) => {
 					required
 					fullWidth
 				/>
-				<Button type="submit" size="large">
+				<Button type="submit" disabled={!review.value.length}size="large">
 					<Text tid='sendReview' />
 				</Button>
 			</Box>
