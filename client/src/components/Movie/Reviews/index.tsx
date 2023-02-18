@@ -1,12 +1,12 @@
 // import { useServiceCall } from '../../../hooks/useServiceCall';
-// import { ReviewType } from '../../../types';
+// import { ReviewsAndTotalCount } from '../../../types';
 import { Container, Typography, styled, Box, Grid, Pagination } from '@mui/material';
 import Review from './Review';
 import Text from '../../Text';
 import ReviewForm from './ReviewForm';
 import { dummyReviews as reviews } from './dummyReviews';
 import { useState } from 'react';
-import LoadingIcon from '../../LoadingIcon';
+//import LoadingIcon from '../../LoadingIcon';
 
 const ReviewsBox = styled(Box)`
 	display: flex;
@@ -19,19 +19,21 @@ const ReviewsContainer = styled(Container)`
 	min-width: 100%;
 `;
 
-const Reviews = ({ movieId, pagesCount }: { movieId: number; pagesCount: number }) => {
+const Reviews = ({ movieId }: { movieId: number }) => {
 	const [page, setPage] = useState<number>(1);
 
 	// const {
 	// 	data: reviewData,
 	// 	error: reviewError
 	// }: {
-	// 	data: ReviewType[] | undefined;
+	// 	data: ReviewsAndTotalCount, | undefined;
 	// 	error: Error | undefined;
 	// } = useServiceCall(async () => await movieService.getReviews(movieId, page), [page]);
 
 	// if (!reviewError) return <></>;
-	// if (!reviews) return <LoadingIcon />;
+	// if (!reviewData) return <LoadingIcon />;
+	// const {reviews, totalCount} = reviewData;
+	const totalCount = 15; //temp
 
 	const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
 		setPage(value);
@@ -54,7 +56,7 @@ const Reviews = ({ movieId, pagesCount }: { movieId: number; pagesCount: number 
 				</Grid>
 			</ReviewsBox>
 			<Pagination
-				count={pagesCount}
+				count={Math.ceil(totalCount / 8)}
 				onChange={handlePageChange}
 				color="primary"
 				size="small"

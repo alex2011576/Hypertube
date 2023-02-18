@@ -193,3 +193,16 @@ export type StreamStatus = {
 	downloaded?: string;
 	info?: string;
 };
+
+export type ReviewType = {
+	text: string;
+	rating: number;
+	userId: string;
+	username: string;
+	photo: PhotoType | undefined;
+};
+
+export type ReviewsAndTotalCount = {
+	reviews: ReviewType[];
+	totalCount: number;
+};

@@ -34,7 +34,11 @@ const review = async (movieId: number, review: UserReview) => {
 		const config = {
 			headers: { Authorization: getAuthHeader() }
 		};
-		const response = await axios.post(`${apiBaseUrl}/movies/${movieId}/reviews`, config);
+		const response = await axios.post(
+			`${apiBaseUrl}/movies/${movieId}/reviews`,
+			review,
+			config
+		);
 		return response.data;
 	} catch (err) {
 		handleAxiosError(err);

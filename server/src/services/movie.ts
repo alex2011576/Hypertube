@@ -39,7 +39,7 @@ const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<Yts
 		const torrents = movie.torrents.map((torrent) => {
 			return { seeds: torrent.seeds, peers: torrent.peers, quality: torrent.quality };
 		});
-		
+
 		const ytsMovieData: YtsMovieData = {
 			id: movie.id,
 			imdbCode: movie.imdb_code || '',

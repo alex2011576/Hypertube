@@ -43,8 +43,7 @@ router.get(
 		if (!result) {
 			throw new AppError(`movieMovieNotFound`, 400);
 		}
-		// const reviewPagesCount: number = await getReviewPagesCount(ytsMovieId);
-		res.status(200).json({...result, /*reviewPagesCount*/});
+		res.status(200).json(result);
 	})
 );
 

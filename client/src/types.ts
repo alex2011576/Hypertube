@@ -104,7 +104,6 @@ export type OmdbMovieData = {
 export type MovieData = {
 	ytsMovieData: YtsMovieData;
 	omdbMovieData: OmdbMovieData | undefined;
-	reviewPagesCount?: number; // temp '?' 
 };
 
 export type StreamStatus = {
@@ -127,3 +126,7 @@ export type ReviewType = {
 	photo?: PhotoType;
 };
 
+export type ReviewsAndTotalCount = {
+	reviews: ReviewType[];
+	totalCount: number;
+};

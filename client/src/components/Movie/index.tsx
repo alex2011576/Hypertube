@@ -54,7 +54,7 @@ const MoviePage = () => {
 				quality={torrents[0].quality}
 			/>
 			<MovieInfo movieData={movieData} />
-			<Reviews movieId={yts.id} pagesCount={10 /*pagesCount*/} />
+			<Reviews movieId={yts.id} />
 		</Background>
 	);
 };
