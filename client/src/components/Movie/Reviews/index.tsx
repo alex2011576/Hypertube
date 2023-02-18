@@ -1,45 +1,12 @@
 // import { useServiceCall } from '../../../hooks/useServiceCall';
-import { ReviewType } from '../../../types';
+// import { ReviewType } from '../../../types';
 import { Container, Typography, styled, Box, Grid, Pagination } from '@mui/material';
 import Review from './Review';
 import Text from '../../Text';
 import ReviewForm from './ReviewForm';
-
-const reviews: ReviewType[] = [
-	{ text: 'good movie but too slow download', rating: 4, userId: '1', username: 'Ilona' },
-	{
-		text: 'more subtitle options would be great',
-		rating: 3,
-		userId: '1',
-		username: 'Bebs'
-	},
-	{
-		text: "300 eppe sswe wefwef wef wef wef wef weffwewww just want to leave a comment and a longer one! because why not and what you gonna do I'm from another city, sorry for swearing just want to leave a comment and a longer one! because why not and what you gonna do I'm from another city, sorry for swearing",
-		rating: 5,
-		userId: '1',
-		username: 'Not-Ilona'
-	},
-	{ text: 'good movie but too slow download', rating: 4, userId: '1', username: 'Ilona' },
-	{
-		text: 'more subtitle options would be great',
-		rating: 3,
-		userId: '1',
-		username: 'Bebs'
-	},
-	{
-		text: "300 eppe sswe wefwef wef wef wef wef weffwewww just want to leave a comment and a longer one! because why not and what you gonna do I'm from another city, sorry for swearing just want to leave a comment and a longer one! because why not and what you gonna do I'm from another city, sorry for swearing",
-		rating: 5,
-		userId: '1',
-		username: 'Not-Ilona'
-	},
-	{ text: 'good movie but too slow download', rating: 4, userId: '1', username: 'Ilona' },
-	{
-		text: "300 eppe sswe kekekeekek a longer one! because why not and what you gonna do I'm from another city, sorry for swearing just want to leave a comment and a longer one! because why not and what you gonna do I'm from another city, sorry for swearing",
-		rating: 5,
-		userId: '1',
-		username: 'Not-Ilona'
-	}
-];
+import { dummyReviews as reviews } from './dummyReviews';
+import { useState } from 'react';
+import LoadingIcon from '../../LoadingIcon';
 
 const ReviewsBox = styled(Box)`
 	display: flex;
@@ -52,14 +19,23 @@ const ReviewsContainer = styled(Container)`
 	min-width: 100%;
 `;
 
-const Reviews = ({ movieId }: { movieId: number }) => {
+const Reviews = ({ movieId, pagesCount }: { movieId: number; pagesCount: number }) => {
+	const [page, setPage] = useState<number>(1);
+
 	// const {
 	// 	data: reviewData,
 	// 	error: reviewError
 	// }: {
 	// 	data: ReviewType[] | undefined;
 	// 	error: Error | undefined;
-	// } = useServiceCall(async () => await movieService.getReviews(movieId), []);
+	// } = useServiceCall(async () => await movieService.getReviews(movieId, page), [page]);
+
+	// if (!reviewError) return <></>;
+	// if (!reviews) return <LoadingIcon />;
+
+	const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+		setPage(value);
+	};
 
 	return (
 		<ReviewsContainer sx={{ padding: { xs: '2rem 1rem', sm: '2rem 3rem' } }}>
@@ -78,12 +54,13 @@ const Reviews = ({ movieId }: { movieId: number }) => {
 				</Grid>
 			</ReviewsBox>
 			<Pagination
-				count={50}
+				count={pagesCount}
+				onChange={handlePageChange}
 				color="primary"
 				size="small"
 				sx={{ display: 'flex', justifyContent: 'center', pt: 1 }}
 			/>
-			<ReviewForm />
+			<ReviewForm movieId={movieId} />
 		</ReviewsContainer>
 	);
 };

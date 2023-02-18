@@ -28,8 +28,6 @@ const Background = styled('div', {
 
 const MoviePage = () => {
 	const { id: movieId } = useParams();
-	// if (!movieId) return <Navigate to="/" />;
-	// console.log('movieIdParam: ', movieId);
 
 	const {
 		data: movieData,
@@ -37,13 +35,12 @@ const MoviePage = () => {
 	}: {
 		data: MovieData | undefined;
 		error: Error | undefined;
-	} = useServiceCall(async () => await movieService.getMovie(movieId), []);
+	} = useServiceCall(async () => movieId && (await movieService.getMovie(movieId)), []);
 
 	if (movieError) return <Navigate to="/" />;
-
 	if (!movieData) return <LoadingIcon />;
 
-	const { ytsMovieData: yts } = movieData;
+	const { ytsMovieData: yts, /* movieData.reviewPagesCount: pagesCount */ } = movieData;
 	const pageBackground = stringOrPlaceholder(yts.largeScreenshotImage, moviePlaceholder);
 	const cover = stringOrPlaceholder(yts.cover, moviePlaceholder);
 
@@ -57,7 +54,7 @@ const MoviePage = () => {
 				quality={torrents[0].quality}
 			/>
 			<MovieInfo movieData={movieData} />
-			<Reviews movieId={yts.id} />
+			<Reviews movieId={yts.id} pagesCount={10 /*pagesCount*/} />
 		</Background>
 	);
 };
