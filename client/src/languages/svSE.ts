@@ -116,6 +116,9 @@ export const svSE: Dictionary = {
 	//Reviews
 	reviews: 'RECENSIONER',
 
+	//ReviewForm
+	sendReview: 'SKICKA',
+
 	// Alerts
 	alertLogout: 'Loggade ut',
 	alertSuccessPasswordResetLink: 'Återställ länk skickad! Kontrollera din inkorg.',
@@ -129,7 +132,8 @@ export const svSE: Dictionary = {
 	alertInvalidPasswordResetLink: 'Ogiltig återställningslänk. Var god försök igen.',
 	alertPasswordResetSuccess: 'Lösenordet har ändrats!',
 	alertPasswordResetError: 'Det gick inte att återställa lösenordet. Var god försök igen.',
-	alertMissingMovieId: 'Missing movie id', // <- ENG
+	alertMissingMovieId: 'Saknar film-id',
+	alertPostReviewError: 'Ett fel uppstod, försök igen.',
 
 	// AxiosError
 	axiosNetworkError: 'Nätverksfel',
@@ -190,7 +194,7 @@ export const svSE: Dictionary = {
 	errorParsingSearchQuery: 'Error parsing search query',
 
 	//movie.ts
-	movieMovieNotFound: 'Movie not found', // <- ENG
+	movieMovieNotFound: 'Filmen hittades inte',
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Saknar återställningskod',

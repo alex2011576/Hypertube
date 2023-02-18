@@ -116,6 +116,9 @@ export const ruRU: Dictionary = {
 	//Reviews
 	reviews: 'ОТЗЫВЫ',
 
+	//ReviewForm
+	sendReview: 'ОТПРАВИТЬ',
+
 	// Alerts
 	alertLogout: 'Выход осуществлен',
 	alertSuccessPasswordResetLink: 'Ссылка выслана! Пожалуйста проверьте почтовый ящик.',
@@ -131,6 +134,7 @@ export const ruRU: Dictionary = {
 	alertPasswordResetSuccess: 'Пароль успешно изменен!',
 	alertPasswordResetError: 'Не получилось сменить пароль. Пожалуйста попробуйте снова.',
 	alertMissingMovieId: 'Номер фильма отсутствует',
+	alertPostReviewError: 'Произошла ошибка, попробуйте снова.',
 
 	// AxiosError
 	axiosNetworkError: 'Ошибка подключения',

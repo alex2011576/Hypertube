@@ -114,6 +114,9 @@ export const enUS: Dictionary = {
 	//Reviews
 	reviews: 'WHAT ARE PEOPLE SAYING?',
 
+	//ReviewForm
+	sendReview: 'SEND',
+
 	// Alerts
 	alertLogout: 'Logged out',
 	alertSuccessPasswordResetLink: 'Reset link sent! Please check your inbox.',
@@ -128,7 +131,8 @@ export const enUS: Dictionary = {
 	alertPasswordResetSuccess: 'Password changed successfully!',
 	alertPasswordResetError: 'Unable to reset password. Please try again.',
 	alertMissingMovieId: 'Missing movie id',
-
+	alertPostReviewError: 'Error sending a review, please try again.',
+	
 	// AxiosError
 	axiosNetworkError: 'Network error',
 
