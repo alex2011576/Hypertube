@@ -50,7 +50,7 @@ const MoviePage = () => {
 	return (
 		<Background src={pageBackground}>
 			<Player
-				id={yts.imdbCode}
+				imdbCode={yts.imdbCode}
 				quality={quality.value || torrents[0].quality}
 				light={pageBackground}
 			/>
