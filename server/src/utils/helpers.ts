@@ -121,10 +121,39 @@ export const checkFileSize = (filePath: string) => {
 		const stats = fs.statSync(`${filePath}`);
 		return stats.size;
 	};
-	
+
 	if (fs.existsSync(`${filePath}`)) {
 		return checkFileSize();
-	} 
+	}
 	console.log('no file');
 	return 0;
+};
+
+export const fileIsDownloading = async (filePath: string) => {
+	return new Promise((resolve, _reject) => {
+		let resolved = false;
+		let watcher: fs.FSWatcher | null = null;
+
+		const timeout = setTimeout(() => {
+			if (!resolved) {
+				if (watcher) watcher.close();
+				resolved = true;
+				resolve(false);
+			}
+		}, 30000);
+
+		if (fs.existsSync(`${filePath}`)) {
+			watcher = fs.watch(`${filePath}`, (eventType, _filename) => {
+				if (eventType === 'change') {
+					console.log('File is being downloaded');
+					if (watcher) watcher.close();
+					if (!resolved) {
+						resolved = true;
+						clearTimeout(timeout);
+						resolve(true);
+					}
+				}
+			});
+		}
+	});
 };
