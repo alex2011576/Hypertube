@@ -5,7 +5,6 @@ import { ReviewType, NewReviewType, GetReviewsData, ReviewAndTotalCount } from '
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const reviewsMapper = (row: any): ReviewType => {
 	return {
-		
 		text: getString(row['text']),
 		rating: getNumber(row['rating']),
 		userId: getString(row['user_id']),
