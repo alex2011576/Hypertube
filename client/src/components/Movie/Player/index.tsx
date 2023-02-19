@@ -59,7 +59,6 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 	};
 
 	if (movieData) console.log(`${movieData.progress}`);
-
 	return (
 		<PlayerWrapper state={state} ref={wrapperRef}>
 			{loading ? (
