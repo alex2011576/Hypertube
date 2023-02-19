@@ -27,7 +27,10 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 	}: {
 		data?: StreamStatus;
 		loading: boolean;
-	} = useServiceCall(async () => await streamService.getMovieStatus(imdbCode, quality), []);
+	} = useServiceCall(
+		async () => await streamService.getMovieStatus(imdbCode, quality),
+		[quality]
+	);
 
 	const handlePreview = () => {
 		dispatch({ type: 'TOGGLE_PLAY' });
