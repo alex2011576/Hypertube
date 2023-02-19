@@ -1,9 +1,12 @@
 //prettier-ignore
 import { Box, styled, Paper, IconButton, InputBase, ToggleButton, Autocomplete, TextField } from '@mui/material';
-import { genres, sortCriteria } from './autocompleteOptions';
+//prettier-ignore
+import { genresEn, genresRu, genresSv, sortCriteriaEn, sortCriteriaRu, sortCriteriaSv } from './autocompleteOptions';
 import { SetStateAction } from 'react';
 import { SearchQuery } from '../../types';
+import { useStateValue } from '../../state';
 import SearchIcon from '@mui/icons-material/Search';
+import Text from '../Text';
 
 const autocompleteStyle = { minWidth: '130px', pb: '0.8rem' };
 
@@ -47,6 +50,34 @@ const SelectorsWrapper = styled(Box)`
 	}
 `;
 
+const getTranslatedLabels = (userLanguage: string) => {
+	if (userLanguage === 'svSE') {
+		return {
+			genreOptions: genresSv,
+			sortOptions: sortCriteriaSv,
+			genreLabel: 'Genre',
+			sortLabel: 'Sortera Efter',
+			searchLabel: 'Sök'
+		};
+	} else if (userLanguage === 'ruRU') {
+		return {
+			genreOptions: genresRu,
+			sortOptions: sortCriteriaRu,
+			genreLabel: 'Жанр',
+			sortLabel: 'Сорт',
+			searchLabel: 'Поиск'
+		};
+	} else {
+		return {
+			genreOptions: genresEn,
+			sortOptions: sortCriteriaEn,
+			genreLabel: 'Genre',
+			sortLabel: 'Sort By',
+			searchLabel: 'Search'
+		};
+	}
+};
+
 export default function SearchField({
 	searchQuery,
 	setSearchQuery
@@ -54,11 +85,16 @@ export default function SearchField({
 	searchQuery: SearchQuery;
 	setSearchQuery: (searchQuery: SearchQuery) => void;
 }) {
+	const [{ loggedUser }] = useStateValue();
+	const userLanguage = loggedUser?.language || 'enUS';
+	const { genreOptions, sortOptions, genreLabel, sortLabel, searchLabel } =
+		getTranslatedLabels(userLanguage);
+
 	const handleChange = (event: { target: { value: SetStateAction<string> } }) => {
 		const queryTerm = event.target.value as string;
 		queryTerm.length
-			? setSearchQuery({ ...searchQuery, queryTerm, sortBy: 'Title' })
-			: setSearchQuery({ ...searchQuery, queryTerm: '', sortBy: 'Rating' });
+			? setSearchQuery({ ...searchQuery, queryTerm, sortBy: 'title' })
+			: setSearchQuery({ ...searchQuery, queryTerm: '', sortBy: 'rating' });
 	};
 
 	return (
@@ -67,20 +103,21 @@ export default function SearchField({
 				<IconButton>
 					<SearchIcon />
 				</IconButton>
-				<InputBase onChange={handleChange} placeholder="Search" fullWidth />
+				<InputBase onChange={handleChange} placeholder={searchLabel} fullWidth />
 			</InputField>
 			<SelectorsWrapper>
 				<InputField sx={{ mr: { md: '10px' } }}>
 					<Autocomplete
 						onChange={(_event, value) =>
-							setSearchQuery({ ...searchQuery, genre: value || '' })
+							setSearchQuery({ ...searchQuery, genre: value?.value || '' })
 						}
-						options={genres}
+						options={genreOptions}
+						getOptionLabel={(option) => option.key || ''}
 						fullWidth
 						renderInput={(params) => (
 							<TextField
 								{...params}
-								label="Genre"
+								label={genreLabel}
 								variant="standard"
 								sx={autocompleteStyle}
 								InputProps={{
@@ -94,16 +131,19 @@ export default function SearchField({
 				<SortSelectorRow>
 					<InputField>
 						<Autocomplete
-							value={searchQuery.sortBy}
 							onChange={(_event, value) =>
-								setSearchQuery({ ...searchQuery, sortBy: value || 'Title' })
+								setSearchQuery({
+									...searchQuery,
+									sortBy: value?.value || 'Title'
+								})
 							}
-							options={sortCriteria}
+							options={sortOptions}
+							getOptionLabel={(option) => option.key || ''}
 							fullWidth
 							renderInput={(params) => (
 								<TextField
 									{...params}
-									label="Sort by"
+									label={sortLabel}
 									variant="standard"
 									sx={autocompleteStyle}
 									InputProps={{
@@ -125,7 +165,7 @@ export default function SearchField({
 							});
 						}}
 					>
-						Reverse
+						<Text tid="reverse" />
 					</ReverseButton>
 				</SortSelectorRow>
 			</SelectorsWrapper>

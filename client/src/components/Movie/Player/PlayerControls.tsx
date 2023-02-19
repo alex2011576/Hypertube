@@ -1,10 +1,9 @@
 import * as React from 'react';
 import PauseRounded from '@mui/icons-material/PauseRounded';
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded';
-import { IconButton, Slider, Stack, styled, Typography } from '@mui/material';
+import { IconButton, Slider, Stack, styled } from '@mui/material';
 import { ReactPlayerProps } from 'react-player';
-import { FullscreenRounded, VolumeDownRounded, VolumeUpRounded } from '@mui/icons-material';
-import { findDOMNode } from 'react-dom';
+import { VolumeDownRounded, VolumeUpRounded } from '@mui/icons-material';
 
 const StyledPlayerControls = styled('div')`
 	position: absolute;

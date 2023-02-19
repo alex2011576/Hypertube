@@ -12,6 +12,7 @@ export const ruRU: Dictionary = {
 	textFieldLastName: 'Фамилия',
 	passwordTooltip:
 		'Длина пароля минимум 8 символов, должен содержать одну заглавную и одну строчную букву, цифру и символ.',
+	textFieldReview: 'Оставить рецензию',
 
 	// Checkbox
 	showPassword: 'Показать пароль',
@@ -64,7 +65,7 @@ export const ruRU: Dictionary = {
 	profileButtonSetPassword: 'SET PASSWORD',
 	profielButtonCancel: 'ОТМЕНА',
 	profielButtonSend: 'ОК',
-	profileEmailTitle: 'Change email',
+	profileEmailTitle: 'Изменить имейл',
 	profileEmailInfoText:
 		'Ссылка для активации будет выслана на указанный имейл адрес. Пожалуйста пройдите по ссылке чтобы сменить имейл адрес.',
 	profilePasswordTitle: 'Изменить пароль',
@@ -96,11 +97,28 @@ export const ruRU: Dictionary = {
 	invalidPassword: 'Неверный формат',
 	invalidEmail: 'Неверный формат',
 	incorrectField: 'Неверный формат',
+	tooLongInput: 'Максимум 300 символов',
 
 	// Movies
 	moviesError: 'Произошла ошибка, Пожалуйста попробуйте снова',
 
-	//Movie
+	//SearchField
+	search: 'Поиск',
+	reverse: 'Реверс',
+
+	//Plot
+	plot: 'СЮЖЕТ',
+
+	//Creators
+	director: 'Режиссер',
+	writer: 'Сценарист',
+	actors: 'Актеры',
+
+	//Reviews
+	reviews: 'ОТЗЫВЫ',
+
+	//ReviewForm
+	sendReview: 'ОТПРАВИТЬ',
 
 	// Alerts
 	alertLogout: 'Выход осуществлен',
@@ -117,10 +135,10 @@ export const ruRU: Dictionary = {
 	alertPasswordResetSuccess: 'Пароль успешно изменен!',
 	alertPasswordResetError: 'Не получилось сменить пароль. Пожалуйста попробуйте снова.',
 	alertMissingMovieId: 'Номер фильма отсутствует',
-	alertLoginSuccessPasswordNotSet: 'Logged in successfully. Please set your password.', // NEW
+	alertPostReviewError: 'Произошла ошибка, попробуйте снова.',
 
 	// AxiosError
-	axiosNetworkError: 'Ошибка связи',
+	axiosNetworkError: 'Ошибка подключения',
 
 	// AuthError
 	authError: 'Сессия истекла, пожалуйста войдите снова.',

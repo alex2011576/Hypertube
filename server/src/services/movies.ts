@@ -23,18 +23,17 @@ type YTSMovie = {
 
 
 const getOrder = (sortBy: string, reverseOrder: boolean): string => {
-	if (sortBy === 'Title') return reverseOrder ? 'desc' : 'asc';
+	if (sortBy === 'title') return reverseOrder ? 'desc' : 'asc';
 	else return reverseOrder ? 'asc' : 'desc';
 };
 
 export const getMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnail[]> => {
 	try {
 		const { queryTerm, genre, sortBy, reverseOrder, page, limit } = searchQuery;
-		const sortCriteria = sortBy === 'Downloads' ? 'download_count' : sortBy.toLowerCase();
 		const order = getOrder(sortBy, reverseOrder);
 
 		const response = await axios.get<YTSPayload>(`https://yts.torrentbay.to/api/v2/list_movies.json`, {
-			params: { page: page, limit: limit, query_term: queryTerm, genre: genre, sort_by: sortCriteria, order_by: order }
+			params: { page: page, limit: limit, query_term: queryTerm, genre: genre, sort_by: sortBy, order_by: order }
 		});
 
 		const movies = response.data.data.movies;

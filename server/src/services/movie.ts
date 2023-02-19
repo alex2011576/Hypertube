@@ -26,7 +26,7 @@ type YTSMoviePayload = {
 	language: string;
 	large_screenshot_image1: string;
 	background_image: string;
-	// quality: string[];
+	torrents: { quality: string; seeds: number; peers: number }[];
 };
 
 const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<YtsMovieData | undefined> => {
@@ -36,6 +36,10 @@ const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<Yts
 		});
 
 		const movie: YTSMoviePayload = ytsPayload.data.data.movie;
+		const torrents = movie.torrents.map((torrent) => {
+			return { seeds: torrent.seeds, peers: torrent.peers, quality: torrent.quality };
+		});
+
 		const ytsMovieData: YtsMovieData = {
 			id: movie.id,
 			imdbCode: movie.imdb_code || '',
@@ -53,7 +57,8 @@ const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<Yts
 			likeCount: movie.like_count || 0,
 			language: movie.language || '',
 			largeScreenshotImage: movie.large_screenshot_image1 || '',
-			backgroundImage: movie.background_image || ''
+			backgroundImage: movie.background_image || '',
+			torrents
 		};
 
 		return ytsMovieData;

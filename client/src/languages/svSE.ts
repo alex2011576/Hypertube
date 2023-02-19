@@ -12,6 +12,7 @@ export const svSE: Dictionary = {
 	textFieldLastName: 'Efternamn',
 	passwordTooltip:
 		'Lösenordet ska vara minst 8 tecken lång, innehålla minst en stor och liten bokstav, siffror och symboler',
+	textFieldReview: 'Lämna din recension',
 
 	// Checkbox
 	showPassword: 'Visa lösenord',
@@ -97,11 +98,27 @@ export const svSE: Dictionary = {
 	invalidPassword: 'Kontrollera lösenordet',
 	invalidEmail: 'Ogiltigt e-postformat',
 	incorrectField: 'Ogiltigt fält',
+	tooLongInput: 'Max 300 tecken',
 
 	// Movies
 	moviesError: 'Ett fel uppstod, försök igen',
 
-	//Movie
+	//SearchField
+	reverse: 'Omvänd',
+
+	//Plot
+	plot: 'PLOT',
+
+	//Creators
+	director: 'Regisserad av',
+	writer: 'Skriven av',
+	actors: 'Skådespelare',
+
+	//Reviews
+	reviews: 'RECENSIONER',
+
+	//ReviewForm
+	sendReview: 'SKICKA',
 
 	// Alerts
 	alertLogout: 'Loggade ut',
@@ -116,8 +133,8 @@ export const svSE: Dictionary = {
 	alertInvalidPasswordResetLink: 'Ogiltig återställningslänk. Var god försök igen.',
 	alertPasswordResetSuccess: 'Lösenordet har ändrats!',
 	alertPasswordResetError: 'Det gick inte att återställa lösenordet. Var god försök igen.',
-	alertMissingMovieId: 'Film-id saknas',
-	alertLoginSuccessPasswordNotSet: 'Inloggad. Vänligen ange ditt lösenord.',
+	alertMissingMovieId: 'Saknar film-id',
+	alertPostReviewError: 'Ett fel uppstod, försök igen.',
 
 	// AxiosError
 	axiosNetworkError: 'Nätverksfel',
@@ -177,6 +194,7 @@ export const svSE: Dictionary = {
 	movieMovieNotFound: 'Filmen hittades inte',
 	moviesUserNotLoggedIn: 'Användaren är inte inloggad',
 	errorParsingSearchQuery: 'Error parsing search query',
+<<<<<<< HEAD
 	movieReviewsNotFound: 'Recensioner hittades inte',
 	movieReviewsPageInvalidType: 'Ogiltig sidtyp',
 
@@ -188,6 +206,11 @@ export const svSE: Dictionary = {
 	movieReviewRatingMissing: 'Recensionsbetyg saknas',
 	movieReviewRatingOutOfRange: 'Recensionenbetyg utanför intervall (0–5)',
 	movieMovieIdMissing: 'Film-id saknas',
+=======
+
+	//movie.ts
+	movieMovieNotFound: 'Filmen hittades inte',
+>>>>>>> Ilona
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Saknar återställningskod',

@@ -12,7 +12,7 @@ export const enUS: Dictionary = {
 	textFieldLastName: 'Last Name',
 	passwordTooltip:
 		'Password should be at least 8 characters long, contain at least one uppercase and lowercase letter, number and symbols',
-
+	textFieldReview: 'Leave your review',
 	// Checkbox
 	showPassword: 'Show password',
 	showPasswords: 'Show passwords',
@@ -96,11 +96,27 @@ export const enUS: Dictionary = {
 	invalidPassword: 'Check the input',
 	invalidEmail: 'Incorrect email format',
 	incorrectField: 'Incorrect field',
+	tooLongInput: 'Maximum 300 characters',
 
 	// Movies
 	moviesError: 'Error occurred, please try again',
 
-	//Movie
+	//SearchField
+	reverse: 'Reverse',
+
+	//Plot
+	plot: 'PLOT',
+
+	//Creators
+	director: 'Directed by',
+	writer: 'Written by',
+	actors: 'Cast',
+
+	//Reviews
+	reviews: 'WHAT ARE PEOPLE SAYING?',
+
+	//ReviewForm
+	sendReview: 'SEND',
 
 	// Alerts
 	alertLogout: 'Logged out',
@@ -116,8 +132,8 @@ export const enUS: Dictionary = {
 	alertPasswordResetSuccess: 'Password changed successfully!',
 	alertPasswordResetError: 'Unable to reset password. Please try again.',
 	alertMissingMovieId: 'Missing movie id',
-	alertLoginSuccessPasswordNotSet: 'Logged in successfully. Please set your password.',
-
+	alertPostReviewError: 'Error sending a review, please try again.',
+	
 	// AxiosError
 	axiosNetworkError: 'Network error',
 

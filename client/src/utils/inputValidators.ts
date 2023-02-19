@@ -50,6 +50,12 @@ export const validateLastname = (input: string) => {
 	return undefined;
 };
 
+export const validateReview = (input: string) => {
+	let trimmedInput = input.trim();
+	if (trimmedInput.length > 300) return 'tooLongInput';
+	return undefined;
+};
+
 export const validateSignUpForm = (
 	username: string,
 	email: string,
