@@ -1,6 +1,6 @@
 import pool from '../db';
 import { getString, getNumber, getStringOrUndefined } from '../dbUtils';
-import { ReviewType, NewReviewType, GetReviewsData, ReviewAndTotalCount } from '../types';
+import { ReviewType, NewReviewType, GetReviewsData } from '../types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const reviewsMapper = (row: any): ReviewType => {
@@ -13,7 +13,16 @@ const reviewsMapper = (row: any): ReviewType => {
 	};
 };
 
-const getReviews = async (data: GetReviewsData): Promise<ReviewAndTotalCount | undefined> => {
+const getTotalReviewsCount = async (ytsMovieId: string): Promise<number>  => {
+	const query = {
+		text: 'select count(*) from reviews where yts_id = $1',
+		values: [ytsMovieId]
+	};
+	const res = await pool.query(query);
+	return Number(res.rows[0].count);
+};
+
+const getReviews = async (data: GetReviewsData): Promise<ReviewType[] | undefined> => {
 	const query = {
 		text:	`select text, rating, user_id,
 					(select username from users where id = user_id) as username,
@@ -27,7 +36,7 @@ const getReviews = async (data: GetReviewsData): Promise<ReviewAndTotalCount | u
 	if (!res.rowCount) {
 		return undefined;
 	}
-	return ({review: res.rows.map((row) =>  reviewsMapper(row)), totalCount: res.rowCount});
+	return (res.rows.map((row) =>  reviewsMapper(row)));
 };
 
 const addReview = async (data: NewReviewType) => {
@@ -40,5 +49,6 @@ const addReview = async (data: NewReviewType) => {
 
 export {
 	getReviews,
-	addReview
+	addReview,
+	getTotalReviewsCount
 };
