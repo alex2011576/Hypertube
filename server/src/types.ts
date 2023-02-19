@@ -203,7 +203,7 @@ export type ReviewType = {
 };
 
 export type ReviewAndTotalCount = {
-	review: ReviewType[];
+	reviews: ReviewType[] | undefined;
 	totalCount: number;
 };
 
