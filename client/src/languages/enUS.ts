@@ -123,6 +123,7 @@ export const enUS: Dictionary = {
 	alertSuccessPasswordResetLink: 'Reset link sent! Please check your inbox.',
 	alertErrorPasswordResetLink: 'Unable to send a link. Please try again.',
 	alertLoginSuccess: 'Logged in successfully. Welcome!',
+	alertLoginSuccessPasswordNotSet: 'Logged in successfully. Please set your password.',
 	alertLoginError: 'Unable to login. Please try again.',
 	alertAccountActivated: 'Account activated successfully!',
 	alertErrorOccured: 'Error occurred, please try again.',

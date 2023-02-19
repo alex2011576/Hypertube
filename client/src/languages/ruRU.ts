@@ -125,6 +125,7 @@ export const ruRU: Dictionary = {
 	alertSuccessPasswordResetLink: 'Ссылка выслана! Пожалуйста проверьте почтовый ящик.',
 	alertErrorPasswordResetLink: 'Произошла ошибка. Пожалуйста попробуйте снова.',
 	alertLoginSuccess: 'Вход осуществлен. Добро пожаловать!',
+	alertLoginSuccessPasswordNotSet: 'Logged in successfully. Please set your password.', // NEW
 	alertLoginError: 'Ошибка входа Пожалуйста попробуйте снова.',
 	alertAccountActivated: 'Аккаунт успешно активирован!',
 	alertErrorOccured: 'Произошла ошибка, Пожалуйста попробуйте снова.',
@@ -186,6 +187,20 @@ export const ruRU: Dictionary = {
 	tokenEmailMissing: 'Токен отсутствует',
 	tokenEmailInvalid: 'Неверный токен для смены имейла',
 	tokenEmailInvalidFormat: 'Формат кода для смены имейла неверен',
+
+	// imageValidation
+	imageInvalidFormat: 'Invalid images format! Image is not an Image Data URI', // NEW
+	imageInvalidType:
+		'Invalid images format! Allowed types: "image/jpeg", "image/png", "image/jpg"', // NEW
+	ImageSizeTooBig: 'Invalid images format! Image is too big: 25mb max', // NEW
+	imageCorrupted: 'Invalid images format! Image is corrupted', // NEW
+	imageTooSmall: 'Invalid images format! Image is too small. Min 10x10 pixels', // NEW
+	imageTooBig: 'Invalid images format! Image is too big. Max 6000x4000 pixels', // NEW
+	imageAspectRatio: 'Invalid images format! Image is of unacceptable ratio.', // NEW
+
+	// middleware.ts
+	sessionTokenMissing: 'Access denied, no token provided', // NEW
+	sessionNotFound: 'No sessions found or expired', // NEW
 
 	// userRepository.ts
 	userNameExists: 'Имя пользователя занято',
