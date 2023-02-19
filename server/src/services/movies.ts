@@ -1,5 +1,5 @@
 import { SearchQuery, MovieThumbnail, NewReviewType, GetReviewsData, ReviewAndTotalCount } from '../types';
-import { getReviews, addReview } from '../repositories/movieRepository';
+import { getReviews, addReview, getTotalReviewsCount } from '../repositories/movieRepository';
 import axios from 'axios';
 
 type YTSPayload = {
@@ -59,7 +59,9 @@ export const getMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnai
 };
 
 export const getMovieReviews = async (data: GetReviewsData): Promise<ReviewAndTotalCount | undefined> => {
-	return(await getReviews(data));
+	const reviews = await getReviews(data);
+	const totalCount = await getTotalReviewsCount(data.ytsMovieId);
+	return({reviews: reviews, totalCount: totalCount});
 };
 
 export const addMovieReview = async (data: NewReviewType) => {
