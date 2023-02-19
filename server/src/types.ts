@@ -15,9 +15,9 @@ export type NewUser = BaseUser & { passwordPlain: string; language: LanguageOpti
 export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string; language: LanguageOption };
 
 export type User42 = BaseUser & { id42: number; avatar: string | undefined };
-export type New42UserWithHashedPwd = BaseUser & { passwordHash: string; id42: number; activationCode: string; avatar: string | undefined | null };
+export type New42User = BaseUser & { id42: number; activationCode: string; avatar: string | undefined | null };
 export type UserGitHub = BaseUser & { idGitHub: number; avatar: string | undefined | null };
-export type NewGHUserWithHashedPwd = BaseUser & { passwordHash: string; idGitHub: number; activationCode: string; avatar: string | undefined | null };
+export type NewGHUser = BaseUser & { idGitHub: number; activationCode: string; avatar: string | undefined | null };
 
 export type LoggedUser = BaseUser & { id: string };
 
@@ -186,8 +186,33 @@ export type StreamContent = {
 };
 
 export type StreamStatus = {
-    ready: boolean;
-    progress: string;
-    downloaded?: string;
-    info?: string;
+	ready: boolean;
+	progress: string;
+	downloaded?: string;
+	info?: string;
+};
+
+export type ReviewType = {
+	text: string;
+	rating: number;
+	userId: string;
+	username: string;
+	photo: string | undefined;
+};
+
+export type ReviewAndTotalCount = {
+	review: ReviewType[];
+	totalCount: number;
+};
+
+export type GetReviewsData = {
+	ytsMovieId: string;
+	page: number;
+};
+
+export type NewReviewType = {
+	text: string;
+	rating: number;
+	userId: string;
+	ytsId: string;
 };
