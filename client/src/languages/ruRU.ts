@@ -117,7 +117,7 @@ export const ruRU: Dictionary = {
 	alertPasswordResetSuccess: 'Пароль успешно изменен!',
 	alertPasswordResetError: 'Не получилось сменить пароль. Пожалуйста попробуйте снова.',
 	alertMissingMovieId: 'Номер фильма отсутствует',
-	alertLoginSuccessPasswordNotSet: 'Logged in successfully. Please set your password.',
+	alertLoginSuccessPasswordNotSet: 'Logged in successfully. Please set your password.', // NEW
 
 	// AxiosError
 	axiosNetworkError: 'Ошибка связи',
@@ -173,12 +173,21 @@ export const ruRU: Dictionary = {
 	userNameExists: 'Имя пользователя занято',
 	emailExists: 'Этот адрес уже занят',
 
-	// movies.ts
+	// routes/movies.ts
+	movieMovieNotFound: 'Фильм не найден.',
 	moviesUserNotLoggedIn: 'Пожалуйста войдите в свой аккаунт',
 	errorParsingSearchQuery: 'Ошибка обрботки поискового запроса',
+	movieReviewsNotFound: 'Reviews not found', // NEW
+	movieReviewsPageInvalidType: 'Invalid page type', // NEW
 
-	//movie.ts
-	movieMovieNotFound: 'Фильм не найден.',
+	// validator/reviewPayloadValidators.ts
+	movieReviewTextNotString: 'Review text invalid type', // NEW
+	movieReviewTextMissing: 'Review text is missing', // NEW
+	movieReviewTextTooLong: 'Review text is too long', // NEW
+	movieReviewRatingNotNumber: 'Review rating invalid type', // NEW
+	movieReviewRatingMissing: 'Review rating is missing', // NEW
+	movieReviewRatingOutOfRange: 'Review rating is out of range (0 - 5)', // NEW
+	movieMovieIdMissing: 'Movie id is missing', // NEW
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Код активации отсутствует',

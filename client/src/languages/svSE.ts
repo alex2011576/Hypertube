@@ -116,8 +116,8 @@ export const svSE: Dictionary = {
 	alertInvalidPasswordResetLink: 'Ogiltig återställningslänk. Var god försök igen.',
 	alertPasswordResetSuccess: 'Lösenordet har ändrats!',
 	alertPasswordResetError: 'Det gick inte att återställa lösenordet. Var god försök igen.',
-	alertMissingMovieId: 'Missing movie id', // <- ENG
-	alertLoginSuccessPasswordNotSet: 'Logged in successfully. Please set your password.',
+	alertMissingMovieId: 'Film-id saknas',
+	alertLoginSuccessPasswordNotSet: 'Inloggad. Vänligen ange ditt lösenord.',
 
 	// AxiosError
 	axiosNetworkError: 'Nätverksfel',
@@ -173,12 +173,21 @@ export const svSE: Dictionary = {
 	userNameExists: 'Användarnamn existerar redan',
 	emailExists: 'Denna e-post har redan använts',
 
-	// movies.ts
+	// routes/movies.ts
+	movieMovieNotFound: 'Filmen hittades inte',
 	moviesUserNotLoggedIn: 'Användaren är inte inloggad',
 	errorParsingSearchQuery: 'Error parsing search query',
+	movieReviewsNotFound: 'Recensioner hittades inte',
+	movieReviewsPageInvalidType: 'Ogiltig sidtyp',
 
-	//movie.ts
-	movieMovieNotFound: 'Movie not found', // <- ENG
+	// validator/reviewPayloadValidators.ts
+	movieReviewTextNotString: 'Recensiontext ogiltig typ',
+	movieReviewTextMissing: 'Recensionstext saknas',
+	movieReviewTextTooLong: 'Recensionstexten är för lång',
+	movieReviewRatingNotNumber: 'Recensionsbetyg ogiltig typ',
+	movieReviewRatingMissing: 'Recensionsbetyg saknas',
+	movieReviewRatingOutOfRange: 'Recensionenbetyg utanför intervall (0–5)',
+	movieMovieIdMissing: 'Film-id saknas',
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Saknar återställningskod',

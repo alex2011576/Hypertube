@@ -186,12 +186,21 @@ export const enUS: Dictionary = {
 	userNameExists: 'Username already exists',
 	emailExists: 'This email was already used',
 
-	// movies.ts
+	// routes/movies.ts
+	movieMovieNotFound: 'Movie not found.',
 	moviesUserNotLoggedIn: 'User is not logged in',
 	errorParsingSearchQuery: 'Error parsing search query',
+	movieReviewsNotFound: 'Reviews not found', // NEW
+	movieReviewsPageInvalidType: 'Invalid page type', // NEW
 
-	//movie.ts
-	movieMovieNotFound: 'Movie not found.',
+	// validator/reviewPayloadValidators.ts
+	movieReviewTextNotString: 'Review text invalid type', // NEW
+	movieReviewTextMissing: 'Review text is missing', // NEW
+	movieReviewTextTooLong: 'Review text is too long', // NEW
+	movieReviewRatingNotNumber: 'Review rating invalid type', // NEW
+	movieReviewRatingMissing: 'Review rating is missing', // NEW
+	movieReviewRatingOutOfRange: 'Review rating is out of range (0 - 5)', // NEW
+	movieMovieIdMissing: 'Movie id is missing', // NEW
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Missing activation code',
