@@ -99,6 +99,7 @@ export const svSE: Dictionary = {
 	invalidEmail: 'Ogiltigt e-postformat',
 	incorrectField: 'Ogiltigt fält',
 	tooLongInput: 'Max 300 tecken',
+	emptyField: 'Tomt fält', //NEW
 
 	// Movies
 	moviesError: 'Ett fel uppstod, försök igen',
