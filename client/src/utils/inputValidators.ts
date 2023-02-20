@@ -52,6 +52,7 @@ export const validateLastname = (input: string) => {
 
 export const validateReview = (input: string) => {
 	let trimmedInput = input.trim();
+	if (!trimmedInput.length) return 'emptyField';
 	if (trimmedInput.length > 300) return 'tooLongInput';
 	return undefined;
 };
