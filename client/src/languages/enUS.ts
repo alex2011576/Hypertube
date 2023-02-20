@@ -61,6 +61,7 @@ export const enUS: Dictionary = {
 		'(Jpeg, jpg or png\nMinimum 100 x 100 pixels\nMaximum 6000x4000 pixels\nMax 25Mb)',
 	profileButtonChangeEmail: 'CHANGE EMAIL',
 	profileButtonChangePassword: 'CHANGE PASSWORD',
+	profileButtonSetPassword: 'SET PASSWORD',
 	profielButtonCancel: 'CANCEL',
 	profielButtonSend: 'SEND',
 	profileEmailTitle: 'Change email',
@@ -122,6 +123,7 @@ export const enUS: Dictionary = {
 	alertSuccessPasswordResetLink: 'Reset link sent! Please check your inbox.',
 	alertErrorPasswordResetLink: 'Unable to send a link. Please try again.',
 	alertLoginSuccess: 'Logged in successfully. Welcome!',
+	alertLoginSuccessPasswordNotSet: 'Logged in successfully. Please set your password.',
 	alertLoginError: 'Unable to login. Please try again.',
 	alertAccountActivated: 'Account activated successfully!',
 	alertErrorOccured: 'Error occurred, please try again.',
@@ -201,12 +203,21 @@ export const enUS: Dictionary = {
 	userNameExists: 'Username already exists',
 	emailExists: 'This email was already used',
 
-	// movies.ts
+	// routes/movies.ts
+	movieMovieNotFound: 'Movie not found.',
 	moviesUserNotLoggedIn: 'User is not logged in',
 	errorParsingSearchQuery: 'Error parsing search query',
+	movieReviewsNotFound: 'Reviews not found', // NEW
+	movieReviewsPageInvalidType: 'Invalid page type', // NEW
 
-	//movie.ts
-	movieMovieNotFound: 'Movie not found.',
+	// validator/reviewPayloadValidators.ts
+	movieReviewTextNotString: 'Review text invalid type', // NEW
+	movieReviewTextMissing: 'Review text is missing', // NEW
+	movieReviewTextTooLong: 'Review text is too long', // NEW
+	movieReviewRatingNotNumber: 'Review rating invalid type', // NEW
+	movieReviewRatingMissing: 'Review rating is missing', // NEW
+	movieReviewRatingOutOfRange: 'Review rating is out of range (0 - 5)', // NEW
+	movieMovieIdMissing: 'Movie id is missing', // NEW
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Missing activation code',

@@ -62,6 +62,7 @@ export const svSE: Dictionary = {
 		'(Jpeg, jpg eller png\nMinimum 100 x 100 pixlar\nMaximum 6000x4000 pixlar\nMax 25Mb)',
 	profileButtonChangeEmail: 'ÄNDRA E-POST',
 	profileButtonChangePassword: 'ÄNDRA LÖSENORD',
+	profileButtonSetPassword: 'STÄLL IN LÖSENORD',
 	profielButtonCancel: 'AVBRYT',
 	profielButtonSend: 'SKICKA',
 	profileEmailTitle: 'Ändra e-post',
@@ -124,6 +125,7 @@ export const svSE: Dictionary = {
 	alertSuccessPasswordResetLink: 'Återställ länk skickad! Kontrollera din inkorg.',
 	alertErrorPasswordResetLink: 'Det gick inte att skicka länken. Var god försök igen.',
 	alertLoginSuccess: 'Inloggad. Välkommen!',
+	alertLoginSuccessPasswordNotSet: 'Inloggad. Vänligen ange ditt lösenord.',
 	alertLoginError: 'Kunde inte logga in. Var god försök igen.',
 	alertAccountActivated: 'Kontot har aktiverats!',
 	alertErrorOccured: 'Ett fel uppstod, försök igen.',
@@ -132,7 +134,7 @@ export const svSE: Dictionary = {
 	alertInvalidPasswordResetLink: 'Ogiltig återställningslänk. Var god försök igen.',
 	alertPasswordResetSuccess: 'Lösenordet har ändrats!',
 	alertPasswordResetError: 'Det gick inte att återställa lösenordet. Var god försök igen.',
-	alertMissingMovieId: 'Saknar film-id',
+	alertMissingMovieId: 'Film-id saknas',
 	alertPostReviewError: 'Ett fel uppstod, försök igen.',
 
 	// AxiosError
@@ -185,16 +187,39 @@ export const svSE: Dictionary = {
 	tokenEmailInvalid: 'E-poständringstoken är ogiltig',
 	tokenEmailInvalidFormat: 'E-poständringskodformat är ogiltigt',
 
+	// imageValidation
+	imageInvalidFormat: 'Ogiltigt bildformat! Bilden är inte en bilddata-URI',
+	imageInvalidType:
+		'Ogiltigt bildformat! Tillåtna typer: "image/jpeg", "image/png", "image/jpg"',
+	ImageSizeTooBig: 'Ogiltigt bildformat! Bilden är för stor: max 25mb',
+	imageCorrupted: 'Ogiltigt bildformat! Bilden är korrupt',
+	imageTooSmall: 'Ogiltigt bildformat! Bilden är för liten. Minst 10x10 pixlar',
+	imageTooBig: 'Ogiltigt bildformat! Bilden är för stor. Max 6000x4000 pixlar',
+	imageAspectRatio: 'Ogiltigt bildformat! Bilden har ett oacceptabelt bildformat',
+
+	// middleware.ts
+	sessionTokenMissing: 'Åtkomst nekad, ingen token försedd',
+	sessionNotFound: 'Inga sessioner hittades eller har löpt ut',
+
 	// userRepository.ts
 	userNameExists: 'Användarnamn existerar redan',
 	emailExists: 'Denna e-post har redan använts',
 
-	// movies.ts
+	// routes/movies.ts
+	movieMovieNotFound: 'Filmen hittades inte',
 	moviesUserNotLoggedIn: 'Användaren är inte inloggad',
 	errorParsingSearchQuery: 'Error parsing search query',
+	movieReviewsNotFound: 'Recensioner hittades inte',
+	movieReviewsPageInvalidType: 'Ogiltig sidtyp',
 
-	//movie.ts
-	movieMovieNotFound: 'Filmen hittades inte',
+	// validator/reviewPayloadValidators.ts
+	movieReviewTextNotString: 'Recensiontext ogiltig typ',
+	movieReviewTextMissing: 'Recensionstext saknas',
+	movieReviewTextTooLong: 'Recensionstexten är för lång',
+	movieReviewRatingNotNumber: 'Recensionsbetyg ogiltig typ',
+	movieReviewRatingMissing: 'Recensionsbetyg saknas',
+	movieReviewRatingOutOfRange: 'Recensionenbetyg utanför intervall (0–5)',
+	movieMovieIdMissing: 'Film-id saknas',
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Saknar återställningskod',

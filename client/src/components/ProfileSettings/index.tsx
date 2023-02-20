@@ -1,13 +1,15 @@
 import { Paper, styled, Container, Box, Typography, Divider, Alert } from '@mui/material';
-import { getProfile, getPhoto } from '../../services/profile';
+import { getProfile, getPhoto, getIsPasswordSet  } from '../../services/profile';
 import { PhotoType, UserData } from '../../types';
 import { useServiceCall } from '../../hooks/useServiceCall';
 import { useStateValue } from '../../state';
 import UpdatePasswordForm from './UpdatePasswordForm';
 import UpdateEmailForm from './UpdateEmailForm';
+import SetPasswordForm from './SetPasswordForm';
 import withAuthRequired from '../AuthRequired';
 import ProfileForm from './ProfileForm';
 import Text from '../Text';
+import { useEffect, useState } from 'react';
 
 const StyledButtons = styled('div')(() => ({
 	background: 'white',
@@ -32,6 +34,18 @@ const StyledHeader = styled(Typography)(() => ({
 
 const ProfileEditor = () => {
 	const [{ loggedUser }] = useStateValue();
+	const [isPasswordSet, setIsPasswordSet] = useState(false);
+	const [isLoading, setIsloading] = useState(false);
+
+	useEffect(() => {
+		if (loggedUser) {
+			setIsloading(true);
+			(async function() {
+				setIsPasswordSet(await getIsPasswordSet(loggedUser.id))
+				setIsloading(false);
+			})();
+		}
+	}, [loggedUser]);
 
 	const {
 		data: profileData,
@@ -50,19 +64,19 @@ const ProfileEditor = () => {
 	);
 
 	if (profileError || photosError)
-		return (
-			<Alert severity="error">
-				<Text tid="profileLoadingError" />
-			</Alert>
-		);
+	return (
+		<Alert severity="error">
+			<Text tid="profileLoadingError" />
+		</Alert>
+	);
 
-	if (!profileData || !photosData) return <>loading</>;
+	if (!profileData || !photosData || isLoading) return <>loading</>;
 
 	const userData: UserData = {
 		username: profileData.username,
 		firstname: profileData.firstname,
 		lastname: profileData.lastname,
-		language: profileData.language
+		language: profileData.language,
 	};
 
 	return (
@@ -79,7 +93,7 @@ const ProfileEditor = () => {
 			<Paper sx={{ marginTop: 5 }}>
 				<StyledButtons>
 					<UpdateEmailForm />
-					<UpdatePasswordForm />
+					{isPasswordSet ? <UpdatePasswordForm /> : <SetPasswordForm setIsPasswordSet={setIsPasswordSet} /> }
 				</StyledButtons>
 			</Paper>
 		</Container>

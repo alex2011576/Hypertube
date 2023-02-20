@@ -62,6 +62,7 @@ export const ruRU: Dictionary = {
 		'(Jpeg, jpg or png\nМинимум 100 x 100 пикс.\nМаксимум 6000x4000 пикс.\nФайл не более 25Мб)',
 	profileButtonChangeEmail: 'ИЗМЕНИТЬ ИМЕЙЛ',
 	profileButtonChangePassword: 'ИЗМЕНИТЬ ПАРОЛЬ',
+	profileButtonSetPassword: 'SET PASSWORD',
 	profielButtonCancel: 'ОТМЕНА',
 	profielButtonSend: 'ОК',
 	profileEmailTitle: 'Изменить имейл',
@@ -124,6 +125,7 @@ export const ruRU: Dictionary = {
 	alertSuccessPasswordResetLink: 'Ссылка выслана! Пожалуйста проверьте почтовый ящик.',
 	alertErrorPasswordResetLink: 'Произошла ошибка. Пожалуйста попробуйте снова.',
 	alertLoginSuccess: 'Вход осуществлен. Добро пожаловать!',
+	alertLoginSuccessPasswordNotSet: 'Logged in successfully. Please set your password.', // NEW
 	alertLoginError: 'Ошибка входа Пожалуйста попробуйте снова.',
 	alertAccountActivated: 'Аккаунт успешно активирован!',
 	alertErrorOccured: 'Произошла ошибка, Пожалуйста попробуйте снова.',
@@ -186,16 +188,39 @@ export const ruRU: Dictionary = {
 	tokenEmailInvalid: 'Неверный токен для смены имейла',
 	tokenEmailInvalidFormat: 'Формат кода для смены имейла неверен',
 
+	// imageValidation
+	imageInvalidFormat: 'Invalid images format! Image is not an Image Data URI', // NEW
+	imageInvalidType:
+		'Invalid images format! Allowed types: "image/jpeg", "image/png", "image/jpg"', // NEW
+	ImageSizeTooBig: 'Invalid images format! Image is too big: 25mb max', // NEW
+	imageCorrupted: 'Invalid images format! Image is corrupted', // NEW
+	imageTooSmall: 'Invalid images format! Image is too small. Min 10x10 pixels', // NEW
+	imageTooBig: 'Invalid images format! Image is too big. Max 6000x4000 pixels', // NEW
+	imageAspectRatio: 'Invalid images format! Image is of unacceptable ratio.', // NEW
+
+	// middleware.ts
+	sessionTokenMissing: 'Access denied, no token provided', // NEW
+	sessionNotFound: 'No sessions found or expired', // NEW
+
 	// userRepository.ts
 	userNameExists: 'Имя пользователя занято',
 	emailExists: 'Этот адрес уже занят',
 
-	// movies.ts
+	// routes/movies.ts
+	movieMovieNotFound: 'Фильм не найден.',
 	moviesUserNotLoggedIn: 'Пожалуйста войдите в свой аккаунт',
 	errorParsingSearchQuery: 'Ошибка обрботки поискового запроса',
+	movieReviewsNotFound: 'Reviews not found', // NEW
+	movieReviewsPageInvalidType: 'Invalid page type', // NEW
 
-	//movie.ts
-	movieMovieNotFound: 'Фильм не найден.',
+	// validator/reviewPayloadValidators.ts
+	movieReviewTextNotString: 'Review text invalid type', // NEW
+	movieReviewTextMissing: 'Review text is missing', // NEW
+	movieReviewTextTooLong: 'Review text is too long', // NEW
+	movieReviewRatingNotNumber: 'Review rating invalid type', // NEW
+	movieReviewRatingMissing: 'Review rating is missing', // NEW
+	movieReviewRatingOutOfRange: 'Review rating is out of range (0 - 5)', // NEW
+	movieMovieIdMissing: 'Movie id is missing', // NEW
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Код активации отсутствует',

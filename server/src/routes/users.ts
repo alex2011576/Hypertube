@@ -9,10 +9,10 @@ import { findPasswordResetRequestByToken } from '../repositories/passwordResetRe
 import { sessionExtractor } from '../utils/middleware';
 import { CustomRequest } from '../types';
 import { findUpdateEmailRequestByToken } from '../repositories/updateEmailRequestRepository';
-import { getUserAvatarByUserId, getUserDataByUserId, updateUserDataByUserId, setPasswordForOAuthUser } from '../repositories/userRepository';
+import { getUserAvatarByUserId, getUserDataByUserId, updateUserDataByUserId, setPasswordForOAuthUser, getPasswordHash } from '../repositories/userRepository';
 import { isStringRepresentedInteger } from '../validators/basicTypeValidators';
 import { createHashedPassword } from '../services/users';
-
+//import { isPasswordSet } from '../utils/helpers';
 
 const router = express.Router();
 
@@ -203,6 +203,21 @@ router.put(
 		const passwordHash = await createHashedPassword(password);
 		await setPasswordForOAuthUser(userId, passwordHash);
 		res.status(200).end();
+	})
+);
+
+router.get(
+	'/:id/is_password_set',
+	sessionExtractor,
+	asyncHandler(async (req: CustomRequest, res) => {
+		if (!req.session || !req.session.userId) {
+			throw new AppError(`usersNoRightsToUpdate`, 400);
+		}
+		if (await getPasswordHash(req.params.id) === "notSet") {
+			res.status(200).json(false);
+			return;
+		}
+		res.status(200).json(true);
 	})
 );
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 //prettier-ignore
-import { User, NewUserWithHashedPwd, New42UserWithHashedPwd, NewGHUserWithHashedPwd, UserData, UserProfile } from '../types';
+import { User, NewUserWithHashedPwd, New42User, NewGHUser, UserData, UserProfile } from '../types';
 import { getString, getDate, getBoolean, getStringOrUndefined } from '../dbUtils';
 import { ValidationError } from '../errors';
 import pool from '../db';
@@ -72,7 +72,7 @@ const addNewUser = async (newUser: NewUserWithHashedPwd): Promise<User> => {
 	return userMapper(res.rows[0]);
 };
 
-const addNew42User = async (newUser: New42UserWithHashedPwd): Promise<User> => {
+const addNew42User = async (newUser: New42User): Promise<User> => {
 	const query = {
 		text: 'insert into users(username, email, password_hash, firstname, lastname, activation_code, is_active, id_42, avatar) values($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *',
 		values: [
@@ -106,7 +106,7 @@ const addNew42User = async (newUser: New42UserWithHashedPwd): Promise<User> => {
 	return userMapper(res.rows[0]);
 };
 
-const addNewGHUser = async (newUser: NewGHUserWithHashedPwd): Promise<User> => {
+const addNewGHUser = async (newUser: NewGHUser): Promise<User> => {
 	const query = {
 		text: 'insert into users(username, email, password_hash, firstname, lastname, activation_code, is_active, id_git_hub, avatar) values($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *',
 		values: [
