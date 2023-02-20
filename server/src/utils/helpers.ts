@@ -135,12 +135,13 @@ export const fileIsDownloading = async (filePath: string) => {
 		let watcher: fs.FSWatcher | null = null;
 
 		const timeout = setTimeout(() => {
+			console.log('File is not downloading!');
 			if (!resolved) {
 				if (watcher) watcher.close();
 				resolved = true;
 				resolve(false);
 			}
-		}, 30000);
+		}, 20000);
 
 		if (fs.existsSync(`${filePath}`)) {
 			watcher = fs.watch(`${filePath}`, (eventType, _filename) => {

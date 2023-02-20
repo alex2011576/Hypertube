@@ -43,8 +43,7 @@ router.get(
 		
 		if (!range) {
 			console.log('here');
-			throw new AppError('Suck my balls', 404);
-			res.status(404).send('Requires Range header');
+			res.status(400).send('Requires Range header');
 			return ;
 		}
 		const streamRes = await streamContent(imdb, quality, range);

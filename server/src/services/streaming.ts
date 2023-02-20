@@ -153,7 +153,7 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 				const ratio = (donwloaded / file.length) * 100;
 				if (ratio >= progress) {
 					progress = ratio + 1;
-					console.log(`Downloading...`);
+					console.log(`Downloading ${file.name} in ${fileInfo.quality}...`);
 					console.log(`Progress: ${ratio.toFixed(0)}% (${convertBytes(donwloaded)} / ${convertBytes(file?.length)} bytes)`);
 				}
 				if (!resolved && donwloaded >= 5 * 1024 * 1024) {
@@ -214,5 +214,10 @@ export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: s
 		'Content-Type': `video/${movie.type}`
 	};
 	const stream = fs.createReadStream(`movies/${movie.path}`, { start, end });
+	stream.on('error', (err) => {
+		console.log(err);
+		throw new TorrentError(`Can't stream file`);
+		
+	});
 	return { code: code, headers: headers, stream: stream };
 };
