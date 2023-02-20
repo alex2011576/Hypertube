@@ -1,5 +1,6 @@
-import { MovieData, OmdbMovieData, YtsMovieData } from '../types';
+import { MovieData, OmdbMovieData, ReviewAndTotalCount, YtsMovieData } from '../types';
 import axios from 'axios';
+import { getReviews, getTotalReviewsCount } from '../repositories/movieRepository';
 
 type YTSPayload = {
 	data: YTSPayloadData;
@@ -110,4 +111,10 @@ export const getMovieData = async (userId: string, ytsMovieId: string): Promise<
 	const omdbMovieData = imdbCode ? await getOmdbMovieData(imdbCode) : undefined;
 
 	return { ytsMovieData, omdbMovieData };
+};
+
+export const getMovieReviews = async (ytsMovieId: string, page: string): Promise<ReviewAndTotalCount> => {
+	const reviews = await getReviews(ytsMovieId, Number(page));
+	const totalCount = await getTotalReviewsCount(ytsMovieId);
+	return { reviews: reviews, totalCount: totalCount };
 };

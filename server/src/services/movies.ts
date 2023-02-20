@@ -1,6 +1,5 @@
-import { SearchQuery, MovieThumbnail, NewReviewType, GetReviewsData, ReviewAndTotalCount } from '../types';
-import { getReviews, addReview, getTotalReviewsCount } from '../repositories/movieRepository';
 import axios from 'axios';
+import { SearchQuery, MovieThumbnail } from '../types';
 
 type YTSPayload = {
 	data: YTSPayloadData;
@@ -19,8 +18,6 @@ type YTSMovie = {
 	large_cover_image: string;
 	rating: number;
 };
-
-
 
 const getOrder = (sortBy: string, reverseOrder: boolean): string => {
 	if (sortBy === 'title') return reverseOrder ? 'desc' : 'asc';
@@ -56,14 +53,4 @@ export const getMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnai
 		console.log('Response err: ', err); //rm later
 	}
 	return [];
-};
-
-export const getMovieReviews = async (data: GetReviewsData): Promise<ReviewAndTotalCount | undefined> => {
-	const reviews = await getReviews(data);
-	const totalCount = await getTotalReviewsCount(data.ytsMovieId);
-	return({reviews: reviews, totalCount: totalCount});
-};
-
-export const addMovieReview = async (data: NewReviewType) => {
-	await addReview(data);
 };
