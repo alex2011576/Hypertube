@@ -15,6 +15,13 @@ const PlayerWrapper = styled('div')<ReactPlayerProps>`
 	height: 520px;
 `;
 
+const LoadingIconWrapper = styled('div')<ReactPlayerProps>`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
 const Player: React.FC<ReactPlayerProps> = (props) => {
 	const { light, imdbCode, quality } = props;
 	const [state, dispatch] = React.useReducer(reducer, INITIAL_STATE);
@@ -62,7 +69,9 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 	return (
 		<PlayerWrapper state={state} ref={wrapperRef}>
 			{loading ? (
-				<LoadingIcon />
+				<LoadingIconWrapper>
+					<LoadingIcon />
+				</LoadingIconWrapper>
 			) : (
 				<ReactPlayer
 					url={`http://localhost:3001/api/stream/${imdbCode}/${quality}`}
