@@ -125,7 +125,7 @@ export type ReviewType = {
 	rating: number;
 	userId: string;
 	username: string;
-	photo?: PhotoType;
+	photo?: string;
 };
 
 export type ReviewsAndTotalCount = {

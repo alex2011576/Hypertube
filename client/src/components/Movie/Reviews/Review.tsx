@@ -34,9 +34,11 @@ const Review = ({ review }: { review: ReviewType }) => {
 	return (
 		<Card theme={theme}>
 			<ReviewHeader>
-				<Avatar alt={review.username} src={review.photo?.imageDataUrl || placeholder} />
+				<Avatar alt={review.username} src={review.photo || placeholder} />
 				<StyledBox>
-					<Rating value={review.rating} readOnly precision={1} size="small" />
+					{review.rating > 0 && (
+						<Rating value={review.rating} readOnly precision={1} size="small" />
+					)}
 					<StyledLink theme={theme} to={`/profile/${review.userId}`}>
 						<Typography textAlign={'right'} fontWeight={600}>
 							{review.username}
@@ -44,8 +46,9 @@ const Review = ({ review }: { review: ReviewType }) => {
 					</StyledLink>
 				</StyledBox>
 			</ReviewHeader>
-
-			<Typography color={'#ffffffb5'} pt={2}>{review.text}</Typography>
+			<Typography color={'#ffffffb5'} pt={2}>
+				{review.text}
+			</Typography>
 		</Card>
 	);
 };
