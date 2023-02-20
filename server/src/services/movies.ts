@@ -20,8 +20,6 @@ type YTSMovie = {
 	rating: number;
 };
 
-
-
 const getOrder = (sortBy: string, reverseOrder: boolean): string => {
 	if (sortBy === 'title') return reverseOrder ? 'desc' : 'asc';
 	else return reverseOrder ? 'asc' : 'desc';
@@ -49,7 +47,7 @@ export const getMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnai
 						rating: movie.rating || 0,
 						isWatched: false // <= function to check if watched here
 					};
-			})
+			  })
 			: [];
 		return movieThumbnails;
 	} catch (err) {
@@ -61,7 +59,7 @@ export const getMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnai
 export const getMovieReviews = async (data: GetReviewsData): Promise<ReviewAndTotalCount | undefined> => {
 	const reviews = await getReviews(data);
 	const totalCount = await getTotalReviewsCount(data.ytsMovieId);
-	return({reviews: reviews, totalCount: totalCount});
+	return { reviews: reviews, totalCount: totalCount };
 };
 
 export const addMovieReview = async (data: NewReviewType) => {

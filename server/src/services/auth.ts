@@ -73,7 +73,7 @@ export const Auth42 = async (code: string) => {
 	};
 
 	const session = await logIn42(user42);
-	return { token: session.sessionId, username: session.username, id: session.userId, language: session.language, passwordSet: session.isPasswordSet};
+	return { token: session.sessionId, username: session.username, id: session.userId, language: session.language, passwordSet: session.isPasswordSet };
 };
 
 export const logIn42 = async (user42: User42): Promise<Session> => {

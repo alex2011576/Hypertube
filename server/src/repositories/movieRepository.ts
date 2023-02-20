@@ -9,11 +9,11 @@ const reviewsMapper = (row: any): ReviewType => {
 		rating: getNumber(row['rating']),
 		userId: getString(row['user_id']),
 		username: getString(row['username']),
-		photo: getStringOrUndefined(row['photo']),
+		photo: getStringOrUndefined(row['photo'])
 	};
 };
 
-const getTotalReviewsCount = async (ytsMovieId: string): Promise<number>  => {
+const getTotalReviewsCount = async (ytsMovieId: string): Promise<number> => {
 	const query = {
 		text: 'select count(*) from reviews where yts_id = $1',
 		values: [ytsMovieId]
@@ -24,7 +24,7 @@ const getTotalReviewsCount = async (ytsMovieId: string): Promise<number>  => {
 
 const getReviews = async (data: GetReviewsData): Promise<ReviewType[] | undefined> => {
 	const query = {
-		text:	`select text, rating, user_id,
+		text: `select text, rating, user_id,
 					(select username from users where id = user_id) as username,
 					(select avatar from users where id = user_id) as photo
 				from reviews where yts_id = $1
@@ -36,19 +36,16 @@ const getReviews = async (data: GetReviewsData): Promise<ReviewType[] | undefine
 	if (!res.rowCount) {
 		return undefined;
 	}
-	return (res.rows.map((row) =>  reviewsMapper(row)));
+	return res.rows.map((row) => reviewsMapper(row));
 };
 
 const addReview = async (data: NewReviewType) => {
 	const query = {
-		text: 'INSERT INTO reviews (text, rating, user_id, yts_id) VALUES ($1, $2, $3, $4)',
+		text: `insert into reviews (text, rating, user_id, yts_id)
+				values ($1, $2, $3, $4)`,
 		values: [data.text, data.rating, data.userId, data.ytsId]
 	};
 	await pool.query(query);
 };
 
-export {
-	getReviews,
-	addReview,
-	getTotalReviewsCount
-};
+export { getReviews, addReview, getTotalReviewsCount };

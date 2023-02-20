@@ -75,17 +75,7 @@ const addNewUser = async (newUser: NewUserWithHashedPwd): Promise<User> => {
 const addNew42User = async (newUser: New42User): Promise<User> => {
 	const query = {
 		text: 'insert into users(username, email, password_hash, firstname, lastname, activation_code, is_active, id_42, avatar) values($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *',
-		values: [
-			newUser.username,
-			newUser.email,
-			"notSet",
-			newUser.firstname,
-			newUser.lastname,
-			newUser.activationCode,
-			true,
-			newUser.id42,
-			newUser.avatar
-		]
+		values: [newUser.username, newUser.email, 'notSet', newUser.firstname, newUser.lastname, newUser.activationCode, true, newUser.id42, newUser.avatar]
 	};
 
 	let res;
@@ -109,17 +99,7 @@ const addNew42User = async (newUser: New42User): Promise<User> => {
 const addNewGHUser = async (newUser: NewGHUser): Promise<User> => {
 	const query = {
 		text: 'insert into users(username, email, password_hash, firstname, lastname, activation_code, is_active, id_git_hub, avatar) values($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *',
-		values: [
-			newUser.username,
-			newUser.email,
-			"notSet",
-			newUser.firstname,
-			newUser.lastname,
-			newUser.activationCode,
-			true,
-			newUser.idGitHub,
-			newUser.avatar
-		]
+		values: [newUser.username, newUser.email, 'notSet', newUser.firstname, newUser.lastname, newUser.activationCode, true, newUser.idGitHub, newUser.avatar]
 	};
 
 	let res;

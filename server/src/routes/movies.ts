@@ -68,7 +68,7 @@ router.get(
 			throw new AppError(`movieReviewsPageInvalidType`, 400);
 		}
 
-		const result = await getMovieReviews({ytsMovieId: ytsMovieId, page: Number(page)});
+		const result = await getMovieReviews({ ytsMovieId: ytsMovieId, page: Number(page) });
 		res.status(200).json(result);
 	})
 );
@@ -80,7 +80,7 @@ router.post(
 		if (!req.session || !req.session.userId) {
 			throw new AppError(`moviesUserNotLoggedIn`, 400);
 		}
-		const newReview = parseNewReviewPayload({text: req.body.text, rating: req.body.rating, userId: req.session.userId, ytsId: req.params.id});
+		const newReview = parseNewReviewPayload({ text: req.body.text, rating: req.body.rating, userId: req.session.userId, ytsId: req.params.id });
 		await addMovieReview(newReview);
 		res.status(201).end();
 	})

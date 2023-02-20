@@ -121,10 +121,10 @@ export const checkFileSize = (filePath: string) => {
 		const stats = fs.statSync(`${filePath}`);
 		return stats.size;
 	};
-	
+
 	if (fs.existsSync(`${filePath}`)) {
 		return checkFileSize();
-	} 
+	}
 	console.log('no file');
 	return 0;
 };

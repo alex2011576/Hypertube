@@ -134,7 +134,7 @@ export const enUS: Dictionary = {
 	alertPasswordResetError: 'Unable to reset password. Please try again.',
 	alertMissingMovieId: 'Missing movie id',
 	alertPostReviewError: 'Error sending a review, please try again.',
-	
+
 	// AxiosError
 	axiosNetworkError: 'Network error',
 

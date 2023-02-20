@@ -1,4 +1,4 @@
-import { ReviewType } from "../../../types";
+import { ReviewType } from '../../../types';
 
 export const dummyReviews: ReviewType[] = [
 	{ text: 'good movie but too slow download', rating: 4, userId: '1', username: 'Ilona' },
