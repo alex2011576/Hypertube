@@ -19,7 +19,8 @@ const QualityContainer = styled(Box)`
 
 const Quality = ({
 	torrents,
-	quality: qualityObj
+	quality: qualityObj,
+	playHandle
 }: {
 	torrents: Torrent[];
 	quality: {
@@ -27,6 +28,7 @@ const Quality = ({
 		value: string | undefined;
 		onChange: (_event: React.MouseEvent<HTMLElement, MouseEvent>, value: string) => void;
 	};
+	playHandle: () => void;
 }) => {
 	const { setValue: setQuality, ...quality } = qualityObj;
 
@@ -36,21 +38,25 @@ const Quality = ({
 
 	return (
 		<QualityContainer>
-			<ToggleButtonGroup exclusive {...quality}>
-				{torrents.map((torrent, index) => {
-					if (
-						torrent.quality === '720p' ||
-						torrent.quality === '1080p' ||
-						torrent.quality === '3D'
-					) {
+			<ToggleButtonGroup exclusive {...quality} onClick={playHandle}>
+				{torrents
+					.filter((torrent, index, self) => {
+						if (
+							(torrent.quality === '720p' ||
+								torrent.quality === '1080p' ||
+								torrent.quality === '3D') &&
+							self.findIndex((obj) => obj.quality === torrent.quality) === index
+						)
+							return true;
+						return false;
+					})
+					.map((torrent, index) => {
 						return (
 							<QualityButton key={index} value={torrent.quality} size="small">
 								{torrent.quality}
 							</QualityButton>
 						);
-					}
-					return undefined;
-				})}
+					})}
 			</ToggleButtonGroup>
 		</QualityContainer>
 	);

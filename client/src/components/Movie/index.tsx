@@ -13,6 +13,8 @@ import MovieInfo from './MovieInfo';
 import Reviews from './Reviews/';
 import Quality from './Quality';
 import Player from './Player';
+import { useState } from 'react';
+import PrePlayer from './Player/PrePlayer';
 
 const Background = styled('div', {
 	shouldForwardProp: (prop) => prop !== 'src'
@@ -30,6 +32,7 @@ const Background = styled('div', {
 const MoviePage = () => {
 	const { id: movieId } = useParams();
 	const quality = useToggleButtonWithSetValue(undefined);
+	const [loadingPlayer, setLoadingPlayer] = useState(false);
 
 	const {
 		data: movieData,
@@ -49,12 +52,16 @@ const MoviePage = () => {
 
 	return (
 		<Background src={pageBackground}>
-			<Player
-				imdbCode={yts.imdbCode}
-				quality={quality.value || torrents[0].quality}
-				light={pageBackground}
-			/>
-			<Quality torrents={torrents} quality={quality} />
+			{!loadingPlayer ? (
+				<PrePlayer playHandle={() => setLoadingPlayer(true)}></PrePlayer>
+			) : (
+				<Player
+					imdbCode={yts.imdbCode}
+					quality={quality.value || torrents[0].quality}
+					light={pageBackground}
+				/>
+			)}
+			<Quality torrents={torrents} quality={quality} playHandle={() => setLoadingPlayer(false)}/>
 			<MovieInfo movieData={movieData} />
 			<Reviews movieId={yts.id} />
 		</Background>
