@@ -1,14 +1,15 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
-import { isStringRepresentedInteger, isNumber } from '../validators/basicTypeValidators';
 import { CustomRequest, SearchQuerySchema } from '../types';
+import { isStringRepresentedInteger } from '../validators/basicTypeValidators';
+import { parseNewReviewPayload } from '../validators/reviewPayloadValidators';
+import { getMovieReviews } from '../services/movie';
+import { getMovies } from '../services/movies';
+import { addReview } from '../repositories/movieRepository';
 import { AppError, ValidationError } from '../errors';
 import { sessionExtractor } from '../utils/middleware';
-import { getMovies } from '../services/movies';
 import { getMovieData } from '../services/movie';
 import { isRight } from 'fp-ts/lib/Either';
-import { getMovieReviews, addMovieReview } from '../services/movies';
-import { parseNewReviewPayload } from '../validators/reviewPayloadValidators';
 
 const router = express.Router();
 
@@ -64,11 +65,7 @@ router.get(
 		if (!isStringRepresentedInteger(page)) {
 			throw new AppError(`movieReviewsPageInvalidType`, 400);
 		}
-		if (!isNumber(Number(page))) {
-			throw new AppError(`movieReviewsPageInvalidType`, 400);
-		}
-
-		const result = await getMovieReviews({ytsMovieId: ytsMovieId, page: Number(page)});
+		const result = await getMovieReviews(ytsMovieId, page);
 		res.status(200).json(result);
 	})
 );
@@ -80,8 +77,12 @@ router.post(
 		if (!req.session || !req.session.userId) {
 			throw new AppError(`moviesUserNotLoggedIn`, 400);
 		}
-		const newReview = parseNewReviewPayload({text: req.body.text, rating: req.body.rating, userId: req.session.userId, ytsId: req.params.id});
-		await addMovieReview(newReview);
+		if (!isStringRepresentedInteger(req.params.id)) {
+			throw new AppError(`movieMovieNotFound`, 400);
+		}
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+		const newReview = parseNewReviewPayload(req.body);
+		await addReview(newReview, req.session.userId, req.params.id);
 		res.status(201).end();
 	})
 );

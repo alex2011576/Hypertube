@@ -203,18 +203,11 @@ export type ReviewType = {
 };
 
 export type ReviewAndTotalCount = {
-	reviews: ReviewType[] | undefined;
+	reviews: ReviewType[];
 	totalCount: number;
 };
 
-export type GetReviewsData = {
-	ytsMovieId: string;
-	page: number;
-};
-
-export type NewReviewType = {
+export type UserReview = {
 	text: string;
 	rating: number;
-	userId: string;
-	ytsId: string;
 };
