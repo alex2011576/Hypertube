@@ -75,6 +75,16 @@ create table reviews (
 
 create index reviews_yts on reviews (yts_id);
 
+create table watch_history (
+	id bigserial not null primary key,
+	user_id bigserial not null,
+	downloads_id bigserial not null,
+	last_time_watched timestamptz not null default now()
+);
+
+create index indx_downloads_id on watch_history (downloads_id);
+create index indx_user_id on watch_history (user_id);
+
 CREATE FUNCTION expire_table_delete_old_rows() RETURNS trigger
     LANGUAGE plpgsql
     AS $$

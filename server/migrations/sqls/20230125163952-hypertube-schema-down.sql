@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS watch_history;
 DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS downloads;
 DROP TABLE IF EXISTS update_email_requests;
