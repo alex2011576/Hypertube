@@ -1,5 +1,5 @@
 import React from 'react';
-import PlayerControls from './PlayerControls';
+// import PlayerControls from './PlayerControls';
 import ReactPlayer, { ReactPlayerProps } from 'react-player';
 import PlayCircleOutlineRoundedIcon from '@mui/icons-material/PlayCircleOutlineRounded';
 import { reducer, INITIAL_STATE } from './Player.reducer';
@@ -102,14 +102,14 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 					onClickPreview={handlePreview}
 				/>
 			)}
-			{!state.controls && !state.light && (
+			{/* {!state.controls && !state.light && (
 				<PlayerControls
 					state={state}
 					dispatch={dispatch}
 					playerRef={playerRef}
 					wrapperRef={wrapperRef}
 				/>
-			)}
+			)} */}
 		</PlayerWrapper>
 	);
 };
