@@ -184,7 +184,7 @@ export type MovieData = {
 export type StreamContent = {
 	code: number;
 	headers: { [key: string]: string | number };
-	stream: fs.ReadStream;
+	stream?: fs.ReadStream;
 };
 
 export type StreamStatus = {

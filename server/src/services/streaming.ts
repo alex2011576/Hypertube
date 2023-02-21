@@ -198,26 +198,64 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: string): Promise<StreamContent> => {
 	const movie = await searchInDownloads(imdb, quality);
 	if (!movie) throw new AppError('Movie not found', 404);
+	const currentSize = checkFileSize(`movies/${movie.path}`);
 	let code = 206;
 	let start = Number(range.replace(/\D/g, ''));
-	if (start > movie.size - 1) {
+	
+	//might require further adjustments
+	if (start > currentSize - 1) {
 		start = 0;
 		code = 416;
+		const headers = {
+			'Content-Range': `bytes */${currentSize}`,
+		};
+		return {code: code, headers: headers, stream: undefined };
 	}
+	
 	const CHUNK_SIZE = 10 ** 6; // 1MB
-	const end = Math.min(start + CHUNK_SIZE, movie.size - 1);
+	const end = Math.min(start + CHUNK_SIZE, currentSize - 1);
 	const contentLength = end - start + 1;
+
 	const headers = {
-		'Content-Range': `bytes ${start}-${end}/${movie.size}`,
+		'Content-Range': `bytes ${start}-${end}/${currentSize}`,
 		'Accept-Ranges': 'bytes',
 		'Content-Length': contentLength,
 		'Content-Type': `video/${movie.type}`
 	};
+	
 	const stream = fs.createReadStream(`movies/${movie.path}`, { start, end });
 	stream.on('error', (err) => {
 		console.log(err);
 		throw new TorrentError(`Can't stream file`);
-		
 	});
 	return { code: code, headers: headers, stream: stream };
 };
+// export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: string): Promise<StreamContent> => {
+// 	const movie = await searchInDownloads(imdb, quality);
+// 	if (!movie) throw new AppError('Movie not found', 404);
+// 	// const currentSize = checkFileSize(`movies/${movie.path}`);
+// 	let code = 206;
+// 	let start = Number(range.replace(/\D/g, ''));
+// 	if (start > movie.size - 1 ) {
+// 		start = 0;
+// 		code = 416;
+// 	}
+// 	//  else if (start > currentSize ) {
+// 	// 	start = 0;
+// 	// }
+// 	const CHUNK_SIZE = 10 ** 6; // 1MB
+// 	const end = Math.min(start + CHUNK_SIZE, movie.size - 1);
+// 	const contentLength = end - start + 1;
+// 	const headers = {
+// 		'Content-Range': `bytes ${start}-${end}/${movie.size}`,
+// 		'Accept-Ranges': 'bytes',
+// 		'Content-Length': contentLength,
+// 		'Content-Type': `video/${movie.type}`
+// 	};
+// 	const stream = fs.createReadStream(`movies/${movie.path}`, { start, end });
+// 	stream.on('error', (err) => {
+// 		console.log(err);
+// 		throw new TorrentError(`Can't stream file`);
+// 	});
+// 	return { code: code, headers: headers, stream: stream };
+// };
