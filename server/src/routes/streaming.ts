@@ -1,6 +1,7 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
 import { AppError } from '../errors';
+import { updateWatchHistory } from '../services/movie';
 import { getStreamStatus, streamContent } from '../services/streaming';
 import { CustomRequest } from '../types';
 import { sessionExtractor } from '../utils/middleware';
@@ -22,8 +23,13 @@ router.get(
 
 		const streamStatus = await getStreamStatus(imdb, quality);
 		console.log(streamStatus);
-		
         res.status(200).send(streamStatus);
+		try {
+			await updateWatchHistory(imdb, quality, req.session.userId);
+		} catch {
+			console.log('failed to update watch history');
+		}
+		return ;
 	})
 );
 

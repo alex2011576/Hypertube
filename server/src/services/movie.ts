@@ -1,7 +1,9 @@
-import { MovieData, OmdbMovieData, ReviewAndTotalCount, YtsMovieData } from '../types';
+import { IMDB, MovieData, OmdbMovieData, ReviewAndTotalCount, StreamQuality, YtsMovieData } from '../types';
 import axios from 'axios';
 import { getReviews, getTotalReviewsCount } from '../repositories/movieRepository';
 import { getErrorMessage } from '../errors';
+import { searchInDownloads } from '../repositories/downloadsRepository';
+import { createWatchRecord } from '../repositories/watchHistoryRepository';
 
 type YTSPayload = {
 	data: YTSPayloadData;
@@ -118,4 +120,13 @@ export const getMovieReviews = async (ytsMovieId: string, page: string): Promise
 	const reviews = await getReviews(ytsMovieId, Number(page));
 	const totalCount = await getTotalReviewsCount(ytsMovieId);
 	return { reviews: reviews, totalCount: totalCount };
+};
+
+
+export const updateWatchHistory = async (imdb: IMDB, quality: StreamQuality, userId: string) => {
+	const movie = await searchInDownloads(imdb, quality);
+	if (movie && movie.id) {
+		await createWatchRecord(userId, movie.id);
+	}
+
 };
