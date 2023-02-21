@@ -1,5 +1,5 @@
 import React from 'react';
-import PlayerControls from './PlayerControls';
+// import PlayerControls from './PlayerControls';
 import ReactPlayer, { ReactPlayerProps } from 'react-player';
 import PlayCircleOutlineRoundedIcon from '@mui/icons-material/PlayCircleOutlineRounded';
 import { reducer, INITIAL_STATE } from './Player.reducer';
@@ -13,6 +13,13 @@ import LoadingIcon from '../../LoadingIcon';
 const PlayerWrapper = styled('div')<ReactPlayerProps>`
 	position: relative;
 	height: 520px;
+`;
+
+const LoadingIconWrapper = styled('div')<ReactPlayerProps>`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
 
 const Player: React.FC<ReactPlayerProps> = (props) => {
@@ -62,7 +69,9 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 	return (
 		<PlayerWrapper state={state} ref={wrapperRef}>
 			{loading ? (
-				<LoadingIcon />
+				<LoadingIconWrapper>
+					<LoadingIcon />
+				</LoadingIconWrapper>
 			) : (
 				<ReactPlayer
 					url={`http://localhost:3001/api/stream/${imdbCode}/${quality}`}
@@ -93,14 +102,14 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 					onClickPreview={handlePreview}
 				/>
 			)}
-			{!state.controls && !state.light && (
+			{/* {!state.controls && !state.light && (
 				<PlayerControls
 					state={state}
 					dispatch={dispatch}
 					playerRef={playerRef}
 					wrapperRef={wrapperRef}
 				/>
-			)}
+			)} */}
 		</PlayerWrapper>
 	);
 };

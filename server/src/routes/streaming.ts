@@ -39,17 +39,24 @@ router.get(
         if (!isIMDB(imdb)) throw new AppError(`Invalid imdb id`, 400);
         if (!isQuality(quality)) throw new AppError(`Invalid quality parameter`, 400);
 		const range = req.headers.range;
-		console.log(range);
+		// console.log(range);
 		
 		if (!range) {
 			console.log('here');
-			throw new AppError('Suck my balls', 404);
-			res.status(404).send('Requires Range header');
+			res.status(400).send('Requires Range header');
 			return ;
 		}
 		const streamRes = await streamContent(imdb, quality, range);
-		res.writeHead(streamRes.code, streamRes.headers);
-		streamRes.stream.pipe(res);
+		// console.log(streamRes);
+		if (streamRes.stream) {
+			res.writeHead(streamRes.code, streamRes.headers);
+			streamRes.stream.pipe(res);
+		} else {
+			console.log('Range not satisfiable.');
+			res.writeHead(streamRes.code, streamRes.headers).end();
+			return;
+		}
+		return;
 	})
 );
 

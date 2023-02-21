@@ -1,6 +1,7 @@
 import { MovieData, OmdbMovieData, ReviewAndTotalCount, YtsMovieData } from '../types';
 import axios from 'axios';
 import { getReviews, getTotalReviewsCount } from '../repositories/movieRepository';
+import { getErrorMessage } from '../errors';
 
 type YTSPayload = {
 	data: YTSPayloadData;
@@ -64,7 +65,7 @@ const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<Yts
 
 		return ytsMovieData;
 	} catch (err) {
-		console.log('Failed to get response from YTS movie_details: ', err); //rm later
+		console.log('Failed to get response from YTS movie_details: ', getErrorMessage(err)); //rm later
 	}
 	return undefined;
 };
