@@ -1,5 +1,7 @@
 import axios from 'axios';
+import { monthIdleMovies, removeDownloadRecord } from '../repositories/downloadsRepository';
 import { SearchQuery, MovieThumbnail } from '../types';
+import fs from 'fs';
 
 type YTSPayload = {
 	data: YTSPayloadData;
@@ -53,4 +55,24 @@ export const getMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnai
 		console.log('Response err: ', err); //rm later
 	}
 	return [];
+};
+
+export const deleteIdleMovies = async (): Promise<void> => {
+	const idleMovies = await monthIdleMovies();
+	const noOfItems = idleMovies.length;
+	const promises = [];
+	console.log('files found', noOfItems);
+	
+	try {
+		for(let i = 0; i < noOfItems; i++) {
+			const deletionPromise = removeDownloadRecord(idleMovies[i].id as string);
+			promises.push(deletionPromise);
+			const directory = idleMovies[i].path.split('/')[0];
+			fs.rmSync(`movies/${directory}`, { recursive: true, force: true });
+		}
+		await Promise.all(promises);
+	} catch {
+		console.log('movie deletion failed');
+	}
+
 };
