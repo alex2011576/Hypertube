@@ -211,3 +211,10 @@ export type UserReview = {
 	text: string;
 	rating: number;
 };
+
+export type WatchHistory = {
+	id: string,
+	userId: string,
+	downloadsId: string,
+	lastWatched: Date
+};
