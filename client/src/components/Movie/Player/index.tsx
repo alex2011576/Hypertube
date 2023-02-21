@@ -6,8 +6,8 @@ import { reducer, INITIAL_STATE } from './Player.reducer';
 import { styled } from '@mui/material';
 
 import { useServiceCall } from '../../../hooks/useServiceCall';
-import streamService from '../../../services/stream';
 import { StreamStatus } from '../../../types';
+import streamService from '../../../services/stream';
 import LoadingIcon from '../../LoadingIcon';
 
 const PlayerWrapper = styled('div')<ReactPlayerProps>`
@@ -102,14 +102,6 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 					onClickPreview={handlePreview}
 				/>
 			)}
-			{/* {!state.controls && !state.light && (
-				<PlayerControls
-					state={state}
-					dispatch={dispatch}
-					playerRef={playerRef}
-					wrapperRef={wrapperRef}
-				/>
-			)} */}
 		</PlayerWrapper>
 	);
 };
