@@ -64,6 +64,7 @@ const getTorrentFileMagnetLink = async (imdb: IMDB, quality: StreamQuality) => {
 
 const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQuality): Promise<FileInfo> => {
 	let resolved = false;
+	let ready = false;
 	const videoPath = path.resolve(__dirname, '../../movies');
 	const options = {
 		trackers: [
@@ -97,19 +98,29 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 		],
 		path: videoPath
 	};
-	const engine = torrentStream(magnetLink, options);
+	
 	let file: TorrentStream.TorrentFile;
 	let fileInfo: FileInfo;
 	let progress = -1;
 
-	console.log(videoPath);
 	return new Promise((resolve, reject) => {
+		console.log('starting torrent engine');
+		const engine = torrentStream(magnetLink, options);
+		const timeout = setTimeout(() => {
+			if (!ready) {
+				console.log('Failed to start engine!');
+				reject(new TorrentError(`No torrents with supported formats are avaliable for movie with imdb=${imdb}`));
+			}
+		}, 20000);
+
 		engine.on('torrent', () => {
 			console.log('torrent');
 		});
 
 		engine.on('ready', () => {
 			console.log('ready');
+			clearTimeout(timeout);
+			ready = true;
 			const files = engine.files.filter((file) => file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm'));
 			if (files.length === 0) {
 				engine.destroy(() => {
