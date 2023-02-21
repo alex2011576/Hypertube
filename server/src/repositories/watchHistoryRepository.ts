@@ -1,6 +1,6 @@
 import pool from '../db';
 import { getDate, getString } from '../dbUtils';
-import { WatchHistory } from '../types';
+import { IMDB, WatchHistory } from '../types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const watchHistoryMapper = (row: any): WatchHistory => {
@@ -47,8 +47,29 @@ const getLastWatchForMovie = async (downloadsId: string): Promise<WatchHistory |
 	return watchHistoryMapper(res.rows[0]);
 };
 
-export { createWatchRecord, getLastWatchForMovie, createWatchRecordWithTime };
+const isWatchedByUser = async (userId: string, imdb: IMDB): Promise<boolean> => {
+	const query = {
+		text: `SELECT *
+			FROM watch_history wh
+			INNER JOIN downloads d ON wh.downloads_id = d.id
+			WHERE wh.user_id = $1
+		  	AND d.imdb = $2;`,
+		values: [userId, imdb]
+	};
+
+	const res = await pool.query(query);
+	if (!res.rowCount) {
+		return false;
+	}
+	return true;
+};
+
+export { createWatchRecord, getLastWatchForMovie, createWatchRecordWithTime, isWatchedByUser };
+
+//schema:
 // id bigserial not null primary key,
 // user_id bigserial not null,
 // downloads_id bigserial not null,
 // last_time_watched timestamptz not null default now()
+
+//adding imdb in schema might have been a better solution

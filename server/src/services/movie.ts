@@ -128,5 +128,4 @@ export const updateWatchHistory = async (imdb: IMDB, quality: StreamQuality, use
 	if (movie && movie.id) {
 		await createWatchRecord(userId, movie.id);
 	}
-
 };

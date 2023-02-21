@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { monthIdleMovies, removeDownloadRecord } from '../repositories/downloadsRepository';
-import { SearchQuery, MovieThumbnail } from '../types';
+import { SearchQuery, MovieThumbnail, IMDB } from '../types';
 import fs from 'fs';
+import { isWatchedByUser } from '../repositories/watchHistoryRepository';
 
 type YTSPayload = {
 	data: YTSPayloadData;
@@ -26,7 +27,7 @@ const getOrder = (sortBy: string, reverseOrder: boolean): string => {
 	else return reverseOrder ? 'asc' : 'desc';
 };
 
-export const getMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnail[]> => {
+export const getMovies = async (searchQuery: SearchQuery, userId: string): Promise<MovieThumbnail[]> => {
 	try {
 		const { queryTerm, genre, sortBy, reverseOrder, page, limit } = searchQuery;
 		const order = getOrder(sortBy, reverseOrder);
@@ -37,18 +38,20 @@ export const getMovies = async (searchQuery: SearchQuery): Promise<MovieThumbnai
 
 		const movies = response.data.data.movies;
 		const movieThumbnails: MovieThumbnail[] = movies
-			? movies.map((movie: YTSMovie) => {
-					return {
-						id: movie.id,
-						imdbCode: movie.imdb_code || '',
-						title: movie.title || '',
-						year: movie.year || 0,
-						summary: movie.summary || '',
-						cover: movie.large_cover_image || '',
-						rating: movie.rating || 0,
-						isWatched: false // <= function to check if watched here
-					};
-			})
+			? await Promise.all(
+					movies.map(async (movie: YTSMovie) => {
+						return {
+							id: movie.id,
+							imdbCode: movie.imdb_code || '',
+							title: movie.title || '',
+							year: movie.year || 0,
+							summary: movie.summary || '',
+							cover: movie.large_cover_image || '',
+							rating: movie.rating || 0,
+							isWatched: movie.imdb_code ? await isWatchedByUser(userId, movie.imdb_code as IMDB) : false // <= function to check if watched here
+						};
+					})
+			)
 			: [];
 		return movieThumbnails;
 	} catch (err) {
@@ -62,9 +65,9 @@ export const deleteIdleMovies = async (): Promise<void> => {
 	const noOfItems = idleMovies.length;
 	const promises = [];
 	console.log('files found', noOfItems);
-	
+
 	try {
-		for(let i = 0; i < noOfItems; i++) {
+		for (let i = 0; i < noOfItems; i++) {
 			const deletionPromise = removeDownloadRecord(idleMovies[i].id as string);
 			promises.push(deletionPromise);
 			const directory = idleMovies[i].path.split('/')[0];
@@ -74,5 +77,4 @@ export const deleteIdleMovies = async (): Promise<void> => {
 	} catch {
 		console.log('movie deletion failed');
 	}
-
 };

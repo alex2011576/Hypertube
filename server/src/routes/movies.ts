@@ -24,7 +24,7 @@ router.post(
 		if (!isRight(searchQuery)) {
 			throw new ValidationError(`errorParsingSearchQuery`);
 		}
-		const result = await getMovies(searchQuery.right);
+		const result = await getMovies(searchQuery.right, req.session.userId);
 		res.status(200).json(result);
 	})
 );
