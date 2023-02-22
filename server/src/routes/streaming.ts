@@ -14,20 +14,22 @@ router.get(
     sessionExtractor,
 	asyncHandler(async (req: CustomRequest, res) => {
         if (!req.session || !req.session.userId) {
-			throw new AppError(`User is not logged in!`, 400);
+			throw new AppError(`moviesUserNotLoggedIn`, 400);
 		}
 		const imdb = req.params.imdb;
 		const quality = req.params.quality;
-        if (!isIMDB(imdb)) throw new AppError(`Invalid imdb id`, 400);
-        if (!isQuality(quality)) throw new AppError(`Invalid quality parameter`, 400);
+        if (!isIMDB(imdb)) throw new AppError(`streamingInvalidImdb`, 400);
+        if (!isQuality(quality)) throw new AppError(`streamingInvalidQuality`, 400);
 
 		const streamStatus = await getStreamStatus(imdb, quality);
-		console.log(streamStatus);
+		// console.log(streamStatus);
+		console.log(`Stream is READY! Download progress is ${streamStatus.progress}%\n`);
+		
         res.status(200).send(streamStatus);
 		try {
 			await updateWatchHistory(imdb, quality, req.session.userId);
 		} catch {
-			console.log('failed to update watch history');
+			console.log('Attention! Failed to update watch history');
 		}
 		return ;
 	})
@@ -35,21 +37,15 @@ router.get(
 
 router.get(
 	'/:imdb/:quality',
-    // sessionExtractor,
 	asyncHandler(async (req: CustomRequest, res) => {
-        // if (!req.session || !req.session.userId) {
-		// 	throw new AppError(`User is not logged in!`, 400);
-		// }
 		const imdb = req.params.imdb;
 		const quality = req.params.quality;
-        if (!isIMDB(imdb)) throw new AppError(`Invalid imdb id`, 400);
-        if (!isQuality(quality)) throw new AppError(`Invalid quality parameter`, 400);
+        if (!isIMDB(imdb)) throw new AppError(`streamingInvalidImdb`, 400);
+        if (!isQuality(quality)) throw new AppError(`streamingInvalidQuality`, 400);
 		const range = req.headers.range;
-		// console.log(range);
 		
 		if (!range) {
-			console.log('here');
-			res.status(400).send('Requires Range header');
+			throw new AppError(`streamingRangeNotProvided`, 400);
 			return ;
 		}
 		const streamRes = await streamContent(imdb, quality, range);
@@ -58,7 +54,7 @@ router.get(
 			res.writeHead(streamRes.code, streamRes.headers);
 			streamRes.stream.pipe(res);
 		} else {
-			console.log('Range not satisfiable.');
+			console.log('Attention! Range not satisfiable');
 			res.writeHead(streamRes.code, streamRes.headers).end();
 			return;
 		}

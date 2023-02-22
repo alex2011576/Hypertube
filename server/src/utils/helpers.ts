@@ -135,7 +135,7 @@ export const fileIsDownloading = async (filePath: string) => {
 		let watcher: fs.FSWatcher | null = null;
 
 		const timeout = setTimeout(() => {
-			console.log('File is not downloading!');
+			console.log('File is not being downloaded yet!');
 			if (!resolved) {
 				if (watcher) watcher.close();
 				resolved = true;
@@ -146,7 +146,7 @@ export const fileIsDownloading = async (filePath: string) => {
 		if (fs.existsSync(`${filePath}`)) {
 			watcher = fs.watch(`${filePath}`, (eventType, _filename) => {
 				if (eventType === 'change') {
-					console.log('File is being downloaded');
+					console.log('File is already being downloaded!');
 					if (watcher) watcher.close();
 					if (!resolved) {
 						resolved = true;
