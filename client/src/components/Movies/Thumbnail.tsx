@@ -54,7 +54,7 @@ const Thumbnail = ({ movie }: { movie: MovieThumbnail }) => {
 						)}
 						<AbsoluteContent>
 							<Typography variant="h5">{title}</Typography>
-							<Typography variant="subtitle1">{year + ' ' + rating}</Typography>
+							<Typography variant="subtitle1">{year ? year + ' ' + rating : rating}</Typography>
 							<Typography variant="body2">{summary}</Typography>
 						</AbsoluteContent>
 					</Background>

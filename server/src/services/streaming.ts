@@ -2,19 +2,25 @@ import { recordDownloading, searchInDownloads, setDownloadComplete } from '../re
 import { FileInfo, IMDB, StreamContent, StreamQuality, StreamStatus, YtsMovieDetailsJson } from '../types';
 import axios from 'axios';
 import { AppError, getErrorMessage, TorrentError } from '../errors';
-import { checkFileSize, convertBytes, generateMagnetLink } from '../utils/helpers';
+import { checkFileSize, convertBytes, fileIsDownloading, generateMagnetLink } from '../utils/helpers';
 import path from 'path';
 import torrentStream from 'torrent-stream';
 import fs from 'fs';
 
 export const getStreamStatus = async (imdb: IMDB, quality: StreamQuality): Promise<StreamStatus> => {
+	let movieFile: FileInfo;
 	const isInDownloads = await searchInDownloads(imdb, quality);
+
 	if (isInDownloads && isInDownloads.completed) {
-		return { ready: true, progress: '100' };
+			return { ready: true, progress: '100' };
+	}
+	else if (isInDownloads && await fileIsDownloading(`movies/${isInDownloads.path}`)) {
+		movieFile = isInDownloads;
+	} else {
+		const magnetLink = await getTorrentFileMagnetLink(imdb, quality);
+		movieFile = await downloadTorrent(magnetLink, imdb, quality);
 	}
 
-	const magnetLink = await getTorrentFileMagnetLink(imdb, quality);
-	const movieFile = await downloadTorrent(magnetLink, imdb, quality);
 	const currentSize = checkFileSize(`movies/${movieFile.path}`);
 	const progress = (currentSize / movieFile.size) * 100;
 	return {
@@ -58,6 +64,7 @@ const getTorrentFileMagnetLink = async (imdb: IMDB, quality: StreamQuality) => {
 
 const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQuality): Promise<FileInfo> => {
 	let resolved = false;
+	let ready = false;
 	const videoPath = path.resolve(__dirname, '../../movies');
 	const options = {
 		trackers: [
@@ -91,19 +98,29 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 		],
 		path: videoPath
 	};
-	const engine = torrentStream(magnetLink, options);
+	
 	let file: TorrentStream.TorrentFile;
 	let fileInfo: FileInfo;
 	let progress = -1;
 
-	console.log(videoPath);
 	return new Promise((resolve, reject) => {
+		console.log('starting torrent engine');
+		const engine = torrentStream(magnetLink, options);
+		const timeout = setTimeout(() => {
+			if (!ready) {
+				console.log('Failed to start engine!');
+				reject(new TorrentError(`No torrents with supported formats are avaliable for movie with imdb=${imdb}`));
+			}
+		}, 20000);
+
 		engine.on('torrent', () => {
 			console.log('torrent');
 		});
 
 		engine.on('ready', () => {
 			console.log('ready');
+			clearTimeout(timeout);
+			ready = true;
 			const files = engine.files.filter((file) => file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm'));
 			if (files.length === 0) {
 				engine.destroy(() => {
@@ -147,7 +164,7 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 				const ratio = (donwloaded / file.length) * 100;
 				if (ratio >= progress) {
 					progress = ratio + 1;
-					console.log(`Downloading...`);
+					console.log(`Downloading ${file.name} in ${fileInfo.quality}...`);
 					console.log(`Progress: ${ratio.toFixed(0)}% (${convertBytes(donwloaded)} / ${convertBytes(file?.length)} bytes)`);
 				}
 				if (!resolved && donwloaded >= 5 * 1024 * 1024) {
@@ -192,21 +209,64 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: string): Promise<StreamContent> => {
 	const movie = await searchInDownloads(imdb, quality);
 	if (!movie) throw new AppError('Movie not found', 404);
+	const currentSize = checkFileSize(`movies/${movie.path}`);
 	let code = 206;
 	let start = Number(range.replace(/\D/g, ''));
-	if (start > movie.size - 1) {
+	
+	//might require further adjustments
+	if (start > currentSize - 1) {
 		start = 0;
 		code = 416;
+		const headers = {
+			'Content-Range': `bytes */${currentSize}`,
+		};
+		return {code: code, headers: headers, stream: undefined };
 	}
+	
 	const CHUNK_SIZE = 10 ** 6; // 1MB
-	const end = Math.min(start + CHUNK_SIZE, movie.size - 1);
+	const end = Math.min(start + CHUNK_SIZE, currentSize - 1);
 	const contentLength = end - start + 1;
+
 	const headers = {
-		'Content-Range': `bytes ${start}-${end}/${movie.size}`,
+		'Content-Range': `bytes ${start}-${end}/${currentSize}`,
 		'Accept-Ranges': 'bytes',
 		'Content-Length': contentLength,
 		'Content-Type': `video/${movie.type}`
 	};
+	
 	const stream = fs.createReadStream(`movies/${movie.path}`, { start, end });
+	stream.on('error', (err) => {
+		console.log(err);
+		throw new TorrentError(`Can't stream file`);
+	});
 	return { code: code, headers: headers, stream: stream };
 };
+// export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: string): Promise<StreamContent> => {
+// 	const movie = await searchInDownloads(imdb, quality);
+// 	if (!movie) throw new AppError('Movie not found', 404);
+// 	// const currentSize = checkFileSize(`movies/${movie.path}`);
+// 	let code = 206;
+// 	let start = Number(range.replace(/\D/g, ''));
+// 	if (start > movie.size - 1 ) {
+// 		start = 0;
+// 		code = 416;
+// 	}
+// 	//  else if (start > currentSize ) {
+// 	// 	start = 0;
+// 	// }
+// 	const CHUNK_SIZE = 10 ** 6; // 1MB
+// 	const end = Math.min(start + CHUNK_SIZE, movie.size - 1);
+// 	const contentLength = end - start + 1;
+// 	const headers = {
+// 		'Content-Range': `bytes ${start}-${end}/${movie.size}`,
+// 		'Accept-Ranges': 'bytes',
+// 		'Content-Length': contentLength,
+// 		'Content-Type': `video/${movie.type}`
+// 	};
+// 	const stream = fs.createReadStream(`movies/${movie.path}`, { start, end });
+// 	stream.on('error', (err) => {
+// 		console.log(err);
+// 		throw new TorrentError(`Can't stream file`);
+// 	});
+// 	return { code: code, headers: headers, stream: stream };
+// };

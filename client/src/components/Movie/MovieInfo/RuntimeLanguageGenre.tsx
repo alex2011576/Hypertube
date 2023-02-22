@@ -1,5 +1,6 @@
 import { Box, Typography, styled } from '@mui/material';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
+import { useTranslateCallback } from '../../../hooks/useTranslateCallback';
 
 const Row = styled(Box)`
 	display: flex;
@@ -16,6 +17,7 @@ const CountryAndYear = ({
 	language: string;
 	genre: string;
 }) => {
+	const translatedGenre = useTranslateCallback(genre);
 	return (
 		<Row>
 			{runtime && (
@@ -29,7 +31,7 @@ const CountryAndYear = ({
 			<Typography color={'text.secondary'} mr={1}>
 				{language.toUpperCase()}
 			</Typography>
-			<Typography color={'text.disabled'}>{genre}</Typography>
+			<Typography color={'text.disabled'}>{translatedGenre}</Typography>
 		</Row>
 	);
 };

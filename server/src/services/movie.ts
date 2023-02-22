@@ -1,5 +1,9 @@
-import { MovieData, OmdbMovieData, YtsMovieData } from '../types';
+import { IMDB, MovieData, OmdbMovieData, ReviewAndTotalCount, StreamQuality, YtsMovieData } from '../types';
 import axios from 'axios';
+import { getReviews, getTotalReviewsCount } from '../repositories/movieRepository';
+import { getErrorMessage } from '../errors';
+import { searchInDownloads } from '../repositories/downloadsRepository';
+import { createWatchRecord } from '../repositories/watchHistoryRepository';
 
 type YTSPayload = {
 	data: YTSPayloadData;
@@ -26,7 +30,7 @@ type YTSMoviePayload = {
 	language: string;
 	large_screenshot_image1: string;
 	background_image: string;
-	// quality: string[];
+	torrents: { quality: string; seeds: number; peers: number }[];
 };
 
 const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<YtsMovieData | undefined> => {
@@ -36,6 +40,10 @@ const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<Yts
 		});
 
 		const movie: YTSMoviePayload = ytsPayload.data.data.movie;
+		const torrents = movie.torrents.map((torrent) => {
+			return { seeds: torrent.seeds, peers: torrent.peers, quality: torrent.quality };
+		});
+
 		const ytsMovieData: YtsMovieData = {
 			id: movie.id,
 			imdbCode: movie.imdb_code || '',
@@ -53,12 +61,13 @@ const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<Yts
 			likeCount: movie.like_count || 0,
 			language: movie.language || '',
 			largeScreenshotImage: movie.large_screenshot_image1 || '',
-			backgroundImage: movie.background_image || ''
+			backgroundImage: movie.background_image || '',
+			torrents
 		};
 
 		return ytsMovieData;
 	} catch (err) {
-		console.log('Failed to get response from YTS movie_details: ', err); //rm later
+		console.log('Failed to get response from YTS movie_details: ', getErrorMessage(err)); //rm later
 	}
 	return undefined;
 };
@@ -105,4 +114,18 @@ export const getMovieData = async (userId: string, ytsMovieId: string): Promise<
 	const omdbMovieData = imdbCode ? await getOmdbMovieData(imdbCode) : undefined;
 
 	return { ytsMovieData, omdbMovieData };
+};
+
+export const getMovieReviews = async (ytsMovieId: string, page: string): Promise<ReviewAndTotalCount> => {
+	const reviews = await getReviews(ytsMovieId, Number(page));
+	const totalCount = await getTotalReviewsCount(ytsMovieId);
+	return { reviews: reviews, totalCount: totalCount };
+};
+
+
+export const updateWatchHistory = async (imdb: IMDB, quality: StreamQuality, userId: string) => {
+	const movie = await searchInDownloads(imdb, quality);
+	if (movie && movie.id) {
+		await createWatchRecord(userId, movie.id);
+	}
 };

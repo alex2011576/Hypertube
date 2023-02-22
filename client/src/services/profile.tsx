@@ -78,12 +78,25 @@ export const updateEmailByToken = async (updateToken: string): Promise<void> => 
 	await axios.put(`${apiBaseUrl}/users/update_email/${updateToken}`);
 };
 
+export const getIsPasswordSet = async (userId: string) => {
+	try {
+		const config = {
+			headers: { Authorization: getAuthHeader() }
+		};
+		const response = await axios.get(`${apiBaseUrl}/users/${userId}/is_password_set`, config);
+		return response.data;
+	} catch (err) {
+		handleAxiosError(err);
+	}
+};
+
 const moduleExports = {
 	getProfile,
 	getPhoto,
 	updateProfile,
 	requestUpdateEmail,
 	updatePassword,
-	updateEmailByToken
+	updateEmailByToken,
+	getIsPasswordSet
 };
 export default moduleExports;

@@ -12,7 +12,7 @@ export const enUS: Dictionary = {
 	textFieldLastName: 'Last Name',
 	passwordTooltip:
 		'Password should be at least 8 characters long, contain at least one uppercase and lowercase letter, number and symbols',
-
+	textFieldReview: 'Leave your review',
 	// Checkbox
 	showPassword: 'Show password',
 	showPasswords: 'Show passwords',
@@ -61,6 +61,7 @@ export const enUS: Dictionary = {
 		'(Jpeg, jpg or png\nMinimum 100 x 100 pixels\nMaximum 6000x4000 pixels\nMax 25Mb)',
 	profileButtonChangeEmail: 'CHANGE EMAIL',
 	profileButtonChangePassword: 'CHANGE PASSWORD',
+	profileButtonSetPassword: 'SET PASSWORD',
 	profielButtonCancel: 'CANCEL',
 	profielButtonSend: 'SEND',
 	profileEmailTitle: 'Change email',
@@ -95,17 +96,35 @@ export const enUS: Dictionary = {
 	invalidPassword: 'Check the input',
 	invalidEmail: 'Incorrect email format',
 	incorrectField: 'Incorrect field',
+	tooLongInput: 'Maximum 300 characters',
+	emptyField: 'Empty field, note that we are removing trailing spaces',
 
 	// Movies
 	moviesError: 'Error occurred, please try again',
 
-	//Movie
+	//SearchField
+	reverse: 'Reverse',
+
+	//Plot
+	plot: 'PLOT',
+
+	//Creators
+	director: 'Directed by',
+	writer: 'Written by',
+	actors: 'Cast',
+
+	//Reviews
+	reviews: 'WHAT ARE PEOPLE SAYING?',
+
+	//ReviewForm
+	sendReview: 'SEND',
 
 	// Alerts
 	alertLogout: 'Logged out',
 	alertSuccessPasswordResetLink: 'Reset link sent! Please check your inbox.',
 	alertErrorPasswordResetLink: 'Unable to send a link. Please try again.',
 	alertLoginSuccess: 'Logged in successfully. Welcome!',
+	alertLoginSuccessPasswordNotSet: 'Logged in successfully. Please set your password.',
 	alertLoginError: 'Unable to login. Please try again.',
 	alertAccountActivated: 'Account activated successfully!',
 	alertErrorOccured: 'Error occurred, please try again.',
@@ -115,6 +134,7 @@ export const enUS: Dictionary = {
 	alertPasswordResetSuccess: 'Password changed successfully!',
 	alertPasswordResetError: 'Unable to reset password. Please try again.',
 	alertMissingMovieId: 'Missing movie id',
+	alertPostReviewError: 'Error sending a review, please try again.',
 
 	// AxiosError
 	axiosNetworkError: 'Network error',
@@ -184,12 +204,20 @@ export const enUS: Dictionary = {
 	userNameExists: 'Username already exists',
 	emailExists: 'This email was already used',
 
-	// movies.ts
+	// routes/movies.ts
+	movieMovieNotFound: 'Movie not found.',
 	moviesUserNotLoggedIn: 'User is not logged in',
 	errorParsingSearchQuery: 'Error parsing search query',
+	movieReviewsNotFound: 'Reviews not found',
+	movieReviewsPageInvalidType: 'Invalid page type',
 
-	//movie.ts
-	movieMovieNotFound: 'Movie not found.',
+	// validator/reviewPayloadValidators.ts
+	movieReviewTextNotString: 'Review text invalid type',
+	movieReviewTextMissing: 'Review text is missing',
+	movieReviewTextTooLong: 'Review text is too long',
+	movieReviewRatingNotNumber: 'Review rating invalid type',
+	movieReviewRatingOutOfRange: 'Review rating is out of range (0 - 5)',
+	movieMovieIdMissing: 'Movie id is missing',
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Missing activation code',

@@ -73,11 +73,6 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 		updateUserData(newUserData);
 	};
 
-	// useEffect(() => {
-	// 	language.value && dispatch(setUserLanguage(language.value as LanguageOption));
-	// 	language.value && window.localStorage.setItem('language', language.value);
-	// }, [dispatch, language.value]);
-
 	return (
 		<>
 			<Box component="form" noValidate sx={{ ml: 2, mr: 2 }}>

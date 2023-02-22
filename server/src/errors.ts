@@ -41,7 +41,7 @@ export const globalErrorHandler = (err: any, _req: Request, res: Response, _next
 		});
 		return;
 	}
-	console.log(err);
+	console.log(getErrorMessage(err));
 	res.status(500).json({
 		//error: `Unexpected error: ${getErrorMessage(err)}`
 		error: 'errorUnexpectedError'

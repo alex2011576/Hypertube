@@ -27,12 +27,11 @@ const Movies = () => {
 	const initialQuery = {
 		queryTerm: '',
 		genre: '',
-		sortBy: 'Rating',
+		sortBy: 'rating',
 		reverseOrder: false
 	};
 
 	const [searchQuery, setSearchQuery] = useState<SearchQuery>(initialQuery);
-	//console.log(searchQuery);
 
 	const {
 		data: moviesData,

@@ -53,7 +53,7 @@ create index update_email_requests_user_id on update_email_requests (user_id);
 
 create table downloads (
 	id bigserial not null primary key,
-	path  varchar not null,
+	path varchar not null,
 	type varchar not null,
 	size bigint not null,
 	completed boolean not null default false,
@@ -63,6 +63,27 @@ create table downloads (
 );
 
 create index downloads_imdb on downloads (imdb);
+
+create table reviews (
+	id bigserial not null primary key,
+	user_id bigserial not null,
+	yts_id varchar not null,
+	rating int not null,
+	text varchar not null,
+	created_at timestamptz not null default now()
+);
+
+create index reviews_yts on reviews (yts_id);
+
+create table watch_history (
+	id bigserial not null primary key,
+	user_id bigserial not null,
+	downloads_id bigserial not null,
+	last_time_watched timestamptz not null default now()
+);
+
+create index indx_downloads_id on watch_history (downloads_id);
+create index indx_user_id on watch_history (user_id);
 
 CREATE FUNCTION expire_table_delete_old_rows() RETURNS trigger
     LANGUAGE plpgsql

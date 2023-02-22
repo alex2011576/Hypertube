@@ -12,6 +12,7 @@ export const ruRU: Dictionary = {
 	textFieldLastName: 'Фамилия',
 	passwordTooltip:
 		'Длина пароля минимум 8 символов, должен содержать одну заглавную и одну строчную букву, цифру и символ.',
+	textFieldReview: 'Оставить рецензию',
 
 	// Checkbox
 	showPassword: 'Показать пароль',
@@ -61,9 +62,10 @@ export const ruRU: Dictionary = {
 		'(Jpeg, jpg or png\nМинимум 100 x 100 пикс.\nМаксимум 6000x4000 пикс.\nФайл не более 25Мб)',
 	profileButtonChangeEmail: 'ИЗМЕНИТЬ ИМЕЙЛ',
 	profileButtonChangePassword: 'ИЗМЕНИТЬ ПАРОЛЬ',
+	profileButtonSetPassword: 'SET PASSWORD',
 	profielButtonCancel: 'ОТМЕНА',
 	profielButtonSend: 'ОК',
-	profileEmailTitle: 'Change email',
+	profileEmailTitle: 'Изменить имейл',
 	profileEmailInfoText:
 		'Ссылка для активации будет выслана на указанный имейл адрес. Пожалуйста пройдите по ссылке чтобы сменить имейл адрес.',
 	profilePasswordTitle: 'Изменить пароль',
@@ -95,17 +97,36 @@ export const ruRU: Dictionary = {
 	invalidPassword: 'Неверный формат',
 	invalidEmail: 'Неверный формат',
 	incorrectField: 'Неверный формат',
+	tooLongInput: 'Максимум 300 символов',
+	emptyField: 'Пустое поле',
 
 	// Movies
 	moviesError: 'Произошла ошибка, Пожалуйста попробуйте снова',
 
-	//Movie
+	//SearchField
+	search: 'Поиск',
+	reverse: 'Реверс',
+
+	//Plot
+	plot: 'СЮЖЕТ',
+
+	//Creators
+	director: 'Режиссер',
+	writer: 'Сценарист',
+	actors: 'Актеры',
+
+	//Reviews
+	reviews: 'ОТЗЫВЫ',
+
+	//ReviewForm
+	sendReview: 'ОТПРАВИТЬ',
 
 	// Alerts
 	alertLogout: 'Выход осуществлен',
 	alertSuccessPasswordResetLink: 'Ссылка выслана! Пожалуйста проверьте почтовый ящик.',
 	alertErrorPasswordResetLink: 'Произошла ошибка. Пожалуйста попробуйте снова.',
 	alertLoginSuccess: 'Вход осуществлен. Добро пожаловать!',
+	alertLoginSuccessPasswordNotSet: 'Успешный вход. Пожалуйста установите пароль.',
 	alertLoginError: 'Ошибка входа Пожалуйста попробуйте снова.',
 	alertAccountActivated: 'Аккаунт успешно активирован!',
 	alertErrorOccured: 'Произошла ошибка, Пожалуйста попробуйте снова.',
@@ -116,9 +137,10 @@ export const ruRU: Dictionary = {
 	alertPasswordResetSuccess: 'Пароль успешно изменен!',
 	alertPasswordResetError: 'Не получилось сменить пароль. Пожалуйста попробуйте снова.',
 	alertMissingMovieId: 'Номер фильма отсутствует',
+	alertPostReviewError: 'Произошла ошибка, попробуйте снова.',
 
 	// AxiosError
-	axiosNetworkError: 'Ошибка связи',
+	axiosNetworkError: 'Ошибка подключения',
 
 	// AuthError
 	authError: 'Сессия истекла, пожалуйста войдите снова.',
@@ -167,16 +189,38 @@ export const ruRU: Dictionary = {
 	tokenEmailInvalid: 'Неверный токен для смены имейла',
 	tokenEmailInvalidFormat: 'Формат кода для смены имейла неверен',
 
+	// imageValidation
+	imageInvalidFormat: 'Неверный формат изображения.',
+	imageInvalidType:
+		'Неверный формат изображения! Валидный формат: "image/jpeg", "image/png", "image/jpg"',
+	ImageSizeTooBig: 'Неверный формат изображения! Больше 25Мб',
+	imageCorrupted: 'Неверный формат изображения!',
+	imageTooSmall: 'Неверный формат изображения. Минимальный размер сторон 10x10 пикс',
+	imageTooBig: 'Неверный формат изображения! Максимальный размер сторон 6000x4000 пикс',
+	imageAspectRatio: 'Неверный формат изображения! Некорректное разрешение.',
+
+	// middleware.ts
+	sessionTokenMissing: 'Доступ ограничен, отсутствует токен',
+	sessionNotFound: 'Сессия устарела',
+
 	// userRepository.ts
 	userNameExists: 'Имя пользователя занято',
 	emailExists: 'Этот адрес уже занят',
 
-	// movies.ts
+	// routes/movies.ts
+	movieMovieNotFound: 'Фильм не найден.',
 	moviesUserNotLoggedIn: 'Пожалуйста войдите в свой аккаунт',
 	errorParsingSearchQuery: 'Ошибка обрботки поискового запроса',
+	movieReviewsNotFound: 'Отзывов не найдено',
+	movieReviewsPageInvalidType: 'Неверный номер страницы',
 
-	//movie.ts
-	movieMovieNotFound: 'Фильм не найден.',
+	// validator/reviewPayloadValidators.ts
+	movieReviewTextNotString: 'Неверный формат',
+	movieReviewTextMissing: 'Пустой текст',
+	movieReviewTextTooLong: 'Слишком длинное ревью',
+	movieReviewRatingNotNumber: 'Неверный тип: Рейтинг',
+	movieReviewRatingOutOfRange: 'Рейтинг должен быть между 0 и 5',
+	movieMovieIdMissing: 'ID фильма не найден',
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Код активации отсутствует',

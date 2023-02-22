@@ -15,9 +15,9 @@ export type NewUser = BaseUser & { passwordPlain: string; language: LanguageOpti
 export type NewUserWithHashedPwd = BaseUser & { passwordHash: string; activationCode: string; language: LanguageOption };
 
 export type User42 = BaseUser & { id42: number; avatar: string | undefined };
-export type New42UserWithHashedPwd = BaseUser & { passwordHash: string; id42: number; activationCode: string; avatar: string | undefined | null };
+export type New42User = BaseUser & { id42: number; activationCode: string; avatar: string | undefined | null };
 export type UserGitHub = BaseUser & { idGitHub: number; avatar: string | undefined | null };
-export type NewGHUserWithHashedPwd = BaseUser & { passwordHash: string; idGitHub: number; activationCode: string; avatar: string | undefined | null };
+export type NewGHUser = BaseUser & { idGitHub: number; activationCode: string; avatar: string | undefined | null };
 
 export type LoggedUser = BaseUser & { id: string };
 
@@ -86,7 +86,7 @@ export type Photo = {
 };
 export type LanguageOption = 'enUS' | 'ruRU' | 'svSE';
 
-export type PasswordSet = { isPasswordSet?: boolean};
+export type PasswordSet = { isPasswordSet?: boolean };
 export type Session = NewSessionUser & { sessionId: string; expiresAt: Date } & PasswordSet;
 export type AuthState = { state: string; createdAt: Date };
 
@@ -118,14 +118,14 @@ export type FileInfo = {
 	downloadTime?: Date;
 };
 
-type Torrent = { [key: string]: string | number } & { hash: string;};
+type Torrent = { [key: string]: string | number } & { hash: string };
 
-export type MyMovieDetails = {[key: string]: string | number};
+export type MyMovieDetails = { [key: string]: string | number };
 
-export type YtsMovieDetailsJson = { 
-	data: { 
-		movie: MyMovieDetails & { torrents: Torrent[]; title_long: string;};
-	} 
+export type YtsMovieDetailsJson = {
+	data: {
+		movie: MyMovieDetails & { torrents: Torrent[]; title_long: string };
+	};
 };
 
 export type StreamQuality = '720p' | '1080p' | '3D';
@@ -162,6 +162,8 @@ export type YtsMovieData = MovieThumbnail & {
 	language: string;
 	largeScreenshotImage: string;
 	backgroundImage: string;
+	torrents: { quality: string; seeds: number; peers: number }[];
+
 	// quality: string[];
 };
 
@@ -181,13 +183,38 @@ export type MovieData = {
 
 export type StreamContent = {
 	code: number;
-	headers: {[key: string]: string | number};
-	stream: fs.ReadStream;
+	headers: { [key: string]: string | number };
+	stream?: fs.ReadStream;
 };
 
 export type StreamStatus = {
-    ready: boolean;
-    progress: string;
-    downloaded?: string;
-    info?: string;
+	ready: boolean;
+	progress: string;
+	downloaded?: string;
+	info?: string;
+};
+
+export type ReviewType = {
+	text: string;
+	rating: number;
+	userId: string;
+	username: string;
+	photo: string | undefined;
+};
+
+export type ReviewAndTotalCount = {
+	reviews: ReviewType[];
+	totalCount: number;
+};
+
+export type UserReview = {
+	text: string;
+	rating: number;
+};
+
+export type WatchHistory = {
+	id: string,
+	userId: string,
+	downloadsId: string,
+	lastWatched: Date
 };

@@ -10,7 +10,7 @@ const CountryAndYear = ({ country, year }: { country: string; year: number | und
 	return (
 		<Row>
 			{country && (
-				<Typography color={'text.disabled'} mr={1}>
+				<Typography color={'text.disabled'} mr={year ? 1 : 0}>
 					{country + (year && country && ',')}
 				</Typography>
 			)}
