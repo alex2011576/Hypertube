@@ -261,6 +261,9 @@ export const enUS: Dictionary = {
 	torrentNotTorrents: 'No torrents are currently avaliable for the movie',
 	torrentNotTorrentsWithQuality: 'Chosen quality in currently unavaliable',
 	torrentNotSupported: 'Provided torrent files are not supported',
-	streamingBeforeStatus: `Failure to stream! Make status request first!`
+	streamingBeforeStatus: `Failure to stream! Make status request first!`,
+
+	//oAuth errors
+	oAuthLoginFailed: 'Authentication strategy failure'
 
 };

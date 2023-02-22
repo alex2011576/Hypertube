@@ -251,5 +251,22 @@ export const ruRU: Dictionary = {
 	loginForeignStateRequest: 'Неизвестный статус',
 
 	//error.ts
-	errorUnknownEndpoint: 'Неизвестный путь'
+	errorUnknownEndpoint: 'Неизвестный путь',
+	errorUnexpectedError: 'Неожиданная ошибка',
+	errorDatabase: 'Не удалось получить доступ к базе данных',
+
+	//streaming apis
+	streamingInvalidImdb: 'Неверный идентификатор imdb',
+	streamingInvalidQuality: 'Недопустимый параметр качества',
+	streamingRangeNotProvided: 'Range не указан',
+	streamingSearchInDownload: 'Failed to access downloads data in database',
+	streamingRecordDownload: 'Не удалось получить доступ к данным о загрузках',
+	torrentSelfDestruction: 'Торрент-движок не смог скачать файлы',
+	torrentNotTorrents: 'На данный момент нет доступных торрентов для фильма',
+	torrentNotTorrentsWithQuality: 'Выбранное качество в настоящее время недоступно',
+	torrentNotSupported: 'Предоставленные торрент-файлы не поддерживаются',
+	streamingBeforeStatus: `Неудачная трансляция! Сначала нужно сделать запрос статуса стрима!`,
+
+	//oAuth errors
+	oAuthLoginFailed: 'Сбой стратегии аутентификации'
 };
