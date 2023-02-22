@@ -10,7 +10,7 @@ import fs from 'fs';
 export const getStreamStatus = async (imdb: IMDB, quality: StreamQuality): Promise<StreamStatus> => {
 	let movieFile: FileInfo;
 	const isInDownloads = await searchInDownloads(imdb, quality);
-	console.log('CHECKIMG STREAM STATUS\n');
+	console.log('\nCHECKING STREAM STATUS\n');
 	if (isInDownloads && isInDownloads.completed) {
 		return { ready: true, progress: '100' };
 	} else if (isInDownloads && (await fileIsDownloading(`movies/${isInDownloads.path}`))) {
@@ -31,7 +31,7 @@ export const getStreamStatus = async (imdb: IMDB, quality: StreamQuality): Promi
 };
 
 const getTorrentFileMagnetLink = async (imdb: IMDB, quality: StreamQuality) => {
-	console.log('\nSearching for avaliable torrents...');
+	console.log('Searching for avaliable torrents...');
 
 	const { data }: { data: YtsMovieDetailsJson } = await axios.get(
 		`https://yts.mx/api/v2/movie_details.json?imdb_id=${imdb}`,
@@ -160,7 +160,7 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 			recordDownloading(fileInfo).catch((err) => {
 				void err;
 				// console.log(getErrorMessage(err));
-				console.log('Faild to record download, aborting...');
+				console.log('Failed to record download, aborting...');
 				engine.destroy(() => {
 					console.log('Engine connection destroyed...\n');
 					if (!resolved) {
@@ -180,7 +180,8 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 					console.log(`\nDownloading ${file.name} in ${fileInfo.quality}...`);
 					console.log(`Progress: ${ratio.toFixed(0)}% (${convertBytes(donwloaded)} / ${convertBytes(file?.length)} bytes)\n`);
 				}
-				if (!resolved && donwloaded >= 5 * 1024 * 1024) {
+				// if (!resolved && donwloaded >= 5 * 1024 * 1024) {
+				if (!resolved && donwloaded >= 20 * 1024 * 1024 || ratio >= 3) {
 					resolved = true;
 					resolve(fileInfo);
 				}

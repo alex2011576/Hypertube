@@ -125,17 +125,17 @@ export const checkFileSize = (filePath: string) => {
 	if (fs.existsSync(`${filePath}`)) {
 		return checkFileSize();
 	}
-	console.log('no file');
 	return 0;
 };
 
 export const fileIsDownloading = async (filePath: string) => {
+	console.log('Checking whether file is areading being downloaded...');
 	return new Promise((resolve, _reject) => {
 		let resolved = false;
 		let watcher: fs.FSWatcher | null = null;
 
 		const timeout = setTimeout(() => {
-			console.log('File is not being downloaded yet!');
+			console.log('File is not being downloaded yet!\n');
 			if (!resolved) {
 				if (watcher) watcher.close();
 				resolved = true;
@@ -146,7 +146,7 @@ export const fileIsDownloading = async (filePath: string) => {
 		if (fs.existsSync(`${filePath}`)) {
 			watcher = fs.watch(`${filePath}`, (eventType, _filename) => {
 				if (eventType === 'change') {
-					console.log('File is already being downloaded!');
+					console.log('File is already being downloaded!\n');
 					if (watcher) watcher.close();
 					if (!resolved) {
 						resolved = true;
