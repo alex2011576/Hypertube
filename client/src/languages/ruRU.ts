@@ -251,5 +251,12 @@ export const ruRU: Dictionary = {
 	loginForeignStateRequest: 'Неизвестный статус',
 
 	//error.ts
-	errorUnknownEndpoint: 'Неизвестный путь'
+	errorUnexpectedError: 'Неизвестная ошибка',
+	errorUnknownEndpoint: 'Неизвестный путь',
+
+	//subtitles.ts
+	invalidImdbId: 'Неверный Imdb код',
+	noSubtitlesFile: 'Файлы субтитров не найдены',
+	noSubtitles: 'Субтитры не найдены',
+	wrongLanguage: 'Выбран несуществующий язык',
 };

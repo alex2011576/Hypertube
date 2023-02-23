@@ -15,17 +15,16 @@ router.get('/:id/:language', (req, res) => {
 	const imdbId = req.params.id;
 
 	if (!isIMDB(imdbId)) {
-		throw new AppError(`invalidImdbId`, 400); //translation
+		throw new AppError(`invalidImdbId`, 400);
 	}
 
 	const language = req.params.language;
-
-	if (!language || !language.length || !languages.includes(language)) throw new AppError(`wrongLanguage`, 400); //translation
+	if (!language || !language.length || !languages.includes(language)) throw new AppError(`wrongLanguage`, 400);
 
 	const file = `./subtitles/${imdbId}/${imdbId}-${language}.vtt`;
 	fs.readFile(file, (err, data) => {
 		if (err) {
-			throw new AppError(`noSubtitlesFile`, 400); //translation
+			throw new AppError(`noSubtitlesFile`, 400);
 		}
 		res.set('Content-Type', 'text/plain');
 		res.status(200).send(data);
@@ -41,10 +40,10 @@ router.get(
 		}
 		const imdbId = req.params.id;
 		if (!isIMDB(imdbId)) {
-			throw new AppError(`invalidImdbId`, 400); //translation
+			throw new AppError(`invalidImdbId`, 400);
 		}
 		if (!(await downloadMovieSubtitles(imdbId))) {
-			throw new AppError(`noSubtitles`, 400); //translation
+			throw new AppError(`noSubtitles`, 400);
 		}
 		const defaultLanguage = parseLanguageOption(req.query.defaultLanguage);
 		const subtitlesTracks = await getSubtitleTracks(imdbId, defaultLanguage);

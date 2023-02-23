@@ -248,5 +248,11 @@ export const enUS: Dictionary = {
 
 	//error.ts
 	errorUnexpectedError: 'Unexpected error',
-	errorUnknownEndpoint: 'Unknown endpoint'
+	errorUnknownEndpoint: 'Unknown endpoint',
+
+	//subtitles.ts
+	invalidImdbId: 'Invalid Imdb ID',
+	noSubtitlesFile: 'No subtitle files found',
+	noSubtitles: 'No subtitle options found',
+	wrongLanguage: 'Invalid language option'
 };

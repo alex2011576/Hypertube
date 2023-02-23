@@ -251,5 +251,12 @@ export const svSE: Dictionary = {
 	loginForeignStateRequest: 'Främmande state i begärd förfrågan',
 
 	//error.ts
-	errorUnknownEndpoint: 'Okänd slutpunkt'
+	errorUnexpectedError: 'Unexpected error', //NEW
+	errorUnknownEndpoint: 'Okänd slutpunkt',
+
+	//subtitles.ts router
+	invalidImdbId: 'Invalid Imdb ID', //NEW
+	noSubtitlesFile: 'No subtitle files found', //NEW
+	noSubtitles: 'No subtitle options found', //NEW
+	wrongLanguage: 'Invalid language option', //NEW
 };
