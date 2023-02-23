@@ -26,7 +26,7 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 	const { light, imdbCode, quality } = props;
 	const [state, dispatch] = React.useReducer(reducer, INITIAL_STATE);
 	const [subtitles, setSubtitles] = useState<SubtitleTrack[]>([]);
-	const [{ userLanguage }] = useStateValue();
+	const [{ loggedUser }] = useStateValue();
 	const playerRef = React.useRef<ReactPlayer>(null);
 	const wrapperRef = React.useRef<HTMLDivElement>(null);
 
@@ -50,7 +50,7 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 		data?: SubtitleTrack[];
 		error?: Error;
 	} = useServiceCall(
-		async () => await subtitleService.getMovieSubtitles(imdbCode, userLanguage || 'enUS'),
+		async () => await subtitleService.getMovieSubtitles(imdbCode, loggedUser?.language || 'enUS'),
 		[]
 	);
 
