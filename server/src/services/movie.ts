@@ -67,7 +67,7 @@ const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<Yts
 
 		return ytsMovieData;
 	} catch (err) {
-		console.log('Failed to get response from YTS movie_details: ', getErrorMessage(err)); //rm later
+		console.log('Failed to get response from YTS movie_details: ', getErrorMessage(err)); //rm later ? maybe not
 	}
 	return undefined;
 };
@@ -99,7 +99,7 @@ const getOmdbMovieData = async (imdbCode: string): Promise<OmdbMovieData | undef
 
 		return omdbMovieData;
 	} catch (err) {
-		console.log('Failed to get response from Omdb');
+		console.log('Failed to get response from Omdb:', getErrorMessage(err)); //rm later ? maybe not
 	}
 	return undefined;
 };

@@ -249,6 +249,23 @@ export const enUS: Dictionary = {
 	//error.ts
 	errorUnexpectedError: 'Unexpected error',
 	errorUnknownEndpoint: 'Unknown endpoint',
+	errorDatabase: 'Failed to access database',//new
+
+	//streaming apis all new
+	streamingInvalidImdb: 'Invalid imdb id',
+	streamingInvalidQuality: 'Invalid quality parameter',
+	streamingRangeNotProvided: 'Range is not provided',
+	streamingSearchInDownload: 'Failed to access downloads data in database',
+	streamingRecordDownload: 'Failed to record new downloads in database',
+	torrentSelfDestruction: 'Torrent engine failed to download files',
+	torrentNotTorrents: 'No torrents are currently avaliable for the movie',
+	torrentNotTorrentsWithQuality: 'Chosen quality in currently unavaliable',
+	torrentNotSupported: 'Provided torrent files are not supported',
+	streamingBeforeStatus: `Failure to stream! Make status request first!`,
+
+	//oAuth errors
+	oAuthLoginFailed: 'Authentication strategy failure',
+
 
 	//subtitles.ts
 	invalidImdbId: 'Invalid Imdb ID',

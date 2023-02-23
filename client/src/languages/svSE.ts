@@ -251,8 +251,24 @@ export const svSE: Dictionary = {
 	loginForeignStateRequest: 'Främmande state i begärd förfrågan',
 
 	//error.ts
-	errorUnexpectedError: 'Unexpected error', //NEW
 	errorUnknownEndpoint: 'Okänd slutpunkt',
+	errorUnexpectedError: 'Oväntat fel',//new
+	errorDatabase: 'Det gick inte att komma åt databasen',//new all below
+
+	//streaming apis all new
+	streamingInvalidImdb: 'Ogiltigt imdb-id',
+	streamingInvalidQuality: 'Ogiltig kvalitetsparameter',
+	streamingRangeNotProvided: 'Range tillhandahålls inte',
+	streamingSearchInDownload: 'Det gick inte att komma åt nedladdningsdata i databasen',
+	streamingRecordDownload: 'Det gick inte att registrera nya nedladdningar i databasen',
+	torrentSelfDestruction: 'Torrentmotorn kunde inte ladda ner filer',
+	torrentNotTorrents: 'Inga torrents finns för närvarande tillgängliga för filmen',
+	torrentNotTorrentsWithQuality: 'Vald kvalitet är för närvarande otillgänglig',
+	torrentNotSupported: 'Förutsatt att torrentfiler inte stöds',
+	streamingBeforeStatus: `Misslyckades att streama! Gör statusförfrågan först!`,
+
+	//oAuth errors
+	oAuthLoginFailed: 'Autentiseringsstrategifel',
 
 	//subtitles.ts router
 	invalidImdbId: 'Invalid Imdb ID', //NEW
