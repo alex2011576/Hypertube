@@ -1,10 +1,11 @@
-import express from 'express';
-import asyncHandler from 'express-async-handler';
-import { CustomRequest } from '../types';
-import { isIMDB } from '../validators/basicTypeValidators';
-import { AppError } from '../errors';
-import { sessionExtractor } from '../utils/middleware';
 import { downloadMovieSubtitles, getSubtitleTracks } from '../services/subtitles';
+import { parseLanguageOption } from '../validators/userPayloadValidators';
+import { sessionExtractor } from '../utils/middleware';
+import { CustomRequest } from '../types';
+import { AppError } from '../errors';
+import { isIMDB } from '../validators/basicTypeValidators';
+import asyncHandler from 'express-async-handler';
+import express from 'express';
 import fs = require('fs');
 
 const router = express.Router();
@@ -16,7 +17,7 @@ router.get('/:id/:language', (req, res) => {
 	if (!isIMDB(imdbId)) {
 		throw new AppError(`invalidImdbId`, 400); //translation
 	}
-	console.log(imdbId);
+
 	const language = req.params.language;
 
 	if (!language || !language.length || !languages.includes(language)) throw new AppError(`wrongLanguage`, 400); //translation
@@ -45,7 +46,8 @@ router.get(
 		if (!(await downloadMovieSubtitles(imdbId))) {
 			throw new AppError(`noSubtitles`, 400); //translation
 		}
-		const subtitlesTracks = await getSubtitleTracks(imdbId);
+		const defaultLanguage = parseLanguageOption(req.query.defaultLanguage);
+		const subtitlesTracks = await getSubtitleTracks(imdbId, defaultLanguage);
 		res.status(200).send(subtitlesTracks);
 	})
 );

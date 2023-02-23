@@ -1,6 +1,7 @@
+import { addSubtitlesFileEntry, checkSubtitlesFileEntry, getSubtitlesFileEntries } from '../repositories/subtitlesRepository';
+import { LanguageOption } from '../types';
 import axios from 'axios';
 import fs = require('fs');
-import { addSubtitlesFileEntry, checkSubtitlesFileEntry, getSubtitlesFileEntries } from '../repositories/subtitlesRepository';
 
 export const extractImdbBaseId = (imdbId: string) => {
 	//imdb Id shouldn't have tt or tt0 in the beginning
@@ -145,7 +146,7 @@ export const downloadMovieSubtitles = async (imdbId: string): Promise<boolean> =
 			await downloadSubtitles(imdbId, filesByLanguage);
 			return true;
 		} catch (error) {
-			console.log(error);
+			console.log(error); //rm later?
 			return false;
 		}
 	} else {
@@ -153,7 +154,7 @@ export const downloadMovieSubtitles = async (imdbId: string): Promise<boolean> =
 	}
 };
 
-export const getSubtitleTracks = async (imdbId: string) => {
+export const getSubtitleTracks = async (imdbId: string, defaultLanguage: LanguageOption) => {
 	const subtitles = await getSubtitlesFileEntries(imdbId);
 
 	const subtitleTracks = subtitles.map((entry) => {
@@ -162,7 +163,7 @@ export const getSubtitleTracks = async (imdbId: string) => {
 			src: process.env.REACT_APP_BACKEND_URL + `/api/subtitles/${imdbId}/${entry.language}`,
 			srcLang: entry.language,
 			label: entry.language,
-			default: true
+			default: entry.language === defaultLanguage.substring(0, 2) ? true : false
 		};
 	});
 	return subtitleTracks;

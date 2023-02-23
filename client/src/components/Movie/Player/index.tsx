@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import ReactPlayer, { ReactPlayerProps } from 'react-player';
 import PlayCircleOutlineRoundedIcon from '@mui/icons-material/PlayCircleOutlineRounded';
-import { reducer, INITIAL_STATE } from './Player.reducer';
-import { styled } from '@mui/material';
-
-import { useServiceCall } from '../../../hooks/useServiceCall';
-import { StreamStatus, SubtitleTrack } from '../../../types';
-import streamService from '../../../services/stream';
+import ReactPlayer, { ReactPlayerProps } from 'react-player';
+import React, { useEffect, useState } from 'react';
 import subtitleService from '../../../services/subtitles';
+import streamService from '../../../services/stream';
 import LoadingIcon from '../../LoadingIcon';
+import { StreamStatus, SubtitleTrack } from '../../../types';
+import { reducer, INITIAL_STATE } from './Player.reducer';
+import { useServiceCall } from '../../../hooks/useServiceCall';
 import { useStateValue } from '../../../state';
+import { styled } from '@mui/material';
 
 const PlayerWrapper = styled('div')<ReactPlayerProps>`
 	position: relative;
@@ -26,12 +25,10 @@ const LoadingIconWrapper = styled('div')<ReactPlayerProps>`
 const Player: React.FC<ReactPlayerProps> = (props) => {
 	const { light, imdbCode, quality } = props;
 	const [state, dispatch] = React.useReducer(reducer, INITIAL_STATE);
+	const [subtitles, setSubtitles] = useState<SubtitleTrack[]>([]);
+	const [{ userLanguage }] = useStateValue();
 	const playerRef = React.useRef<ReactPlayer>(null);
 	const wrapperRef = React.useRef<HTMLDivElement>(null);
-	const [subtitles, setSubtitles] = useState<SubtitleTrack[]>([]);
-
-	const [{ loggedUser }] = useStateValue();
-	const targetLanguage = loggedUser?.language.substring(0, 2);
 
 	const {
 		data: streamStatusData,
@@ -52,17 +49,15 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 	}: {
 		data?: SubtitleTrack[];
 		error?: Error;
-	} = useServiceCall(async () => await subtitleService.getMovieSubtitles(imdbCode), []);
+	} = useServiceCall(
+		async () => await subtitleService.getMovieSubtitles(imdbCode, userLanguage || 'enUS'),
+		[]
+	);
 
 	useEffect(() => {
 		if (subtitlesError) setSubtitles([]);
-		else {
-			const subsByLang =
-				subtitlesData &&
-				subtitlesData.find((subtitle) => subtitle.srcLang === targetLanguage);
-			subsByLang && setSubtitles([subsByLang]);
-		}
-	}, [subtitlesData, subtitlesError, targetLanguage]);
+		else subtitlesData && setSubtitles(subtitlesData);
+	}, [subtitlesData, subtitlesError]);
 
 	const handlePreview = () => {
 		dispatch({ type: 'TOGGLE_PLAY' });
