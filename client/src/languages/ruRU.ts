@@ -268,5 +268,11 @@ export const ruRU: Dictionary = {
 	streamingBeforeStatus: `Неудачная трансляция! Сначала нужно сделать запрос статуса стрима!`,
 
 	//oAuth errors
-	oAuthLoginFailed: 'Сбой стратегии аутентификации'
+	oAuthLoginFailed: 'Сбой стратегии аутентификации',
+
+	//subtitles.ts
+	invalidImdbId: 'Неверный Imdb код',
+	noSubtitlesFile: 'Файлы субтитров не найдены',
+	noSubtitles: 'Субтитры не найдены',
+	wrongLanguage: 'Выбран несуществующий язык',
 };

@@ -268,5 +268,11 @@ export const svSE: Dictionary = {
 	streamingBeforeStatus: `Misslyckades att streama! Gör statusförfrågan först!`,
 
 	//oAuth errors
-	oAuthLoginFailed: 'Autentiseringsstrategifel'
+	oAuthLoginFailed: 'Autentiseringsstrategifel',
+
+	//subtitles.ts router
+	invalidImdbId: 'Invalid Imdb ID', //NEW
+	noSubtitlesFile: 'No subtitle files found', //NEW
+	noSubtitles: 'No subtitle options found', //NEW
+	wrongLanguage: 'Invalid language option', //NEW
 };

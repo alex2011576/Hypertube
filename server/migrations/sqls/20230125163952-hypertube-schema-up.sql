@@ -85,6 +85,13 @@ create table watch_history (
 create index indx_downloads_id on watch_history (downloads_id);
 create index indx_user_id on watch_history (user_id);
 
+create table subtitles (
+	id bigserial not null primary key,
+	imdb varchar not null,
+	path varchar not null,
+	language varchar not null
+);
+
 CREATE FUNCTION expire_table_delete_old_rows() RETURNS trigger
     LANGUAGE plpgsql
     AS $$

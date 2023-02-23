@@ -264,6 +264,12 @@ export const enUS: Dictionary = {
 	streamingBeforeStatus: `Failure to stream! Make status request first!`,
 
 	//oAuth errors
-	oAuthLoginFailed: 'Authentication strategy failure'
+	oAuthLoginFailed: 'Authentication strategy failure',
 
+
+	//subtitles.ts
+	invalidImdbId: 'Invalid Imdb ID',
+	noSubtitlesFile: 'No subtitle files found',
+	noSubtitles: 'No subtitle options found',
+	wrongLanguage: 'Invalid language option'
 };

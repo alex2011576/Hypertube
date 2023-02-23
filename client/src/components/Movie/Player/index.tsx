@@ -1,14 +1,14 @@
-import React from 'react';
-// import PlayerControls from './PlayerControls';
-import ReactPlayer, { ReactPlayerProps } from 'react-player';
 import PlayCircleOutlineRoundedIcon from '@mui/icons-material/PlayCircleOutlineRounded';
-import { reducer, INITIAL_STATE } from './Player.reducer';
-import { styled } from '@mui/material';
-
-import { useServiceCall } from '../../../hooks/useServiceCall';
-import { StreamStatus } from '../../../types';
+import ReactPlayer, { ReactPlayerProps } from 'react-player';
+import React, { useEffect, useState } from 'react';
+import subtitleService from '../../../services/subtitles';
 import streamService from '../../../services/stream';
 import LoadingIcon from '../../LoadingIcon';
+import { StreamStatus, SubtitleTrack } from '../../../types';
+import { reducer, INITIAL_STATE } from './Player.reducer';
+import { useServiceCall } from '../../../hooks/useServiceCall';
+import { useStateValue } from '../../../state';
+import { styled } from '@mui/material';
 
 const PlayerWrapper = styled('div')<ReactPlayerProps>`
 	position: relative;
@@ -25,19 +25,39 @@ const LoadingIconWrapper = styled('div')<ReactPlayerProps>`
 const Player: React.FC<ReactPlayerProps> = (props) => {
 	const { light, imdbCode, quality } = props;
 	const [state, dispatch] = React.useReducer(reducer, INITIAL_STATE);
+	const [subtitles, setSubtitles] = useState<SubtitleTrack[]>([]);
+	const [{ userLanguage }] = useStateValue();
 	const playerRef = React.useRef<ReactPlayer>(null);
 	const wrapperRef = React.useRef<HTMLDivElement>(null);
 
 	const {
 		data: streamStatusData,
-		loading
+		loading: streamStatusLoading,
+		error: streamStatusError
 	}: {
 		data?: StreamStatus;
+		error?: Error;
 		loading: boolean;
 	} = useServiceCall(
 		async () => await streamService.getMovieStatus(imdbCode, quality),
 		[quality]
 	);
+
+	const {
+		data: subtitlesData,
+		error: subtitlesError
+	}: {
+		data?: SubtitleTrack[];
+		error?: Error;
+	} = useServiceCall(
+		async () => await subtitleService.getMovieSubtitles(imdbCode, userLanguage || 'enUS'),
+		[]
+	);
+
+	useEffect(() => {
+		if (subtitlesError) setSubtitles([]);
+		else subtitlesData && setSubtitles(subtitlesData);
+	}, [subtitlesData, subtitlesError]);
 
 	const handlePreview = () => {
 		dispatch({ type: 'TOGGLE_PLAY' });
@@ -65,10 +85,12 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 		dispatch({ type: 'DURATION', payload: duration });
 	};
 
+	if (streamStatusError) console.log('Stream status error, try again.');
 	if (streamStatusData) console.log(`${streamStatusData.progress}`);
+
 	return (
 		<PlayerWrapper state={state} ref={wrapperRef}>
-			{loading ? (
+			{streamStatusLoading ? (
 				<LoadingIconWrapper>
 					<LoadingIcon />
 				</LoadingIconWrapper>
@@ -100,6 +122,12 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 					onDuration={handleDuration}
 					onProgress={handleProgress}
 					onClickPreview={handlePreview}
+					config={{
+						file: {
+							tracks: subtitles,
+							attributes: { crossOrigin: 'true' }
+						}
+					}}
 				/>
 			)}
 		</PlayerWrapper>

@@ -163,8 +163,6 @@ export type YtsMovieData = MovieThumbnail & {
 	largeScreenshotImage: string;
 	backgroundImage: string;
 	torrents: { quality: string; seeds: number; peers: number }[];
-
-	// quality: string[];
 };
 
 export type OmdbMovieData = {
@@ -217,4 +215,11 @@ export type WatchHistory = {
 	userId: string,
 	downloadsId: string,
 	lastWatched: Date
+};
+
+export type SubtitleDBData = {
+		id: string;
+		path: string;
+		imdb: IMDB;
+		language: string;
 };
