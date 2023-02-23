@@ -1,7 +1,6 @@
 import { LanguageOption, NewUser, UserProfile } from '../types';
-import { isDate, isLanguageOption, isString, isStringArray, isStringRepresentedInteger } from './basicTypeValidators';
+import { isLanguageOption, isString } from './basicTypeValidators';
 import { ValidationError } from '../errors';
-import { getAge } from '../utils/helpers';
 import { parseImage } from './imgValidators';
 
 const usernameRegex = /^[a-zA-Z0-9_\-.ÄÖäöÅåßÜü]{4,21}$/;
@@ -149,57 +148,6 @@ export const parseNewUserPayload = ({ username, email, passwordPlain, firstname,
 		language: parseLanguageOption(language)
 	};
 	return newUser;
-};
-
-export const parseBirthday = (date: unknown): Date => {
-	if (!date) {
-		throw new ValidationError('Missing birthay date');
-	}
-	if (!isString(date) || !isDate(date)) {
-		throw new ValidationError('Invalid birthday date format');
-	}
-	const age = getAge(date);
-	const limit = new Date('1900-01-01');
-	if (age < 18) throw new ValidationError('User must be at least 18 y.o.');
-	const bd = new Date(date);
-	if (bd < limit) throw new ValidationError('Maximum age is exceeded');
-
-	return bd;
-};
-
-export const parseBio = (bio: unknown): string => {
-	if (!bio) {
-		throw new ValidationError(`Missing bio`);
-	}
-	if (!isString(bio)) {
-		throw new ValidationError(`Expected bio to be string, got: ${typeof bio}`);
-	}
-	const trimmedBio = bio.trim().replace(/\s\s+/g, ' ');
-	if (trimmedBio.length > 100 || trimmedBio.length < 10) {
-		throw new ValidationError(`Invalid bio format: min 10, max 100 chars`);
-	}
-	return trimmedBio;
-};
-
-export const parseLocationString = (location: unknown): string => {
-	if (location === null || location === undefined) {
-		throw new ValidationError(`Missing location string.`);
-	}
-	if (!isString(location)) {
-		throw new ValidationError(`Expected location to be string, got: ${typeof location}`);
-	}
-	return location;
-};
-
-export const parseIdList = (idList: unknown): string[] => {
-	if (!idList) {
-		throw new ValidationError(`Missing user id list`);
-	}
-	if (!isStringArray(idList)) throw new ValidationError(`Invalid user list format: strings expected`);
-	idList.map((id) => {
-		if (!isStringRepresentedInteger(id)) throw new ValidationError('Wrong user id format');
-	});
-	return idList;
 };
 
 export const parseLanguageOption = (languageOption: unknown): LanguageOption => {

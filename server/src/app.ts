@@ -12,6 +12,9 @@ import { globalErrorHandler, unknownEndpoint } from './errors';
 import { createServer } from 'http';
 import { sessionIdExtractor } from './utils/middleware';
 
+import cron from 'node-cron';
+import { deleteIdleMovies } from './services/movies';
+
 export const app = express();
 export const httpServer = createServer(app);
 
@@ -31,4 +34,11 @@ app.use('/api/movies', movieRouter);
 app.use(globalErrorHandler);
 
 app.use(unknownEndpoint);
-streamRouter;
+
+// cron.schedule('*/1 * * * * *',  () => {  // every second for testing
+cron.schedule('0 9 * * *',  () => {  
+	console.log('running a task every day at 9:00 UTC');
+	deleteIdleMovies()
+	.then(() => console.log('sucessful deletion of idle movies'))
+	.catch(()=> console.log('failed to delet idle movies'));
+  });

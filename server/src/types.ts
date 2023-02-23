@@ -184,7 +184,7 @@ export type MovieData = {
 export type StreamContent = {
 	code: number;
 	headers: { [key: string]: string | number };
-	stream: fs.ReadStream;
+	stream?: fs.ReadStream;
 };
 
 export type StreamStatus = {
@@ -203,18 +203,18 @@ export type ReviewType = {
 };
 
 export type ReviewAndTotalCount = {
-	reviews: ReviewType[] | undefined;
+	reviews: ReviewType[];
 	totalCount: number;
 };
 
-export type GetReviewsData = {
-	ytsMovieId: string;
-	page: number;
-};
-
-export type NewReviewType = {
+export type UserReview = {
 	text: string;
 	rating: number;
-	userId: string;
-	ytsId: string;
+};
+
+export type WatchHistory = {
+	id: string,
+	userId: string,
+	downloadsId: string,
+	lastWatched: Date
 };

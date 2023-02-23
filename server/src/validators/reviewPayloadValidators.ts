@@ -1,12 +1,10 @@
-import { NewReviewType } from '../types';
+import { UserReview } from '../types';
 import { isString, isNumber, isStringRepresentedInteger } from './basicTypeValidators';
 import { ValidationError } from '../errors';
 
 type Fields = {
 	text: unknown;
 	rating: unknown;
-	ytsId: unknown;
-	userId: string;
 };
 
 const parseText = (text: unknown): string => {
@@ -24,35 +22,20 @@ const parseText = (text: unknown): string => {
 };
 
 const parseRating = (rating: unknown): number => {
-	if (!rating) {
-		throw new ValidationError('movieReviewRatingMissing');
-	}
-	if (!isNumber(rating)) {
+	if (!rating) return 0;
+	if (!isStringRepresentedInteger(rating) && !isNumber(rating)) {
 		throw new ValidationError('movieReviewRatingNotNumber');
 	}
-	if (rating < 0 || rating > 5) {
+	if (Number(rating) < 0 || Number(rating) > 5) {
 		throw new ValidationError('movieReviewRatingOutOfRange');
 	}
-	return rating;
+	return Number(rating);
 };
 
-const parseYtsId = (ytsId: unknown): string => {
-	if (!ytsId || !isStringRepresentedInteger(ytsId)) {
-		throw new ValidationError(`movieReviewsNotFound`);
-	}
-	const trimmedYtsId = ytsId.trim();
-	if (!trimmedYtsId) {
-		throw new ValidationError('movieMovieIdMissing');
-	}
-	return trimmedYtsId;
-};
-
-export const parseNewReviewPayload = ({ text, rating, ytsId, userId }: Fields): NewReviewType => {
-	const newReview: NewReviewType = {
+export const parseNewReviewPayload = ({ text, rating }: Fields): UserReview => {
+	const newReview: UserReview = {
 		text: parseText(text),
-		rating: parseRating(rating),
-		userId: userId,
-		ytsId: parseYtsId(ytsId)
+		rating: parseRating(rating)
 	};
 	return newReview;
 };

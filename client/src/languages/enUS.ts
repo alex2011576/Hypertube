@@ -97,6 +97,7 @@ export const enUS: Dictionary = {
 	invalidEmail: 'Incorrect email format',
 	incorrectField: 'Incorrect field',
 	tooLongInput: 'Maximum 300 characters',
+	emptyField: 'Empty field, note that we are removing trailing spaces',
 
 	// Movies
 	moviesError: 'Error occurred, please try again',
@@ -207,17 +208,16 @@ export const enUS: Dictionary = {
 	movieMovieNotFound: 'Movie not found.',
 	moviesUserNotLoggedIn: 'User is not logged in',
 	errorParsingSearchQuery: 'Error parsing search query',
-	movieReviewsNotFound: 'Reviews not found', // NEW
-	movieReviewsPageInvalidType: 'Invalid page type', // NEW
+	movieReviewsNotFound: 'Reviews not found',
+	movieReviewsPageInvalidType: 'Invalid page type',
 
 	// validator/reviewPayloadValidators.ts
-	movieReviewTextNotString: 'Review text invalid type', // NEW
-	movieReviewTextMissing: 'Review text is missing', // NEW
-	movieReviewTextTooLong: 'Review text is too long', // NEW
-	movieReviewRatingNotNumber: 'Review rating invalid type', // NEW
-	movieReviewRatingMissing: 'Review rating is missing', // NEW
-	movieReviewRatingOutOfRange: 'Review rating is out of range (0 - 5)', // NEW
-	movieMovieIdMissing: 'Movie id is missing', // NEW
+	movieReviewTextNotString: 'Review text invalid type',
+	movieReviewTextMissing: 'Review text is missing',
+	movieReviewTextTooLong: 'Review text is too long',
+	movieReviewRatingNotNumber: 'Review rating invalid type',
+	movieReviewRatingOutOfRange: 'Review rating is out of range (0 - 5)',
+	movieMovieIdMissing: 'Movie id is missing',
 
 	// routes/users.ts
 	usersForgotPasswordMissingToken: 'Missing activation code',

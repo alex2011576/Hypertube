@@ -1,3 +1,4 @@
+import { useToggleButtonWithSetValue } from '../../hooks/useToggleButton';
 import { stringOrPlaceholder } from '../../utils/helpers';
 import { useServiceCall } from '../../hooks/useServiceCall';
 import { useParams } from 'react-router-dom';
@@ -10,8 +11,10 @@ import movieService from '../../services/movie';
 import LoadingIcon from '../LoadingIcon';
 import MovieInfo from './MovieInfo';
 import Reviews from './Reviews/';
+import Quality from './Quality';
 import Player from './Player';
-// import Text from '../Text';
+import { useState } from 'react';
+import PrePlayer from './Player/PrePlayer';
 
 const Background = styled('div', {
 	shouldForwardProp: (prop) => prop !== 'src'
@@ -28,6 +31,8 @@ const Background = styled('div', {
 
 const MoviePage = () => {
 	const { id: movieId } = useParams();
+	const quality = useToggleButtonWithSetValue(undefined);
+	const [loadingPlayer, setLoadingPlayer] = useState(false);
 
 	const {
 		data: movieData,
@@ -40,19 +45,23 @@ const MoviePage = () => {
 	if (movieError) return <Navigate to="/" />;
 	if (!movieData) return <LoadingIcon />;
 
-	const { ytsMovieData: yts, /* movieData.reviewPagesCount: pagesCount */ } = movieData;
-	const pageBackground = stringOrPlaceholder(yts.largeScreenshotImage, moviePlaceholder);
-	const cover = stringOrPlaceholder(yts.cover, moviePlaceholder);
+	const { ytsMovieData: yts } = movieData;
 
 	const torrents = yts.torrents;
+	const pageBackground = stringOrPlaceholder(yts.largeScreenshotImage, moviePlaceholder);
 
 	return (
 		<Background src={pageBackground}>
-			<Player
-				light={pageBackground || cover}
-				id={yts.imdbCode}
-				quality={torrents[0].quality}
-			/>
+			{!loadingPlayer ? (
+				<PrePlayer playHandle={() => setLoadingPlayer(true)}></PrePlayer>
+			) : (
+				<Player
+					imdbCode={yts.imdbCode}
+					quality={quality.value || torrents[0].quality}
+					light={pageBackground}
+				/>
+			)}
+			<Quality torrents={torrents} quality={quality} playHandle={() => setLoadingPlayer(false)}/>
 			<MovieInfo movieData={movieData} />
 			<Reviews movieId={yts.id} />
 		</Background>

@@ -50,6 +50,45 @@ const setDownloadComplete = async (imdb: IMDB, quality: StreamQuality): Promise<
 	await pool.query(query);
 };
 
-export { searchInDownloads, recordDownloading, setDownloadComplete };
+const removeDownloadRecord = async (id: string): Promise<void> => {
+	const query = {
+		text: 'delete from downloads where id=$1',
+		values: [id]
+	};
+	await pool.query(query);
+};
+
+const monthIdleMovies = async (): Promise<FileInfo[]> => {
+	const query = {
+		text: `
+            SELECT * FROM downloads
+            WHERE id IN (
+                SELECT DISTINCT downloads_id
+                FROM watch_history
+                WHERE last_time_watched < NOW() - INTERVAL '1 month'
+            );
+        `,
+		// text: `
+        //     SELECT DISTINCT d.id
+        //     FROM downloads d
+        //     INNER JOIN watch_history wh ON d.id = wh.downloads_id
+        //     WHERE wh.last_time_watched < NOW() - INTERVAL '1 month';
+        // `,
+		values: []
+	};
+	const res = await pool.query(query);
+	if (!res.rowCount) {
+		return [];
+	}
+	return res.rows.map((row) => downloadsMapper(row));
+};
+
+export {
+    searchInDownloads,
+    recordDownloading,
+    setDownloadComplete,
+    removeDownloadRecord,
+    monthIdleMovies
+};
 // id, path, type, size, completed, imdb, quality, downloadTime;
 // id, path, type, size, completed, imdb, quality, download_time;

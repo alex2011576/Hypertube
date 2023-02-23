@@ -1,5 +1,9 @@
-import { MovieData, OmdbMovieData, YtsMovieData } from '../types';
+import { IMDB, MovieData, OmdbMovieData, ReviewAndTotalCount, StreamQuality, YtsMovieData } from '../types';
 import axios from 'axios';
+import { getReviews, getTotalReviewsCount } from '../repositories/movieRepository';
+import { getErrorMessage } from '../errors';
+import { searchInDownloads } from '../repositories/downloadsRepository';
+import { createWatchRecord } from '../repositories/watchHistoryRepository';
 
 type YTSPayload = {
 	data: YTSPayloadData;
@@ -63,7 +67,7 @@ const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<Yts
 
 		return ytsMovieData;
 	} catch (err) {
-		console.log('Failed to get response from YTS movie_details: ', err); //rm later
+		console.log('Failed to get response from YTS movie_details: ', getErrorMessage(err)); //rm later
 	}
 	return undefined;
 };
@@ -110,4 +114,18 @@ export const getMovieData = async (userId: string, ytsMovieId: string): Promise<
 	const omdbMovieData = imdbCode ? await getOmdbMovieData(imdbCode) : undefined;
 
 	return { ytsMovieData, omdbMovieData };
+};
+
+export const getMovieReviews = async (ytsMovieId: string, page: string): Promise<ReviewAndTotalCount> => {
+	const reviews = await getReviews(ytsMovieId, Number(page));
+	const totalCount = await getTotalReviewsCount(ytsMovieId);
+	return { reviews: reviews, totalCount: totalCount };
+};
+
+
+export const updateWatchHistory = async (imdb: IMDB, quality: StreamQuality, userId: string) => {
+	const movie = await searchInDownloads(imdb, quality);
+	if (movie && movie.id) {
+		await createWatchRecord(userId, movie.id);
+	}
 };

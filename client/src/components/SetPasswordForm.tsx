@@ -61,7 +61,7 @@ const SetPasswordForm = () => {
 						required
 						autoFocus
 						type={showPassword ? 'text' : 'password'}
-						autoComplete="password"
+						autoComplete="new-password"
 						InputLabelProps={{ shrink: true }}
 					/>
 					<TextField
@@ -69,7 +69,7 @@ const SetPasswordForm = () => {
 						size="small"
 						required
 						type={showPassword ? 'text' : 'password'}
-						autoComplete="password"
+						autoComplete="new-password"
 						InputLabelProps={{ shrink: true }}
 					/>
 					<FormControlLabel

@@ -89,8 +89,10 @@ export type YtsMovieData = MovieThumbnail & {
 	language: string;
 	largeScreenshotImage: string;
 	backgroundImage: string;
-	torrents: { quality: string; seeds: number; peers: number }[];
+	torrents: Torrent[];
 };
+
+export type Torrent = { quality: string; seeds: number; peers: number };
 
 export type OmdbMovieData = {
 	plot: string;
@@ -123,7 +125,7 @@ export type ReviewType = {
 	rating: number;
 	userId: string;
 	username: string;
-	photo?: PhotoType;
+	photo?: string;
 };
 
 export type ReviewsAndTotalCount = {
