@@ -99,7 +99,9 @@ export const downloadMovieSubtitles = async (imdbId: string): Promise<boolean> =
 
 export const getSubtitleTracks = async (imdbId: string, userLanguage: LanguageOption) => {
 	const subtitles = await getSubtitlesFileEntries(imdbId);
-	const defaultLanguage = subtitles.find((subtitle) => subtitle.language === userLanguage) ? userLanguage.substring(0, 2) : 'en';
+	const languageCode = userLanguage.substring(0, 2);
+	const defaultLanguage = subtitles.find((subtitle) => subtitle.language === languageCode) ? languageCode : 'en';
+	console.log(defaultLanguage);
 	const subtitleTracks = subtitles.map((entry) => {
 		return {
 			kind: 'subtitles',
