@@ -1,15 +1,16 @@
 import { Paper, styled, Container, Box, Typography, Divider, Alert } from '@mui/material';
-import { getProfile, getPhoto, getIsPasswordSet  } from '../../services/profile';
+import { getProfile, getPhoto, getIsPasswordSet } from '../../services/profile';
 import { PhotoType, UserData } from '../../types';
 import { useServiceCall } from '../../hooks/useServiceCall';
 import { useStateValue } from '../../state';
+import { useEffect, useState } from 'react';
 import UpdatePasswordForm from './UpdatePasswordForm';
 import UpdateEmailForm from './UpdateEmailForm';
 import SetPasswordForm from './SetPasswordForm';
 import withAuthRequired from '../AuthRequired';
+import LoadingIcon from '../LoadingIcon';
 import ProfileForm from './ProfileForm';
 import Text from '../Text';
-import { useEffect, useState } from 'react';
 
 const StyledButtons = styled('div')(() => ({
 	background: 'white',
@@ -35,17 +36,18 @@ const StyledHeader = styled(Typography)(() => ({
 const ProfileEditor = () => {
 	const [{ loggedUser }] = useStateValue();
 	const [isPasswordSet, setIsPasswordSet] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+
+	const {
+		data: isPasswordSetData,
+		error: isPasswordSetError
+	}: { data: boolean | undefined; error: Error | undefined } = useServiceCall(
+		async () => loggedUser && (await getIsPasswordSet(loggedUser.id)),
+		[loggedUser]
+	);
 
 	useEffect(() => {
-		if (loggedUser) {
-			setIsLoading(true);
-			(async function() {
-				setIsPasswordSet(await getIsPasswordSet(loggedUser.id))
-				setIsLoading(false);
-			})();
-		}
-	}, [loggedUser]);
+		if (loggedUser && isPasswordSetData !== undefined) setIsPasswordSet(isPasswordSetData);
+	}, [isPasswordSetData, loggedUser]);
 
 	const {
 		data: profileData,
@@ -63,20 +65,20 @@ const ProfileEditor = () => {
 		[loggedUser]
 	);
 
-	if (profileError || photosError)
-	return (
-		<Alert severity="error">
-			<Text tid="profileLoadingError" />
-		</Alert>
-	);
+	if (profileError || photosError || isPasswordSetError)
+		return (
+			<Alert severity="error">
+				<Text tid="profileLoadingError" />
+			</Alert>
+		);
 
-	if (!profileData || !photosData || isLoading) return <>loading</>;
+	if (!profileData || !photosData || isPasswordSetData === undefined) return <LoadingIcon />;
 
 	const userData: UserData = {
 		username: profileData.username,
 		firstname: profileData.firstname,
 		lastname: profileData.lastname,
-		language: profileData.language,
+		language: profileData.language
 	};
 
 	return (
@@ -93,7 +95,11 @@ const ProfileEditor = () => {
 			<Paper sx={{ marginTop: 5 }}>
 				<StyledButtons>
 					<UpdateEmailForm />
-					{isPasswordSet ? <UpdatePasswordForm /> : <SetPasswordForm setIsPasswordSet={setIsPasswordSet} /> }
+					{isPasswordSet ? (
+						<UpdatePasswordForm />
+					) : (
+						<SetPasswordForm setIsPasswordSet={setIsPasswordSet} />
+					)}
 				</StyledButtons>
 			</Paper>
 		</Container>
