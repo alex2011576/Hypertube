@@ -10,27 +10,6 @@ import fs = require('fs');
 
 const router = express.Router();
 
-router.get('/:id/:language', (req, res) => {
-	const languages = ['en', 'ru', 'sv'];
-	const imdbId = req.params.id;
-
-	if (!isIMDB(imdbId)) {
-		throw new AppError(`invalidImdbId`, 400);
-	}
-
-	const language = req.params.language;
-	if (!language || !language.length || !languages.includes(language)) throw new AppError(`wrongLanguage`, 400);
-
-	const file = `./subtitles/${imdbId}/${imdbId}-${language}.vtt`;
-	fs.readFile(file, (err, data) => {
-		if (err) {
-			throw new AppError(`noSubtitlesFile`, 400);
-		}
-		res.set('Content-Type', 'text/plain');
-		res.status(200).send(data);
-	});
-});
-
 router.get(
 	'/:id',
 	sessionExtractor,
@@ -50,5 +29,21 @@ router.get(
 		res.status(200).send(subtitlesTracks);
 	})
 );
+
+router.get('/:id/:language', (req, res) => {
+	const languages = ['en', 'ru', 'sv'];
+	const imdbId = req.params.id;
+
+	if (!isIMDB(imdbId)) throw new AppError(`invalidImdbId`, 400);
+
+	const language = req.params.language;
+	if (!language || !language.length || !languages.includes(language)) throw new AppError(`wrongLanguage`, 400);
+
+	const file = `./subtitles/${imdbId}/${imdbId}-${language}.vtt`;
+	fs.readFile(file, (err, data) => {
+		if (err) throw new AppError(`noSubtitlesFile`, 400);
+		res.set('Content-Type', 'text/plain').status(200).send(data);
+	});
+});
 
 export default router;
