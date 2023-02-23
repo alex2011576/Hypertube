@@ -6,7 +6,7 @@ import userRouter from './routes/users';
 import loginRouter from './routes/login';
 import streamRouter from './routes/streaming';
 import movieRouter from './routes/movies';
-
+import subtitleRouter from './routes/subtitles';
 import { globalErrorHandler, unknownEndpoint } from './errors';
 
 import { createServer } from 'http';
@@ -30,6 +30,8 @@ app.use('/api/login', loginRouter);
 app.use('/api/users', userRouter);
 app.use('/api/stream', streamRouter);
 app.use('/api/movies', movieRouter);
+app.use('/api/subtitles', subtitleRouter);
+
 // Error handler for errors
 app.use(globalErrorHandler);
 

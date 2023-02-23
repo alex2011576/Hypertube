@@ -22,18 +22,6 @@ export const checkIfDuplicatesExist = (arr: string[]) => {
 	return new Set(arr).size !== arr.length;
 };
 
-//might fail when offfset back by local if not same timezone as front
-export const getAge = (dateString: string): number => {
-	const today = new Date();
-	const birthDate = new Date(dateString);
-	let age = today.getFullYear() - birthDate.getFullYear();
-	const m = today.getMonth() - birthDate.getMonth();
-	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-		age--;
-	}
-	return age;
-};
-
 export const assertNever = (value: string): never => {
 	throw new Error(`Unhandled discriminated union member: ${value}`);
 };
@@ -125,17 +113,17 @@ export const checkFileSize = (filePath: string) => {
 	if (fs.existsSync(`${filePath}`)) {
 		return checkFileSize();
 	}
-	console.log('no file');
 	return 0;
 };
 
 export const fileIsDownloading = async (filePath: string) => {
+	console.log('Checking whether file is areading being downloaded...');
 	return new Promise((resolve, _reject) => {
 		let resolved = false;
 		let watcher: fs.FSWatcher | null = null;
 
 		const timeout = setTimeout(() => {
-			console.log('File is not downloading!');
+			console.log('File is not being downloaded yet!\n');
 			if (!resolved) {
 				if (watcher) watcher.close();
 				resolved = true;
@@ -146,7 +134,7 @@ export const fileIsDownloading = async (filePath: string) => {
 		if (fs.existsSync(`${filePath}`)) {
 			watcher = fs.watch(`${filePath}`, (eventType, _filename) => {
 				if (eventType === 'change') {
-					console.log('File is being downloaded');
+					console.log('File is already being downloaded!\n');
 					if (watcher) watcher.close();
 					if (!resolved) {
 						resolved = true;

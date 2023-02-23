@@ -132,3 +132,11 @@ export type ReviewsAndTotalCount = {
 	reviews: ReviewType[];
 	totalCount: number;
 };
+
+export type SubtitleTrack = {
+	kind: string;
+	src: string;
+	srcLang: string;
+	label: string;
+	default: boolean;
+};
