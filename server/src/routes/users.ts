@@ -190,7 +190,7 @@ router.put(
 router.put(
 	'/:id/set_password',
 	sessionExtractor,
-	asyncHandler( async (req: CustomRequest, res) => {
+	asyncHandler(async (req: CustomRequest, res) => {
 		if (!req.session || !req.session.userId) {
 			throw new AppError(`usersNoRightsToUpdate`, 400);
 		}
@@ -213,7 +213,7 @@ router.get(
 		if (!req.session || !req.session.userId) {
 			throw new AppError(`usersNoRightsToUpdate`, 400);
 		}
-		if (await getPasswordHash(req.params.id) === "notSet") {
+		if ((await getPasswordHash(req.params.id)) === 'notSet') {
 			res.status(200).json(false);
 			return;
 		}

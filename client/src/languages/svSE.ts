@@ -252,8 +252,8 @@ export const svSE: Dictionary = {
 
 	//error.ts
 	errorUnknownEndpoint: 'Okänd slutpunkt',
-	errorUnexpectedError: 'Oväntat fel',//new
-	errorDatabase: 'Det gick inte att komma åt databasen',//new all below
+	errorUnexpectedError: 'Oväntat fel', //new
+	errorDatabase: 'Det gick inte att komma åt databasen', //new all below
 
 	//streaming apis all new
 	streamingInvalidImdb: 'Ogiltigt imdb-id',
@@ -274,5 +274,5 @@ export const svSE: Dictionary = {
 	invalidImdbId: 'Invalid Imdb ID', //NEW
 	noSubtitlesFile: 'No subtitle files found', //NEW
 	noSubtitles: 'No subtitle options found', //NEW
-	wrongLanguage: 'Invalid language option', //NEW
+	wrongLanguage: 'Invalid language option' //NEW
 };

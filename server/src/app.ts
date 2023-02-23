@@ -38,9 +38,9 @@ app.use(globalErrorHandler);
 app.use(unknownEndpoint);
 
 // cron.schedule('*/1 * * * * *',  () => {  // every second for testing
-cron.schedule('0 9 * * *',  () => {  
+cron.schedule('0 9 * * *', () => {
 	console.log('running a task every day at 9:00 UTC');
 	deleteIdleMovies()
-	.then(() => console.log('sucessful deletion of idle movies'))
-	.catch(()=> console.log('failed to delet idle movies'));
-  });
+		.then(() => console.log('sucessful deletion of idle movies'))
+		.catch(() => console.log('failed to delet idle movies'));
+});
