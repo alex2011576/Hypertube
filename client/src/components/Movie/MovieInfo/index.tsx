@@ -39,14 +39,14 @@ const MovieInfo = ({ movieData }: { movieData: MovieData }) => {
 
 	const titleEnglish = stringOrPlaceholder(yts.titleEnglish, '');
 	const rating = numberOrUndefined(yts.rating);
-	const title = translations[userLanguage as keyof typeof translations].title || yts.title;
+	const title = translations[userLanguage as keyof typeof translations]?.title || yts.title;
 	const country =
-		translations[userLanguage as keyof typeof translations].title || omdb?.country || '';
+		translations[userLanguage as keyof typeof translations]?.country || omdb?.country || '';
 	const year = numberOrUndefined(yts.year);
 
 	const runtime = numberOrUndefined(yts.runtime);
 	const language = stringOrPlaceholder(yts.language, '');
-	const genre = translations[userLanguage as keyof typeof translations].genre || '';
+	const genre = translations[userLanguage as keyof typeof translations]?.genre || '';
 
 	const downloadCount = numberOrUndefined(yts.downloadCount);
 	const likeCount = numberOrUndefined(yts.likeCount);
@@ -56,7 +56,7 @@ const MovieInfo = ({ movieData }: { movieData: MovieData }) => {
 	const actors = stringOrPlaceholder(omdb?.actors, '');
 
 	const plot =
-		translations[userLanguage as keyof typeof translations].plot || omdb?.plot || '';
+		translations[userLanguage as keyof typeof translations]?.plot || omdb?.plot || '';
 
 	return (
 		<InfoContainer>
