@@ -35,14 +35,14 @@ const StyledHeader = styled(Typography)(() => ({
 const ProfileEditor = () => {
 	const [{ loggedUser }] = useStateValue();
 	const [isPasswordSet, setIsPasswordSet] = useState(false);
-	const [isLoading, setIsloading] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		if (loggedUser) {
-			setIsloading(true);
+			setIsLoading(true);
 			(async function() {
 				setIsPasswordSet(await getIsPasswordSet(loggedUser.id))
-				setIsloading(false);
+				setIsLoading(false);
 			})();
 		}
 	}, [loggedUser]);
