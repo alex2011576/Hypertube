@@ -55,9 +55,7 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 				);
 			successCallback('profileFormSuccess');
 		} catch (err) {
-			errorCallback(
-				err.response?.data?.error || 'profileFormError'
-			);
+			errorCallback(err.response?.data?.error || 'profileFormError');
 		}
 	};
 
@@ -90,26 +88,14 @@ const ProfileForm: React.FC<{ userData: UserData; photo: PhotoType | undefined }
 				</Grid>
 				<TextField
 					{...username}
+					autoFocus
 					fullWidth
 					size="small"
 					required
 					autoComplete="username"
 				/>
-				<TextField
-					{...firstname}
-					fullWidth
-					size="small"
-					required
-					autoFocus
-					autoComplete="given-name"
-				/>
-				<TextField
-					{...lastname}
-					fullWidth
-					size="small"
-					required
-					autoComplete="family-name"
-				/>
+				<TextField {...firstname} fullWidth size="small" required />
+				<TextField {...lastname} fullWidth size="small" required />
 				{username.value &&
 				firstname.value &&
 				lastname.value &&
