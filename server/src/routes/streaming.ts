@@ -48,7 +48,8 @@ router.get(
 			throw new AppError(`streamingRangeNotProvided`, 400);
 			return ;
 		}
-		const streamRes = await streamContent(imdb, quality, range);
+		const streamRes = await streamContent(imdb, quality, range, req);
+		if (!streamRes) return;
 		// console.log(streamRes);
 		if (streamRes.stream) {
 			res.writeHead(streamRes.code, streamRes.headers);
