@@ -42,6 +42,6 @@ app.use(unknownEndpoint);
 cron.schedule('0 9 * * *',  () => {  
 	console.log('running a task every day at 9:00 UTC');
 	deleteIdleMovies()
-	.then(() => console.log('sucessful deletion of idle movies'))
-	.catch(()=> console.log('failed to delet idle movies'));
+	.then(() => console.log('successful deletion of idle movies'))
+	.catch(()=> console.log('failed to delete idle movies'));
   });

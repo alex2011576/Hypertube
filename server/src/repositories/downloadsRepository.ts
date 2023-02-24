@@ -69,11 +69,11 @@ const monthIdleMovies = async (): Promise<FileInfo[]> => {
             );
         `,
 		// text: `
-        //     SELECT DISTINCT d.id
-        //     FROM downloads d
-        //     INNER JOIN watch_history wh ON d.id = wh.downloads_id
-        //     WHERE wh.last_time_watched < NOW() - INTERVAL '1 month';
-        // `,
+		//     SELECT DISTINCT d.id
+		//     FROM downloads d
+		//     INNER JOIN watch_history wh ON d.id = wh.downloads_id
+		//     WHERE wh.last_time_watched < NOW() - INTERVAL '1 month';
+		// `,
 		values: []
 	};
 	const res = await pool.query(query);
@@ -83,12 +83,6 @@ const monthIdleMovies = async (): Promise<FileInfo[]> => {
 	return res.rows.map((row) => downloadsMapper(row));
 };
 
-export {
-    searchInDownloads,
-    recordDownloading,
-    setDownloadComplete,
-    removeDownloadRecord,
-    monthIdleMovies
-};
+export { searchInDownloads, recordDownloading, setDownloadComplete, removeDownloadRecord, monthIdleMovies };
 // id, path, type, size, completed, imdb, quality, downloadTime;
 // id, path, type, size, completed, imdb, quality, download_time;

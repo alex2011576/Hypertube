@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import moviePlaceholder from './moviePlaceholder.png';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import { stringOrPlaceholder, numberOrUndefined } from '../../utils/helpers';
+import { useStateValue } from '../../state';
 
 const Background = styled('div', {
 	shouldForwardProp: (prop) => prop !== 'isWatched'
@@ -30,6 +31,16 @@ const AbsoluteContent = styled('div')`
 	padding: 10px;
 `;
 
+const getTranslatedLabel = (userLanguage: string | undefined) => {
+	if (userLanguage === 'svSE') {
+		return 'REDAN SEDD';
+	} else if (userLanguage === 'ruRU') {
+		return 'ПРОСМОТРЕН';
+	} else {
+		return 'WATCHED';
+	}
+};
+
 const Thumbnail = ({ movie }: { movie: MovieThumbnail }) => {
 	const cover = stringOrPlaceholder(movie.cover, moviePlaceholder);
 	const title = stringOrPlaceholder(movie.title, 'No title');
@@ -37,16 +48,19 @@ const Thumbnail = ({ movie }: { movie: MovieThumbnail }) => {
 	const rating = numberOrUndefined(movie.rating) ? movie.rating + ' ⭑' : '';
 	const summary = movie.summary.length ? movie.summary.slice(0, 85) + '...' : '';
 
+	const [{ loggedUser }] = useStateValue();
+	const chipLabel = getTranslatedLabel(loggedUser?.language);
+
 	return (
 		<Card sx={{ width: { xs: 300, sm: 320, md: 370 } }}>
 			<Link to={`/movies/${movie.id}`}>
-				<CardActionArea>
+				<CardActionArea sx={{ color: '#001489' }}>
 					<Background src={cover} isWatched={movie.isWatched}>
 						{movie.isWatched && (
 							<ChipPosition>
 								<Chip
 									icon={<VisibilityRoundedIcon />}
-									label="WATCHED"
+									label={chipLabel}
 									color="primary"
 									sx={{ alignItems: 'center', m: 1 }}
 								/>
@@ -54,7 +68,9 @@ const Thumbnail = ({ movie }: { movie: MovieThumbnail }) => {
 						)}
 						<AbsoluteContent>
 							<Typography variant="h5">{title}</Typography>
-							<Typography variant="subtitle1">{year ? year + ' ' + rating : rating}</Typography>
+							<Typography variant="subtitle1">
+								{year ? year + ' ' + rating : rating}
+							</Typography>
 							<Typography variant="body2">{summary}</Typography>
 						</AbsoluteContent>
 					</Background>

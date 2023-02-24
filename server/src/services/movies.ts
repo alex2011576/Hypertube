@@ -1,7 +1,7 @@
 import axios from 'axios';
+import fs from 'fs';
 import { monthIdleMovies, removeDownloadRecord } from '../repositories/downloadsRepository';
 import { SearchQuery, MovieThumbnail, IMDB } from '../types';
-import fs from 'fs';
 import { isWatchedByUser } from '../repositories/watchHistoryRepository';
 
 type YTSPayload = {
@@ -48,10 +48,10 @@ export const getMovies = async (searchQuery: SearchQuery, userId: string): Promi
 							summary: movie.summary || '',
 							cover: movie.large_cover_image || '',
 							rating: movie.rating || 0,
-							isWatched: movie.imdb_code ? await isWatchedByUser(userId, movie.imdb_code as IMDB) : false // <= function to check if watched here
+							isWatched: movie.imdb_code ? await isWatchedByUser(userId, movie.imdb_code as IMDB) : false
 						};
 					})
-			)
+			  )
 			: [];
 		return movieThumbnails;
 	} catch (err) {

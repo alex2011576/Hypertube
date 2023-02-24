@@ -177,6 +177,20 @@ export type OmdbMovieData = {
 export type MovieData = {
 	ytsMovieData: YtsMovieData;
 	omdbMovieData: OmdbMovieData | undefined;
+	translatedMovieData: MovieDataTranslations;
+};
+
+export type TranslatedFields = {
+	title: string;
+	country: string;
+	genre: string;
+	plot: string;
+};
+
+export type MovieDataTranslations = {
+	en: TranslatedFields;
+	ru?: TranslatedFields;
+	sv?: TranslatedFields;
 };
 
 export type StreamContent = {

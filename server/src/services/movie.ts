@@ -1,9 +1,10 @@
-import { IMDB, MovieData, OmdbMovieData, ReviewAndTotalCount, StreamQuality, YtsMovieData } from '../types';
 import axios from 'axios';
+import { IMDB, MovieData, MovieDataTranslations, OmdbMovieData, ReviewAndTotalCount, StreamQuality, TranslatedFields, YtsMovieData } from '../types';
 import { getReviews, getTotalReviewsCount } from '../repositories/movieRepository';
 import { getErrorMessage } from '../errors';
 import { searchInDownloads } from '../repositories/downloadsRepository';
-import { createWatchRecord } from '../repositories/watchHistoryRepository';
+import { createWatchRecord, isWatchedByUser } from '../repositories/watchHistoryRepository';
+import { googleTranslate } from './translate';
 
 type YTSPayload = {
 	data: YTSPayloadData;
@@ -33,7 +34,7 @@ type YTSMoviePayload = {
 	torrents: { quality: string; seeds: number; peers: number }[];
 };
 
-const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<YtsMovieData | undefined> => {
+const getYtsMovieData = async (userId: string, ytsMovieId: string): Promise<YtsMovieData | undefined> => {
 	try {
 		const ytsPayload = await axios.get<YTSPayload>(`https://yts.torrentbay.to/api/v2/movie_details.json`, {
 			params: { movie_id: ytsMovieId, with_images: 'true' }
@@ -52,7 +53,7 @@ const getYtsMovieData = async (_userId: string, ytsMovieId: string): Promise<Yts
 			summary: movie.summary || '',
 			cover: movie.large_cover_image || '',
 			rating: movie.rating || 0,
-			isWatched: false, // <= function to check if watched here, like: isMovieWatched(userId, movieId);
+			isWatched: movie.imdb_code ? await isWatchedByUser(userId, movie.imdb_code as IMDB) : false,
 			titleEnglish: movie.title_english || '',
 			descriptionIntro: movie.description_intro || '',
 			runtime: movie.runtime || 0,
@@ -113,7 +114,33 @@ export const getMovieData = async (userId: string, ytsMovieId: string): Promise<
 
 	const omdbMovieData = imdbCode ? await getOmdbMovieData(imdbCode) : undefined;
 
-	return { ytsMovieData, omdbMovieData };
+	const fieldsForTranslation: TranslatedFields = {
+		title: ytsMovieData.title || 'No title',
+		country: omdbMovieData?.country || 'No country',
+		genre: ytsMovieData.genres[0] || 'No genre',
+		plot: omdbMovieData?.plot || 'No plot'
+	};
+
+	const translatedMovieData = await getTranslations(fieldsForTranslation);
+	return { ytsMovieData, omdbMovieData, translatedMovieData };
+};
+
+export const getTranslations = async (fieldsForTranslation: TranslatedFields): Promise<MovieDataTranslations> => {
+	const text = Object.values(fieldsForTranslation).join(' !111! ');
+	const translationRu = await googleTranslate(text, 'ru');
+	const translationSv = await googleTranslate(text, 'sv');
+	return { en: fieldsForTranslation, ru: createTranslatedObject(translationRu), sv: createTranslatedObject(translationSv) };
+};
+
+export const createTranslatedObject = (translation: string | undefined): TranslatedFields | undefined => {
+	if (!translation) return undefined;
+	const splitted = translation.split(' !111! ');
+	return {
+		title: splitted[0],
+		country: splitted[1],
+		genre: splitted[2],
+		plot: splitted[3]
+	};
 };
 
 export const getMovieReviews = async (ytsMovieId: string, page: string): Promise<ReviewAndTotalCount> => {
@@ -121,7 +148,6 @@ export const getMovieReviews = async (ytsMovieId: string, page: string): Promise
 	const totalCount = await getTotalReviewsCount(ytsMovieId);
 	return { reviews: reviews, totalCount: totalCount };
 };
-
 
 export const updateWatchHistory = async (imdb: IMDB, quality: StreamQuality, userId: string) => {
 	const movie = await searchInDownloads(imdb, quality);
