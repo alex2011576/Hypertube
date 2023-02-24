@@ -25,7 +25,7 @@ const LoadingIconWrapper = styled('div')<ReactPlayerProps>`
 const Player: React.FC<ReactPlayerProps> = (props) => {
 	const { light, imdbCode, quality } = props;
 	// const [state, dispatch] = React.useReducer(reducer, INITIAL_STATE);
-	const [subtitles, setSubtitles] = useState<SubtitleTrack[]>([]);
+	const [subtitles, setSubtitles] = useState<SubtitleTrack[] | undefined>(undefined);
 	const [{ loggedUser }] = useStateValue();
 	// const playerRef = React.useRef<ReactPlayer>(null);
 	const wrapperRef = React.useRef<HTMLDivElement>(null);
@@ -46,9 +46,11 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 
 	const {
 		data: subtitlesData,
+		loading: subtitlesDataLoading,
 		error: subtitlesError
 	}: {
 		data?: SubtitleTrack[];
+		loading: boolean;
 		error?: Error;
 	} = useServiceCall(
 		async () => await subtitleService.getMovieSubtitles(imdbCode, loggedUser?.language || 'enUS'),
@@ -57,7 +59,9 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 
 	useEffect(() => {
 		if (subtitlesError) setSubtitles([]);
-		else subtitlesData && setSubtitles(subtitlesData);
+		if (subtitlesData) {
+			subtitlesData && setSubtitles(subtitlesData);
+		}
 	}, [subtitlesData, subtitlesError]);
 
 	// const handlePreview = () => {
@@ -86,9 +90,9 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 	// 	dispatch({ type: 'DURATION', payload: duration });
 	// };
 
-	// const onError = () => {
-	// 	console.log('error');
-	// }
+	const onError = () => {
+		console.log('error');
+	}
 
 	if (streamStatusError) console.log('Stream status error, try again.');
 	if (streamStatusData) console.log(`${streamStatusData.progress}`);
@@ -96,7 +100,7 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 	return (
 		// <PlayerWrapper state={state} ref={wrapperRef}>
 		<PlayerWrapper ref={wrapperRef}>
-			{streamStatusLoading ? (
+			{(streamStatusLoading || subtitlesDataLoading || !streamStatusData || !subtitles) ? (
 				<LoadingIconWrapper>
 					<LoadingIcon />
 				</LoadingIconWrapper>
@@ -129,7 +133,7 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 					// onProgress={handleProgress}
 					// onClickPreview={handlePreview}
 					// // onSeek={()=> console.log('seek')}
-					// onError={onError}
+					onError={onError}
 					// controls={true}
 					// playing={true}
 					// muted={true}
@@ -138,8 +142,8 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 					controls
 					config={{
 						file: {
-							tracks: subtitles,
-							attributes: { crossOrigin: 'true' }
+							attributes: { crossOrigin: 'true' },
+							tracks: subtitles
 						}
 					}}
 				/>
