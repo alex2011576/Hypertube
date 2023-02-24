@@ -274,5 +274,5 @@ export const ruRU: Dictionary = {
 	invalidImdbId: 'Неверный Imdb код',
 	noSubtitlesFile: 'Файлы субтитров не найдены',
 	noSubtitles: 'Субтитры не найдены',
-	wrongLanguage: 'Выбран несуществующий язык',
+	wrongLanguage: 'Выбран несуществующий язык'
 };
