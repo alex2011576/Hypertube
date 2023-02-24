@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get(
 	'/status/:imdb/:quality',
-    sessionExtractor,
+	sessionExtractor,
 	asyncHandler(async (req: CustomRequest, res) => {
         if (!req.session || !req.session.userId) {
 			throw new AppError(`moviesUserNotLoggedIn`, 400);

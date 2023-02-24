@@ -249,7 +249,7 @@ export const enUS: Dictionary = {
 	//error.ts
 	errorUnexpectedError: 'Unexpected error',
 	errorUnknownEndpoint: 'Unknown endpoint',
-	errorDatabase: 'Failed to access database',//new
+	errorDatabase: 'Failed to access database',
 
 	//streaming apis all new
 	streamingInvalidImdb: 'Invalid imdb id',
@@ -265,7 +265,6 @@ export const enUS: Dictionary = {
 
 	//oAuth errors
 	oAuthLoginFailed: 'Authentication strategy failure',
-
 
 	//subtitles.ts
 	invalidImdbId: 'Invalid Imdb ID',

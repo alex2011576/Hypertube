@@ -38,6 +38,7 @@ app.use(globalErrorHandler);
 app.use(unknownEndpoint);
 
 // cron.schedule('*/1 * * * * *',  () => {  // every second for testing
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 cron.schedule('0 9 * * *',  () => {  
 	console.log('running a task every day at 9:00 UTC');
 	deleteIdleMovies()

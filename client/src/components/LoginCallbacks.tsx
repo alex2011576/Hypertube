@@ -35,6 +35,9 @@ const Callback42 = () => {
 					alert.error(err.response?.data?.error || 'alertLoginError');
 					navigate('/login');
 				}
+			} else {
+				//alert.error('alertOAuthError');
+				navigate('/login');
 			}
 		};
 		authenticate42();
@@ -77,8 +80,11 @@ const CallbackGithub = () => {
 					alert.error(err.response?.data?.error || 'alertLoginError');
 					navigate('/login');
 				}
+			} else {
+				//alert.error('alertOAuthError');
+				navigate('/login');
 			}
-		};
+		}; 
 		authenticateGH();
 	}, []);
 

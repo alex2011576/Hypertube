@@ -62,7 +62,7 @@ export const ruRU: Dictionary = {
 		'(Jpeg, jpg or png\nМинимум 100 x 100 пикс.\nМаксимум 6000x4000 пикс.\nФайл не более 25Мб)',
 	profileButtonChangeEmail: 'ИЗМЕНИТЬ ИМЕЙЛ',
 	profileButtonChangePassword: 'ИЗМЕНИТЬ ПАРОЛЬ',
-	profileButtonSetPassword: 'SET PASSWORD',
+	profileButtonSetPassword: 'УСТАНОВИТЬ ПАРОЛЬ',
 	profielButtonCancel: 'ОТМЕНА',
 	profielButtonSend: 'ОК',
 	profileEmailTitle: 'Изменить имейл',
@@ -274,5 +274,5 @@ export const ruRU: Dictionary = {
 	invalidImdbId: 'Неверный Imdb код',
 	noSubtitlesFile: 'Файлы субтитров не найдены',
 	noSubtitles: 'Субтитры не найдены',
-	wrongLanguage: 'Выбран несуществующий язык',
+	wrongLanguage: 'Выбран несуществующий язык'
 };

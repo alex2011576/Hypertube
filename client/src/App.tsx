@@ -89,7 +89,11 @@ const App = () => {
 							<Route
 								path="/auth/42/callback"
 								element={
-									!loggedUser ? <Login.Callback42 /> : <Navigate to="/" />
+									!loggedUser ? (
+										<Login.Callback42 />
+									) : (
+										<Navigate to="/" /> 
+									)
 								}
 							/>
 							<Route
@@ -152,6 +156,7 @@ const App = () => {
 							<Route path="/update_email" element={<UpdateEmail />} />
 							<Route path="/movies/" element={<Movies />} />
 							<Route path="/movies/:id" element={<Movie />} />
+							{/* <Route path="/auth/:id/callback" element={< />} /> */}
 							<Route path="*" element={<Navigate to="/" replace />} />
 						</Routes>
 						<Footer />
