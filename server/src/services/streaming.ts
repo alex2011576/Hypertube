@@ -295,8 +295,9 @@ export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: s
 	}
 	const stream = fs.createReadStream(`movies/${movie.path}`, { start, end });
 	stream.on('error', (err) => {
-		console.log(err);
-		throw new TorrentError(`Can't stream file`);
+		void err;
+		console.log('failure to create read stream');
+		throw new AppError(`errorUnexpectedError`, 500);
 	});
 	return { code: code, headers: headers, stream: stream };
 };
