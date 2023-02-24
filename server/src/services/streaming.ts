@@ -284,7 +284,7 @@ export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: s
 		'Content-Length': contentLength,
 		'Content-Type': `video/${movie.type}`
 	};
-	const sizeExpected = start + CHUNK_SIZE + 1000; //we need start + chunk and just in case buffer 1000
+	const sizeExpected = Math.min(start + CHUNK_SIZE + 1000, movie.size - 1); //we need start + chunk and just in case buffer 1000
 	if (sizeExpected >= checkFileSize(`movies/${movie.path}`)) {
 		try {
 			console.log('interval started');
@@ -296,6 +296,8 @@ export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: s
 	const stream = fs.createReadStream(`movies/${movie.path}`, { start, end });
 	stream.on('error', (err) => {
 		void err;
+		if (!stream.destroyed)
+			stream.destroy();
 		console.log('failure to create read stream');
 		throw new AppError(`errorUnexpectedError`, 500);
 	});
