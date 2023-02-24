@@ -33,14 +33,11 @@ export const getStreamStatus = async (imdb: IMDB, quality: StreamQuality): Promi
 const getTorrentFileMagnetLink = async (imdb: IMDB, quality: StreamQuality) => {
 	console.log('Searching for avaliable torrents...');
 
-	const { data }: { data: YtsMovieDetailsJson } = await axios.get(
-		`https://yts.mx/api/v2/movie_details.json?imdb_id=${imdb}`,
-		{
-			headers: {
-				Accept: 'application/json'
-			}
+	const { data }: { data: YtsMovieDetailsJson } = await axios.get(`https://yts.mx/api/v2/movie_details.json?imdb_id=${imdb}`, {
+		headers: {
+			Accept: 'application/json'
 		}
-	);
+	});
 	if (!data || !data.data || !data.data.movie || !data.data.movie.torrents) {
 		throw new TorrentError(`torrentNotTorrents`);
 	}
@@ -181,7 +178,7 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 					console.log(`Progress: ${ratio.toFixed(0)}% (${convertBytes(donwloaded)} / ${convertBytes(file?.length)} bytes)\n`);
 				}
 				// if (!resolved && donwloaded >= 5 * 1024 * 1024) {
-				if (!resolved && donwloaded >= 20 * 1024 * 1024 || ratio >= 3) {
+				if ((!resolved && donwloaded >= 20 * 1024 * 1024) || ratio >= 3) {
 					resolved = true;
 					resolve(fileInfo);
 				}
@@ -233,13 +230,13 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 
 // 	//might require further adjustments
 // 	if (start > currentSize - 1) {
-	// 	start = 0;
-	// 	code = 416;
-	// 	const headers = {
-	// 		'Content-Range': `bytes */${currentSize}`
-	// 	};
-	// 	return { code: code, headers: headers, stream: undefined };
-	// }
+// 	start = 0;
+// 	code = 416;
+// 	const headers = {
+// 		'Content-Range': `bytes */${currentSize}`
+// 	};
+// 	return { code: code, headers: headers, stream: undefined };
+// }
 
 // 	const CHUNK_SIZE = 10 ** 6; // 1MB
 // 	const end = Math.min(start + CHUNK_SIZE, currentSize - 1);
@@ -267,7 +264,7 @@ export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: s
 	// const currentSize = checkFileSize(`movies/${movie.path}`);
 	let code = 206;
 	let start = Number(range.replace(/\D/g, ''));
-	if (start > movie.size - 1 ) {
+	if (start > movie.size - 1) {
 		start = 0;
 		code = 416;
 		const headers = {
@@ -288,9 +285,10 @@ export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: s
 	if (sizeExpected >= checkFileSize(`movies/${movie.path}`)) {
 		try {
 			console.log('interval started');
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 			await waitForFileSize2(sizeExpected, `movies/${movie.path}`, req);
 		} catch {
-			return ;
+			return;
 		}
 	}
 	const stream = fs.createReadStream(`movies/${movie.path}`, { start, end });
