@@ -1,7 +1,7 @@
 import axios from 'axios';
+import fs from 'fs';
 import { monthIdleMovies, removeDownloadRecord } from '../repositories/downloadsRepository';
 import { SearchQuery, MovieThumbnail, IMDB } from '../types';
-import fs from 'fs';
 import { isWatchedByUser } from '../repositories/watchHistoryRepository';
 
 type YTSPayload = {
@@ -48,14 +48,15 @@ export const getMovies = async (searchQuery: SearchQuery, userId: string): Promi
 							summary: movie.summary || '',
 							cover: movie.large_cover_image || '',
 							rating: movie.rating || 0,
-							isWatched: movie.imdb_code ? await isWatchedByUser(userId, movie.imdb_code as IMDB) : false // <= function to check if watched here
+							isWatched: movie.imdb_code ? await isWatchedByUser(userId, movie.imdb_code as IMDB) : false
 						};
 					})
-			)
+			  )
 			: [];
 		return movieThumbnails;
 	} catch (err) {
-		console.log('Response err: ', err); //rm later
+		void err;
+		// console.log('Response err: ', err); //rm later
 	}
 	return [];
 };
@@ -64,7 +65,7 @@ export const deleteIdleMovies = async (): Promise<void> => {
 	const idleMovies = await monthIdleMovies();
 	const noOfItems = idleMovies.length;
 	const promises = [];
-	console.log('files found', noOfItems);
+	console.log(`Cron task found ${noOfItems} idle movies`, noOfItems);
 
 	try {
 		for (let i = 0; i < noOfItems; i++) {
@@ -75,6 +76,6 @@ export const deleteIdleMovies = async (): Promise<void> => {
 		}
 		await Promise.all(promises);
 	} catch {
-		console.log('movie deletion failed');
+		console.log('Deletion of idle movies failed');
 	}
 };

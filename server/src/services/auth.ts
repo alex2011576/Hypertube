@@ -38,14 +38,16 @@ export const requestAuthToken = async (
 			}
 		}
 		if (TokenResponse.data.error || !TokenResponse.data.access_token) {
-			console.log(TokenResponse.data.error);
-			throw new AuthError(`${(TokenResponse.data?.error_description as string) || '42 login failed'}`);
+			// console.log(TokenResponse.data.error);
+			// throw new AuthError(`${(TokenResponse.data?.error_description as string) || 'oAuthLoginFailed'}`);
+			throw new AuthError('oAuthLoginFailed');
 		}
 		return TokenResponse.data.access_token as string;
 	} catch (e) {
 		console.log('axios catch\n');
-		console.log(e);
-		throw new AuthError(`${getErrorMessage(e)}`);
+		console.log(getErrorMessage(e));
+		// throw new AuthError(`${getErrorMessage(e)}`);
+		throw new AuthError(`oAuthLoginFailed`);
 	}
 };
 
@@ -73,7 +75,7 @@ export const Auth42 = async (code: string) => {
 	};
 
 	const session = await logIn42(user42);
-	return { token: session.sessionId, username: session.username, id: session.userId, language: session.language, passwordSet: session.isPasswordSet};
+	return { token: session.sessionId, username: session.username, id: session.userId, language: session.language, passwordSet: session.isPasswordSet };
 };
 
 export const logIn42 = async (user42: User42): Promise<Session> => {
@@ -140,7 +142,6 @@ export const logInGitHub = async (userGH: UserGitHub): Promise<Session> => {
 			user = oldUserSameEmail;
 		}
 	}
-	console.log(user);
 	const session = await addSession({ userId: user.id, username: user.username, email: user.email, language: user.language });
 	session.isPasswordSet = isPasswordSet(user.passwordHash);
 	return session;

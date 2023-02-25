@@ -116,12 +116,14 @@ const Movies = () => {
 						</Box>
 					))}
 				</Grid>
-			) : (
+			) : !thumbnails.length && !moviesData.length ? (
 				<Container sx={{ height: '100vh' }}>
 					<Typography variant="h5" sx={{ m: 10 }} color={'text.secondary'}>
 						No movies found
 					</Typography>
 				</Container>
+			) : (
+				<LoadingIcon />
 			)}
 		</Wrapper>
 	);

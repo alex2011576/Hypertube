@@ -1,14 +1,14 @@
-import React from 'react';
-// import PlayerControls from './PlayerControls';
-import ReactPlayer, { ReactPlayerProps } from 'react-player';
 import PlayCircleOutlineRoundedIcon from '@mui/icons-material/PlayCircleOutlineRounded';
-import { reducer, INITIAL_STATE } from './Player.reducer';
-import { styled } from '@mui/material';
-
-import { useServiceCall } from '../../../hooks/useServiceCall';
-import { StreamStatus } from '../../../types';
+import ReactPlayer, { ReactPlayerProps } from 'react-player';
+import React, { useEffect, useState } from 'react';
+import subtitleService from '../../../services/subtitles';
 import streamService from '../../../services/stream';
 import LoadingIcon from '../../LoadingIcon';
+import { StreamStatus, SubtitleTrack } from '../../../types';
+// import { reducer, INITIAL_STATE } from './Player.reducer';
+import { useServiceCall } from '../../../hooks/useServiceCall';
+import { useStateValue } from '../../../state';
+import { styled } from '@mui/material';
 
 const PlayerWrapper = styled('div')<ReactPlayerProps>`
 	position: relative;
@@ -24,51 +24,83 @@ const LoadingIconWrapper = styled('div')<ReactPlayerProps>`
 
 const Player: React.FC<ReactPlayerProps> = (props) => {
 	const { light, imdbCode, quality } = props;
-	const [state, dispatch] = React.useReducer(reducer, INITIAL_STATE);
-	const playerRef = React.useRef<ReactPlayer>(null);
+	// const [state, dispatch] = React.useReducer(reducer, INITIAL_STATE);
+	const [subtitles, setSubtitles] = useState<SubtitleTrack[] | undefined>(undefined);
+	const [{ loggedUser }] = useStateValue();
+	// const playerRef = React.useRef<ReactPlayer>(null);
 	const wrapperRef = React.useRef<HTMLDivElement>(null);
-
+	// console.log(playerRef);
+	void light;
 	const {
 		data: streamStatusData,
-		loading
+		loading: streamStatusLoading,
+		error: streamStatusError
 	}: {
 		data?: StreamStatus;
+		error?: Error;
 		loading: boolean;
 	} = useServiceCall(
 		async () => await streamService.getMovieStatus(imdbCode, quality),
 		[quality]
 	);
 
-	const handlePreview = () => {
-		dispatch({ type: 'TOGGLE_PLAY' });
-		dispatch({ type: 'LIGHT', payload: false });
-	};
+	const {
+		data: subtitlesData,
+		loading: subtitlesDataLoading,
+		error: subtitlesError
+	}: {
+		data?: SubtitleTrack[];
+		loading: boolean;
+		error?: Error;
+	} = useServiceCall(
+		async () => await subtitleService.getMovieSubtitles(imdbCode, loggedUser?.language || 'enUS'),
+		[]
+	);
 
-	const handlePause = () => {
-		dispatch({ type: 'PAUSE' });
-	};
+	useEffect(() => {
+		if (subtitlesError) setSubtitles([]);
+		if (subtitlesData) {
+			subtitlesData && setSubtitles(subtitlesData);
+		}
+	}, [subtitlesData, subtitlesError]);
 
-	const handlePlay = () => {
-		dispatch({ type: 'PLAY' });
-	};
+	// const handlePreview = () => {
+	// 	dispatch({ type: 'TOGGLE_PLAY' });
+	// 	dispatch({ type: 'LIGHT', payload: false });
+	// };
 
-	const handleEnded = () => {
-		dispatch({ type: 'LIGHT', payload: true });
-		playerRef.current?.showPreview();
-	};
+	// const handlePause = () => {
+	// 	dispatch({ type: 'PAUSE' });
+	// };
 
-	const handleProgress = (progress: { playedSeconds: number }) => {
-		dispatch({ type: 'SEEK', payload: progress.playedSeconds });
-	};
+	// const handlePlay = () => {
+	// 	dispatch({ type: 'PLAY' });
+	// };
 
-	const handleDuration = (duration: number) => {
-		dispatch({ type: 'DURATION', payload: duration });
-	};
+	// const handleEnded = () => {
+	// 	dispatch({ type: 'LIGHT', payload: true });
+	// 	playerRef.current?.showPreview();
+	// };
 
+	// const handleProgress = (progress: { playedSeconds: number }) => {
+	// 	dispatch({ type: 'SEEK', payload: progress.playedSeconds });
+	// };
+
+	// const handleDuration = (duration: number) => {
+	// 	dispatch({ type: 'DURATION', payload: duration });
+	// };
+
+	const onError = () => {
+		console.log('error');
+	}
+
+	if (streamStatusError) console.log('Stream status error, try again.');
 	if (streamStatusData) console.log(`${streamStatusData.progress}`);
+
 	return (
-		<PlayerWrapper state={state} ref={wrapperRef}>
-			{loading ? (
+		// <PlayerWrapper state={state} ref={wrapperRef}>
+		<PlayerWrapper ref={wrapperRef}>
+			{(streamStatusLoading || subtitlesDataLoading || !streamStatusData || !subtitles) ? (
 				<LoadingIconWrapper>
 					<LoadingIcon />
 				</LoadingIconWrapper>
@@ -77,9 +109,9 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 					url={`http://localhost:3001/api/stream/${imdbCode}/${quality}`}
 					width="100%"
 					height="100%"
-					light={light}
+					// light={false}
 					style={{ position: 'relative' }}
-					ref={playerRef}
+					// ref={playerRef}
 					playIcon={
 						<PlayCircleOutlineRoundedIcon
 							sx={{
@@ -88,18 +120,32 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 							}}
 						/>
 					}
-					controls={state.controls}
-					loop={state.loop}
-					muted={state.muted}
-					playing={state.playing}
-					playbackRate={state.playbackRate}
-					volume={state.volume}
-					onPlay={handlePlay}
-					onEnded={handleEnded}
-					onPause={handlePause}
-					onDuration={handleDuration}
-					onProgress={handleProgress}
-					onClickPreview={handlePreview}
+					// controls={state.controls}
+					// loop={state.loop}
+					// muted={state.muted}
+					// playing={state.playing}
+					// playbackRate={state.playbackRate}
+					// volume={state.volume}
+					// onPlay={handlePlay}
+					// onEnded={handleEnded}
+					// onPause={handlePause}
+					// onDuration={handleDuration}
+					// onProgress={handleProgress}
+					// onClickPreview={handlePreview}
+					// // onSeek={()=> console.log('seek')}
+					onError={onError}
+					// controls={true}
+					// playing={true}
+					// muted={true}
+					autoPlay={true}
+					playing
+					controls
+					config={{
+						file: {
+							attributes: { crossOrigin: 'true' },
+							tracks: subtitles
+						}
+					}}
 				/>
 			)}
 		</PlayerWrapper>

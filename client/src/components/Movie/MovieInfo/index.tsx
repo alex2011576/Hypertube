@@ -1,6 +1,6 @@
 import { Container, styled } from '@mui/material';
 import { stringOrPlaceholder, numberOrUndefined } from '../../../utils/helpers';
-import { useTranslateCallback } from '../../../hooks/useTranslateCallback';
+import { useStateValue } from '../../../state';
 import { MovieData } from '../../../types';
 import Creators from './Creators';
 import Title from './Title';
@@ -28,19 +28,25 @@ const InfoColumn = styled(Container)`
 `;
 
 const MovieInfo = ({ movieData }: { movieData: MovieData }) => {
-	const { ytsMovieData: yts, omdbMovieData: omdb } = movieData;
-	// const isWatched = yts.isWatched;
+	const [{ loggedUser }] = useStateValue();
+	const userLanguage = loggedUser?.language.substring(0, 2) || 'en';
+
+	const {
+		ytsMovieData: yts,
+		omdbMovieData: omdb,
+		translatedMovieData: translations
+	} = movieData;
 
 	const titleEnglish = stringOrPlaceholder(yts.titleEnglish, '');
 	const rating = numberOrUndefined(yts.rating);
-	const title = useTranslateCallback(yts.title);
-
-	const country = useTranslateCallback(omdb?.country);
+	const title = translations[userLanguage as keyof typeof translations]?.title || yts.title;
+	const country =
+		translations[userLanguage as keyof typeof translations]?.country || omdb?.country || '';
 	const year = numberOrUndefined(yts.year);
 
 	const runtime = numberOrUndefined(yts.runtime);
 	const language = stringOrPlaceholder(yts.language, '');
-	const genres = yts.genres.length ? yts.genres : [''];
+	const genre = translations[userLanguage as keyof typeof translations]?.genre || '';
 
 	const downloadCount = numberOrUndefined(yts.downloadCount);
 	const likeCount = numberOrUndefined(yts.likeCount);
@@ -49,7 +55,8 @@ const MovieInfo = ({ movieData }: { movieData: MovieData }) => {
 	const writer = stringOrPlaceholder(omdb?.writer, '');
 	const actors = stringOrPlaceholder(omdb?.actors, '');
 
-	const plot = useTranslateCallback(omdb?.plot);
+	const plot =
+		translations[userLanguage as keyof typeof translations]?.plot || omdb?.plot || '';
 
 	return (
 		<InfoContainer>
@@ -64,11 +71,7 @@ const MovieInfo = ({ movieData }: { movieData: MovieData }) => {
 
 				<CountryAndYear country={country} year={year} />
 
-				<RuntimeLanguageGenre
-					runtime={runtime}
-					language={language}
-					genre={genres[0]}
-				/>
+				<RuntimeLanguageGenre runtime={runtime} language={language} genre={genre} />
 
 				<Creators director={director} writer={writer} actors={actors} />
 			</InfoColumn>

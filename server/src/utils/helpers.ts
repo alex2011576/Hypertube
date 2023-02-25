@@ -1,6 +1,6 @@
 import Jimp from 'jimp';
 import { findUserByUsername } from '../repositories/userRepository';
-import { BaseUser } from '../types';
+import { BaseUser, CustomRequest } from '../types';
 import fs from 'fs';
 
 export const adjustUsername = async (user: BaseUser) => {
@@ -20,18 +20,6 @@ export const findDuplicates = (arr: string[]) => {
 
 export const checkIfDuplicatesExist = (arr: string[]) => {
 	return new Set(arr).size !== arr.length;
-};
-
-//might fail when offfset back by local if not same timezone as front
-export const getAge = (dateString: string): number => {
-	const today = new Date();
-	const birthDate = new Date(dateString);
-	let age = today.getFullYear() - birthDate.getFullYear();
-	const m = today.getMonth() - birthDate.getMonth();
-	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-		age--;
-	}
-	return age;
 };
 
 export const assertNever = (value: string): never => {
@@ -125,17 +113,17 @@ export const checkFileSize = (filePath: string) => {
 	if (fs.existsSync(`${filePath}`)) {
 		return checkFileSize();
 	}
-	console.log('no file');
 	return 0;
 };
 
 export const fileIsDownloading = async (filePath: string) => {
+	console.log('Checking whether file is areading being downloaded...');
 	return new Promise((resolve, _reject) => {
 		let resolved = false;
 		let watcher: fs.FSWatcher | null = null;
 
 		const timeout = setTimeout(() => {
-			console.log('File is not downloading!');
+			console.log('File is not being downloaded yet!\n');
 			if (!resolved) {
 				if (watcher) watcher.close();
 				resolved = true;
@@ -146,7 +134,7 @@ export const fileIsDownloading = async (filePath: string) => {
 		if (fs.existsSync(`${filePath}`)) {
 			watcher = fs.watch(`${filePath}`, (eventType, _filename) => {
 				if (eventType === 'change') {
-					console.log('File is being downloaded');
+					console.log('File is already being downloaded!\n');
 					if (watcher) watcher.close();
 					if (!resolved) {
 						resolved = true;
@@ -156,5 +144,38 @@ export const fileIsDownloading = async (filePath: string) => {
 				}
 			});
 		}
+	});
+};
+
+export const waitForFileSize = async (start: number, path: string): Promise<void> => {
+	const now = checkFileSize(path);
+	if (now < start) {
+		await new Promise((resolve) => setTimeout(resolve, 10000));
+		console.log('timeout');
+		await waitForFileSize(start, path);
+	}
+	console.log('streaming chunk');
+};
+// with clear on close
+export const waitForFileSize2 = async (sizeExpected: number, path: string, req: CustomRequest): Promise<void> => {
+	let resolved = false;
+	return await new Promise((resolve, reject) => {
+			const interval = setInterval(() => {
+				// console.log('interval');
+				if (sizeExpected <= checkFileSize(path) && !resolved) {
+					resolved = true;
+					console.log('enough loaded, interval stopped');
+					clearInterval(interval);
+					resolve();
+				}
+			}, 10000);
+			req.on('close', () => { 
+				if (!resolved) {
+					resolved = true;
+					console.log('connection broke, interval stopped');
+					reject();
+					clearInterval(interval);
+				}
+			});
 	});
 };

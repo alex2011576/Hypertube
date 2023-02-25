@@ -163,8 +163,6 @@ export type YtsMovieData = MovieThumbnail & {
 	largeScreenshotImage: string;
 	backgroundImage: string;
 	torrents: { quality: string; seeds: number; peers: number }[];
-
-	// quality: string[];
 };
 
 export type OmdbMovieData = {
@@ -179,6 +177,20 @@ export type OmdbMovieData = {
 export type MovieData = {
 	ytsMovieData: YtsMovieData;
 	omdbMovieData: OmdbMovieData | undefined;
+	translatedMovieData: MovieDataTranslations;
+};
+
+export type TranslatedFields = {
+	title: string;
+	country: string;
+	genre: string;
+	plot: string;
+};
+
+export type MovieDataTranslations = {
+	en: TranslatedFields;
+	ru?: TranslatedFields;
+	sv?: TranslatedFields;
 };
 
 export type StreamContent = {
@@ -213,8 +225,47 @@ export type UserReview = {
 };
 
 export type WatchHistory = {
-	id: string,
-	userId: string,
-	downloadsId: string,
-	lastWatched: Date
+	id: string;
+	userId: string;
+	downloadsId: string;
+	lastWatched: Date;
+};
+
+export type SubtitleDBData = {
+	id: string;
+	path: string;
+	imdb: IMDB;
+	language: string;
+};
+
+export type OSApiPayload = {
+	[x: string]: unknown;
+	data: OSSubtitlesPayload[];
+};
+
+export type OSSubtitlesPayload = {
+	id: string;
+	type: string;
+	attributes: SubtitleAttributes;
+};
+
+export type OSDownloadPayload = {
+	link: string;
+};
+
+export type SubtitleFileData = {
+	file_id: number;
+	cd_number: number;
+	file_name: string;
+};
+
+export type SubtitleAttributes = {
+	language: string;
+	files: SubtitleFileData[];
+	[key: string]: string | number | boolean | SubtitleFileData[];
+};
+
+export type SubtitleFileId = {
+	language: string;
+	fileId: number;
 };

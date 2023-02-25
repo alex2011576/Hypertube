@@ -9,7 +9,8 @@ const Card = styled(Paper)(({ theme }) => ({
 	backgroundColor: '#ffffff5e',
 	padding: theme.spacing(2),
 	textAlign: 'justify',
-	color: theme.palette.text.secondary
+	color: theme.palette.text.secondary,
+	overflowWrap: 'break-word'
 }));
 
 export const StyledLink = styled(Link)`

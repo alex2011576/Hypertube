@@ -22,7 +22,7 @@ const createWatchRecord = async (userId: string, downloadsId: string): Promise<W
 	return watchHistoryMapper(res.rows[0]);
 };
 
-const createWatchRecordWithTime= async (userId: string, downloadsId: string, date: string): Promise<WatchHistory> => {
+const createWatchRecordWithTime = async (userId: string, downloadsId: string, date: string): Promise<WatchHistory> => {
 	const query = {
 		text: 'insert into watch_history(user_id, downloads_id, last_time_watched) values($1, $2, $3) returning *',
 		values: [userId, downloadsId, new Date(date)]
