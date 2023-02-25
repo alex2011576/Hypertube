@@ -44,8 +44,11 @@ const Navbar = () => {
 	};
 
 	return (
-		<AppBar color="secondary">
-			<FullWidthToolbar>
+		<AppBar
+			color={loggedUser ? 'secondary' : 'primary'}
+			sx={{ backgroundColor: 'transparent' }}
+		>
+			<FullWidthToolbar sx={{ backgroundColor: 'transparent' }}>
 				<Box component={Link} to="/" sx={{ textDecoration: 'none' }} color="inherit">
 					<Logo>
 						<SmartDisplayIcon />
