@@ -160,22 +160,22 @@ export const waitForFileSize = async (start: number, path: string): Promise<void
 export const waitForFileSize2 = async (sizeExpected: number, path: string, req: CustomRequest): Promise<void> => {
 	let resolved = false;
 	return await new Promise((resolve, reject) => {
-			const interval = setInterval(() => {
-				// console.log('interval');
-				if (sizeExpected <= checkFileSize(path) && !resolved) {
-					resolved = true;
-					console.log('enough loaded, interval stopped');
-					clearInterval(interval);
-					resolve();
-				}
-			}, 10000);
-			req.on('close', () => { 
-				if (!resolved) {
-					resolved = true;
-					console.log('connection broke, interval stopped');
-					reject();
-					clearInterval(interval);
-				}
-			});
+		const interval = setInterval(() => {
+			// console.log('interval');
+			if (sizeExpected <= checkFileSize(path) && !resolved) {
+				resolved = true;
+				console.log('enough loaded, interval stopped');
+				clearInterval(interval);
+				resolve();
+			}
+		}, 10000);
+		req.on('close', () => {
+			if (!resolved) {
+				resolved = true;
+				console.log('connection broke, interval stopped');
+				reject();
+				clearInterval(interval);
+			}
+		});
 	});
 };
