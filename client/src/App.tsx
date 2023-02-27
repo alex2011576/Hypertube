@@ -5,7 +5,7 @@ import { useStateValue } from './state';
 
 import ProfileSettings from './components/ProfileSettings';
 import PublicProfile from './components/PublicProfile';
-import SetPasswordForm from './components/SetPasswordForm';
+//import SetPasswordForm from './components/SetPasswordForm';
 import ForgotPassword from './components/ForgotPassword';
 import AlertSnackBar from './components/AlertSnackBar';
 import AlertProvider from './components/AlertProvider';
@@ -55,12 +55,12 @@ const App = () => {
 		children: forgotPasswordForm
 	} = useModal(<ForgotPassword />, <Text tid="titleResetPassword" />);
 
-	const {
-		isOpen: isSetPasswordOpen,
-		handleToggle: toggleSetPassword,
-		title: setPasswordTitle,
-		children: setPasswordForm
-	} = useModal(<SetPasswordForm />, <Text tid="setPasswordTitle" />);
+	// const {
+	// 	isOpen: isSetPasswordOpen,
+	// 	handleToggle: toggleSetPassword,
+	// 	title: setPasswordTitle,
+	// 	children: setPasswordForm
+	// } = useModal(<SetPasswordForm />, <Text tid="setPasswordTitle" />);
 
 	return (
 		<ThemeProvider theme={themeWithLocale}>
@@ -121,7 +121,7 @@ const App = () => {
 									)
 								}
 							/>
-							<Route
+							{/* <Route
 								path="/set_password"
 								element={
 									loggedUser ? (
@@ -135,7 +135,7 @@ const App = () => {
 										<Navigate to="/login" />
 									)
 								}
-							/>
+							/> */}
 							<Route
 								path="/forgot_password"
 								element={
