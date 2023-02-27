@@ -88,7 +88,8 @@ const Movies = () => {
 				setHasMore(moviesData.length > 0);
 			}
 		}
-	}, [hasMore, moviesData, pageNumber, setThumbnails]);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [hasMore, moviesData, setThumbnails]);
 
 	if (moviesError)
 		return (
