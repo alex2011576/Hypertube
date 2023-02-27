@@ -2,10 +2,10 @@ import PlayCircleOutlineRoundedIcon from '@mui/icons-material/PlayCircleOutlineR
 import ReactPlayer, { ReactPlayerProps } from 'react-player';
 import React, { useEffect, useState } from 'react';
 import subtitleService from '../../../services/subtitles';
+import withAuthRequired from '../../AuthRequired';
 import streamService from '../../../services/stream';
 import LoadingIcon from '../../LoadingIcon';
 import { StreamStatus, SubtitleTrack } from '../../../types';
-// import { reducer, INITIAL_STATE } from './Player.reducer';
 import { useServiceCall } from '../../../hooks/useServiceCall';
 import { useStateValue } from '../../../state';
 import { styled } from '@mui/material';
@@ -152,4 +152,4 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
 	);
 };
 
-export default Player;
+export default withAuthRequired(Player);

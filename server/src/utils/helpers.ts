@@ -117,7 +117,7 @@ export const checkFileSize = (filePath: string) => {
 };
 
 export const fileIsDownloading = async (filePath: string) => {
-	console.log('Checking whether file is areading being downloaded...');
+	console.log('Checking whether file is already being downloaded...');
 	return new Promise((resolve, _reject) => {
 		let resolved = false;
 		let watcher: fs.FSWatcher | null = null;
