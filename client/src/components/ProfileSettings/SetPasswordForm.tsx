@@ -18,8 +18,9 @@ const dialogBtn = {
 	maxWidth: '100%'
 };
 
-const SetPasswordForm: React.FC<{ setIsPasswordSet: Dispatch<SetStateAction<boolean>> }> = ({
-	setIsPasswordSet
+const SetPasswordForm: React.FC<{ setIsPasswordSet: Dispatch<SetStateAction<boolean>>, setPassword: string | null }> = ({
+	setIsPasswordSet,
+	setPassword
 }) => {
 	const [{ loggedUser }] = useStateValue();
 	const { reset, ...password } = useFieldWithReset(
@@ -32,8 +33,8 @@ const SetPasswordForm: React.FC<{ setIsPasswordSet: Dispatch<SetStateAction<bool
 		<Text tid="textFieldNewPassword" />,
 		validatePassword
 	);
-	
-	const [open, setOpen] = useState(false);
+	console.log(setPassword);
+	const [open, setOpen] = useState(setPassword ? true : false);
 	const [showPassword, setShow] = useState(false);
 	
 	const alert = useContext(AlertContext);

@@ -6,12 +6,12 @@ import { useStateValue } from '../../state';
 import { useEffect, useState } from 'react';
 import UpdatePasswordForm from './UpdatePasswordForm';
 import UpdateEmailForm from './UpdateEmailForm';
-//import SetPasswordForm from './SetPasswordForm';
 import withAuthRequired from '../AuthRequired';
 import LoadingIcon from '../LoadingIcon';
 import ProfileForm from './ProfileForm';
 import Text from '../Text';
-import SetPasswordFormModal from '../SetPasswordForm';
+import SetPasswordForm from './SetPasswordForm';
+import { useSearchParams } from 'react-router-dom';
 
 const StyledButtons = styled('div')(() => ({
 	background: 'white',
@@ -37,6 +37,7 @@ const StyledHeader = styled(Typography)(() => ({
 const ProfileEditor = () => {
 	const [{ loggedUser }] = useStateValue();
 	const [isPasswordSet, setIsPasswordSet] = useState(false);
+	const [searchParams] = useSearchParams();
 
 	const {
 		data: isPasswordSetData,
@@ -99,7 +100,7 @@ const ProfileEditor = () => {
 					{isPasswordSet ? (
 						<UpdatePasswordForm />
 					) : (
-						<SetPasswordFormModal />
+						<SetPasswordForm setIsPasswordSet={setIsPasswordSet} setPassword={searchParams.get("setPassword")}/>
 					)}
 				</StyledButtons>
 			</Paper>
