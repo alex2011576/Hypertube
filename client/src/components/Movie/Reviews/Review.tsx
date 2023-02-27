@@ -3,6 +3,10 @@ import { ReviewType } from '../../../types';
 import { Link } from 'react-router-dom';
 import placeholder from './profilePlaceholder.jpeg';
 import theme from '../../../theme';
+import useModal from '../../../hooks/useModal';
+import CustomModal from '../../CustomModal';
+import Text from '../../Text';
+import { PublicProfileBody } from '../../PublicProfile';
 
 const Card = styled(Paper)(({ theme }) => ({
 	height: '450px',
@@ -32,6 +36,10 @@ export const StyledBox = styled(Box)`
 `;
 
 const Review = ({ review }: { review: ReviewType }) => {
+	const { isOpen, handleToggle, title, children } = useModal(
+		<PublicProfileBody id={review.userId} />,
+		<Text tid="publicProfileHeader" />
+	);
 	return (
 		<Card theme={theme}>
 			<ReviewHeader>
@@ -40,16 +48,24 @@ const Review = ({ review }: { review: ReviewType }) => {
 					{review.rating > 0 && (
 						<Rating value={review.rating} readOnly precision={1} size="small" />
 					)}
-					<StyledLink theme={theme} to={`/profile/${review.userId}`}>
+					{/* <StyledLink theme={theme} to={`/profile/${review.userId}`}> */}
+					<Box onClick={handleToggle}>
 						<Typography textAlign={'right'} fontWeight={600}>
 							{review.username}
 						</Typography>
-					</StyledLink>
+					</Box>	
+					{/* </StyledLink> */}
 				</StyledBox>
 			</ReviewHeader>
 			<Typography color={'#ffffffb5'} pt={2}>
 				{review.text}
 			</Typography>
+		<CustomModal
+			isOpen={isOpen}
+			handleToggle={handleToggle}
+			title={title}
+			children={children}
+		/>
 		</Card>
 	);
 };

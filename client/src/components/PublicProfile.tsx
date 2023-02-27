@@ -37,7 +37,7 @@ const placeholder = {
 	featured: true
 };
 
-const PublicProfileBody = ({ id }: { id: string | undefined }) => {
+export const PublicProfileBody = ({ id }: { id: string | undefined }) => {
 	const {
 		data: profileData,
 		error: profileError
