@@ -18,6 +18,8 @@ import withAuthRequired from './AuthRequired';
 import userService from '../services/users';
 import Text from './Text';
 import { useStateValue } from '../state';
+import useModal from '../hooks/useModal';
+import CustomModal from './CustomModal';
 
 const SetPasswordForm = () => {
 	const navigate = useNavigate();
@@ -117,4 +119,20 @@ const SetPasswordForm = () => {
 	);
 };
 
-export default withAuthRequired(SetPasswordForm);
+const SetPasswordFormModal = () => {
+	const { isOpen, handleToggle, title, children } = useModal(
+		<SetPasswordForm />,
+		<Text tid="setPasswordForm" />
+	);
+
+	return (
+		<CustomModal
+			isOpen={!isOpen}
+			handleToggle={handleToggle}
+			title={title}
+			children={children}
+		/>
+	);
+};
+
+export default withAuthRequired(SetPasswordFormModal);

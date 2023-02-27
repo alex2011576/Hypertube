@@ -6,11 +6,12 @@ import { useStateValue } from '../../state';
 import { useEffect, useState } from 'react';
 import UpdatePasswordForm from './UpdatePasswordForm';
 import UpdateEmailForm from './UpdateEmailForm';
-import SetPasswordForm from './SetPasswordForm';
+//import SetPasswordForm from './SetPasswordForm';
 import withAuthRequired from '../AuthRequired';
 import LoadingIcon from '../LoadingIcon';
 import ProfileForm from './ProfileForm';
 import Text from '../Text';
+import SetPasswordFormModal from '../SetPasswordForm';
 
 const StyledButtons = styled('div')(() => ({
 	background: 'white',
@@ -98,7 +99,7 @@ const ProfileEditor = () => {
 					{isPasswordSet ? (
 						<UpdatePasswordForm />
 					) : (
-						<SetPasswordForm setIsPasswordSet={setIsPasswordSet} />
+						<SetPasswordFormModal />
 					)}
 				</StyledButtons>
 			</Paper>

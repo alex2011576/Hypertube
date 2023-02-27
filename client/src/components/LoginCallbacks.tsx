@@ -24,7 +24,7 @@ const Callback42 = () => {
 					delete loggedInUser.passwordSet;
 					if (passwordSet === false) {
 						dispatch(setLoggedUser(loggedInUser));
-						navigate('/set_password');
+						navigate('/profile?setPassword=true');
 						alert.success('alertLoginSuccessPasswordNotSet');
 					} else {
 						dispatch(setLoggedUser(loggedInUser));
