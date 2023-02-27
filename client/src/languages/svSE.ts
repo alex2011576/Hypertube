@@ -108,7 +108,7 @@ export const svSE: Dictionary = {
 	reverse: 'Omvänd',
 
 	//Plot
-	plot: 'PLOT',
+	plot: 'HANDLING',
 
 	//Creators
 	director: 'Regisserad av',
