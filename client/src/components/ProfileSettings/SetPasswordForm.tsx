@@ -33,7 +33,6 @@ const SetPasswordForm: React.FC<{ setIsPasswordSet: Dispatch<SetStateAction<bool
 		<Text tid="textFieldNewPassword" />,
 		validatePassword
 	);
-	console.log(setPassword);
 	const [open, setOpen] = useState(setPassword ? true : false);
 	const [showPassword, setShow] = useState(false);
 	
