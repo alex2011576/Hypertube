@@ -27,7 +27,7 @@ const Movies = () => {
 	const initialQuery = {
 		queryTerm: '',
 		genre: '',
-		sortBy: 'rating',
+		sortBy: 'download_count',
 		reverseOrder: false
 	};
 

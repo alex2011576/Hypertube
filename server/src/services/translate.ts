@@ -20,7 +20,7 @@ export const googleTranslate = async (text: string, targetLanguage: string) => {
 
 		return res.data.data.translations[0].translatedText as string;
 	} catch (err) {
-		console.log(getErrorMessage(err));
+		console.log('google translate api failed:', getErrorMessage(err));
 		return undefined;
 	}
 };

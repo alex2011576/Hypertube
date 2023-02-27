@@ -36,7 +36,7 @@ type YTSMoviePayload = {
 
 const getYtsMovieData = async (userId: string, ytsMovieId: string): Promise<YtsMovieData | undefined> => {
 	try {
-		const ytsPayload = await axios.get<YTSPayload>(`https://yts.torrentbay.to/api/v2/movie_details.json`, {
+		const ytsPayload = await axios.get<YTSPayload>(`https://yts.mx/api/v2/movie_details.json`, {
 			params: { movie_id: ytsMovieId, with_images: 'true' }
 		});
 

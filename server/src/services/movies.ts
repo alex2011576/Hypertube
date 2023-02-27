@@ -3,6 +3,7 @@ import fs from 'fs';
 import { monthIdleMovies, removeDownloadRecord } from '../repositories/downloadsRepository';
 import { SearchQuery, MovieThumbnail, IMDB } from '../types';
 import { isWatchedByUser } from '../repositories/watchHistoryRepository';
+import { checkMovieCover } from '../validators/imgValidators';
 
 type YTSPayload = {
 	data: YTSPayloadData;
@@ -32,7 +33,7 @@ export const getMovies = async (searchQuery: SearchQuery, userId: string): Promi
 		const { queryTerm, genre, sortBy, reverseOrder, page, limit } = searchQuery;
 		const order = getOrder(sortBy, reverseOrder);
 
-		const response = await axios.get<YTSPayload>(`https://yts.torrentbay.to/api/v2/list_movies.json`, {
+		const response = await axios.get<YTSPayload>(`https://yts.mx/api/v2/list_movies.json`, {
 			params: { page: page, limit: limit, query_term: queryTerm, genre: genre, sort_by: sortBy, order_by: order }
 		});
 
@@ -46,12 +47,12 @@ export const getMovies = async (searchQuery: SearchQuery, userId: string): Promi
 							title: movie.title || '',
 							year: movie.year || 0,
 							summary: movie.summary || '',
-							cover: movie.large_cover_image || '',
+							cover: await checkMovieCover(movie.large_cover_image),
 							rating: movie.rating || 0,
 							isWatched: movie.imdb_code ? await isWatchedByUser(userId, movie.imdb_code as IMDB) : false
 						};
 					})
-			  )
+			)
 			: [];
 		return movieThumbnails;
 	} catch (err) {

@@ -94,7 +94,7 @@ export default function SearchField({
 		const queryTerm = event.target.value as string;
 		queryTerm.length
 			? setSearchQuery({ ...searchQuery, queryTerm, sortBy: 'title' })
-			: setSearchQuery({ ...searchQuery, queryTerm: '', sortBy: 'rating' });
+			: setSearchQuery({ ...searchQuery, queryTerm: '', sortBy: 'download_count' });
 	};
 
 	return (
