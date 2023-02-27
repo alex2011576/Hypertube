@@ -11,7 +11,6 @@ import LoadingIcon from '../LoadingIcon';
 import ProfileForm from './ProfileForm';
 import Text from '../Text';
 import SetPasswordForm from './SetPasswordForm';
-import { useSearchParams } from 'react-router-dom';
 
 const StyledButtons = styled('div')(() => ({
 	background: 'white',
@@ -37,7 +36,6 @@ const StyledHeader = styled(Typography)(() => ({
 const ProfileEditor = () => {
 	const [{ loggedUser }] = useStateValue();
 	const [isPasswordSet, setIsPasswordSet] = useState(false);
-	const [searchParams] = useSearchParams();
 
 	const {
 		data: isPasswordSetData,
@@ -100,7 +98,7 @@ const ProfileEditor = () => {
 					{isPasswordSet ? (
 						<UpdatePasswordForm />
 					) : (
-						<SetPasswordForm setIsPasswordSet={setIsPasswordSet} setPassword={searchParams.get("setPassword")}/>
+						<SetPasswordForm setIsPasswordSet={setIsPasswordSet} isPasswordSet={isPasswordSet}/>
 					)}
 				</StyledButtons>
 			</Paper>
