@@ -39,11 +39,25 @@ router.get('/:id/:language', (req, res) => {
 	const language = req.params.language;
 	if (!language || !language.length || !languages.includes(language)) throw new AppError(`wrongLanguage`, 400);
 
-	const file = `./subtitles/${imdbId}/${imdbId}-${language}.vtt`;
-	fs.readFile(file, (err, data) => {
-		if (err) throw new AppError(`noSubtitlesFile`, 400);
-		res.set('Content-Type', 'text/plain').status(200).send(data);
+	const file = `subtitles/${imdbId}/${imdbId}-${language}.vtt`;
+	
+	const stat = fs.statSync(file);
+	res.writeHead(200, {
+        'Content-Type': 'text/vtt',
+        'Content-Length': stat.size
+    });
+	// fs.readFile(file, (err, data) => {
+	// 	if (err) throw new AppError(`noSubtitlesFile`, 400);
+	// 	res.set('Content-Type', 'text/vtt').status(200).send(data);
+	// });
+
+	const stream = fs.createReadStream(file);
+	
+	stream.on('error', () => {
+		if (!stream.destroyed) stream.destroy();
+		throw new AppError(`noSubtitlesFile`, 400);
 	});
+	stream.pipe(res);
 });
 
 export default router;
