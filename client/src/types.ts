@@ -118,8 +118,8 @@ export type TranslatedFields = {
 
 export type MovieDataTranslations = {
 	en: TranslatedFields;
-	ru: TranslatedFields;
-	sv: TranslatedFields;
+	ru?: TranslatedFields;
+	sv?: TranslatedFields;
 };
 
 export type StreamStatus = {
