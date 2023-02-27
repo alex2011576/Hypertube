@@ -46,7 +46,7 @@ const Navbar = () => {
 	return (
 		<AppBar
 			color={loggedUser ? 'secondary' : 'primary'}
-			sx={{ backgroundColor: 'transparent' }}
+			sx={{ backgroundColor: !loggedUser ? 'transparent' : 'white' }}
 		>
 			<FullWidthToolbar sx={{ backgroundColor: 'transparent' }}>
 				<Box component={Link} to="/" sx={{ textDecoration: 'none' }} color="inherit">
