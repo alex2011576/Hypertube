@@ -2,7 +2,7 @@
 import { Box, styled, Paper, IconButton, InputBase, ToggleButton, Autocomplete, TextField } from '@mui/material';
 //prettier-ignore
 import { genresEn, genresRu, genresSv, sortCriteriaEn, sortCriteriaRu, sortCriteriaSv } from './autocompleteOptions';
-import { SetStateAction } from 'react';
+import { SetStateAction, useState } from 'react';
 import { SearchQuery } from '../../types';
 import { useStateValue } from '../../state';
 import SearchIcon from '@mui/icons-material/Search';
@@ -89,12 +89,12 @@ export default function SearchField({
 	const userLanguage = loggedUser?.language || 'enUS';
 	const { genreOptions, sortOptions, genreLabel, sortLabel, searchLabel } =
 		getTranslatedLabels(userLanguage);
-
-	const handleChange = (event: { target: { value: SetStateAction<string> } }) => {
+	const [sortValue, setSortValue] = useState<string | undefined>();
+	const handleChange = (event: { target: { value: SetStateAction<string> } }) => {		
 		const queryTerm = event.target.value as string;
 		queryTerm.length
-			? setSearchQuery({ ...searchQuery, queryTerm, sortBy: 'title' })
-			: setSearchQuery({ ...searchQuery, queryTerm: '', sortBy: 'download_count' });
+			? setSearchQuery({ ...searchQuery, queryTerm, sortBy: sortValue || 'title' })
+			: setSearchQuery({ ...searchQuery, queryTerm: '', sortBy: sortValue || 'download_count' });
 	};
 
 	return (
@@ -132,10 +132,14 @@ export default function SearchField({
 					<InputField>
 						<Autocomplete
 							onChange={(_event, value) =>
-								setSearchQuery({
-									...searchQuery,
-									sortBy: value?.value || 'Title'
-								})
+								{
+									setSortValue(value?.value);
+									setSearchQuery({
+										...searchQuery,
+										sortBy: value?.value || 'download_count'
+									})
+								}
+								
 							}
 							options={sortOptions}
 							getOptionLabel={(option) => option.key || ''}
