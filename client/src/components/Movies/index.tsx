@@ -42,7 +42,7 @@ const Movies = () => {
 		error: Error | undefined;
 		loading: boolean;
 	} = useServiceCall(
-		async () => await moviesService.getMovies(searchQuery, pageNumber, 20),
+		async () => await moviesService.getMovies(searchQuery, pageNumber, 35),
 		[pageNumber, searchQuery]
 	);
 
