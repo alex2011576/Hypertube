@@ -24,7 +24,7 @@ const Callback42 = () => {
 					delete loggedInUser.passwordSet;
 					if (passwordSet === false) {
 						dispatch(setLoggedUser(loggedInUser));
-						navigate('/profile?setPassword=true');
+						navigate('/profile');
 						alert.success('alertLoginSuccessPasswordNotSet');
 					} else {
 						dispatch(setLoggedUser(loggedInUser));
@@ -69,7 +69,7 @@ const CallbackGithub = () => {
 					delete loggedInUser.passwordSet;
 					if (passwordSet === false) {
 						dispatch(setLoggedUser(loggedInUser));
-						navigate('/profile?setPassword=true');
+						navigate('/profile');
 						alert.success('alertLoginSuccessPasswordNotSet');
 					} else {
 						dispatch(setLoggedUser(loggedInUser));
