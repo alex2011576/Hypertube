@@ -5,7 +5,6 @@ import { useStateValue } from './state';
 
 import ProfileSettings from './components/ProfileSettings';
 import PublicProfile from './components/PublicProfile';
-import SetPasswordForm from './components/SetPasswordForm';
 import ForgotPassword from './components/ForgotPassword';
 import AlertSnackBar from './components/AlertSnackBar';
 import AlertProvider from './components/AlertProvider';
@@ -55,13 +54,6 @@ const App = () => {
 		children: forgotPasswordForm
 	} = useModal(<ForgotPassword />, <Text tid="titleResetPassword" />);
 
-	const {
-		isOpen: isSetPasswordOpen,
-		handleToggle: toggleSetPassword,
-		title: setPasswordTitle,
-		children: setPasswordForm
-	} = useModal(<SetPasswordForm />, <Text tid="setPasswordTitle" />);
-
 	return (
 		<ThemeProvider theme={themeWithLocale}>
 			<SnackbarProvider>
@@ -89,7 +81,11 @@ const App = () => {
 							<Route
 								path="/auth/42/callback"
 								element={
-									!loggedUser ? <Login.Callback42 /> : <Navigate to="/" />
+									!loggedUser ? (
+										<Login.Callback42 />
+									) : (
+										<Navigate to="/" /> 
+									)
 								}
 							/>
 							<Route
@@ -118,21 +114,6 @@ const App = () => {
 								}
 							/>
 							<Route
-								path="/set_password"
-								element={
-									loggedUser ? (
-										<CustomModal
-											isOpen={!isSetPasswordOpen}
-											handleToggle={toggleSetPassword}
-											title={setPasswordTitle}
-											children={setPasswordForm}
-										/>
-									) : (
-										<Navigate to="/login" />
-									)
-								}
-							/>
-							<Route
 								path="/forgot_password"
 								element={
 									!loggedUser ? (
@@ -152,6 +133,7 @@ const App = () => {
 							<Route path="/update_email" element={<UpdateEmail />} />
 							<Route path="/movies/" element={<Movies />} />
 							<Route path="/movies/:id" element={<Movie />} />
+							{/* <Route path="/auth/:id/callback" element={< />} /> */}
 							<Route path="*" element={<Navigate to="/" replace />} />
 						</Routes>
 						<Footer />

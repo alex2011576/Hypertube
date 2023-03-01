@@ -27,7 +27,7 @@ const Movies = () => {
 	const initialQuery = {
 		queryTerm: '',
 		genre: '',
-		sortBy: 'rating',
+		sortBy: 'download_count',
 		reverseOrder: false
 	};
 
@@ -42,7 +42,7 @@ const Movies = () => {
 		error: Error | undefined;
 		loading: boolean;
 	} = useServiceCall(
-		async () => await moviesService.getMovies(searchQuery, pageNumber, 20),
+		async () => await moviesService.getMovies(searchQuery, pageNumber, 35),
 		[pageNumber, searchQuery]
 	);
 
@@ -88,7 +88,8 @@ const Movies = () => {
 				setHasMore(moviesData.length > 0);
 			}
 		}
-	}, [hasMore, moviesData, pageNumber, setThumbnails]);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [hasMore, moviesData, setThumbnails]);
 
 	if (moviesError)
 		return (

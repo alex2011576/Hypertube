@@ -33,7 +33,7 @@ const AbsoluteContent = styled('div')`
 
 const getTranslatedLabel = (userLanguage: string | undefined) => {
 	if (userLanguage === 'svSE') {
-		return 'REDAN SEDD';
+		return 'REDAN SETT';
 	} else if (userLanguage === 'ruRU') {
 		return 'ПРОСМОТРЕН';
 	} else {

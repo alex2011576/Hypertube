@@ -1,6 +1,6 @@
 import Jimp from 'jimp';
 import { findUserByUsername } from '../repositories/userRepository';
-import { BaseUser } from '../types';
+import { BaseUser, CustomRequest } from '../types';
 import fs from 'fs';
 
 export const adjustUsername = async (user: BaseUser) => {
@@ -117,7 +117,7 @@ export const checkFileSize = (filePath: string) => {
 };
 
 export const fileIsDownloading = async (filePath: string) => {
-	console.log('Checking whether file is areading being downloaded...');
+	console.log('Checking whether file is already being downloaded...');
 	return new Promise((resolve, _reject) => {
 		let resolved = false;
 		let watcher: fs.FSWatcher | null = null;
@@ -144,5 +144,38 @@ export const fileIsDownloading = async (filePath: string) => {
 				}
 			});
 		}
+	});
+};
+
+export const waitForFileSize = async (start: number, path: string): Promise<void> => {
+	const now = checkFileSize(path);
+	if (now < start) {
+		await new Promise((resolve) => setTimeout(resolve, 10000));
+		console.log('timeout');
+		await waitForFileSize(start, path);
+	}
+	console.log('streaming chunk');
+};
+// with clear on close
+export const waitForFileSize2 = async (sizeExpected: number, path: string, req: CustomRequest): Promise<void> => {
+	let resolved = false;
+	return await new Promise((resolve, reject) => {
+		const interval = setInterval(() => {
+			// console.log('interval');
+			if (sizeExpected <= checkFileSize(path) && !resolved) {
+				resolved = true;
+				console.log('enough loaded, interval stopped');
+				clearInterval(interval);
+				resolve();
+			}
+		}, 10000);
+		req.on('close', () => {
+			if (!resolved) {
+				resolved = true;
+				console.log('connection broke, interval stopped');
+				reject();
+				clearInterval(interval);
+			}
+		});
 	});
 };

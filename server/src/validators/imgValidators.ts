@@ -56,3 +56,17 @@ export const parseImage = async (photo: unknown): Promise<PhotoType | undefined>
 	// };
 	return { imageDataUrl: image } as PhotoType;
 };
+
+export const checkMovieCover = async (cover: string): Promise<string> => {
+	try {
+		const image = await Jimp.read(cover);
+		//console.log("Found image", cover);
+		if (image) return cover;
+	} catch (err) {
+		void err;
+		//console.log("Error ", cover);
+		return '';
+	}
+	//console.log("No image", cover);
+	return '';
+};

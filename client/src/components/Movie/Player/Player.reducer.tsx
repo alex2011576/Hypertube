@@ -1,17 +1,22 @@
 import { ReactPlayerProps } from 'react-player';
 
-const INITIAL_STATE: ReactPlayerProps = {
-	playing: false,
-	controls: false,
+interface CustmoPlayerProps extends ReactPlayerProps {
+	progress?: {
+		playedSeconds: number
+	},
+  }
+const INITIAL_STATE: CustmoPlayerProps = {
+	playing: true,
+	controls: true,
 	volume: 0.8,
-	light: true,
+	light: false,
 	progress: {
 		playedSeconds: 0
 	},
-	duration: 0
+	duration: 0,
 };
 
-const reducer = (state: ReactPlayerProps, action: ReactPlayerProps) => {
+const reducer = (state: CustmoPlayerProps, action: CustmoPlayerProps) => {
 	switch (action.type) {
 		case 'PLAY':
 			return { ...state, playing: true, controls: true };

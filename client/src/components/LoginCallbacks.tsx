@@ -24,7 +24,7 @@ const Callback42 = () => {
 					delete loggedInUser.passwordSet;
 					if (passwordSet === false) {
 						dispatch(setLoggedUser(loggedInUser));
-						navigate('/set_password');
+						navigate('/profile');
 						alert.success('alertLoginSuccessPasswordNotSet');
 					} else {
 						dispatch(setLoggedUser(loggedInUser));
@@ -35,6 +35,9 @@ const Callback42 = () => {
 					alert.error(err.response?.data?.error || 'alertLoginError');
 					navigate('/login');
 				}
+			} else {
+				//alert.error('alertOAuthError');
+				navigate('/login');
 			}
 		};
 		authenticate42();
@@ -66,7 +69,7 @@ const CallbackGithub = () => {
 					delete loggedInUser.passwordSet;
 					if (passwordSet === false) {
 						dispatch(setLoggedUser(loggedInUser));
-						navigate('/set_password');
+						navigate('/profile');
 						alert.success('alertLoginSuccessPasswordNotSet');
 					} else {
 						dispatch(setLoggedUser(loggedInUser));
@@ -77,8 +80,11 @@ const CallbackGithub = () => {
 					alert.error(err.response?.data?.error || 'alertLoginError');
 					navigate('/login');
 				}
+			} else {
+				//alert.error('alertOAuthError');
+				navigate('/login');
 			}
-		};
+		}; 
 		authenticateGH();
 	}, []);
 

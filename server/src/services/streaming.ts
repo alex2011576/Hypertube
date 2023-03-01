@@ -1,8 +1,8 @@
 import { recordDownloading, searchInDownloads, setDownloadComplete } from '../repositories/downloadsRepository';
-import { FileInfo, IMDB, StreamContent, StreamQuality, StreamStatus, YtsMovieDetailsJson } from '../types';
+import { CustomRequest, FileInfo, IMDB, StreamContent, StreamQuality, StreamStatus, YtsMovieDetailsJson } from '../types';
 import axios from 'axios';
 import { AppError, TorrentError } from '../errors';
-import { checkFileSize, convertBytes, fileIsDownloading, generateMagnetLink } from '../utils/helpers';
+import { checkFileSize, convertBytes, fileIsDownloading, generateMagnetLink, waitForFileSize2 } from '../utils/helpers';
 import path from 'path';
 import torrentStream from 'torrent-stream';
 import fs from 'fs';
@@ -33,14 +33,11 @@ export const getStreamStatus = async (imdb: IMDB, quality: StreamQuality): Promi
 const getTorrentFileMagnetLink = async (imdb: IMDB, quality: StreamQuality) => {
 	console.log('Searching for avaliable torrents...');
 
-	const { data }: { data: YtsMovieDetailsJson } = await axios.get(
-		`https://yts.mx/api/v2/movie_details.json?imdb_id=${imdb}`,
-		{
-			headers: {
-				Accept: 'application/json'
-			}
+	const { data }: { data: YtsMovieDetailsJson } = await axios.get(`https://yts.mx/api/v2/movie_details.json?imdb_id=${imdb}`, {
+		headers: {
+			Accept: 'application/json'
 		}
-	);
+	});
 	if (!data || !data.data || !data.data.movie || !data.data.movie.torrents) {
 		throw new TorrentError(`torrentNotTorrents`);
 	}
@@ -181,7 +178,7 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 					console.log(`Progress: ${ratio.toFixed(0)}% (${convertBytes(donwloaded)} / ${convertBytes(file?.length)} bytes)\n`);
 				}
 				// if (!resolved && donwloaded >= 5 * 1024 * 1024) {
-				if (!resolved && donwloaded >= 20 * 1024 * 1024 || ratio >= 3) {
+				if ((!resolved && donwloaded >= 20 * 1024 * 1024) || ratio >= 3) {
 					resolved = true;
 					resolve(fileInfo);
 				}
@@ -224,68 +221,83 @@ const downloadTorrent = async (magnetLink: string, imdb: IMDB, quality: StreamQu
 // engine.swarm.downloaded shows how much was downloaded since initiation, but the download would continue if files has already existed. Since, it is a bad idea
 //to log download ratio based on engine.swarm.downloaded
 
-export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: string): Promise<StreamContent> => {
+// export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: string): Promise<StreamContent> => {
+// 	const movie = await searchInDownloads(imdb, quality);
+// 	if (!movie) throw new AppError('streamingBeforeStatus', 400);
+// 	const currentSize = checkFileSize(`movies/${movie.path}`);
+// 	let code = 206;
+// 	let start = Number(range.replace(/\D/g, ''));
+
+// 	//might require further adjustments
+// 	if (start > currentSize - 1) {
+// 	start = 0;
+// 	code = 416;
+// 	const headers = {
+// 		'Content-Range': `bytes */${currentSize}`
+// 	};
+// 	return { code: code, headers: headers, stream: undefined };
+// }
+
+// 	const CHUNK_SIZE = 10 ** 6; // 1MB
+// 	const end = Math.min(start + CHUNK_SIZE, currentSize - 1);
+// 	const contentLength = end - start + 1;
+
+// 	const headers = {
+// 		'Content-Range': `bytes ${start}-${end}/${currentSize}`,
+// 		'Accept-Ranges': 'bytes',
+// 		'Content-Length': contentLength,
+// 		'Content-Type': `video/${movie.type}`
+// 	};
+
+// 	const stream = fs.createReadStream(`movies/${movie.path}`, { start, end });
+// 	stream.on('error', (err) => {
+// 		void err;
+// 		console.log('failure to create read stream');
+// 		throw new AppError(`errorUnexpectedError`, 500);
+// 	});
+// 	return { code: code, headers: headers, stream: stream };
+// };
+
+export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: string, req: CustomRequest): Promise<StreamContent | undefined> => {
 	const movie = await searchInDownloads(imdb, quality);
 	if (!movie) throw new AppError('streamingBeforeStatus', 400);
-	const currentSize = checkFileSize(`movies/${movie.path}`);
+	// const currentSize = checkFileSize(`movies/${movie.path}`);
 	let code = 206;
 	let start = Number(range.replace(/\D/g, ''));
-
-	//might require further adjustments
-	if (start > currentSize - 1) {
+	if (start > movie.size - 1) {
 		start = 0;
 		code = 416;
 		const headers = {
-			'Content-Range': `bytes */${currentSize}`
+			'Content-Range': `bytes */${movie.size - 1}`
 		};
 		return { code: code, headers: headers, stream: undefined };
 	}
-
 	const CHUNK_SIZE = 10 ** 6; // 1MB
-	const end = Math.min(start + CHUNK_SIZE, currentSize - 1);
+	const end = Math.min(start + CHUNK_SIZE, movie.size - 1);
 	const contentLength = end - start + 1;
-
 	const headers = {
-		'Content-Range': `bytes ${start}-${end}/${currentSize}`,
+		'Content-Range': `bytes ${start}-${end}/${movie.size}`,
 		'Accept-Ranges': 'bytes',
 		'Content-Length': contentLength,
 		'Content-Type': `video/${movie.type}`
 	};
-
+	const sizeExpected = Math.min(start + CHUNK_SIZE + 1000, movie.size - 1); //we need start + chunk and just in case buffer 1000
+	if (sizeExpected >= checkFileSize(`movies/${movie.path}`)) {
+		try {
+			console.log('interval started');
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+			await waitForFileSize2(sizeExpected, `movies/${movie.path}`, req);
+		} catch {
+			return;
+		}
+	}
 	const stream = fs.createReadStream(`movies/${movie.path}`, { start, end });
 	stream.on('error', (err) => {
 		void err;
+		if (!stream.destroyed)
+			stream.destroy();
 		console.log('failure to create read stream');
 		throw new AppError(`errorUnexpectedError`, 500);
 	});
 	return { code: code, headers: headers, stream: stream };
 };
-// export const streamContent = async (imdb: IMDB, quality: StreamQuality, range: string): Promise<StreamContent> => {
-// 	const movie = await searchInDownloads(imdb, quality);
-// 	if (!movie) throw new AppError('Movie not found', 404);
-// 	// const currentSize = checkFileSize(`movies/${movie.path}`);
-// 	let code = 206;
-// 	let start = Number(range.replace(/\D/g, ''));
-// 	if (start > movie.size - 1 ) {
-// 		start = 0;
-// 		code = 416;
-// 	}
-// 	//  else if (start > currentSize ) {
-// 	// 	start = 0;
-// 	// }
-// 	const CHUNK_SIZE = 10 ** 6; // 1MB
-// 	const end = Math.min(start + CHUNK_SIZE, movie.size - 1);
-// 	const contentLength = end - start + 1;
-// 	const headers = {
-// 		'Content-Range': `bytes ${start}-${end}/${movie.size}`,
-// 		'Accept-Ranges': 'bytes',
-// 		'Content-Length': contentLength,
-// 		'Content-Type': `video/${movie.type}`
-// 	};
-// 	const stream = fs.createReadStream(`movies/${movie.path}`, { start, end });
-// 	stream.on('error', (err) => {
-// 		console.log(err);
-// 		throw new TorrentError(`Can't stream file`);
-// 	});
-// 	return { code: code, headers: headers, stream: stream };
-// };
