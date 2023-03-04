@@ -1,4 +1,5 @@
 import { styled, Typography } from '@mui/material';
+import Fade from './Fade';
 import bg from '../bg.jpg';
 
 const Background = styled('div', {
@@ -22,24 +23,26 @@ const Background = styled('div', {
 const Landing = () => {
 	return (
 		<Background src={bg}>
-			<Typography
-				color={'secondary'}
-				sx={{
-					minWidth: '320px',
-					textAlign: 'left',
-					padding: {
-						xs: '30% 2rem',
-						sm: '15% 5rem',
-						md: '10% 5rem',
-						lg: '7% 6rem'
-					},
-					fontWeight: '500!important',
-					typography: { xs: 'h3', sm: 'h2', md: 'h1', lg: 'h1' }
-				}}
-			>
-				WATCH <br /> GREAT <br />
-				CINEMA <br /> WITH <br /> HYPERTUBE
-			</Typography>
+			<Fade>
+				<Typography
+					color={'secondary'}
+					sx={{
+						minWidth: '320px',
+						textAlign: 'left',
+						padding: {
+							xs: '30% 2rem',
+							sm: '15% 5rem',
+							md: '10% 5rem',
+							lg: '15% 6rem'
+						},
+						fontWeight: '500!important',
+						typography: { xs: 'h3', sm: 'h2', md: 'h1', lg: 'h1' }
+					}}
+				>
+					WATCH <br /> GREAT <br />
+					CINEMA <br /> WITH <br /> HYPERTUBE
+				</Typography>
+			</Fade>
 		</Background>
 	);
 };
