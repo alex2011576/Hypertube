@@ -9,13 +9,12 @@ Thank you for your understanding.
 </div>  
 
 # Hypertube
+![Landing](https://user-images.githubusercontent.com/40247953/222903589-6c013960-4051-4d4c-876c-23c3e561e9d0.gif)
 
-<img src="https://im5.ezgif.com/tmp/ezgif-5-3e0df25112.gif">  
-  
 1. [Stack](#stack)
 2. [Restrictions and rules of the assignment ](#restrictions-and-rules-of-the-assignment)
 3. [How to run locally](#how-to-run-locally)
-4. [Content](#сontent)
+4. [Content](#content)
 
 ## Short description  
 A team project, implemented as a part of the Hive Helsinki coding school web-branch.  
@@ -57,8 +56,10 @@ Frontend:
 ### To run backend:
 1. Install dependencies:  
 &emsp; `npm install`  
-2. Insert .env file (we wont provide its fields here)  
-3. Start the server:  
+2. Insert .env file (we wont provide its content here)  
+3. Migrate
+&emsp; `npm run migrate-up`
+4. Start the server:  
 &emsp; `npm run dev`  
 
 ### To run frontend:  
@@ -73,7 +74,6 @@ Frontend:
 &emsp; `npm run test`  
 
 ## Content
-
 ### Registration and Signing-in: 
   
 Users can register and activate their account through email, and reset their password by requesting a reset link via email.  
